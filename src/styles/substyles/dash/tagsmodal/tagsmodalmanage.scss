@@ -1,0 +1,109 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+.no-tags-found {
+  text-align: center;
+  width: 100%;
+  font-size: $p;
+  margin-top: 2rem;
+  color: $gray1;
+}
+
+.tag-manage-head {
+  color: $gray2;
+  margin: 1rem 0;
+  font-size: 1.3rem;
+}
+
+.tag-manage-container {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  .tag-manage-delete {
+    background: $gray3;
+    font-size: 1.3rem;
+    border: 0;
+    color: $gray1;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-left: 1rem;
+    cursor: pointer;
+    outline: 0;
+    @include hover;
+
+    &:hover {
+      background: darken($gray3, 5%);
+    }
+  }
+}
+
+.tag-manage-update-input {
+  border-radius: 4px;
+  padding: 1rem;
+  border: 1px solid $gray4;
+  width: 175px;
+  outline: 0;
+  font-size: 1.3rem;
+
+  &:focus {
+    border: 1px solid $primary;
+  }
+}
+
+.tag-manage-update-submit {
+  background: $gray3;
+  font-size: 1.3rem;
+  border: 0;
+  color: $gray1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+  cursor: pointer;
+  outline: 0;
+
+  &:hover {
+    background: darken($gray3, 5%);
+  }
+}
+
+.tag-delete-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 32%;
+
+  .tag-delete {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: $gray1;
+    margin: 1rem 0 2rem 0;
+    width: 95%;
+  }
+
+  .tag-delete-submit {
+    background: $danger;
+    color: white;
+    width: 100%;
+    border-radius: 4px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.3rem;
+    @include hover;
+
+    &:hover {
+      cursor: pointer;
+      background: darken($danger, 10%);
+    }
+  }
+}
+
+.tag-delete-err {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  background: rgba($danger, 0.5);
+  margin-bottom: 1rem;
+}

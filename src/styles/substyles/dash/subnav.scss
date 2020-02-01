@@ -1,0 +1,51 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.subnav-container {
+  display: flex;
+  padding-top: 2rem;
+  font-size: $p;
+
+  @include medium {
+    font-size: 1.3rem;
+  }
+
+  .subnav-menu {
+    color: $gray1;
+    @include flex-center;
+
+    // .subnav-menu-icon.left:last-child {
+    //   font-size: 1.3rem;
+    //   cursor: pointer;
+    //   color: white;
+    //   padding: 0.5rem 1.25rem;
+    //   background: $primary;
+    //   border-radius: 4px;
+    // }
+
+    .subnav-menu-icon.left.dropdown {
+      width: 88px;
+
+      @include small {
+        width: 80px;
+      }
+
+      .css-1hwfws3 {
+        padding: 0;
+      }
+    }
+
+    .subnav-menu-icon.right {
+      color: $info;
+      padding: 0.5rem 0.75rem;
+      background: white;
+      border: 1px solid $info;
+      cursor: pointer;
+      border-radius: $border;
+
+      &:hover {
+        color: darken($info, 10%);
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+.workout-data-notes {
+  .workout-data-notes-head {
+    @include flex-center;
+    font-size: 1.75rem;
+    color: $gray1;
+    margin-top: 3rem;
+
+    @include small {
+      font-size: 1.5rem;
+    }
+
+    .workout-data-notes-icon {
+      font-size: $icon;
+    }
+
+    .workout-data-notes-title {
+      padding: 1.25rem;
+    }
+
+    .workout-data-notes-edit {
+      font-size: 1.3rem;
+      border-radius: $border;
+      background: $gray4;
+      padding: 0.75rem;
+      font-weight: normal;
+      @include hover;
+
+      @include small {
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        background: darken($gray4, 2.5%);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .workout-data-notes-content {
+    resize: none;
+    min-height: 40px;
+    width: 90%;
+    border: 0;
+    background: $gray3;
+    margin-left: 3rem;
+    margin-top: 1.5rem;
+    padding: 0;
+    font-size: 1.3rem;
+    border-radius: $border;
+
+    @include small {
+      font-size: 1.2rem;
+    }
+
+    &:focus {
+      padding: 1rem;
+      outline: 0;
+      box-shadow: 0 0 0 2px $primary;
+      background: white;
+      min-height: 75px;
+    }
+  }
+
+  .workout-data-notes-content::-webkit-input-placeholder {
+    color: $gray1;
+  }
+}
+
+.workout-data-notes-actions {
+  display: none;
+}
+
+.workout-data-notes-actions.active {
+  display: flex;
+  font-size: 1.75rem;
+  margin-left: 3rem;
+  margin-top: 2rem;
+
+  .workout-data-notes-submit {
+    font-size: 2.25rem;
+    color: $info;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+
+  .workout-data-notes-cancel {
+    color: $danger;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+  }
+}

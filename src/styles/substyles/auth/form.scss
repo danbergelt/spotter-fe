@@ -1,0 +1,159 @@
+@import '../../variables.scss';
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import '../../mixins.scss';
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Nanum Gothic';
+  margin-bottom: 8rem;
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+
+    .form-logo {
+      width: 250px;
+      height: 250px;
+      position: relative;
+      bottom: 10px;
+
+      @include medium {
+        width: 200px;
+        height: 200px;
+        margin-top: 2rem;
+      }
+    }
+  }
+
+  .form-sub-container {
+    position: relative;
+    bottom: 40px;
+
+    .api-err-box {
+      font-size: 1.6rem;
+      width: 100%;
+      background: rgba($danger, 0.5);
+      padding: 1.5rem;
+      margin: 2.5rem 0;
+
+      @include medium {
+        font-size: 1.3rem;
+      }
+    }
+
+    .form-head {
+      font-size: 4.5rem;
+      margin-bottom: 2rem;
+      color: $gray1;
+      text-align: center;
+
+      @include medium {
+        font-size: 3rem;
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+
+      @include medium {
+        width: 350px;
+      }
+
+      @include small {
+        width: 300px;
+      }
+
+      .form-label {
+        font-size: 2rem;
+        color: $gray2;
+        margin: 1rem 0;
+
+        @include medium {
+          font-size: $p;
+        }
+      }
+
+      .form-field {
+        border-radius: 4px;
+        padding: 1rem;
+        font-size: $p;
+        margin: 1.5rem 0;
+        outline: 0;
+        border: 1px solid darken($gray4, 20%);
+
+        @include medium {
+          font-size: 1.3rem;
+        }
+
+        &:focus {
+          border: 1px solid $primary;
+        }
+
+        &::placeholder {
+          color: lighten($gray2, 25%);
+        }
+      }
+
+      .form-error {
+        font-size: 1.4rem;
+        color: $danger;
+
+        @include medium {
+          font-size: 1.2rem;
+        }
+      }
+
+      .form-error.email {
+        margin-bottom: 1rem;
+      }
+
+      .form-button {
+        margin-top: 2rem;
+        background: $primary;
+        border: 0;
+        padding: 1.5rem 0;
+        color: white;
+        font-size: 2rem;
+        font-family: 'Roboto';
+        font-weight: bold;
+        border-radius: $border;
+        @include hover;
+
+        @include medium {
+          font-size: $p;
+        }
+
+        &:hover {
+          cursor: pointer;
+          background: $primary-hover;
+        }
+      }
+
+      .form-button:focus {
+        outline: none;
+      }
+    }
+
+    .form-alt-link {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      width: 100%;
+      text-align: center;
+
+      @include small {
+        font-size: 1.2rem;
+      }
+
+      .form-alt-link-clickable {
+        color: $info;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

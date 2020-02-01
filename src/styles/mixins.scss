@@ -1,0 +1,161 @@
+@import './variables.scss';
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin modalContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@mixin modalHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin modalTitle {
+  font-size: 1.3rem;
+  color: $gray2;
+}
+
+@mixin modalExit {
+  font-size: $p;
+  border-radius: 50%;
+  padding: 0.5rem;
+
+  &:hover {
+    background: $gray3;
+    cursor: pointer;
+  }
+}
+
+@mixin templateButton {
+  width: 100%;
+  padding: 0.6rem;
+  background: $info;
+  border-radius: 4px;
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+
+  &:hover {
+    background: darken($info, 10%);
+  }
+}
+
+@mixin monthBorders {
+  &:nth-child(1) {
+    border: $calendar-border;
+  }
+  &:nth-child(8),
+  &:nth-child(15),
+  &:nth-child(22),
+  &:nth-child(14),
+  &:nth-child(21),
+  &:nth-child(28) {
+    border-left: $calendar-border;
+    border-bottom: $calendar-border;
+    border-right: $calendar-border;
+  }
+  &:nth-child(7) {
+    border: $calendar-border;
+  }
+  &:nth-child(n + 2):nth-child(-n + 6) {
+    border-top: $calendar-border;
+    border-bottom: $calendar-border;
+  }
+  &:nth-child(n + 2):nth-child(-n + 5) {
+    border-right: $calendar-border;
+  }
+  &:nth-child(n + 9):nth-child(-n + 13) {
+    border-bottom: $calendar-border;
+  }
+  &:nth-child(n + 9):nth-child(-n + 12) {
+    border-right: $calendar-border;
+  }
+  &:nth-child(n + 16):nth-child(-n + 20) {
+    border-bottom: $calendar-border;
+  }
+  &:nth-child(n + 16):nth-child(-n + 19) {
+    border-right: $calendar-border;
+  }
+  &:nth-child(n + 23):nth-child(-n + 27) {
+    border-bottom: $calendar-border;
+  }
+  &:nth-child(n + 23):nth-child(-n + 26) {
+    border-right: $calendar-border;
+  }
+  &:nth-child(n + 29) {
+    border-bottom: $calendar-border;
+    border-left: $calendar-border;
+  }
+  &:last-child {
+    border-right: $calendar-border;
+  }
+}
+
+@mixin popoverHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: $gray2;
+}
+
+@mixin closePopover {
+  color: $gray1;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 100%;
+
+  &:hover {
+    background: $gray3;
+  }
+}
+
+@mixin hover {
+  -webkit-transition: background-color 0.15s, color 0.15s ease-in-out;
+  -moz-transition: background-color 0.15s, color 0.15s ease-in-out;
+  -o-transition: background-color 0.15s, color 0.15s ease-in-out;
+  transition: background-color 0.15s, color 0.15s ease-in-out;
+}
+
+@mixin textHover {
+  -webkit-transition: color 0.15s, color 0.15s ease-in-out;
+  -moz-transition: color 0.15s, color 0.15s ease-in-out;
+  -o-transition: color 0.15s, color 0.15s ease-in-out;
+  transition: color 0.15s, color 0.15s ease-in-out;
+}
+
+@mixin xLarge {
+  @media (max-width: 1500px) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (max-width: 800px) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (max-width: 500px) {
+    @content;
+  }
+}

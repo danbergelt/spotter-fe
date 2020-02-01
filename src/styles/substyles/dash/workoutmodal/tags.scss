@@ -1,0 +1,46 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+.workout-data-tags {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3rem;
+
+  .workout-data-tags-head {
+    font-size: 1.3rem;
+    padding-top: 1rem;
+    margin-bottom: 1.25rem;
+    color: $gray2;
+  }
+
+  .workout-data-tags-container {
+    display: flex;
+    flex-flow: wrap;
+
+    .workout-data-tags-tag {
+      font-size: $p;
+      background: $info;
+      color: white;
+      padding: 1rem;
+      border-radius: 2px;
+      font-family: 'Roboto';
+      @include flex-center;
+      cursor: pointer;
+      border-radius: $border;
+      margin-right: 0.5rem;
+
+      &:hover {
+        background: rgba($info, 0.8);
+      }
+    }
+
+    .workout-data-tags-tag.add {
+      background: $gray4;
+      color: $gray1;
+
+      &:hover {
+        background: darken($gray4, 5%);
+      }
+    }
+  }
+}
