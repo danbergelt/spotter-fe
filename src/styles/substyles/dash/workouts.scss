@@ -243,10 +243,6 @@
       padding: 0.3rem;
       cursor: pointer;
 
-      @include medium {
-        width: 75%;
-      }
-
       &:hover {
         text-decoration: underline;
       }
