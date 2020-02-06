@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 82.5vh;
+
+  .notfound-header {
+    font-size: 13rem;
+    font-weight: bold;
+    color: $danger;
+  }
+
+  .notfound-content {
+    font-size: 6.5rem;
+    color: $gray1;
+  }
+}

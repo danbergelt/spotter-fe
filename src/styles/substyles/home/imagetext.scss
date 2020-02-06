@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.imagetext-container {
+  padding: 20rem 0rem;
+  background: #f6f8f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include large {
+    padding: 15rem 2.5rem;
+  }
+
+  @include medium {
+    padding: 10rem 2.5rem;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .imagetext-image {
+    width: 500px;
+    height: auto;
+    margin-right: 15rem;
+    box-shadow: 0 20px 30px 0 rgba(36, 50, 66, 0.14);
+
+    @include large {
+      width: 400px;
+      height: auto;
+      margin-right: 10rem;
+    }
+
+    @include medium {
+      margin-right: 0;
+    }
+
+    @include small {
+      width: 320px;
+    }
+  }
+
+  .imagetext-content-container {
+    width: 30%;
+    font-family: 'Nanum Gothic';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @include medium {
+      width: 85%;
+      margin-bottom: 5rem;
+    }
+
+    .imagetext-title {
+      font-size: 3rem;
+      color: $gray1;
+    }
+
+    .imagetext-text {
+      font-size: 1.75rem;
+      color: $gray2;
+      margin-top: 2.5rem;
+      line-height: 1.5;
+
+      @include small {
+        font-size: $p;
+      }
+    }
+
+    .imagetext-cta {
+      text-align: center;
+      width: max-content;
+      padding: 1.5rem 3.5rem;
+      font-family: 'Roboto';
+      color: white;
+      margin-top: 2.5rem;
+      font-size: 1.75rem;
+      background: $primary;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      @include hover;
+
+      @include large {
+        font-size: $p;
+      }
+
+      @include medium {
+        width: max-content;
+      }
+
+      &:hover {
+        background: darken($primary, 15%);
+      }
+    }
+  }
+}

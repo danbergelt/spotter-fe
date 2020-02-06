@@ -1,0 +1,62 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.save-template-container {
+  @include modalContainer;
+
+  .save-template-header {
+    @include modalHeader;
+    margin-bottom: 1rem;
+
+    .save-template-title {
+      @include modalTitle;
+    }
+
+    .save-template-exit {
+      @include modalExit;
+      @include hover;
+    }
+  }
+
+  .template-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    .template-save-name {
+      padding: 0.75rem;
+      outline: none;
+      border-radius: 4px;
+      border: 1px solid $gray4;
+      font-size: 1.1rem;
+
+      &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 1px $primary;
+      }
+    }
+  }
+
+  .template-save-submit {
+    @include templateButton;
+    @include hover;
+  }
+
+  .template-save {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .template-save.error {
+    background: rgba($danger, 0.5);
+  }
+
+  .template-save.success {
+    background: rgba($success, 0.5);
+  }
+}

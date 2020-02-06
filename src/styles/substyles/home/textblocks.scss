@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.textblocks-container {
+  padding: 20rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Nanum Gothic';
+
+  @include large {
+    padding: 15rem 2.5rem;
+  }
+
+  @include medium {
+    padding: 10rem 2.5rem;
+  }
+
+  .textblocks-title {
+    font-size: 4rem;
+    color: $gray1;
+    width: 75%;
+    text-align: center;
+    margin-bottom: 7.5rem;
+    line-height: 1.25;
+
+    @include medium {
+      font-size: 3rem;
+      width: 85%;
+    }
+
+    @include small {
+      margin-bottom: 5rem;
+    }
+  }
+
+  .textblocks {
+    margin: 0 7.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+
+    @include xLarge {
+      width: 85%;
+    }
+
+    @include medium {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .textblock {
+      text-align: center;
+      width: 30rem;
+
+      @include xLarge {
+        width: 25rem;
+      }
+
+      @include large {
+        width: 20rem;
+      }
+
+      @include medium {
+        width: 90%;
+        margin-bottom: 4rem;
+      }
+
+      .textblock-icon {
+        font-size: 4rem;
+        margin-bottom: 3rem;
+
+        @include medium {
+          font-size: 3rem;
+        }
+      }
+
+      .track {
+        color: $info;
+      }
+
+      .bests {
+        color: $success;
+      }
+
+      .scale {
+        color: $warning;
+      }
+
+      .textblock-title {
+        font-size: 2.5rem;
+        color: $gray1;
+        margin-bottom: 2rem;
+
+        @include small {
+          font-size: 2rem;
+        }
+      }
+
+      .textblock-content {
+        color: $gray2;
+        font-size: 1.75rem;
+        line-height: 1.5;
+
+        @include small {
+          font-size: $p;
+        }
+
+        .textblock-highlight {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+$primary: #e9503f;
+$primary-hover: darken($primary, 10%);
+$danger: #ed3d34;
+$success: #64c431;
+$info: #0977f4;
+$warning: #f2b202;
+$gray1: lighten(black, 12.5%);
+$gray2: lighten(black, 45%);
+$gray3: lighten(black, 95%);
+$gray4: lighten(black, 91%);
+$box: 0 0 0 1px rgba(50, 50, 93, 0.075), 0 0 1px #e9ecef,
+  0 2px 4px -2px rgba(138, 141, 151, 0.6);
+$p: 1.5rem;
+$icon: 1.75rem;
+$hover-scale: scale(1.1);
+$border: 4px;
+$calendar-border: 1px solid $gray4;
+
+:export {
+  primary: $primary;
+  danger: $danger;
+  success: $success;
+  info: $info;
+  warning: $warning;
+  info2: #07ebf7;
+  warning2: #ffd800;
+  success2: #0ddd83;
+  gray1: $gray1;
+  gray2: $gray2;
+  gray3: $gray3;
+}
