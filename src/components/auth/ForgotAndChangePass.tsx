@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
 import Loader from 'react-loader-spinner';
+import { api } from '../../utils/api';
 
 // hidden page that allows a user to change their password when forgotten
 // accessed via link sent out through mailgun
@@ -29,7 +30,7 @@ const ForgotAndChangePass: React.FC = () => {
     setLoading(true);
     try {
       const res = await axios.put(
-        `${process.env.REACT_APP_T_API}/api/auth/user/forgotpassword/${id}`,
+        `${api()}/api/auth/user/forgotpassword/${id}`,
         { newPassword, confirmPassword },
         { withCredentials: true }
       );

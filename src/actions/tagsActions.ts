@@ -6,6 +6,7 @@ import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from './optionsActions';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 import { ThunkDispatch } from 'redux-thunk';
 import { State } from 'src/types/State';
+import { api } from '../utils/api';
 
 export const FETCH_TAGS_START = 'FETCH_TAGS_START';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
@@ -20,9 +21,7 @@ export const fetchTags = (history: History, t: string | null) => {
   ): Promise<void> => {
     dispatch({ type: FETCH_TAGS_START });
     try {
-      const res = await axiosWithAuth(t).get(
-        `${process.env.REACT_APP_T_API}/api/auth/tags`
-      );
+      const res = await axiosWithAuth(t).get(`${api()}/api/auth/tags`);
       dispatch({ type: FETCH_TAGS_SUCCESS, payload: res.data.tags });
     } catch (error) {
       if (error.response) {
@@ -71,13 +70,10 @@ export const saveTagAction: TSaveTag = paramsHelper => {
   return async (dispatch): Promise<void> => {
     setLoading(true);
     try {
-      await axiosWithAuth(t).post(
-        `${process.env.REACT_APP_T_API}/api/auth/tags`,
-        {
-          color: color,
-          content: name
-        }
-      );
+      await axiosWithAuth(t).post(`${api()}/api/auth/tags`, {
+        color: color,
+        content: name
+      });
       // confirmation message
       setMessage({ success: 'New tag created' });
       // resets submitting state
@@ -127,9 +123,7 @@ export const deleteTagAction: TDeleteTag = paramsHelper => {
 
   return async (dispatch): Promise<void> => {
     try {
-      await axiosWithAuth(t).delete(
-        `${process.env.REACT_APP_T_API}/api/auth/tags/${toDelete._id}`
-      );
+      await axiosWithAuth(t).delete(`${api()}/api/auth/tags/${toDelete._id}`);
       dispatch({
         type: DELETE_TAG,
         payload: toDelete
@@ -169,7 +163,7 @@ export const editTagAction: TEditTag = paramsHelper => {
   return async (dispatch): Promise<void> => {
     try {
       const res = await axiosWithAuth(t).put(
-        `${process.env.REACT_APP_T_API}/api/auth/tags/${update._id}`,
+        `${api()}/api/auth/tags/${update._id}`,
         {
           content: updateInput
         }

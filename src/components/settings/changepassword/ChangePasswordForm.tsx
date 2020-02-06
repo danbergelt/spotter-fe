@@ -4,6 +4,7 @@ import { ValidationSchema } from './ValidationSchema';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
 import { useSelector } from 'react-redux';
 import { fetchToken } from 'src/types/State';
+import { api } from '../../../utils/api';
 
 const ChangePasswordForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -23,7 +24,7 @@ const ChangePasswordForm: React.FC = () => {
           resetForm();
           try {
             const res = await axiosWithAuth(t).put(
-              `${process.env.REACT_APP_T_API}/api/auth/user/password`,
+              `${api()}/api/auth/user/password`,
               {
                 ...values
               }

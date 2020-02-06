@@ -4,6 +4,7 @@ import { ValidationSchema } from './ValidationSchema';
 import axiosWithAuth from 'src/utils/axiosWithAuth';
 import { useSelector } from 'react-redux';
 import { fetchToken } from 'src/types/State';
+import { api } from '../../../utils/api';
 
 const ChangeEmailForm: React.FC = () => {
   const t: string | null = useSelector(fetchToken);
@@ -23,7 +24,7 @@ const ChangeEmailForm: React.FC = () => {
           resetForm();
           try {
             const res = await axiosWithAuth(t).put(
-              `${process.env.REACT_APP_T_API}/api/auth/user/email`,
+              `${api()}/api/auth/user/email`,
               {
                 ...values
               }

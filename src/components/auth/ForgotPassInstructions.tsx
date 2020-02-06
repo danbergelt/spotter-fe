@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
+import { api } from '../../utils/api';
 
 const ForgotPasswordInstructions: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -16,10 +17,7 @@ const ForgotPasswordInstructions: React.FC = () => {
     setEmail('');
     setLoading(true);
     try {
-      await axios.post(
-        `${process.env.REACT_APP_T_API}/api/auth/user/forgotpassword`,
-        { email }
-      );
+      await axios.post(`${api()}/api/auth/user/forgotpassword`, { email });
       setLoading(false);
       setRes({ succ: 'Email sent' });
     } catch (error) {
