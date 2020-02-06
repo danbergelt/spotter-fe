@@ -3,6 +3,7 @@ import { History } from 'history';
 import { Dispatch, AnyAction, Action } from 'redux';
 import { State } from '../types/State';
 import { ThunkDispatch } from 'redux-thunk';
+import { api } from '../utils/api';
 
 export const FETCH_WORKOUTS_START = 'FETCH_WORKOUTS_START';
 export const FETCH_WORKOUTS_SUCCESS = 'FETCH_WORKOUTS_SUCCESS';
@@ -19,7 +20,7 @@ export const fetchWorkouts: Params = (range, history, t) => {
   return (dispatch): Promise<void> => {
     dispatch({ type: FETCH_WORKOUTS_START });
     return axiosWithAuth(t)
-      .post(`${process.env.REACT_APP_T_API}/api/auth/workouts/range`, {
+      .post(`${api()}/api/auth/workouts/range`, {
         range
       })
       .then(res => {
@@ -51,9 +52,7 @@ type TDeleteWorkout = (
 
 export const deleteWorkoutAction: TDeleteWorkout = (t, workoutId) => {
   return async (dispatch): Promise<DeleteWorkoutAction> => {
-    await axiosWithAuth(t).delete(
-      `${process.env.REACT_APP_T_API}/api/auth/workouts/${workoutId}`
-    );
+    await axiosWithAuth(t).delete(`${api()}/api/auth/workouts/${workoutId}`);
     return dispatch({ type: DELETE_WORKOUT, payload: workoutId });
   };
 };
