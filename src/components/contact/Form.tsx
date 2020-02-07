@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form as Wrapper, Field, Formik } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
 import axios from 'axios';
@@ -6,11 +6,14 @@ import Loader from 'react-loader-spinner';
 import { api } from '../../utils/api';
 
 const Form: React.FC = () => {
-  // helper function that prevents fixed position displacement on input focus (for mobile)
   const mobileKeyboardFix = (): void => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   };
+
+  useEffect(() => {
+    document.ontouchmove = (e): void => e.preventDefault();
+  }, []);
 
   return (
     <Formik
