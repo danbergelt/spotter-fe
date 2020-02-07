@@ -6,12 +6,6 @@ import Loader from 'react-loader-spinner';
 import { api } from '../../utils/api';
 
 const Form: React.FC = () => {
-  // helper function that prevents fixed position displacement on input focus (for mobile)
-  const mobileKeyboardFix = (): void => {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  };
-
   return (
     <Formik
       initialValues={{ name: '', email: '', subject: '', message: '' }}
@@ -56,7 +50,6 @@ const Form: React.FC = () => {
               className='contact-form-field'
               type='text'
               name='name'
-              onFocus={mobileKeyboardFix}
             />
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='email'>
@@ -71,7 +64,6 @@ const Form: React.FC = () => {
               className='contact-form-field'
               type='email'
               name='email'
-              onFocus={mobileKeyboardFix}
             />
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='subject'>
@@ -86,7 +78,6 @@ const Form: React.FC = () => {
               className='contact-form-field'
               type='text'
               name='subject'
-              onFocus={mobileKeyboardFix}
             />
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='message'>
@@ -97,7 +88,6 @@ const Form: React.FC = () => {
               )}
             </div>
             <textarea
-              onFocus={mobileKeyboardFix}
               name='message'
               onBlur={handleBlur}
               value={values.message}
