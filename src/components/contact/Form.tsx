@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form as Wrapper, Field, Formik } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
 import axios from 'axios';
@@ -6,15 +6,6 @@ import Loader from 'react-loader-spinner';
 import { api } from '../../utils/api';
 
 const Form: React.FC = () => {
-  const mobileKeyboardFix = (): void => {
-    window.scrollTo(0, 0);
-    document.body.scrollTop = 0;
-  };
-
-  useEffect(() => {
-    document.ontouchmove = (e): void => e.preventDefault();
-  }, []);
-
   return (
     <Formik
       initialValues={{ name: '', email: '', subject: '', message: '' }}
@@ -59,7 +50,6 @@ const Form: React.FC = () => {
               className='contact-form-field'
               type='text'
               name='name'
-              onFocus={mobileKeyboardFix}
             />
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='email'>
@@ -74,7 +64,6 @@ const Form: React.FC = () => {
               className='contact-form-field'
               type='email'
               name='email'
-              onFocus={mobileKeyboardFix}
             />
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='subject'>
@@ -89,7 +78,6 @@ const Form: React.FC = () => {
               className='contact-form-field'
               type='text'
               name='subject'
-              onFocus={mobileKeyboardFix}
             />
             <div className='form-label-container'>
               <label className='contact-form-label' htmlFor='message'>
@@ -100,7 +88,6 @@ const Form: React.FC = () => {
               )}
             </div>
             <textarea
-              onFocus={mobileKeyboardFix}
               name='message'
               onBlur={handleBlur}
               value={values.message}
