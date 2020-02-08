@@ -14,7 +14,7 @@ export const useTagModalStyles = () => {
       height: '350px',
       marginLeft:
         (width <= 500 && '14vw') || (width <= 800 && '40vw') || '55vw',
-      marginTop: width <= 800 ? '50vh' : 0
+      marginTop: width <= 800 ? '45vh' : 0
     }
   };
 };
