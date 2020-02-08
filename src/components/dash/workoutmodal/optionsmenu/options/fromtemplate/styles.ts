@@ -13,7 +13,7 @@ export const useFromTemplateStyles = () => {
       height: '325px',
       marginLeft:
         (width <= 500 && '14vw') || (width <= 800 && '40vw') || '60vw',
-      marginTop: width <= 800 ? '50vh' : '23vh'
+      marginTop: width <= 800 ? '46vh' : '23vh'
     }
   };
 };
