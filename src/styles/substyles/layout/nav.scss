@@ -26,12 +26,12 @@
       justify-content: space-between;
       position: relative;
       top: 5px;
-      height: max-content;
+      height: auto;
     }
 
     .spotter-nav-link {
       font-size: $p;
-      height: max-content;
+      height: auto;
       padding: 1rem 2rem;
       text-decoration: none;
       border-radius: $border;
@@ -45,7 +45,7 @@
       @include small {
         margin-bottom: 2.5rem;
         padding: 0;
-        width: max-content;
+        width: auto;
         font-size: $p;
       }
     }

@@ -10,7 +10,7 @@ export const useSaveTemplateStyles = () => {
     },
     content: {
       width: width <= 500 ? '275px' : '250px',
-      height: 'max-content',
+      height: 'auto',
       marginLeft:
         (width <= 500 && '14vw') || (width <= 800 && '40vw') || '60vw',
       marginTop: width <= 800 ? '58vh' : '18vh'
