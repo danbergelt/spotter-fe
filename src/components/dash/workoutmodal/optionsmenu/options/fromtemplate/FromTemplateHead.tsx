@@ -28,7 +28,6 @@ const FromTemplateHead: React.FC<Props> = ({
         </div>
       </section>
       <input
-        autoFocus
         value={search}
         onChange={(e): void => setSearch(e.target.value)}
         placeholder='Search...'

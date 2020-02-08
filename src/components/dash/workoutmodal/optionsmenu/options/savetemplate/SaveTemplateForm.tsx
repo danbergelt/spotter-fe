@@ -19,7 +19,6 @@ const SaveTemplateForm: React.FC<Props> = ({
       onSubmit={(e): void => handleSubmit(e)}
     >
       <input
-        autoFocus
         value={tempName}
         placeholder='Template name (must be unique)'
         onChange={(e): void => setTempName(e.target.value)}

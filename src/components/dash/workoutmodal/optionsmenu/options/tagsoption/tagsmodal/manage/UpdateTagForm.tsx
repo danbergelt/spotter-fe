@@ -14,7 +14,6 @@ const UpdateTagForm: React.FC<Props> = ({
   return (
     <form onSubmit={(e): void => handleSubmit(e)}>
       <input
-        autoFocus
         className='tag-manage-update-input'
         placeholder='Update tag name...'
         value={updateInput}

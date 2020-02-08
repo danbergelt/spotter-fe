@@ -40,7 +40,6 @@ const TagsModalCreate: React.FC = () => {
   return (
     <section className='tags-modal-create'>
       <input
-        autoFocus
         value={name}
         onChange={(e): void => setName(e.target.value)}
         placeholder='Set tag name...'

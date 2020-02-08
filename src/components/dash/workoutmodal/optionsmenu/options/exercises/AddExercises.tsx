@@ -39,7 +39,6 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
         }}
       >
         <input
-          autoFocus
           value={exercise}
           onChange={(e): void => setExercise(e.target.value)}
           placeholder='Create exercise...'
