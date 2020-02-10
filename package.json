@@ -60,7 +60,7 @@
     "test:cov": "react-scripts test --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
-    "fix": "eslint --fix . --ext .js,.ts src"
+    "fix": "eslint --fix . --ext .js,.ts,.ts,.tsx src"
   },
   "eslintConfig": {
     "extends": "react-app"
