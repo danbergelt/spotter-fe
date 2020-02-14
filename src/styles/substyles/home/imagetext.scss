@@ -86,10 +86,6 @@
         font-size: $p;
       }
 
-      @include medium {
-        width: auto;
-      }
-
       &:hover {
         background: darken($primary, 15%);
       }
