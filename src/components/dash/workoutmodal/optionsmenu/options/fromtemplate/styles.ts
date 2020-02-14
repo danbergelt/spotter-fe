@@ -12,8 +12,8 @@ export const useFromTemplateStyles = () => {
       width: width <= 500 ? '275px' : '250px',
       height: '325px',
       marginLeft:
-        (width <= 500 && '14vw') || (width <= 800 && '40vw') || '60vw',
-      marginTop: width <= 800 ? '46vh' : '23vh'
+        (width <= 500 && '14vw') || (width <= 800 && '25vw') || '60vw',
+      marginTop: width <= 800 ? '35vh' : '23vh'
     }
   };
 };

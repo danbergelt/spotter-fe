@@ -50,9 +50,11 @@
     padding: 0;
     font-size: 1.3rem;
     border-radius: $border;
+    -webkit-appearance: none;
 
     @include small {
       font-size: 1.2rem;
+      width: 75%;
     }
 
     &:focus {

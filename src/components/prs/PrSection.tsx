@@ -5,6 +5,7 @@ import { FiInfo } from 'react-icons/fi';
 import ReactTooltip from 'react-tooltip';
 import { SortedPrsRange } from '../../types/Prs';
 import { Exercise } from '../../types/ExerciseOption';
+import { useWindowSize } from 'react-use';
 
 // Hacky fix to resolve error with default imports from moment and typescript
 // eslint-disable-next-line
@@ -21,6 +22,8 @@ interface Props {
 const PrSection: React.FC<Props> = ({ title, prs }) => {
   const [open, setOpen] = useState(true);
   const [hover, setHover] = useState(false);
+
+  const { width } = useWindowSize();
 
   return (
     <section className='pr-section'>
@@ -48,10 +51,10 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
             <FiInfo />
           </div>
         )}
-        <ReactTooltip place='top' id='pr-info' effect='solid'>
-          <p style={{ width: '200px' }}>
-            Save the exercises you want tracked, and we&#39;ll show your PRs on
-            this page!
+        <ReactTooltip place='left' id='pr-info' effect='solid'>
+          <p style={{ width: width <= 500 ? '150px' : '200px' }}>
+            Save your favorite exercises, and we&#39;ll show your PRs on this
+            page!
           </p>
         </ReactTooltip>
       </div>
