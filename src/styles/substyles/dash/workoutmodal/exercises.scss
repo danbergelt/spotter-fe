@@ -45,7 +45,8 @@
 
     .exercise-form {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: flex-start;
       color: $gray1;
       margin-bottom: 3rem;
       margin-left: 3rem;
@@ -54,88 +55,99 @@
         margin-bottom: 1rem;
       }
 
-      @include small {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .exercise-form-field-container {
-        position: relative;
-        right: 1px;
+      .exercise-form-fields-container {
         display: flex;
-        flex-direction: column;
-        margin-right: 0.5rem;
+        width: 100%;
+        margin-bottom: 1.5rem;
 
         @include small {
-          margin-bottom: 1rem;
-          width: 85%;
+          flex-direction: column;
         }
 
-        .exercise-form-field-label {
-          height: 15px;
-          margin-bottom: 1rem;
-          font-size: 1.3rem;
-          @include flex-center;
-          justify-content: space-between;
+        .exercise-form-field-container {
+          position: relative;
+          right: 1px;
+          display: flex;
+          flex-direction: column;
+          margin-right: 0.5rem;
 
           @include small {
-            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            width: 85%;
           }
 
-          .save-exercise-button {
-            font-size: $icon;
-            margin-right: 1.15rem;
-            color: $info;
-            cursor: pointer;
-          }
-        }
+          .exercise-form-field-label {
+            height: 15px;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            @include flex-center;
+            justify-content: space-between;
 
-        .error-exercise-form {
-          margin-bottom: 0.5rem;
-          font-size: 1.1rem;
-          color: $danger;
-        }
+            @include small {
+              font-size: 1.2rem;
+            }
 
-        .exercise-form-field {
-          width: 100px;
-          height: 2.5rem;
-          outline: none;
-          border-radius: $border;
-          border: 0;
-          padding: 1.5rem 0 1.5rem 0.5rem;
-          font-size: 1.3rem;
-          border: 1px solid $gray4;
-          -webkit-appearance: none;
-
-          @include medium {
-            width: 100%;
+            .save-exercise-button {
+              font-size: $icon;
+              margin-right: 1.15rem;
+              color: $info;
+              cursor: pointer;
+            }
           }
 
-          @include small {
-            font-size: 1.2rem;
+          .error-exercise-form {
+            margin: 0.5rem;
+            font-size: 1.1rem;
+            color: $danger;
           }
 
-          &:focus {
-            outline: 0;
-            box-shadow: 0 0 0 1px $primary;
+          .exercise-form-field {
+            width: 100px;
+            height: 2.5rem;
+            outline: none;
+            border-radius: $border;
+            border: 0;
+            padding: 1.5rem 0 1.5rem 0.5rem;
+            font-size: 1.3rem;
+            border: 1px solid $gray4;
+            -webkit-appearance: none;
+
+            @include medium {
+              width: 100%;
+            }
+
+            @include small {
+              font-size: 1.2rem;
+            }
+
+            &:focus {
+              outline: 0;
+              box-shadow: 0 0 0 1px $primary;
+            }
           }
         }
       }
+
       .exercise-form-button {
         font-size: $icon;
         cursor: pointer;
       }
 
-      .exercise-form-button.submit {
-        margin-right: 1rem;
-        font-size: 2.25rem;
+      .submit-exercise {
+        margin-right: 1.5rem;
+        position: relative;
+        font-size: 1.8rem;
+        text-decoration: underline;
         color: $info;
+        cursor: pointer;
       }
 
       .exercise-form-button.clear {
         color: $danger;
         position: relative;
         bottom: 3px;
+        padding: 0;
+        background: none;
       }
     }
 

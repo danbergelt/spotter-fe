@@ -27,10 +27,11 @@
       color: white;
       background: $danger;
       border-radius: 4px;
-      padding: 0.75rem 2rem;
+      padding: 1rem 2rem;
       cursor: pointer;
       margin-right: 1rem;
       @include hover;
+      box-shadow: $subtle;
 
       &:hover {
         background: darken($danger, 5%);
@@ -40,6 +41,7 @@
     .delete-btn.can {
       background: $gray3;
       color: $gray1;
+      box-shadow: $subtle;
       @include hover;
 
       &:hover {

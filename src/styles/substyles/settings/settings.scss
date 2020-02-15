@@ -49,7 +49,8 @@
 
       .delete-account {
         background: $danger;
-        padding: 1rem;
+        box-shadow: $subtle;
+        padding: 1rem 2rem;
         color: white;
         width: max-content;
         border-radius: 4px;
@@ -63,8 +64,9 @@
       }
 
       .delete-account-disabled {
+        box-shadow: $subtle;
         background: rgba($danger, 0.7);
-        padding: 1rem;
+        padding: 1rem 2rem;
         color: white;
         width: max-content;
         border-radius: 4px;
@@ -151,10 +153,12 @@
         background: $primary;
         border-radius: 4px;
         font-size: 1.3rem;
-        padding: 0.33rem 1rem;
+        padding: 0.85rem;
+        width: 33%;
         cursor: pointer;
         border: 0;
         outline: 0;
+        box-shadow: $subtle;
         @include hover;
 
         &:hover {

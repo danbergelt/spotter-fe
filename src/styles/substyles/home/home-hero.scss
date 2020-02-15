@@ -68,7 +68,10 @@
     color: white;
     border-radius: $border;
     text-decoration: none;
-    @include hover;
+    box-shadow: $subtle;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
+    cursor: pointer;
 
     @include small {
       font-size: $p;
@@ -76,8 +79,8 @@
     }
 
     &:hover {
-      cursor: pointer;
-      background-color: $primary-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.15);
     }
   }
 

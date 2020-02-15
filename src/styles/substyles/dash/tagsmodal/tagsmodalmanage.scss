@@ -60,6 +60,7 @@
   border-radius: 4px;
   margin-left: 1rem;
   cursor: pointer;
+  @include hover;
   outline: 0;
 
   &:hover {

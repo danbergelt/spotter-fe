@@ -82,16 +82,14 @@
   margin-top: 2rem;
 
   .workout-data-notes-submit {
-    font-size: 2.25rem;
+    font-size: 1.8rem;
     color: $info;
     cursor: pointer;
-    margin-right: 1rem;
+    margin-right: 1.5rem;
   }
 
   .workout-data-notes-cancel {
     color: $danger;
-    position: relative;
-    top: 2px;
     cursor: pointer;
   }
 }

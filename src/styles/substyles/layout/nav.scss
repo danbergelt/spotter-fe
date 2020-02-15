@@ -39,7 +39,7 @@
 
       @include medium {
         font-size: 1.3rem;
-        padding: 0.66rem 1.25rem;
+        padding: 0.85rem 1.7rem;
       }
 
       @include small {
@@ -85,11 +85,12 @@
       color: white;
       border: 1px solid $primary;
       margin-right: 0;
+      box-shadow: $subtle;
       @include hover;
+      cursor: pointer;
 
       &:hover {
-        background: $primary-hover;
-        cursor: pointer;
+        background: darken($primary, 10%);
         color: white;
       }
 
@@ -99,10 +100,14 @@
         background: none;
         margin-right: 2rem;
         margin-bottom: 0;
+        box-shadow: none;
+        @include hover;
 
         &:hover {
           color: $primary;
           background: none;
+          transform: translateY(0);
+          box-shadow: none;
         }
       }
     }

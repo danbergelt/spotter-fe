@@ -35,7 +35,7 @@ const DashControls: React.FC<Props> = ({ inc, dec, time, month }) => {
         <div className='workouts-month-indicator'>{month(time)}</div>
       </section>
       <Link to='/prs' className='prs-link'>
-        {width <= 500 ? 'PRs' : 'Personal Bests'}
+        PRs
       </Link>
     </div>
   );

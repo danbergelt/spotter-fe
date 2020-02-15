@@ -100,5 +100,6 @@
     margin-top: 2rem;
     @include templateButton;
     @include hover;
+    box-shadow: $subtle;
   }
 }
