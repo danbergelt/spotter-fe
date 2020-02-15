@@ -67,8 +67,7 @@ const ChangePasswordForm: React.FC = () => {
             <div
               style={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
+                alignItems: 'center'
               }}
             >
               <button
