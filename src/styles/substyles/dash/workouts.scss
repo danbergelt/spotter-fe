@@ -51,22 +51,24 @@
   }
 
   .prs-link {
-    padding: 0.75rem 1.5rem;
-    border-radius: 4px;
-    color: $info;
+    padding: 1rem 2rem;
     border: 1px solid $info;
+    border-radius: 4px;
     font-size: $p;
     cursor: pointer;
+    color: white;
     text-decoration: none;
+    background: $info;
+    box-shadow: $subtle;
+    @include hover;
+
+    &:hover {
+      background: darken($info, 10%);
+    }
 
     @include medium {
       font-size: 1.3rem;
-      padding: 0.66rem 1.25rem;
-    }
-
-    @include small {
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
+      padding: 0.85rem 1.7rem;
     }
   }
 }

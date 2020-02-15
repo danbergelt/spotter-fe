@@ -41,14 +41,17 @@
     padding: 1.5rem 3.5rem;
     text-align: center;
     text-decoration: none;
-    @include hover;
+    box-shadow: $subtle;
+    transform: translateY(0);
+    transition: transform 150ms, box-shadow 150ms;
 
     @include medium {
       font-size: $p;
     }
 
     &:hover {
-      background: darken($primary, 15%);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.15);
     }
   }
 }

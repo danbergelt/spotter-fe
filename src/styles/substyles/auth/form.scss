@@ -120,6 +120,7 @@
         color: white;
         font-size: 2rem;
         font-family: 'Roboto';
+        box-shadow: $subtle;
         font-weight: bold;
         border-radius: $border;
         @include hover;

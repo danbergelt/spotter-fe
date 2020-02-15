@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Field, Formik } from 'formik';
-import { FiPlus, FiTrash } from 'react-icons/fi';
+import { FiPlusCircle, FiTrash } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import { isEmpty } from 'lodash';
 import { ValidationSchema } from './ValidationSchema';
@@ -95,102 +95,109 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
           values
         }): JSX.Element => (
           <Form className='exercise-form'>
-            <div className='exercise-form-field-container'>
-              <div className='exercise-form-field-label'>
-                <label>Exercise</label>
-              </div>
-              {errors.name && touched.name && (
-                <p className='error-exercise-form'>{errors.name}</p>
-              )}
-              <Autosuggest
-                // CODE SMELL
-                // this component is not actively maintained, and contains multiple unsafe lifecycle methods
-                // also - it's just plain complicated
-                // consider either namespacing the module, opting for a different library, or building a custom component
-                // TO INVESTIGATE - ReachUI Combobox
+            <div className='exercise-form-fields-container'>
+              <div className='exercise-form-field-container'>
+                <div className='exercise-form-field-label'>
+                  <label>Exercise</label>
+                </div>
+                <Autosuggest
+                  // CODE SMELL
+                  // this component is not actively maintained, and contains multiple unsafe lifecycle methods
+                  // also - it's just plain complicated
+                  // consider either namespacing the module, opting for a different library, or building a custom component
+                  // TO INVESTIGATE - ReachUI Combobox
 
-                // control the input hooked up to autosuggest
-                inputProps={{
-                  placeholder: 'e.g. squat',
-                  autoComplete: 'off',
-                  name: 'name',
-                  onChange: (_, { newValue }): void => {
-                    setFieldValue('name', newValue);
-                  },
-                  value: values.name,
-                  className: 'exercise-form-field'
-                }}
-                suggestions={suggestions}
-                // handles fetching autosuggestions in respect to field input
-                onSuggestionsFetchRequested={({ value }): void => {
-                  if (!value) {
+                  // control the input hooked up to autosuggest
+                  inputProps={{
+                    placeholder: 'e.g. squat',
+                    autoComplete: 'off',
+                    name: 'name',
+                    onChange: (_, { newValue }): void => {
+                      setFieldValue('name', newValue);
+                    },
+                    value: values.name,
+                    className: 'exercise-form-field'
+                  }}
+                  suggestions={suggestions}
+                  // handles fetching autosuggestions in respect to field input
+                  onSuggestionsFetchRequested={({ value }): void => {
+                    if (!value) {
+                      setSuggestions([]);
+                      return;
+                    }
+
+                    setSuggestions(
+                      exercises.filter((exercise: E) =>
+                        exercise.name
+                          .toLowerCase()
+                          .includes(value.toLowerCase())
+                      )
+                    );
+                  }}
+                  // handles clearing suggestions (why is this prop necessary?)
+                  onSuggestionsClearRequested={(): void => {
                     setSuggestions([]);
-                    return;
-                  }
-
-                  setSuggestions(
-                    exercises.filter((exercise: E) =>
-                      exercise.name.toLowerCase().includes(value.toLowerCase())
-                    )
-                  );
-                }}
-                // handles clearing suggestions (why is this prop necessary?)
-                onSuggestionsClearRequested={(): void => {
-                  setSuggestions([]);
-                }}
-                // fetches suggestion from local state
-                getSuggestionValue={(suggestion): string => suggestion.name}
-                // renders the autosuggest component with suggestions
-                renderSuggestion={(suggestion): JSX.Element => (
-                  <div>{suggestion.name}</div>
+                  }}
+                  // fetches suggestion from local state
+                  getSuggestionValue={(suggestion): string => suggestion.name}
+                  // renders the autosuggest component with suggestions
+                  renderSuggestion={(suggestion): JSX.Element => (
+                    <div>{suggestion.name}</div>
+                  )}
+                  // passes the clicked suggestion to the input
+                  onSuggestionSelected={(
+                    event,
+                    { suggestion, method }
+                  ): void => {
+                    if (method === 'enter') {
+                      event.preventDefault();
+                    }
+                    setFieldValue('name', suggestion.name);
+                  }}
+                />
+                {errors.name && touched.name && (
+                  <p className='error-exercise-form'>{errors.name}</p>
                 )}
-                // passes the clicked suggestion to the input
-                onSuggestionSelected={(event, { suggestion, method }): void => {
-                  if (method === 'enter') {
-                    event.preventDefault();
-                  }
-                  setFieldValue('name', suggestion.name);
-                }}
-              />
-            </div>
-            <div className='exercise-form-field-container'>
-              <label className='exercise-form-field-label'>Weight</label>
-              {errors.weight && touched.weight && (
-                <p className='error-exercise-form'>{errors.weight}</p>
-              )}
-              <Field
-                innerRef={refs[0]}
-                className='exercise-form-field'
-                name='weight'
-                placeholder='lbs'
-                type='number'
-              />
-            </div>
-            <div className='exercise-form-field-container'>
-              <label className='exercise-form-field-label'>Sets</label>
-              {errors.sets && touched.sets && (
-                <p className='error-exercise-form'>{errors.sets}</p>
-              )}
-              <Field
-                innerRef={refs[1]}
-                className='exercise-form-field'
-                name='sets'
-                placeholder='# of sets'
-                type='number'
-              />
-            </div>
-            <div className='exercise-form-field-container'>
-              <label className='exercise-form-field-label'>Reps</label>
-              {errors.reps && touched.reps && (
-                <p className='error-exercise-form'>{errors.reps}</p>
-              )}
-              <Field
-                innerRef={refs[2]}
-                className='exercise-form-field'
-                name='reps'
-                placeholder='# of reps'
-                type='number'
-              />
+              </div>
+              <div className='exercise-form-field-container'>
+                <label className='exercise-form-field-label'>Weight</label>
+                <Field
+                  innerRef={refs[0]}
+                  className='exercise-form-field'
+                  name='weight'
+                  placeholder='lbs'
+                  type='number'
+                />
+                {errors.weight && touched.weight && (
+                  <p className='error-exercise-form'>{errors.weight}</p>
+                )}
+              </div>
+              <div className='exercise-form-field-container'>
+                <label className='exercise-form-field-label'>Sets</label>
+                <Field
+                  innerRef={refs[1]}
+                  className='exercise-form-field'
+                  name='sets'
+                  placeholder='# of sets'
+                  type='number'
+                />
+                {errors.sets && touched.sets && (
+                  <p className='error-exercise-form'>{errors.sets}</p>
+                )}
+              </div>
+              <div className='exercise-form-field-container'>
+                <label className='exercise-form-field-label'>Reps</label>
+                <Field
+                  innerRef={refs[2]}
+                  className='exercise-form-field'
+                  name='reps'
+                  placeholder='# of reps'
+                  type='number'
+                />
+                {errors.reps && touched.reps && (
+                  <p className='error-exercise-form'>{errors.reps}</p>
+                )}
+              </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <button
@@ -198,7 +205,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
                 style={buttonStyles}
                 type='submit'
               >
-                <FiPlus className='exercise-form-button submit' />
+                <FiPlusCircle className='submit-exercise' />
               </button>
               <button
                 style={{

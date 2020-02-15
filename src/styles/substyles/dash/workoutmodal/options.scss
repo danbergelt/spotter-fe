@@ -22,12 +22,19 @@
     }
 
     @include small {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
 
     .options-left {
       @include medium {
         margin-right: 2rem;
+      }
+    }
+
+    .options-right {
+      @include small {
+        display: flex;
+        flex-direction: column-reverse;
       }
     }
 

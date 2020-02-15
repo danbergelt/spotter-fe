@@ -35,9 +35,8 @@
       color: $info;
       padding: 0.5rem 0.75rem;
       background: white;
-      border: 1px solid $info;
+      text-decoration: underline;
       cursor: pointer;
-      border-radius: $border;
 
       &:hover {
         color: darken($info, 10%);

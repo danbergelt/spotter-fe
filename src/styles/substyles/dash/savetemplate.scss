@@ -41,6 +41,7 @@
   .template-save-submit {
     @include templateButton;
     @include hover;
+    box-shadow: $subtle;
   }
 
   .template-save {

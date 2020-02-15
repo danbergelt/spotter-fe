@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { FiPlus, FiTrash } from 'react-icons/fi';
+import { FiPlusCircle, FiTrash } from 'react-icons/fi';
 import { resetNotesAction } from '../../../../../actions/workoutActions';
 import NotesTextArea from './NotesTextArea';
 import NotesHead from './NotesHead';
@@ -37,7 +37,7 @@ const WorkoutNotes: React.FC = () => {
             : 'workout-data-notes-actions'
         }
       >
-        <FiPlus role='button' className='workout-data-notes-submit' />
+        <FiPlusCircle role='button' className='workout-data-notes-submit' />
         <FiTrash
           role='button'
           data-testid='trash'
