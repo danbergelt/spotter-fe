@@ -42,7 +42,6 @@
     text-align: center;
     text-decoration: none;
     box-shadow: $subtle;
-    transform: translateY(0);
     transition: transform 150ms, box-shadow 150ms;
 
     @include medium {
