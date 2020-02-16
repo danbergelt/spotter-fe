@@ -1,0 +1,79 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+.tags-modal-create {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .tags-modal-create-name {
+    padding: 0.5rem;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid $gray4;
+    font-size: 1.3rem;
+    -webkit-appearance: none;
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 1px $primary;
+    }
+  }
+
+  .tags-modal-colors {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .active-tag-color {
+      font-size: 3rem;
+      color: white;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  .tag-creation {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+
+    @include small {
+      padding: 0.5rem;
+    }
+  }
+
+  .tag-creation.failure {
+    background: rgba($danger, 0.5);
+  }
+
+  .tag-creation.success {
+    background: rgba($success, 0.5);
+  }
+
+  .tags-modal-create-submit {
+    width: 100%;
+    padding: 1rem;
+    background: $info;
+    box-shadow: $subtle;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    @include hover;
+
+    @include small {
+      padding: 0.75rem;
+    }
+
+    &:hover {
+      background: darken($info, 10%);
+    }
+  }
+}

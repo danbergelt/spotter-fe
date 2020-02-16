@@ -1,0 +1,314 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.controls-spacer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .workouts-head {
+    margin-top: 2rem;
+    color: $gray1;
+    font-size: 2rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+
+    @include medium {
+      font-size: 1.75rem;
+    }
+
+    @include small {
+      margin-top: 1rem;
+      font-size: $p;
+    }
+
+    .workouts-icons {
+      margin-right: 2rem;
+      color: $gray2;
+
+      @include small {
+        margin-right: 0.5rem;
+      }
+
+      .workouts-head-icon {
+        margin-right: 1.5rem;
+
+        @include small {
+          margin-right: 0.33rem;
+        }
+
+        &:hover {
+          background: $gray3;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+    .workouts-month-indicator {
+      color: $gray1;
+    }
+  }
+
+  .prs-link {
+    padding: 1rem 2rem;
+    border: 1px solid $info;
+    border-radius: 4px;
+    font-size: $p;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+    background: $info;
+    box-shadow: $subtle;
+    @include hover;
+
+    &:hover {
+      background: darken($info, 10%);
+    }
+
+    @include medium {
+      font-size: 1.3rem;
+      padding: 0.85rem 1.7rem;
+    }
+  }
+}
+
+.week-workouts-days {
+  display: flex;
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: $gray1;
+
+  @include large {
+    font-size: 1.2rem;
+  }
+
+  .week-workouts-column {
+    width: 15%;
+    text-align: center;
+
+    .week-workouts-day {
+      border-bottom: 1px solid $gray3;
+      padding: 2rem 0 2rem 0;
+
+      .week-workout-day-slug {
+        margin-bottom: 1rem;
+        font-size: $p;
+        color: $gray1;
+
+        @include medium {
+          font-size: 1.3rem;
+        }
+
+        @include small {
+          font-size: 1.1rem;
+        }
+      }
+
+      .week-workout-day-date {
+        color: $gray2;
+
+        @include medium {
+          font-size: 1.2rem;
+        }
+
+        @include small {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .week-workouts-add-workout {
+      color: $gray1;
+      margin: 1rem;
+      padding: 1rem 0;
+      box-shadow: $box;
+      @include flex-center;
+      justify-content: center;
+      border-radius: $border;
+      @include hover;
+
+      @include large {
+        margin: 0.5rem;
+      }
+
+      @include small {
+        margin: 0.5rem 0.33rem;
+      }
+
+      @include small {
+        font-size: 1.1rem;
+        padding: 0.75rem;
+      }
+
+      &:hover {
+        background: $gray3;
+        cursor: pointer;
+      }
+
+      .week-workouts-add-icon {
+        margin-right: 1rem;
+        font-size: 1.3rem;
+        color: $primary;
+
+        @include large {
+          font-size: 1.2rem;
+          margin-right: 0.8rem;
+        }
+
+        @include small {
+          margin: 0;
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+  .week-workouts-column:nth-of-type(-n + 6) .week-workouts-day {
+    border-right: 1px solid $gray3;
+  }
+}
+
+.month-workout-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin: 3rem 0 6rem 0;
+
+  .month-grid-day {
+    height: 10.25rem;
+    @include monthBorders;
+    padding: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $gray2;
+    font-size: 1.3rem;
+
+    p {
+      width: 25px;
+      height: 25px;
+      text-align: center;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include medium {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .today-date {
+      color: white;
+      background: $primary;
+      border: 1px solid $primary;
+      position: relative;
+      align-self: center;
+    }
+
+    .month-grid-day-head {
+      color: $gray2;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.3rem;
+
+      @include medium {
+        font-size: 1.1rem;
+      }
+
+      .month-grid-add-workout {
+        cursor: pointer;
+        padding: 0.33rem;
+        color: $primary;
+        @include textHover;
+
+        &:hover {
+          color: darken($primary, 15%);
+        }
+      }
+    }
+
+    .month-start {
+      color: $gray1;
+    }
+
+    .month-grid-workout {
+      margin-top: 0.75rem;
+      width: 100%;
+      border-radius: 8px;
+      color: white;
+      background: $danger;
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .grid-view-more {
+      width: 100%;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      cursor: pointer;
+      @include hover;
+
+      @include medium {
+        font-size: 1.1rem;
+      }
+
+      &:hover {
+        background: $gray3;
+      }
+    }
+  }
+}
+
+.view-more-popup {
+  background: white;
+  width: 175px;
+  height: 200px;
+  box-shadow: 0 4px 12px 0px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+
+  .popover-head {
+    @include popoverHead;
+
+    .close-popover {
+      @include closePopover;
+      @include hover;
+    }
+  }
+
+  .view-more-workouts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .view-more-workout {
+      margin-bottom: 1rem;
+      width: 100%;
+      border-radius: 8px;
+      background: $primary;
+      color: white;
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

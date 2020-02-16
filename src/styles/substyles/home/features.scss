@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.features-container {
+  padding: 20rem 0rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-family: 'Nanum Gothic';
+
+  @include large {
+    flex-direction: column;
+    align-items: center;
+    padding: 15rem 2.5rem;
+  }
+
+  @include medium {
+    padding: 10rem 2.5rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .features-tabs-container {
+    @include large {
+      text-align: center;
+    }
+
+    .feature-tabs-select {
+      margin-bottom: 4rem;
+      width: 225px;
+      font-size: $p;
+      outline: 0;
+      border: 1px solid $gray4;
+      padding: 0.5rem;
+      color: $gray2;
+      background: transparent;
+      -webkit-appearance: menulist;
+    }
+
+    .features-title {
+      color: $gray1;
+      font-size: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .feature {
+      width: 325px;
+      color: $gray2;
+      font-size: 1.75rem;
+      padding: 1.5rem 0;
+      padding-right: 20rem;
+      cursor: pointer;
+
+      @include xLarge {
+        width: 250px;
+        padding-right: 5rem;
+        font-size: $p;
+      }
+    }
+
+    .selected {
+      border-right: 5px solid $primary;
+      color: $primary;
+      @include textHover;
+    }
+  }
+
+  .features-img {
+    width: 900px;
+    height: auto;
+    box-shadow: 0 20px 30px 0 rgba(36, 50, 66, 0.14);
+
+    @include xLarge {
+      width: 700px;
+    }
+
+    @include medium {
+      width: 480px;
+    }
+
+    @include small {
+      width: 400px;
+    }
+
+    @media (max-width: 400px) {
+      width: 320px;
+    }
+  }
+}

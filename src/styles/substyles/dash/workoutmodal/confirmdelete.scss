@@ -1,0 +1,52 @@
+@import '../../../variables.scss';
+@import '../../../mixins.scss';
+
+.delete-container {
+  @include modalContainer;
+  justify-content: space-between;
+
+  .delete-head-container {
+    @include modalHeader;
+
+    .delete-head {
+      @include modalTitle;
+    }
+
+    .delete-exit {
+      @include modalExit;
+      @include hover;
+    }
+  }
+
+  .delete-btn-container {
+    display: flex;
+    width: 100%;
+
+    .delete-btn {
+      font-size: 1.3rem;
+      color: white;
+      background: $danger;
+      border-radius: 4px;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      margin-right: 1rem;
+      @include hover;
+      box-shadow: $subtle;
+
+      &:hover {
+        background: darken($danger, 5%);
+      }
+    }
+
+    .delete-btn.can {
+      background: $gray3;
+      color: $gray1;
+      box-shadow: $subtle;
+      @include hover;
+
+      &:hover {
+        background: darken($gray3, 2.5%);
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.from-template-container {
+  @include modalContainer;
+
+  .from-template-header {
+    @include modalHeader;
+
+    .from-template-title {
+      @include modalTitle;
+    }
+
+    .from-template-exit {
+      @include modalExit;
+      @include hover;
+    }
+  }
+
+  .from-template-search {
+    margin: 0.5rem 0 1rem 0;
+    padding: 0.75rem;
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid $gray4;
+    font-size: 1.1rem;
+    -webkit-appearance: none;
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 1px $primary;
+    }
+  }
+
+  .templates-container {
+    overflow: auto;
+    height: 60%;
+
+    .template-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 95%;
+
+      .template {
+        width: 100%;
+        background: $gray3;
+        color: $gray1;
+        padding: 1rem 0.75rem;
+        margin: 0.5rem;
+        font-size: 1.3rem;
+        border-radius: 4px;
+        @include hover;
+
+        &:hover {
+          background: $gray4;
+          cursor: pointer;
+        }
+      }
+
+      .template.active {
+        border-left: 2px solid $primary;
+
+        &:hover {
+          background: $gray3;
+        }
+      }
+
+      .template-delete {
+        font-size: 1.4rem;
+        color: $gray2;
+        cursor: pointer;
+      }
+    }
+
+    .no-templates-found {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1.3rem;
+      color: $gray1;
+    }
+  }
+
+  .templates-container::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .templates-container::-webkit-scrollbar-track {
+    background: transparent;
+    border: 10px solid transparent;
+    background-clip: content-box; /* THIS IS IMPORTANT */
+  }
+
+  .templates-container::-webkit-scrollbar-thumb {
+    background: rgb(187, 187, 187) !important;
+    border-radius: 4px;
+  }
+
+  .generate-template {
+    margin-top: 2rem;
+    @include templateButton;
+    @include hover;
+    box-shadow: $subtle;
+  }
+}
