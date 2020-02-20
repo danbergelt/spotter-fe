@@ -47,3 +47,4 @@ this app relies on certain environment variables. after pulling down to your loc
 `yarn lint` - lint app for syntax errors
 
 `yarn fix` - lint and fix syntax errors
+
