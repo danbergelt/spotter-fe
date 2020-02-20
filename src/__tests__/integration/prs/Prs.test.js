@@ -22,7 +22,7 @@ describe('Prs page functionality', () => {
 
     store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
-    fireEvent.click(getByText(/personal bests/i));
+    fireEvent.click(getByText(/prs/i));
     expect(history.location.pathname).toEqual('/prs');
   });
 
