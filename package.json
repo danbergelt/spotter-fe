@@ -58,7 +58,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test -i",
-    "test:cov": "npm test -- --coverage --watchAll=false && bash <(curl -s https://codecov.io/bash)",
+    "test:cov": "npm test -- --coverage --watchAll=false && codecov",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
     "fix": "eslint --fix . --ext .js,.ts,.ts,.tsx src"
