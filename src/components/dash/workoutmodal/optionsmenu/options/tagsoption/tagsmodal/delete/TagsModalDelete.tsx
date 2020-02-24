@@ -4,8 +4,9 @@ import { deleteTagAction } from '../../../../../../../../actions/tagsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { TagOnWorkout as Tag } from 'src/types/TagOnWorkout';
-import { fetchToken, State } from 'src/types/State';
+import { State } from 'src/types/State';
 import reFetch from 'src/utils/reFetch';
+import useToken from '../../../../../../../../hooks/useToken';
 
 interface Props {
   toDelete: Partial<Tag>;
@@ -16,7 +17,7 @@ const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
   const scope: { value: string; label: string } = useSelector(
     (state: State) => state.globalReducer.scope
   );

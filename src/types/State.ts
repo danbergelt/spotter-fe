@@ -59,6 +59,3 @@ export interface State {
   optionsReducer: OptionsReducer;
   tagsReducer: TagsReducer;
 }
-
-export const fetchToken = (state: State): string | null =>
-  state.globalReducer.t;

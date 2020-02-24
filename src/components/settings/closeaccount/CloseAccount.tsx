@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
+import { useDispatch } from 'react-redux';
 import { closeAccountAction } from 'src/actions/globalActions';
 import { useHistory } from 'react-router-dom';
 import { Dispatch, AnyAction } from 'redux';
+import useToken from '../../../hooks/useToken';
 
 const CloseAccount: React.FC = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const CloseAccount: React.FC = () => {
 
   const [confirmClose, setConfirmClose] = useState<boolean>(false);
 
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
 
   return (
     <article className='del-account-container'>

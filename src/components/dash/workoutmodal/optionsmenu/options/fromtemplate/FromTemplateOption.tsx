@@ -1,12 +1,12 @@
 import React from 'react';
 import FromTemplate from './FromTemplate';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FiPackage } from 'react-icons/fi';
 import {
   setFromTemplateModalAction,
   fetchTemplatesAction
 } from '../../../../../../actions/optionsActions';
-import { fetchToken } from 'src/types/State';
+import useToken from '../../../../../../hooks/useToken';
 
 interface Props {
   iconClass: string;
@@ -17,11 +17,11 @@ interface Props {
 const FromTemplateOption: React.FC<Props> = ({ iconClass }) => {
   const dispatch = useDispatch();
 
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
 
   // API call that provides a selection of templates to choose from
   const openFromTemplateModal: () => void = () => {
-    dispatch(fetchTemplatesAction(t));
+    dispatch(fetchTemplatesAction(token));
     dispatch(setFromTemplateModalAction(true));
   };
 

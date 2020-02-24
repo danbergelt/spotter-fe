@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchToken } from 'src/types/State';
+import { useDispatch } from 'react-redux';
 import { deleteWorkoutAction } from 'src/actions/fetchWorkoutsActions';
+import useToken from '../../../../../../../hooks/useToken';
 
 interface Props {
   closeConfirmDelete: () => void;
@@ -14,12 +14,12 @@ const ConfirmDeleteBody: React.FC<Props> = ({
   closeParentModal,
   workoutId
 }) => {
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
   const dispatch = useDispatch();
 
   const deleteWorkout: () => void = () => {
     if (workoutId) {
-      dispatch(deleteWorkoutAction(t, workoutId));
+      dispatch(deleteWorkoutAction(token, workoutId));
       closeConfirmDelete();
       closeParentModal();
     }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createExerciseAction } from '../../../../../../actions/fetchExercisesActions';
 import SaveExerciseMsg from './SaveExerciseMsg';
-import { fetchToken } from 'src/types/State';
+import useToken from '../../../../../../hooks/useToken';
 import { Msg } from '../../../../../../types/ExerciseOption';
 
 // create exercise
@@ -18,13 +18,13 @@ interface Props {
 const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
   const [exercise, setExercise] = useState<string>('');
 
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
   const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setExercise('');
-    dispatch(createExerciseAction(t, exercise, setMsg));
+    dispatch(createExerciseAction(token, exercise, setMsg));
   };
 
   return (
