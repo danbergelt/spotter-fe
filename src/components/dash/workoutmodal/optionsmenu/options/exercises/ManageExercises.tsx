@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Exercise from './Exercise';
 import { deleteExerciseAction } from '../../../../../../actions/fetchExercisesActions';
+import useToken from '../../../../../../hooks/useToken';
 import { Exercise as E } from '../../../../../../types/ExerciseOption';
-import { fetchToken } from 'src/types/State';
 
 interface Props {
   exercises: Array<E>;
@@ -15,7 +15,7 @@ interface Props {
 const ManageExercises: React.FC<Props> = ({ exercises }) => {
   const [search, setSearch] = useState<string>('');
 
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
   const dispatch = useDispatch();
 
   // search filter function
@@ -25,9 +25,9 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
 
   const deleteExercise = useCallback(
     (id: string) => {
-      dispatch(deleteExerciseAction(t, id));
+      dispatch(deleteExerciseAction(token, id));
     },
-    [dispatch, t]
+    [dispatch, token]
   );
 
   return (

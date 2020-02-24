@@ -8,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 import Err from './Err';
 import Tag from './Tag';
 import { TagOnWorkout as T } from '../../../../../../../../types/TagOnWorkout';
-import { State, fetchToken } from 'src/types/State';
+import { State } from 'src/types/State';
+import useToken from '../../../../../../../../hooks/useToken';
 
 interface Props {
   setToDelete: React.Dispatch<React.SetStateAction<Partial<T>>>;
@@ -17,7 +18,7 @@ interface Props {
 const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
   const tags: Array<T> = useSelector((state: State) => state.tagsReducer.tags);
 
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
 
   const dispatch = useDispatch();
 

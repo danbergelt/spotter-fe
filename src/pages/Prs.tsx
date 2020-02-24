@@ -4,11 +4,12 @@ import { useHistory } from 'react-router-dom';
 import * as Moment from 'moment';
 import { extendMoment, MomentRange } from 'moment-range';
 import PrSection from '../components/prs/PrSection';
-import { State, fetchToken } from 'src/types/State';
+import { State } from 'src/types/State';
 import { SortedPrs, SortedPrsRange } from '../types/Prs';
 import { fetchExercises } from 'src/actions/fetchExercisesActions';
 import { Helmet } from 'react-helmet-async';
 import { Exercise } from 'src/types/ExerciseOption';
+import useToken from '../hooks/useToken';
 const moment: MomentRange = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -33,7 +34,7 @@ const Prs: React.FC = () => {
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
 
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
 
   const history = useHistory();
 

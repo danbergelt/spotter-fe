@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchToken } from '../../types/State';
+import { useDispatch } from 'react-redux';
 import { logOutAction } from '../../actions/globalActions';
+import useToken from '../../hooks/useToken';
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
-  const token: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
   const dispatch = useDispatch();
 
   const logOut: () => void = () => {

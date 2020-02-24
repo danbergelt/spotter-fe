@@ -1,7 +1,6 @@
-import React, { useMemo, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
+import React, { ReactNode } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 // unauthenticated route component
 // this component accepts a token, verifies the token's contents, and either routes the accepted user to dashboard
@@ -18,7 +17,7 @@ const PublicRoute: React.FC<Props> = ({
   component: Component,
   ...rest
 }): JSX.Element => {
-  const token: string | null = useSelector(useMemo(() => fetchToken, []));
+  const token: string | null = useToken();
 
   return (
     <>

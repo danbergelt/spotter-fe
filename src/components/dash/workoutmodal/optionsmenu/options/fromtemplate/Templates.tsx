@@ -3,7 +3,8 @@ import Template from './Template';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTemplateAction } from '../../../../../../actions/optionsActions';
 import { Template as T } from 'src/types/Template';
-import { State, fetchToken } from 'src/types/State';
+import { State } from 'src/types/State';
+import useToken from '../../../../../../hooks/useToken';
 
 interface Props {
   setActive: React.Dispatch<React.SetStateAction<{} | T>>;
@@ -16,7 +17,7 @@ interface Props {
 const Templates: React.FC<Props> = ({ setActive, active, search }) => {
   const dispatch = useDispatch();
 
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
 
   const {
     templatesErr: err,
@@ -27,9 +28,9 @@ const Templates: React.FC<Props> = ({ setActive, active, search }) => {
 
   const deleteTemplate: (id: string) => void = useCallback(
     id => {
-      dispatch(deleteTemplateAction(t, id));
+      dispatch(deleteTemplateAction(token, id));
     },
-    [dispatch, t]
+    [dispatch, token]
   );
   // search filter
   const filter: Array<T> = templates.filter(t =>

@@ -6,8 +6,9 @@ import SaveTemplateMsg from './SaveTemplateMsg';
 import SaveTemplateBtn from './SaveTemplateBtn';
 import SaveTemplateForm from './SaveTemplateForm';
 import SaveTemplateHead from './SaveTemplateHead';
-import { State, WorkoutReducer, fetchToken } from 'src/types/State';
+import { State, WorkoutReducer } from 'src/types/State';
 import { saveTemplateAction } from 'src/actions/optionsActions';
+import useToken from '../../../../../../hooks/useToken';
 
 interface Props {
   close: (payload: boolean) => void;
@@ -25,7 +26,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
     (state: State) => state.optionsReducer.templateSave
   );
 
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
 
   const [tempName, setTempName] = useState<string>('');
   const [message, setMessage] = useState<{ success?: string; error?: string }>(
@@ -41,7 +42,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
   // API call to save template
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = e => {
     e.preventDefault();
-    saveTemplateAction(t, tempName, workout, setTempName, setMessage);
+    saveTemplateAction(token, tempName, workout, setTempName, setMessage);
   };
 
   return (

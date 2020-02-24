@@ -3,10 +3,10 @@ import { colors } from '../localutils/createTagStyles';
 import Loader from 'react-loader-spinner';
 import Message from './Message';
 import { saveTagAction } from '../../../../../../../../actions/tagsActions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Color from './Color';
-import { fetchToken } from 'src/types/State';
+import useToken from '../../../../../../../../hooks/useToken';
 
 // tab - create tag
 const TagsModalCreate: React.FC = () => {
@@ -21,11 +21,11 @@ const TagsModalCreate: React.FC = () => {
   );
   const [loading, setLoading] = useState<boolean>(false);
 
-  const t: string | null = useSelector(fetchToken);
+  const token: string | null = useToken();
 
   const paramsHelper = {
     setLoading,
-    t,
+    token,
     color,
     history,
     setMessage,

@@ -2,12 +2,11 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
 import axiosWithAuth from 'src/utils/axiosWithAuth';
-import { useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
 import { api } from '../../../utils/api';
+import useToken from '../../../hooks/useToken';
 
 const ChangeEmailForm: React.FC = () => {
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
 
   return (
     <section className='change-form'>

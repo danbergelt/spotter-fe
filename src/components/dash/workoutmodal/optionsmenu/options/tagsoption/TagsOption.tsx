@@ -1,13 +1,13 @@
 import React from 'react';
 import TagsModal from './tagsmodal/TagsModal';
 import { FiTag } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {
   fetchTags,
   openTagModalAction
 } from '../../../../../../actions/tagsActions';
-import { fetchToken } from 'src/types/State';
+import useToken from '../../../../../../hooks/useToken';
 
 interface Props {
   iconClass: string;
@@ -18,7 +18,7 @@ const Tags: React.FC<Props> = ({ iconClass }) => {
 
   const history = useHistory();
 
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
 
   const openTagsModal: () => void = () => {
     dispatch(openTagModalAction());

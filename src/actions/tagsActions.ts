@@ -38,7 +38,7 @@ export const fetchTags = (history: History, t: string | null) => {
 
 //save tag
 interface ParamsHelper {
-  t: string | null;
+  token: string | null;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setMessage: React.Dispatch<
     React.SetStateAction<{
@@ -59,7 +59,7 @@ type TSaveTag = (
 export const saveTagAction: TSaveTag = paramsHelper => {
   const {
     setLoading,
-    t,
+    token,
     color,
     history,
     setMessage,
@@ -70,7 +70,7 @@ export const saveTagAction: TSaveTag = paramsHelper => {
   return async (dispatch): Promise<void> => {
     setLoading(true);
     try {
-      await axiosWithAuth(t).post(`${api()}/api/auth/tags`, {
+      await axiosWithAuth(token).post(`${api()}/api/auth/tags`, {
         color: color,
         content: name
       });
@@ -79,7 +79,7 @@ export const saveTagAction: TSaveTag = paramsHelper => {
       // resets submitting state
       setLoading(false);
       setName('');
-      await dispatch(fetchTags(history, t));
+      await dispatch(fetchTags(history, token));
     } catch (error) {
       setMessage(error.response.data);
       setLoading(false);
