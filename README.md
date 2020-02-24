@@ -6,19 +6,19 @@ a blazing fast, user obsessed, weightlifting focused fitness pal
 
 🔗 https://getspotter.io
 
-# 🤝 pull requests
+## 🤝 pull requests
 
 pull requests welcome!
 
 if you'd like to get in touch, please reach out to 📧 dan@danbergelt.com
 
-# 👨‍💻 requirements
+## 👨‍💻 requirements
 
 for development, you will need `node.js` and `yarn v1` installed in your environment
 
 once pulled down, run `yarn` to install deps
 
-# 🌍 env
+## 🌍 env
 
 this app relies on certain environment variables. after pulling down to your local environment, run `touch .env` in the root and add the below variables:
 
@@ -32,7 +32,7 @@ this app relies on certain environment variables. after pulling down to your loc
 
 `CODECOV_TOKEN=<your repo's codecov token>`
 
-# 📜 scripts
+## 📜 scripts
 
 `yarn start` - run your app in dev mode
 
@@ -47,3 +47,15 @@ this app relies on certain environment variables. after pulling down to your loc
 `yarn lint` - lint app for syntax errors
 
 `yarn fix` - lint and fix syntax errors
+
+## ⚙️ tech
+
+notable tech includes:
+
+- `react` - views
+- `redux` - global state management
+- `typescript` - static type checking
+- `jest` - test runner
+- `react testing library` - integration & unit tests
+- `travis ci` - ci
+- `netlify` - deployment
