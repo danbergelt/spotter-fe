@@ -48,17 +48,20 @@ this app relies on certain environment variables. after pulling down to your loc
 
 `yarn fix` - lint and fix syntax errors
 
-<<<<<<< HEAD
 ## ⚙️ tech
 
 notable tech includes:
 
-- `react` - views
-- `redux` - global state management
-- `typescript` - static type checking
-- `jest` - test runner
-- `react testing library` - integration & unit tests
-- `travis ci` - ci
-- `netlify` - deployment
-=======
->>>>>>> 5e340638660f96cb55cadc74addeda0a5c6e07f9
+`react` - views
+
+`redux` - shared state
+
+`typescript` - static type checking
+
+`jest` - test runner
+
+`react testing library` - integration & unit tests
+
+`travis ci` - ci
+
+`netlify` - deployment
