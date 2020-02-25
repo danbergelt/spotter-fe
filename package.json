@@ -26,6 +26,7 @@
     "codecov": "^3.6.5",
     "formik": "^1.5.8",
     "husky": "^4.0.10",
+    "immer": "^5.3.6",
     "lint-staged": "^10.0.0",
     "moment": "^2.24.0",
     "moment-range": "^4.0.2",
