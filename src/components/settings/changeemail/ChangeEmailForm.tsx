@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
 import axiosWithAuth from 'src/utils/axiosWithAuth';
-import { api } from '../../../utils/api';
+import endpoint from '../../../utils/endpoint';
 import useToken from '../../../hooks/useToken';
 
 const ChangeEmailForm: React.FC = () => {
@@ -22,12 +22,9 @@ const ChangeEmailForm: React.FC = () => {
         onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
           resetForm();
           try {
-            const res = await axiosWithAuth(t).put(
-              `${api()}/api/auth/user/email`,
-              {
-                ...values
-              }
-            );
+            const res = await axiosWithAuth(t).put(endpoint('user/email'), {
+              ...values
+            });
             setStatus(res.data);
           } catch (error) {
             setStatus(error.response.data);

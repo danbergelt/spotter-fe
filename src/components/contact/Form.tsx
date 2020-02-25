@@ -3,7 +3,7 @@ import { Form as Wrapper, Field, Formik } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
-import { api } from '../../utils/api';
+import endpoint from '../../utils/endpoint';
 
 const Form: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ const Form: React.FC = () => {
       validationSchema={ValidationSchema}
       onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
         try {
-          const res = await axios.post(`${api()}/api/auth/contact`, values);
+          const res = await axios.post(endpoint('contact'), values);
           resetForm();
           res.data.success === true && setStatus(true);
         } catch (error) {

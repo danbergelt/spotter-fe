@@ -1,17 +1,18 @@
-export const api = (): string | undefined | false => {
-  if (process.env.NODE_ENV === 'development') {
+export default (): string | undefined | false => {
+  const ENV: string = process.env.NODE_ENV;
+  const STAGING: string | undefined = process.env.REACT_APP_STAGING;
+
+  if (ENV === 'development') {
     return process.env.REACT_APP_T_API;
-  } else if (
-    process.env.NODE_ENV === 'production' &&
-    Boolean(process.env.REACT_APP_STAGING)
-  ) {
-    return process.env.REACT_APP_S_API;
-  } else if (
-    process.env.NODE_ENV === 'production' &&
-    !process.env.REACT_APP_STAGING
-  ) {
-    return process.env.REACT_APP_API;
-  } else {
-    return false;
   }
+
+  if (ENV === 'production' && STAGING) {
+    return process.env.REACT_APP_S_API;
+  }
+
+  if (ENV === 'production' && !STAGING) {
+    return process.env.REACT_APP_API;
+  }
+
+  return false;
 };

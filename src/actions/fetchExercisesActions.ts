@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 import { Msg } from 'src/types/ExerciseOption';
 import { State } from 'src/types/State';
 import { ThunkDispatch } from 'redux-thunk';
-import { api } from '../utils/api';
+import endpoint from '../utils/endpoint';
 
 export const FETCH_EXERCISES_SUCCESS = 'FETCH_EXERCISES_SUCCESS';
 export const FETCH_EXERCISES_ERROR = 'FETCH_EXERCISES_ERROR';
@@ -17,7 +17,7 @@ export const DELETE_SAVED_EXERCISE = 'DELETE_SAVED_EXERCISE';
 export const fetchExercises = (history: History, t: string | null) => {
   return (dispatch: ThunkDispatch<State, void, Action>): Promise<void> => {
     return axiosWithAuth(t)
-      .get(`${api()}/api/auth/exercises`)
+      .get(endpoint('exercises'))
       .then(res => {
         dispatch({
           type: FETCH_EXERCISES_SUCCESS,
@@ -45,7 +45,7 @@ type TDeleteExercise = (
 
 export const deleteExerciseAction: TDeleteExercise = (t, id) => {
   return async (dispatch): Promise<Action> => {
-    await axiosWithAuth(t).delete(`${api()}/api/auth/exercises/${id}`);
+    await axiosWithAuth(t).delete(endpoint(`exercises/${id}`));
     return dispatch({
       type: DELETE_SAVED_EXERCISE,
       payload: id
@@ -64,7 +64,7 @@ export const createExerciseAction: TCreateExercise = (t, exercise, setMsg) => {
   return async (dispatch): Promise<Action | void> => {
     try {
       const res: AxiosResponse = await axiosWithAuth(t).post(
-        `${api()}/api/auth/exercises`,
+        endpoint('exercises'),
         {
           name: exercise
         }

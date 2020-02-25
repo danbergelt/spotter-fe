@@ -5,7 +5,7 @@ import { WorkoutReducer, State } from 'src/types/State';
 import { Moment } from 'moment';
 import { History } from 'history';
 import { ThunkDispatch } from 'redux-thunk';
-import { api } from '../utils/api';
+import endpoint from '../utils/endpoint';
 
 export const OPEN_TAG_MODAL = 'OPEN_TAG_MODAL';
 export const CLOSE_TAG_MODAL = 'CLOSE_TAG_MODAL';
@@ -61,7 +61,7 @@ type TFetchTemplates = (
 export const fetchTemplatesAction: TFetchTemplates = t => {
   return async (dispatch): Promise<FetchTemplatesRes> => {
     try {
-      const res = await axiosWithAuth(t).get(`${api()}/api/auth/templates`);
+      const res = await axiosWithAuth(t).get(endpoint('templates'));
       return dispatch({
         type: SET_TEMPLATES,
         payload: res.data.templates
@@ -90,7 +90,7 @@ type TDeleteTemplate = (
 
 export const deleteTemplateAction: TDeleteTemplate = (t, id) => {
   return async (dispatch): Promise<Action> => {
-    await axiosWithAuth(t).delete(`${api()}/api/auth/templates/${id}`);
+    await axiosWithAuth(t).delete(endpoint(`templates/${id}`));
     return dispatch({
       type: DELETE_TEMPLATE,
       payload: id
@@ -131,7 +131,7 @@ export const saveTemplateAction: TSaveTemplate = async (
   setMessage
 ) => {
   try {
-    await axiosWithAuth(t).post(`${api()}/api/auth/templates`, {
+    await axiosWithAuth(t).post(endpoint('templates'), {
       name: tempName,
       title: workout.title,
       tags: workout.tags,
@@ -181,7 +181,7 @@ export const saveWorkoutAction: TSaveWorkout = paramsHelper => {
 
   return async (dispatch): Promise<void> => {
     try {
-      await axiosWithAuth(t).post(`${api()}/api/auth/workouts`, {
+      await axiosWithAuth(t).post(endpoint('workouts'), {
         date: date?.format('MMM DD YYYY'),
         title: workout.title,
         notes: workout.notes,
@@ -224,7 +224,7 @@ export const editWorkoutAction: TSaveWorkout = paramsHelper => {
 
   return async (dispatch): Promise<void> => {
     try {
-      await axiosWithAuth(t).put(`${api()}/api/auth/workouts/${workoutId}`, {
+      await axiosWithAuth(t).put(endpoint(`workouts/${workoutId}`), {
         title: workout.title,
         notes: workout.notes,
         exercises: workout.exercises,
