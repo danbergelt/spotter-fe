@@ -1,7 +1,7 @@
 import axiosWithAuth from './axiosWithAuth';
 import { AxiosResponse } from 'axios';
 import { SetStateAction } from 'react';
-import { api } from '../utils/api';
+import endpoint from './endpoint';
 
 type TDownloadWorkoutData = (
   setDataDump: React.Dispatch<SetStateAction<string>>,
@@ -21,7 +21,7 @@ export const downloadData: TDownloadWorkoutData = async (
   try {
     // request a blob from server
     const res: AxiosResponse = await axiosWithAuth(t).get(
-      `${api()}/api/auth/${data}/download`,
+      endpoint(`${data}/download`),
       {
         responseType: 'blob'
       }

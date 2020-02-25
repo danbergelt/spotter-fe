@@ -4,15 +4,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
 import Loader from 'react-loader-spinner';
-import { api } from '../../utils/api';
+import endpoint from '../../utils/endpoint';
 
-// hidden page that allows a user to change their password when forgotten
+// allows a user to change their password when forgotten
 // accessed via link sent out through mailgun
 // param is their reset password token
 
-// CODE SMELL
-// handling a lot of stuff manually here,
-// consider refactoring to something like Formik for automation
 const ForgotAndChangePass: React.FC = () => {
   const { id } = useParams();
   const history = useHistory();
@@ -30,7 +27,7 @@ const ForgotAndChangePass: React.FC = () => {
     setLoading(true);
     try {
       const res = await axios.put(
-        `${api()}/api/auth/user/forgotpassword/${id}`,
+        endpoint(`user/forgotpassword/${id}`),
         { newPassword, confirmPassword },
         { withCredentials: true }
       );

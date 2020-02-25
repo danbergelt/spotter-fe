@@ -5,7 +5,7 @@ import Form from '../components/auth/Form';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
 import { Helmet } from 'react-helmet-async';
-import { api } from '../utils/api';
+import endpoint from 'src/utils/endpoint';
 
 const SignUp: React.FC = () => {
   const history = useHistory();
@@ -25,7 +25,7 @@ const SignUp: React.FC = () => {
       </Helmet>
       <Form
         history={history}
-        api={`${api()}/api/auth/register`}
+        api={endpoint('register')}
         action='Sign Up'
         addToken={addToken}
       >

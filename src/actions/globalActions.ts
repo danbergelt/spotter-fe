@@ -10,7 +10,7 @@ import axiosWithAuth from 'src/utils/axiosWithAuth';
 import { Action } from 'redux';
 import { State } from 'src/types/State';
 import { ThunkDispatch } from 'redux-thunk';
-import { api } from '../utils/api';
+import endpoint from '../utils/endpoint';
 
 export const MODAL_CTX = 'MODAL_CTX';
 export const LOGOUT = 'LOGOUT';
@@ -132,7 +132,7 @@ export const logOutAction: TLogOut = () => {
     dispatch({
       type: LOGOUT
     });
-    await axios.get(`${api()}/api/auth/logout`, {
+    await axios.get(endpoint('logout'), {
       withCredentials: true
     });
   };
@@ -145,7 +145,7 @@ type TCloseAccount = (
 ) => (dispatch: ThunkDispatch<State, void, Action>) => void;
 export const closeAccountAction: TCloseAccount = (t, history) => {
   return async (dispatch): Promise<void> => {
-    await axiosWithAuth(t).delete(`${api()}/api/auth/user/delete`);
+    await axiosWithAuth(t).delete(endpoint('user/delete'));
     dispatch({ type: LOGOUT });
     history.push('/signup');
   };

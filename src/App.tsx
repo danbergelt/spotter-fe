@@ -6,7 +6,7 @@ import Popup from './components/contact/Popup';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADD_TOKEN } from './actions/addTokenActions';
-import { api } from './utils/api';
+import endpoint from './utils/endpoint';
 
 // this component renders in front of routes, checks for token, and returns proper authenticated data
 // also requests refresh token on each refresh
@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`${api()}/api/auth/refresh`, {
+      .get(endpoint('refresh'), {
         withCredentials: true
       })
       .then(res => {
