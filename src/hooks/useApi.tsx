@@ -39,14 +39,14 @@ export default (
       if (e.response) {
         setRes(state =>
           produce(state, draft => {
-            draft.error = e.response;
+            draft.error = errorMsg ? errorMsg : e.response;
             return draft;
           })
         );
       } else {
         setRes(state =>
           produce(state, draft => {
-            draft.error = errorMsg || 'Server error, try again later';
+            draft.error = errorMsg ? errorMsg : 'server error, try again later';
           })
         );
       }
