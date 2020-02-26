@@ -14,12 +14,12 @@ interface Props {
 const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
   const token = useToken();
   const dispatch = useDispatch();
-  const [, call] = useApi(logout);
+  const [, call] = useApi();
 
   const logOut: () => Promise<void> = async () => {
     // clears refresh token and access token
     try {
-      await call();
+      await call(logout);
       dispatch(logOutAction());
     } catch (error) {
       // no-op, will consider solution for broken logout action later

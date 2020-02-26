@@ -17,50 +17,64 @@ interface Res {
   isLoading: boolean;
 }
 
-export default (
-  query: Function,
-  vars = [],
-  errorMsg = null
-): [Res, () => Promise<void>] => {
+export default (): [Res, Function] => {
   const [res, setRes] = useState<Res>({
     data: null,
     error: null,
     isLoading: false
   });
 
-  const call = useCallback(async () => {
-    try {
+  const call = useCallback(
+    async (query: Function, vars = [], errorMsg = null) => {
+      // clear state and remove stale data
       setRes(state =>
         produce(state, draft => {
-          draft.isLoading = true;
-          return draft;
-        })
-      );
-      const apiResponse = await query(...vars);
-      setRes(state =>
-        produce(state, draft => {
-          draft.data = apiResponse ? apiResponse.data : null;
+          draft.data = null;
+          draft.error = null;
           draft.isLoading = false;
-          return draft;
         })
       );
-    } catch (e) {
-      if (e.response) {
+      try {
+        // start loading
         setRes(state =>
           produce(state, draft => {
-            draft.error = errorMsg ? errorMsg : e.response;
+            draft.isLoading = true;
             return draft;
           })
         );
-      } else {
+        // make call
+        const apiResponse = await query(...vars);
+        // stop loading, set api response to state
         setRes(state =>
           produce(state, draft => {
-            draft.error = errorMsg ? errorMsg : 'server error, try again later';
+            draft.data = apiResponse ? apiResponse.data : null;
+            draft.isLoading = false;
+            return draft;
           })
         );
+      } catch (e) {
+        // if the error is handled, set the error to state
+        if (e.response) {
+          setRes(state =>
+            produce(state, draft => {
+              draft.error = errorMsg ? errorMsg : e.response.data.error;
+              return draft;
+            })
+          );
+        } else {
+          // if the error is unhandled, set the fallback to state
+          setRes(state =>
+            produce(state, draft => {
+              draft.error = errorMsg
+                ? errorMsg
+                : 'server error, try again later';
+            })
+          );
+        }
       }
-    }
-  }, [query, vars, errorMsg]);
+    },
+    []
+  );
 
   return [res, call];
 };

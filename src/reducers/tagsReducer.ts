@@ -8,6 +8,7 @@ import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
 import { TagsReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
 import produce from 'immer';
+import { UPDATE_TAG } from 'src/actions/workoutActions';
 
 const tagsState: TagsReducer = {
   isLoading: false,
@@ -39,6 +40,13 @@ export const tagsReducer = (
         return;
       case CLOSE_WORKOUT_MODAL:
         draft.tags = [];
+        return;
+      case UPDATE_TAG:
+        draft.tags.forEach((tag, i) => {
+          if (tag._id === action.payload._id) {
+            draft.tags[i] = action.payload;
+          }
+        });
         return;
       default:
         return draft;

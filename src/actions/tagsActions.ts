@@ -144,42 +144,12 @@ export const deleteTagAction: TDeleteTag = paramsHelper => {
   };
 };
 
-// submit an edited tag
-interface EditTagHelper {
-  t: string | null;
-  update: Partial<TagOnWorkout>;
-  updateInput: string;
-  setUpdate: Function;
-  history: History;
-  setErr: Function;
+interface TagAction extends Action {
+  payload: string;
 }
 
-type TEditTag = (
-  paramsHelper: EditTagHelper
-) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<void>;
-
-export const editTagAction: TEditTag = paramsHelper => {
-  const { t, update, updateInput, setUpdate, history, setErr } = paramsHelper;
-  return async (dispatch): Promise<void> => {
-    try {
-      const res = await axiosWithAuth(t).put(endpoint(`tags/${update._id}`), {
-        content: updateInput
-      });
-      setUpdate({});
-      dispatch({
-        type: UPDATE_TAG,
-        payload: res.data.tag
-      });
-      // CODE SMELL
-      await dispatch(fetchTags(history, t));
-      // need to investigate filtering tag from state locally (both on workouts in view, and in tags)
-      // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
-      // TODO: return data from put request and just add it to the redux store
-      // CODE SMELL
-    } catch (error) {
-      setErr(error.response.data.error);
-    }
-  };
+export const editTagAction = (tag: string): TagAction => {
+  return { type: UPDATE_TAG, payload: tag };
 };
 
 // close tag modal

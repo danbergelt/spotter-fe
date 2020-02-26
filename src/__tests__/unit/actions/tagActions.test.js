@@ -5,7 +5,8 @@ import {
   FETCH_TAGS_ERROR,
   setActiveTabAction,
   closeTagModalAction,
-  openTagModalAction
+  openTagModalAction,
+  editTagAction
 } from '../../../actions/tagsActions';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -17,6 +18,7 @@ import {
   CLOSE_TAG_MODAL,
   OPEN_TAG_MODAL
 } from 'src/actions/optionsActions';
+import { UPDATE_TAG } from 'src/actions/workoutActions';
 
 const mockStore = configureMockStore([thunk]);
 
