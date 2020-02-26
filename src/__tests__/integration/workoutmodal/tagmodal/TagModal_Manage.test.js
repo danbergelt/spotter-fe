@@ -1,6 +1,6 @@
 import React from 'react';
 import TagsModalManage from '../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/manage/TagsModalManage';
-import { FETCH_TAGS_SUCCESS } from '../../../../actions/tagsActions';
+import { ADD_TAGS } from '../../../../actions/tagsActions';
 import { cleanup } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
@@ -22,7 +22,7 @@ describe('tag modal manage functionality', () => {
     const { getByText, store } = wrapper(reducer, <TagsModalManage />);
 
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'content', _id: 1 }]
     });
 
@@ -33,14 +33,14 @@ describe('tag modal manage functionality', () => {
     const { getByText, store } = wrapper(reducer, <TagsModalManage />);
 
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'content', _id: 1 }]
     });
 
     expect(getByText(/content/i)).toBeTruthy();
 
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'changed', _id: 1 }]
     });
 

@@ -13,6 +13,7 @@ import { reducer } from '../../../reducers/index.ts';
 import { SET_SCOPE } from '../../../actions/globalActions';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
 import { FETCH_WORKOUTS_SUCCESS } from '../../../actions/fetchWorkoutsActions';
+import { act } from 'react-dom/test-utils';
 
 describe('Weekly dash date settings', () => {
   afterEach(() => {
@@ -154,17 +155,19 @@ describe('Weekly dash date settings', () => {
     expect(queryByText(/workout for testing/i)).toBeTruthy();
   });
 
-  it('opens add workout modal', () => {
+  it('opens add workout modal', async () => {
     axios.post.mockResolvedValue({});
     axios.get.mockResolvedValue({});
     const { store, getByTestId } = wrapper(reducer, <WorkoutGrid />);
 
-    fireEvent.click(getByTestId(/add-for-testing/i));
+    await act(
+      async () => await fireEvent.click(getByTestId(/add-for-testing/i))
+    );
 
     expect(store.getState().globalReducer.ctx).toEqual('add');
   });
 
-  it('opens view workout modal', () => {
+  it('opens view workout modal', async () => {
     axios.get.mockResolvedValue({});
     axios.post.mockResolvedValue({});
     const { store, getByText } = wrapper(reducer, <WorkoutGrid />);
@@ -174,7 +177,9 @@ describe('Weekly dash date settings', () => {
       payload: mockWorkoutRes.data.workouts
     });
 
-    fireEvent.click(getByText(/workout for testing/i));
+    await act(
+      async () => await fireEvent.click(getByText(/workout for testing/i))
+    );
 
     expect(store.getState().globalReducer.ctx).toEqual('view');
   });

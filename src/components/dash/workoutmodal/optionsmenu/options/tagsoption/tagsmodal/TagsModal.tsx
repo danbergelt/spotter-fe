@@ -59,8 +59,8 @@ const TagsModal: React.FC = () => {
       await call(fetchTags, [t]);
     };
 
-    fetch();
-  }, [call, t]);
+    if (modal) fetch();
+  }, [call, t, modal]);
 
   return (
     <Modal
@@ -78,7 +78,9 @@ const TagsModal: React.FC = () => {
       {active === 3 && <TagsModalDelete toDelete={toDelete} />}
       {active === 2 && <TagsModalCreate />}
       {active === 1 && <TagsModalManage setToDelete={setToDelete} />}
-      {active === 0 && <TagsModalAdd loading={res.isLoading} />}
+      {!res.isLoading && active === 0 && (
+        <TagsModalAdd loading={res.isLoading} />
+      )}
     </Modal>
   );
 };

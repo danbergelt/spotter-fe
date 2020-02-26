@@ -7,6 +7,7 @@ import axios from 'axios';
 import mockWorkoutRes from '../../../../__testUtils__/mockWorkoutRes';
 import { FETCH_WORKOUTS_SUCCESS } from '../../../../actions/fetchWorkoutsActions';
 import { reducer } from '../../../../reducers/index';
+import { act } from 'react-dom/test-utils';
 
 describe('view workout modal functionality', () => {
   // initial setup
@@ -28,7 +29,9 @@ describe('view workout modal functionality', () => {
 
     history.push('/dashboard');
 
-    fireEvent.click(getByText(/workout for testing/i));
+    await act(
+      async () => await fireEvent.click(getByText(/workout for testing/i))
+    );
 
     expect(queryByText(/exercise2/i)).toBeTruthy();
     expect(queryAllByText(/tag2/i)).toBeTruthy();
