@@ -1,9 +1,8 @@
 import React from 'react';
 import { Form as Wrapper, Field, Formik } from 'formik';
 import { ValidationSchema } from './ValidationSchema';
-import axios from 'axios';
 import Loader from 'react-loader-spinner';
-import endpoint from '../../utils/endpoint';
+import { contact } from '../../utils/queries';
 
 const Form: React.FC = () => {
   return (
@@ -12,7 +11,7 @@ const Form: React.FC = () => {
       validationSchema={ValidationSchema}
       onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
         try {
-          const res = await axios.post(endpoint('contact'), values);
+          const res = await contact(values);
           resetForm();
           res.data.success === true && setStatus(true);
         } catch (error) {

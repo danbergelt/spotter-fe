@@ -5,7 +5,6 @@ import { History } from 'history';
 import { FROM_SAVED } from './workoutActions';
 import { Workout } from 'src/types/Workout';
 import { ADD_TOKEN } from './addTokenActions';
-import axios from 'axios';
 import axiosWithAuth from 'src/utils/axiosWithAuth';
 import { Action } from 'redux';
 import { State } from 'src/types/State';
@@ -126,16 +125,9 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
 
 // logs a user out
 // removes token from memory, and fetches a dead refresh cookie from the server
-type TLogOut = () => (dispatch: ThunkDispatch<State, void, Action>) => void;
+type TLogOut = () => Action;
 export const logOutAction: TLogOut = () => {
-  return async (dispatch): Promise<void> => {
-    dispatch({
-      type: LOGOUT
-    });
-    await axios.get(endpoint('logout'), {
-      withCredentials: true
-    });
-  };
+  return { type: LOGOUT };
 };
 
 // deletes a user's account, empties state, pushes user to the signup page

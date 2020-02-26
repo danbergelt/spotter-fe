@@ -174,7 +174,7 @@ export const editTagAction: TEditTag = paramsHelper => {
       await dispatch(fetchTags(history, t));
       // need to investigate filtering tag from state locally (both on workouts in view, and in tags)
       // this is very hacky how I'm manually triggering a server call to 're-fetch' the data
-      // will clean up this code, create a cleaner transition into a new state (since I'm not relying on asynchronous side effects to usher in fresh state), and reduce BE hits
+      // TODO: return data from put request and just add it to the redux store
       // CODE SMELL
     } catch (error) {
       setErr(error.response.data.error);

@@ -1,6 +1,15 @@
 import { useState, useCallback } from 'react';
 import produce from 'immer';
 
+////////////////////////////////////////////////////////////////////////////
+//
+// utility hook to automate, abstract, and shorten api calls
+// useful for when state is not being managed by a third party (e.g. formik)
+// handles errors and loading. returns all metadata + a callback to call as
+// a side effect
+//
+////////////////////////////////////////////////////////////////////////////
+
 interface Res {
   // eslint-disable-next-line
   data: any;
@@ -30,7 +39,7 @@ export default (
       const apiResponse = await query(...vars);
       setRes(state =>
         produce(state, draft => {
-          draft.data = apiResponse.data;
+          draft.data = apiResponse ? apiResponse.data : null;
           draft.isLoading = false;
           return draft;
         })
