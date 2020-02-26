@@ -23,8 +23,6 @@ export interface WorkoutReducer {
 }
 
 export interface TagsReducer {
-  isLoading: boolean;
-  err: string | null;
   tags: Array<Tag>;
 }
 

@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOutAction } from '../../actions/globalActions';
+import useApi from '../../hooks/useApi';
 import useToken from '../../hooks/useToken';
+import { logout } from 'src/utils/queries';
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,12 +12,18 @@ interface Props {
 }
 
 const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
-  const token: string | null = useToken();
+  const token = useToken();
   const dispatch = useDispatch();
+  const [, call] = useApi();
 
-  const logOut: () => void = () => {
+  const logOut: () => Promise<void> = async () => {
     // clears refresh token and access token
-    dispatch(logOutAction());
+    try {
+      await call(logout);
+      dispatch(logOutAction());
+    } catch (error) {
+      // no-op, will consider solution for broken logout action later
+    }
     if (setIsOpen) setIsOpen(!isOpen);
   };
 

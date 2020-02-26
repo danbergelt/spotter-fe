@@ -5,7 +5,7 @@ import {
   DELETE_WORKOUT
 } from '../actions/fetchWorkoutsActions';
 import { AnyAction } from 'redux';
-import { UPDATE_TAG } from '../actions/workoutActions';
+import { UPDATE_TAG, DELETE_TAG } from '../actions/workoutActions';
 import { FetchWorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
 import { remove } from 'lodash';
@@ -45,6 +45,11 @@ export const fetchWorkoutsReducer = (
               tag._id === action.payload._id &&
               (draft.workouts[i].tags[j] = action.payload)
           )
+        );
+        return;
+      case DELETE_TAG:
+        draft.workouts.forEach(workout =>
+          remove(workout.tags, tag => tag._id === action.payload._id)
         );
         return;
       default:

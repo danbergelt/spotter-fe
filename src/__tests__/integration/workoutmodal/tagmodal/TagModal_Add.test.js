@@ -1,5 +1,5 @@
 import React from 'react';
-import { FETCH_TAGS_SUCCESS } from '../../../../actions/tagsActions';
+import { ADD_TAGS } from '../../../../actions/tagsActions';
 import { DELETE_TAG, UPDATE_TAG } from '../../../../actions/workoutActions';
 import TagsModalAdd from '../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/add/TagsModalAdd';
 import WorkoutTags from '../../../../components/dash/workoutmodal/data/workouttags/WorkoutTags';
@@ -20,7 +20,7 @@ describe('add tag to workout functionality', () => {
   test('add view shows state with tags', () => {
     const { getByText, store } = wrapper(reducer, <TagsModalAdd />);
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'content', _id: 1 }]
     });
     expect(getByText(/content/i)).toBeTruthy();
@@ -40,7 +40,7 @@ describe('add tag to workout functionality', () => {
     );
 
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'content', _id: 1 }]
     });
 
@@ -65,7 +65,7 @@ describe('add tag to workout functionality', () => {
     );
 
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'content', _id: 1 }]
     });
 
@@ -86,7 +86,7 @@ describe('add tag to workout functionality', () => {
       return <>{props.children}</>;
     };
 
-    const { getByTestId, store, queryByTestId, queryByText } = wrapper(
+    const { getByTestId, store, queryByTestId, queryAllByText } = wrapper(
       reducer,
       <Wrapper>
         <WorkoutTags />
@@ -95,7 +95,7 @@ describe('add tag to workout functionality', () => {
     );
 
     store.dispatch({
-      type: FETCH_TAGS_SUCCESS,
+      type: ADD_TAGS,
       payload: [{ content: 'content', _id: 1 }]
     });
 
@@ -108,6 +108,6 @@ describe('add tag to workout functionality', () => {
       payload: { content: 'changed', _id: 1 }
     });
 
-    await wait(() => expect(queryByText(/changed/i)).toBeTruthy());
+    await wait(() => expect(queryAllByText(/changed/i)).toBeTruthy());
   });
 });

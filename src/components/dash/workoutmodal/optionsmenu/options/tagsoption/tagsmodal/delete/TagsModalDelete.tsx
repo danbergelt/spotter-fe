@@ -1,42 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Err from './Err';
-import { deleteTagAction } from '../../../../../../../../actions/tagsActions';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import {
+  deleteTagAction,
+  setActiveTabAction
+} from '../../../../../../../../actions/tagsActions';
+import { useDispatch } from 'react-redux';
 import { TagOnWorkout as Tag } from 'src/types/TagOnWorkout';
-import { State } from 'src/types/State';
-import reFetch from 'src/utils/reFetch';
 import useToken from '../../../../../../../../hooks/useToken';
+import useApi from 'src/hooks/useApi';
+import { deleteTagQuery } from 'src/utils/queries';
 
 interface Props {
-  toDelete: Partial<Tag>;
+  toDelete: Tag;
 }
 
 const TagsModalDelete: React.FC<Props> = ({ toDelete }) => {
   const [err, setErr] = useState<string>('');
-  const history = useHistory();
   const dispatch = useDispatch();
-
   const t: string | null = useToken();
-  const scope: { value: string; label: string } = useSelector(
-    (state: State) => state.globalReducer.scope
-  );
-  const timeSpan: number = useSelector(
-    (state: State) => state.globalReducer.timeSpan
-  );
+  const [res, call] = useApi();
 
-  const paramsHelper = {
-    t,
-    toDelete,
-    history,
-    reFetch,
-    timeSpan,
-    scope,
-    setErr
-  };
+  // on the api response, either error out or dispatch the delete tag action to store
+  useEffect(() => {
+    if (res.data) {
+      dispatch(deleteTagAction(toDelete));
+      dispatch(setActiveTabAction(0));
+    }
 
-  const deleteTag: () => void = () => {
-    dispatch(deleteTagAction(paramsHelper));
+    if (res.error) {
+      setErr(res.error);
+    }
+  }, [res, dispatch, toDelete]);
+
+  // delete a tag
+  const deleteTag = async (): Promise<void> => {
+    await call(deleteTagQuery, [t, toDelete._id]);
   };
 
   return (
