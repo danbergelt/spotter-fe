@@ -1,18 +1,12 @@
-import {
-  FETCH_TAGS_START,
-  FETCH_TAGS_SUCCESS,
-  FETCH_TAGS_ERROR,
-  RESET_TAGS
-} from '../actions/tagsActions';
 import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
+import { ADD_TAGS, CREATE_TAG } from 'src/actions/tagsActions';
+import { UPDATE_TAG, DELETE_TAG } from 'src/actions/workoutActions';
 import { TagsReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
 import produce from 'immer';
-import { UPDATE_TAG } from 'src/actions/workoutActions';
+import { remove } from 'lodash';
 
 const tagsState: TagsReducer = {
-  isLoading: false,
-  err: null,
   tags: []
 };
 
@@ -24,19 +18,14 @@ export const tagsReducer = (
 ): TagsReducer => {
   return produce(state, draft => {
     switch (action.type) {
-      case FETCH_TAGS_START:
-        draft.isLoading = true;
-        return;
-      case FETCH_TAGS_SUCCESS:
-        draft.isLoading = false;
+      case ADD_TAGS:
         draft.tags = action.payload;
         return;
-      case FETCH_TAGS_ERROR:
-        draft.isLoading = false;
-        draft.err = action.payload;
+      case CREATE_TAG:
+        draft.tags.push(action.payload);
         return;
-      case RESET_TAGS:
-        draft.tags = [];
+      case DELETE_TAG:
+        remove(draft.tags, tag => tag._id === action.payload._id);
         return;
       case CLOSE_WORKOUT_MODAL:
         draft.tags = [];

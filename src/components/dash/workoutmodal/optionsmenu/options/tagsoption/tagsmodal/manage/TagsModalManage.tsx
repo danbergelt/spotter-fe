@@ -14,24 +14,20 @@ import useApi from 'src/hooks/useApi';
 import { updateTag } from 'src/utils/queries';
 
 interface Props {
-  setToDelete: React.Dispatch<React.SetStateAction<Partial<T>>>;
+  setToDelete: React.Dispatch<React.SetStateAction<T>>;
 }
 
 const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
   const tags: Array<T> = useSelector((state: State) => state.tagsReducer.tags);
-
   const t: string | null = useToken();
-
   const dispatch = useDispatch();
-
   const [hover, setHover] = useState<null | string>(null);
-
   const [update, setUpdate] = useState<Partial<T>>({});
-
   const [updateInput, setUpdateInput] = useState<string>('');
-
   const [err, setErr] = useState<string>('');
+  const [res, call] = useApi();
 
+  // delete a tag
   const handleDelete: (tag: T) => void = useCallback(
     tag => {
       dispatch(setActiveTabAction(3));
@@ -40,8 +36,7 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
     [dispatch, setToDelete]
   );
 
-  const [res, call] = useApi();
-
+  // when the api call returns, either load an error or dispatch to the store
   useEffect(() => {
     if (res.data) {
       setUpdate({});
@@ -54,6 +49,7 @@ const TagsModalManage: React.FC<Props> = ({ setToDelete }) => {
     }
   }, [res, dispatch]);
 
+  // call the api
   const handleSubmit: (
     e: React.FormEvent<HTMLFormElement>
   ) => Promise<void> = useCallback(

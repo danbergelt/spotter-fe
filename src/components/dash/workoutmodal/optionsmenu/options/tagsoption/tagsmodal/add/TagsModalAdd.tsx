@@ -1,22 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Loader from 'react-loader-spinner';
 import { toggleTagAction } from '../../../../../../../../actions/workoutActions';
-import { styles as lStyles } from '../localutils/loaderStyles';
 import Tag from './Tag';
 import { State } from 'src/types/State';
 import { TagOnWorkout as T } from 'src/types/TagOnWorkout';
 
-interface TagsState {
-  tags: Array<T>;
-  isLoading: boolean;
+interface Props {
+  loading: boolean;
 }
 
 // tab - add tag to current workout
-const TagsModalAdd: React.FC = () => {
-  const { tags, isLoading }: TagsState = useSelector(
-    (state: State) => state.tagsReducer
-  );
+const TagsModalAdd: React.FC<Props> = ({ loading }) => {
+  const tags: Array<T> = useSelector((state: State) => state.tagsReducer.tags);
   const onWorkout: Array<T> = useSelector(
     (state: State) => state.workoutReducer.tags
   );
@@ -31,18 +26,6 @@ const TagsModalAdd: React.FC = () => {
     },
     [dispatch]
   );
-
-  if (isLoading) {
-    return (
-      <Loader
-        style={lStyles}
-        type='ThreeDots'
-        color='#E9503F'
-        height={15}
-        width={60}
-      />
-    );
-  }
 
   if (!tags.length) {
     return <div className='no-tags-found'>No tags found</div>;

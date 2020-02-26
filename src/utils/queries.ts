@@ -11,6 +11,8 @@ import axios, { AxiosResponse } from 'axios';
 import endpoint from './endpoint';
 import axiosWithAuth from './axiosWithAuth';
 
+type Token = string | null;
+
 // submit a contact form
 export const contact = async (
   values: Record<string, string>
@@ -22,8 +24,29 @@ export const logout = async (): Promise<AxiosResponse> =>
 
 // update a tag
 export const updateTag = async (
-  t: string | null,
+  t: Token,
   id: string,
   updateInput: string
 ): Promise<AxiosResponse> =>
   await axiosWithAuth(t).put(endpoint(`tags/${id}`), { content: updateInput });
+
+// fetch user's tags
+export const fetchTags = async (t: Token): Promise<AxiosResponse> =>
+  await axiosWithAuth(t).get(endpoint('tags'));
+
+// create a tag
+export const createTagQuery = async (
+  t: Token,
+  color: string,
+  content: string
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).post(endpoint('tags'), { color, content });
+};
+
+// delete a tag
+export const deleteTagQuery = async (
+  t: Token,
+  id: string
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).delete(endpoint(`tags/${id}`));
+};

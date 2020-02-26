@@ -1,49 +1,53 @@
 import { tagsReducer } from '../../../reducers/tagsReducer';
-import {
-  RESET_TAGS,
-  FETCH_TAGS_START,
-  FETCH_TAGS_SUCCESS,
-  FETCH_TAGS_ERROR
-} from '../../../actions/tagsActions';
+import { UPDATE_TAG, DELETE_TAG } from 'src/actions/workoutActions';
+import { ADD_TAGS, CREATE_TAG } from 'src/actions/tagsActions';
+import { CLOSE_WORKOUT_MODAL } from 'src/actions/globalActions';
 
 describe('tag reducer', () => {
   test('should return initial state', () => {
     expect(tagsReducer(undefined, {})).toEqual({
-      isLoading: false,
-      err: null,
       tags: []
     });
   });
 
-  test('should handle RESET_TAGS', () => {
+  test('should handle ADD_TAG', () => {
     expect(
-      tagsReducer({ tags: { tag: 'tag would go here' } }, { type: RESET_TAGS })
+      tagsReducer({ tags: [] }, { type: ADD_TAGS, payload: [{ foo: 'bar' }] })
+    ).toEqual({ tags: [{ foo: 'bar' }] });
+  });
+
+  test('should handle CREATE_TAG', () => {
+    expect(
+      tagsReducer(
+        {
+          tags: [{ foo: 'bar' }]
+        },
+        { type: CREATE_TAG, payload: { bar: 'baz' } }
+      )
+    ).toEqual({ tags: [{ foo: 'bar' }, { bar: 'baz' }] });
+  });
+
+  test('should handle DELETE_TAG', () => {
+    expect(
+      tagsReducer(
+        { tags: [{ _id: 0 }] },
+        { type: DELETE_TAG, payload: { _id: 0 } }
+      )
     ).toEqual({ tags: [] });
   });
 
-  test('should handle FETCH_TAGS_START', () => {
-    expect(tagsReducer(undefined, { type: FETCH_TAGS_START })).toEqual({
-      err: null,
-      isLoading: true,
-      tags: []
-    });
+  test('should handle CLOSE_WORKOUT_MODAL', () => {
+    expect(
+      tagsReducer({ tags: [{ foo: 'bar' }] }, { type: CLOSE_WORKOUT_MODAL })
+    ).toEqual({ tags: [] });
   });
 
-  test('should handle FETCH_TAGS_SUCCESS ', () => {
+  test('should handle UPDATE_TAG', () => {
     expect(
-      tagsReducer(undefined, {
-        type: FETCH_TAGS_SUCCESS,
-        payload: [{ tag: 'tag' }]
-      })
-    ).toEqual({ err: null, isLoading: false, tags: [{ tag: 'tag' }] });
-  });
-
-  test('should handle FETCH_TAGS_ERROR', () => {
-    expect(
-      tagsReducer(undefined, {
-        type: FETCH_TAGS_ERROR,
-        payload: 'TEST error'
-      })
-    ).toEqual({ err: 'TEST error', isLoading: false, tags: [] });
+      tagsReducer(
+        { tags: [{ _id: 0, foo: 'bar' }] },
+        { type: UPDATE_TAG, payload: { _id: 0, bar: 'baz' } }
+      )
+    ).toEqual({ tags: [{ _id: 0, bar: 'baz' }] });
   });
 });

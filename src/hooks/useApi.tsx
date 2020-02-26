@@ -57,17 +57,20 @@ export default (): [Res, Function] => {
         if (e.response) {
           setRes(state =>
             produce(state, draft => {
+              draft.isLoading = false;
               draft.error = errorMsg ? errorMsg : e.response.data.error;
-              return draft;
+              return;
             })
           );
         } else {
           // if the error is unhandled, set the fallback to state
           setRes(state =>
             produce(state, draft => {
+              draft.isLoading = false;
               draft.error = errorMsg
                 ? errorMsg
-                : 'server error, try again later';
+                : 'Server error, try again later';
+              return;
             })
           );
         }
