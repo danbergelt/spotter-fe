@@ -4,13 +4,14 @@ import {
   CHANGE_SCOPE,
   handleScopeChangeAction,
   SET_TIMESPAN,
-  incOrDecAction
+  incOrDecAction,
+  LOGOUT
 } from '../../../actions/globalActions';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('global actions', () => {
-  test('changes time scope', async () => {
+  test('changes time scope', () => {
     const tester = { value: 'tester', label: 'tester' };
 
     const expectedAction = [{ type: CHANGE_SCOPE, payload: tester }];
@@ -22,7 +23,7 @@ describe('global actions', () => {
     expect(store.getActions()).toEqual(expectedAction);
   });
 
-  test('increments date', async () => {
+  test('increments date', () => {
     const expectedAction = [{ type: SET_TIMESPAN, payload: 1 }];
 
     const store = mockStore();
@@ -32,7 +33,7 @@ describe('global actions', () => {
     expect(store.getActions()).toEqual(expectedAction);
   });
 
-  test('decrements date', async () => {
+  test('decrements date', () => {
     const expectedAction = [{ type: SET_TIMESPAN, payload: -1 }];
 
     const store = mockStore();

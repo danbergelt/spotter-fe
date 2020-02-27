@@ -5,11 +5,9 @@ import { History } from 'history';
 import { FROM_SAVED } from './workoutActions';
 import { Workout } from 'src/types/Workout';
 import { ADD_TOKEN } from './addTokenActions';
-import axiosWithAuth from 'src/utils/axiosWithAuth';
 import { Action } from 'redux';
 import { State } from 'src/types/State';
 import { ThunkDispatch } from 'redux-thunk';
-import endpoint from '../utils/endpoint';
 
 export const MODAL_CTX = 'MODAL_CTX';
 export const LOGOUT = 'LOGOUT';
@@ -128,19 +126,6 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
 type TLogOut = () => Action;
 export const logOutAction: TLogOut = () => {
   return { type: LOGOUT };
-};
-
-// deletes a user's account, empties state, pushes user to the signup page
-type TCloseAccount = (
-  t: string | null,
-  history: History
-) => (dispatch: ThunkDispatch<State, void, Action>) => void;
-export const closeAccountAction: TCloseAccount = (t, history) => {
-  return async (dispatch): Promise<void> => {
-    await axiosWithAuth(t).delete(endpoint('user/delete'));
-    dispatch({ type: LOGOUT });
-    history.push('/signup');
-  };
 };
 
 // add a token to state

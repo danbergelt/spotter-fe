@@ -1,17 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { closeAccountAction } from 'src/actions/globalActions';
-import { useHistory } from 'react-router-dom';
-import { Dispatch, AnyAction } from 'redux';
+import { logOutAction } from 'src/actions/globalActions';
+// import { useHistory } from 'react-router-dom';
 import useToken from '../../../hooks/useToken';
+import useApi from 'src/hooks/useApi';
+import { deleteAccountQuery } from 'src/utils/queries';
 
 const CloseAccount: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
   const [confirmClose, setConfirmClose] = useState<boolean>(false);
 
   const t: string | null = useToken();
+
+  const [res, call] = useApi();
+
+  useEffect(() => {
+    if (res.data) {
+      dispatch(logOutAction());
+    }
+
+    if (res.error) {
+      // no-op, handle error later
+    }
+  }, [res, dispatch]);
+
+  const deleteAccount = async (): Promise<void> => {
+    if (confirmClose) {
+      await call(deleteAccountQuery, [t]);
+    }
+  };
 
   return (
     <article className='del-account-container'>
@@ -36,9 +55,7 @@ const CloseAccount: React.FC = () => {
           confirmClose ? 'delete-account' : 'delete-account-disabled'
         }
         className={confirmClose ? 'delete-account' : 'delete-account-disabled'}
-        onClick={(): false | ((dispatch: Dispatch<AnyAction>) => void) =>
-          confirmClose && dispatch(closeAccountAction(t, history))
-        }
+        onClick={deleteAccount}
       >
         Close Account
       </div>
