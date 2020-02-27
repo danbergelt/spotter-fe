@@ -110,3 +110,8 @@ export const editWorkoutQuery = async (
     tags
   });
 };
+
+// delete account
+export const deleteAccountQuery = async (t: Token): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).delete(endpoint('user/delete'));
+};
