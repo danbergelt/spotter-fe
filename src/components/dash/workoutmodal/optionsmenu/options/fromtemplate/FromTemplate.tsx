@@ -1,6 +1,5 @@
 import React, { useState, useCallback, SetStateAction } from 'react';
 import Modal from 'react-modal';
-import { useDispatch } from 'react-redux';
 import { useFromTemplateStyles } from './styles';
 import Templates from './Templates';
 import FromTemplateHead from './FromTemplateHead';
@@ -29,14 +28,12 @@ const FromTemplate: React.FC<Props> = ({
   const [search, setSearch] = useState<string>('');
   const [active, setActive] = useState<Partial<Template>>({});
 
-  const dispatch = useDispatch();
-
   // resets state when modal is closed
   const closeHandler: () => void = useCallback(() => {
     setModal(false);
     setActive({});
     setSearch('');
-  }, [dispatch]);
+  }, [setModal]);
 
   return (
     <Modal

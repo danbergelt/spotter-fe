@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
 import Template from './Template';
-import { useDispatch } from 'react-redux';
 import produce from 'immer';
 import { remove } from 'lodash';
 import { Template as T } from 'src/types/Template';
@@ -27,7 +26,6 @@ const Templates: React.FC<Props> = ({
   templates,
   setTemplates
 }) => {
-  const dispatch = useDispatch();
   const token: string | null = useToken();
 
   const [res, call] = useApi();
@@ -44,14 +42,14 @@ const Templates: React.FC<Props> = ({
     if (res.error) {
       // handle at later date
     }
-  }, [res]);
+  }, [res, setTemplates]);
 
   // delete a template
   const deleteTemplate: (id: string) => void = useCallback(
     async id => {
       await call(deleteTemplateQuery, [token, id]);
     },
-    [dispatch, token]
+    [token, call]
   );
 
   // search filter
