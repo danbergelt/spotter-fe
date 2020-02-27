@@ -10,6 +10,7 @@
 import axios, { AxiosResponse } from 'axios';
 import endpoint from './endpoint';
 import axiosWithAuth from './axiosWithAuth';
+import { Workout } from 'src/types/Workout';
 
 type Token = string | null;
 
@@ -49,4 +50,33 @@ export const deleteTagQuery = async (
   id: string
 ): Promise<AxiosResponse> => {
   return await axiosWithAuth(t).delete(endpoint(`tags/${id}`));
+};
+
+// fetch user's templates
+export const fetchTemplatesQuery = async (t: Token): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).get(endpoint('templates'));
+};
+
+// delete template
+export const deleteTemplateQuery = async (
+  t: Token,
+  id: string
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).delete(endpoint(`templates/${id}`));
+};
+
+// save a template
+export const saveTemplateQuery = async (
+  t: Token,
+  name: string,
+  workout: Workout
+): Promise<AxiosResponse> => {
+  const { title, tags, notes, exercises } = workout;
+  return await axiosWithAuth(t).post(endpoint('templates'), {
+    name,
+    title,
+    tags,
+    notes,
+    exercises
+  });
 };

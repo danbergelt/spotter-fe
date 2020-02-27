@@ -1,14 +1,10 @@
-import { Action } from 'redux';
+import { ReduxAction } from '../types/Types';
 import { DELETE_TAG, UPDATE_TAG } from './workoutActions';
 import { SET_ACTIVE, CLOSE_TAG_MODAL, OPEN_TAG_MODAL } from './optionsActions';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 
 export const ADD_TAGS = 'ADD_TAGS';
 export const CREATE_TAG = 'CREATE_TAG';
-
-interface ReduxAction<T> extends Action {
-  payload: T;
-}
 
 // fetch tags
 export const fetchTagsAction = (

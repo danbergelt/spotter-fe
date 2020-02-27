@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, useEffect, SetStateAction } from 'react';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import { useSaveTemplateStyles } from './utils/styles';
@@ -7,42 +7,54 @@ import SaveTemplateBtn from './SaveTemplateBtn';
 import SaveTemplateForm from './SaveTemplateForm';
 import SaveTemplateHead from './SaveTemplateHead';
 import { State, WorkoutReducer } from 'src/types/State';
-import { saveTemplateAction } from 'src/actions/optionsActions';
 import useToken from '../../../../../../hooks/useToken';
+import useApi from 'src/hooks/useApi';
+import { saveTemplateQuery } from 'src/utils/queries';
 
 interface Props {
-  close: (payload: boolean) => void;
+  modal: boolean;
+  setModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 // save template modal body, including call to save template
 
-const SaveTemplate: React.FC<Props> = ({ close }) => {
-  const workout: WorkoutReducer = useSelector(
-    (state: State) => state.workoutReducer
-  );
-  const templateSave: boolean = useSelector(
-    (state: State) => state.optionsReducer.templateSave
-  );
-
+const SaveTemplate: React.FC<Props> = ({ modal, setModal }) => {
   const token: string | null = useToken();
-
   const [tempName, setTempName] = useState<string>('');
+  const [res, call] = useApi();
   const [message, setMessage] = useState<{ success?: string; error?: string }>(
     {}
   );
+  const workout: WorkoutReducer = useSelector(
+    (state: State) => state.workoutReducer
+  );
 
   const closeHandler: () => void = () => {
-    close(false);
+    setModal(false);
     setMessage({});
     setTempName('');
   };
 
-  // API call to save template
-  const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = e => {
+  // send message to user when save attempt resolves/rejects
+  useEffect(() => {
+    if (res.data) {
+      setTempName('');
+      setMessage({ success: 'Template created' });
+    }
+
+    if (res.error) {
+      setMessage({ error: res.error });
+    }
+  }, [res]);
+
+  // save template
+  const handleSubmit: (
+    e: React.FormEvent<HTMLFormElement>
+  ) => Promise<void> = async e => {
     e.preventDefault();
-    saveTemplateAction(token, tempName, workout, setTempName, setMessage);
+    await call(saveTemplateQuery, [token, tempName, workout]);
   };
 
   return (
@@ -50,7 +62,7 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
       style={useSaveTemplateStyles()}
       onRequestClose={closeHandler}
       contentLabel='Save Template'
-      isOpen={templateSave}
+      isOpen={modal}
     >
       <section className='save-template-container'>
         <SaveTemplateHead closeHandler={closeHandler} />
@@ -79,4 +91,4 @@ const SaveTemplate: React.FC<Props> = ({ close }) => {
   );
 };
 
-export default memo(SaveTemplate);
+export default SaveTemplate;
