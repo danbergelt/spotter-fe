@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import { isEmpty } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { generateTemplateAction } from '../../../../../../actions/workoutActions';
 import { Template } from 'src/types/Template';
-import { setFromTemplateModalAction } from 'src/actions/optionsActions';
 
 interface Props {
   active: Partial<Template>;
   setActive: React.Dispatch<React.SetStateAction<{} | Template>>;
+  setModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 // button that does the generating
-const GenerateTemplate: React.FC<Props> = ({ active, setActive }) => {
+const GenerateTemplate: React.FC<Props> = ({ active, setActive, setModal }) => {
   const dispatch = useDispatch();
 
   // handles state when new template is generated
   const genHandler = (template: Template | {}): void => {
     // TS does not pick up on Lodash isEmpty, so need to pass in empty object as a union
     dispatch(generateTemplateAction(template));
-    dispatch(setFromTemplateModalAction(false));
+    setModal(false);
     setActive({});
   };
 

@@ -32,12 +32,10 @@ describe('template save modal functionality', () => {
   });
 
   test('can type in template save input', () => {
-    const { getByPlaceholderText, container, store } = wrapper(
+    const { getByPlaceholderText, container, store, debug } = wrapper(
       reducer,
-      <SaveTemplate />
+      <SaveTemplate modal={true} />
     );
-
-    store.dispatch({ type: 'SET_TEMPLATE_SAVE', payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
@@ -47,14 +45,12 @@ describe('template save modal functionality', () => {
   });
 
   test('can submit template', async () => {
-    axios.post.mockResolvedValue({ resolved: 'resolved' });
+    axios.post.mockResolvedValue({ data: 'resolved' });
 
     const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
-      <SaveTemplate />
+      <SaveTemplate modal={true} />
     );
-
-    store.dispatch({ type: 'SET_TEMPLATE_SAVE', payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 
@@ -70,10 +66,8 @@ describe('template save modal functionality', () => {
     axios.post.mockRejectedValue({ response: { data: { error: 'bad req' } } });
     const { getByPlaceholderText, getByTestId, getByText, store } = wrapper(
       reducer,
-      <SaveTemplate />
+      <SaveTemplate modal={true} />
     );
-
-    store.dispatch({ type: 'SET_TEMPLATE_SAVE', payload: true });
 
     const input = getByPlaceholderText(/template name/i);
 

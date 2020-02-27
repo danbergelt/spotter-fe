@@ -38,48 +38,4 @@ describe('dispatches option actions', () => {
 
     expect(store.getActions()).toEqual(expectedActions);
   });
-
-  test('set from template modal state', () => {
-    const expectedActions = [{ type: SET_FROM_TEMPLATE, payload: true }];
-
-    const store = mockStore();
-
-    store.dispatch(setFromTemplateModalAction(true));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  test('fetches templates', async () => {
-    axios.get.mockResolvedValue({ data: { templates: [{ name: 'foo' }] } });
-    const expectedActions = [
-      { type: SET_TEMPLATES, payload: [{ name: 'foo' }] }
-    ];
-
-    const store = mockStore();
-
-    await store.dispatch(fetchTemplatesAction('token'));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  test('deletes template', async () => {
-    axios.delete.mockResolvedValue({});
-    const expectedActions = [{ type: DELETE_TEMPLATE, payload: 2 }];
-
-    const store = mockStore();
-
-    await store.dispatch(deleteTemplateAction('token', 2));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  test('save template modal state', async () => {
-    const expectedActions = [{ type: SET_TEMPLATE_SAVE, payload: false }];
-
-    const store = mockStore();
-
-    await store.dispatch(setSaveTemplateModalAction(false));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
 });

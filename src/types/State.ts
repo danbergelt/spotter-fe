@@ -3,7 +3,6 @@ import { Exercise as E } from './ExerciseOption';
 import { TagOnWorkout as Tag } from './TagOnWorkout';
 import { Workout } from './Workout';
 import { Moment } from 'moment';
-import { Template } from './Template';
 
 export interface GlobalReducer {
   t: null | string;
@@ -29,12 +28,8 @@ export interface TagsReducer {
 export interface OptionsReducer {
   active: number;
   tagModal: boolean;
-  templateSave: boolean;
-  fromTemplate: boolean;
   confirmDelete: boolean;
   exercises: boolean;
-  templates: Array<Template>;
-  templatesErr: string;
   saveMsg: object;
 }
 

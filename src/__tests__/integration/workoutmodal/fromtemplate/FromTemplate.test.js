@@ -100,8 +100,10 @@ describe('from template functionality', () => {
 
   test('can delete template', async () => {
     axios.get.mockResolvedValue(mockTemplateRes);
-    axios.delete.mockResolvedValue({});
-    const { getByText, getByTestId, queryByText } = wrapper(
+    axios.delete.mockResolvedValue({
+      data: { template: { _id: 'jfi289f289fj9jf289jf9' } }
+    });
+    const { getByText, getByTestId, queryByText, debug } = wrapper(
       reducer,
       <WorkoutOptions />
     );

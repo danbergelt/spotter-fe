@@ -1,40 +1,44 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, SetStateAction } from 'react';
 import Modal from 'react-modal';
-import { useDispatch, useSelector } from 'react-redux';
 import { useFromTemplateStyles } from './styles';
-import { setFromTemplateModalAction } from '../../../../../../actions/optionsActions';
 import Templates from './Templates';
 import FromTemplateHead from './FromTemplateHead';
 import GenerateTemplate from './GenerateTemplate';
 import { Template } from '../../../../../../types/Template';
-import { State } from 'src/types/State';
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 // populate a workout from a template
 
-const FromTemplate: React.FC = () => {
+interface Props {
+  err: string;
+  templates: Array<Template>;
+  modal: boolean;
+  setModal: React.Dispatch<SetStateAction<boolean>>;
+  setTemplates: React.Dispatch<SetStateAction<Array<Template>>>;
+}
+
+const FromTemplate: React.FC<Props> = ({
+  err,
+  templates,
+  modal,
+  setModal,
+  setTemplates
+}) => {
   const [search, setSearch] = useState<string>('');
   const [active, setActive] = useState<Partial<Template>>({});
 
-  // modal state (open or closed)
-  const fromTemplate: boolean = useSelector(
-    (state: State) => state.optionsReducer.fromTemplate
-  );
-
-  const dispatch = useDispatch();
-
   // resets state when modal is closed
   const closeHandler: () => void = useCallback(() => {
-    dispatch(setFromTemplateModalAction(false));
+    setModal(false);
     setActive({});
     setSearch('');
-  }, [dispatch]);
+  }, [setModal]);
 
   return (
     <Modal
       style={useFromTemplateStyles()}
-      isOpen={fromTemplate}
+      isOpen={modal}
       onRequestClose={closeHandler}
       contentLabel='Generate Template'
     >
@@ -44,8 +48,19 @@ const FromTemplate: React.FC = () => {
           search={search}
           setSearch={setSearch}
         />
-        <Templates search={search} active={active} setActive={setActive} />
-        <GenerateTemplate active={active} setActive={setActive} />
+        <Templates
+          setTemplates={setTemplates}
+          templates={templates}
+          err={err}
+          search={search}
+          active={active}
+          setActive={setActive}
+        />
+        <GenerateTemplate
+          setModal={setModal}
+          active={active}
+          setActive={setActive}
+        />
       </section>
     </Modal>
   );
