@@ -2,8 +2,6 @@
 //
 // single source of truth for all api queries
 // allows for easy re-use, and co-located storage
-// also, when using the useApi custom hook,
-// allows us to define our queries outside the component
 //
 ////////////////////////////////////////////////////////
 
@@ -11,6 +9,7 @@ import axios, { AxiosResponse } from 'axios';
 import endpoint from './endpoint';
 import axiosWithAuth from './axiosWithAuth';
 import { Workout } from 'src/types/Workout';
+import { Moment } from 'moment';
 
 type Token = string | null;
 
@@ -78,5 +77,36 @@ export const saveTemplateQuery = async (
     tags,
     notes,
     exercises
+  });
+};
+
+// save a workout
+export const saveWorkoutQuery = async (
+  t: Token,
+  date: Moment | null,
+  workout: Workout
+): Promise<AxiosResponse> => {
+  const { title, tags, notes, exercises } = workout;
+  return await axiosWithAuth(t).post(endpoint('workouts'), {
+    date: date?.format('MMM DD YYYY'),
+    title,
+    notes,
+    exercises,
+    tags
+  });
+};
+
+// edit a workout
+export const editWorkoutQuery = async (
+  t: Token,
+  id: string,
+  workout: Workout
+): Promise<AxiosResponse> => {
+  const { title, notes, exercises, tags } = workout;
+  return await axiosWithAuth(t).put(endpoint(`workouts/${id}`), {
+    title,
+    notes,
+    exercises,
+    tags
   });
 };

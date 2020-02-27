@@ -4,6 +4,7 @@ import {
   FETCH_WORKOUTS_SUCCESS,
   FETCH_WORKOUTS_ERROR
 } from '../../../actions/fetchWorkoutsActions';
+import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
 
 describe('fetch workout reducer tests', () => {
   test('should return initial state', () => {
@@ -11,6 +12,34 @@ describe('fetch workout reducer tests', () => {
       err: null,
       isLoading: false,
       workouts: []
+    });
+  });
+
+  test('should handle CREATE_WORKOUT', () => {
+    expect(
+      fetchWorkoutsReducer(undefined, {
+        type: CREATE_WORKOUT,
+        payload: { foo: 'bar' }
+      })
+    ).toEqual({ err: null, isLoading: false, workouts: [{ foo: 'bar' }] });
+  });
+
+  test('should handle EDIT_WORKOUT', () => {
+    expect(
+      fetchWorkoutsReducer(
+        {
+          workouts: [
+            { _id: 0, foo: 'bar' },
+            { _id: 1, a: 'b' }
+          ]
+        },
+        { type: EDIT_WORKOUT, payload: { _id: 0, bar: 'baz' } }
+      )
+    ).toEqual({
+      workouts: [
+        { _id: 0, bar: 'baz' },
+        { _id: 1, a: 'b' }
+      ]
     });
   });
 

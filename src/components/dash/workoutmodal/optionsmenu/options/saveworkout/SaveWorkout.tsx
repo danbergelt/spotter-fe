@@ -1,18 +1,17 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  saveWorkoutAction,
-  editWorkoutAction
+  editWorkoutAction,
+  createWorkoutAction
 } from '../../../../../../actions/optionsActions';
-import { useHistory } from 'react-router-dom';
-import reFetch from '../../../../../../utils/reFetch';
 import { State, WorkoutReducer } from 'src/types/State';
 import { Moment } from 'moment';
+import useApi from 'src/hooks/useApi';
+import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
 
 interface Props {
   workoutId: string | null;
-  time: number;
   closeParentModal: () => void;
   ctx: string | null;
   iconClass: string;
@@ -20,53 +19,56 @@ interface Props {
 
 interface GlobalReducer {
   date: null | Moment;
-  scope: { value: string; label: string };
   t: string | null;
 }
 
 // Save or Edit workout depending on global modal context
 const SaveWorkout: React.FC<Props> = ({
   workoutId,
-  time,
   closeParentModal,
   ctx,
   iconClass
 }) => {
-  const saveMsg: Partial<{ error: string }> = useSelector(
-    (state: State) => state.optionsReducer.saveMsg
-  );
+  const [error, setError] = useState('');
   const workout: WorkoutReducer = useSelector(
     (state: State) => state.workoutReducer
   );
-  const { date, scope, t }: GlobalReducer = useSelector(
+  const { date, t }: GlobalReducer = useSelector(
     (state: State) => state.globalReducer
   );
-
   const dispatch = useDispatch();
-  const history = useHistory();
+  const [res, call] = useApi();
 
-  // builds an object to clean up passing 5+ params to the workout dispatchers
-  const paramsHelper = {
-    t,
-    workout,
-    closeParentModal,
-    time,
-    scope,
-    history,
-    reFetch,
-    date,
-    workoutId
-  };
+  useEffect(() => {
+    if (res.data) {
+      // if the ctx is add, push the returned workout to the list of workouts
+      if (ctx === 'add') {
+        dispatch(createWorkoutAction(res.data.workout));
+        closeParentModal();
+      }
 
-  const saveHandler: () => void = () => {
+      // if the ctx is view, replace the workout with the returned workout
+      if (ctx === 'view') {
+        dispatch(editWorkoutAction(res.data.workout));
+        closeParentModal();
+      }
+    }
+
+    if (res.error) {
+      setError(res.error);
+    }
+  }, [res]);
+
+  // save/edit a workout
+  const saveHandler = async (): Promise<void> => {
     // if user is adding a new workout
     if (ctx === 'add') {
-      dispatch(saveWorkoutAction(paramsHelper));
+      await call(saveWorkoutQuery, [t, date, workout]);
     }
 
     // if user is editing a saved workout
     if (ctx === 'view') {
-      dispatch(editWorkoutAction(paramsHelper));
+      await call(editWorkoutQuery, [t, workoutId, workout]);
     }
   };
 
@@ -81,7 +83,7 @@ const SaveWorkout: React.FC<Props> = ({
         <FiPlusCircle className={iconClass} />
         {ctx === 'add' ? 'Save' : 'Update'}
       </div>
-      {saveMsg.error && <div className='save error'>{saveMsg.error}</div>}
+      {error && <div className='save error'>{error}</div>}
     </>
   );
 };
