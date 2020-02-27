@@ -57,7 +57,7 @@ const SaveWorkout: React.FC<Props> = ({
     if (res.error) {
       setError(res.error);
     }
-  }, [res]);
+  }, [res, closeParentModal, ctx, dispatch]);
 
   // save/edit a workout
   const saveHandler = async (): Promise<void> => {
