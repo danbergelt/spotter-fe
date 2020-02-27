@@ -9,6 +9,7 @@ import { UPDATE_TAG, DELETE_TAG } from '../actions/workoutActions';
 import { FetchWorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
 import { remove } from 'lodash';
+import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
 
 const fetchedWorkoutsState: FetchWorkoutsReducer = {
   err: null,
@@ -24,6 +25,16 @@ export const fetchWorkoutsReducer = (
 ): FetchWorkoutsReducer => {
   return produce(state, draft => {
     switch (action.type) {
+      case CREATE_WORKOUT:
+        draft.workouts.push(action.payload);
+        return;
+      case EDIT_WORKOUT:
+        draft.workouts.forEach((workout, i) => {
+          if (workout._id === action.payload._id) {
+            draft.workouts[i] = action.payload;
+          }
+        });
+        return;
       case FETCH_WORKOUTS_START:
         draft.isLoading = true;
         return;

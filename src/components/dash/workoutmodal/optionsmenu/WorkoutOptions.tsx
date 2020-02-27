@@ -45,7 +45,6 @@ const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
             iconClass={iconClass}
           />
           <SaveWorkout
-            time={time}
             closeParentModal={closeParentModal}
             workoutId={workoutId}
             ctx={ctx}

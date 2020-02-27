@@ -6,19 +6,35 @@ import {
   setConfirmDeleteAction,
   SET_EXERCISES,
   setExercisesModalAction,
-  SET_FROM_TEMPLATE,
-  setFromTemplateModalAction,
-  SET_TEMPLATES,
-  fetchTemplatesAction,
-  DELETE_TEMPLATE,
-  deleteTemplateAction,
-  setSaveTemplateModalAction,
-  SET_TEMPLATE_SAVE
+  CREATE_WORKOUT,
+  createWorkoutAction,
+  EDIT_WORKOUT,
+  editWorkoutAction
 } from '../../../actions/optionsActions';
 
 const mockStore = configureMockStore([thunk]);
 
 describe('dispatches option actions', () => {
+  test('create workout', () => {
+    const expectedActions = [{ type: CREATE_WORKOUT, payload: 'foo' }];
+
+    const store = mockStore();
+
+    store.dispatch(createWorkoutAction('foo'));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test('edit workout', () => {
+    const expectedActions = [{ type: EDIT_WORKOUT, payload: 'foo' }];
+
+    const store = mockStore();
+
+    store.dispatch(editWorkoutAction('foo'));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
   test('set confirm delete modal state', () => {
     const expectedActions = [{ type: SET_CONFIRM_DELETE, payload: false }];
 
