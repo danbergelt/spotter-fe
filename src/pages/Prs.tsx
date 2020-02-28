@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet-async';
 import { Exercise } from 'src/types/ExerciseOption';
 import useToken from '../hooks/useToken';
 import useApi from 'src/hooks/useApi';
+import { fetchExercisesQuery } from 'src/utils/queries';
 const moment: MomentRange = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -47,7 +48,7 @@ const Prs: React.FC = () => {
   }, [res, dispatch]);
 
   useEffect(() => {
-    call(t);
+    call(fetchExercisesQuery, [t]);
   }, [call, t]);
 
   // finds the difference between two moment dates
