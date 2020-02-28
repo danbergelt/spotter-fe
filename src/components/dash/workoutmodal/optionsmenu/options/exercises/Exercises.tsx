@@ -54,7 +54,7 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
     if (modalState) {
       call(fetchExercisesQuery, [t]);
     }
-  }, [call, t]);
+  }, [call, t, modalState]);
 
   return (
     <Modal

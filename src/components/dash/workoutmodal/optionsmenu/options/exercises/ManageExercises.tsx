@@ -40,7 +40,7 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
     async (id: string) => {
       await call(deleteExerciseQuery, [token, id]);
     },
-    [dispatch, token, call]
+    [token, call]
   );
 
   return (

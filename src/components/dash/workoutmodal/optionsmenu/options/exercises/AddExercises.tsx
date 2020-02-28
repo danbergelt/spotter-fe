@@ -34,7 +34,7 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
     if (res.error) {
       setMsg({ error: res.error });
     }
-  }, [res, dispatch, setExercise]);
+  }, [res, dispatch, setExercise, setMsg]);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
