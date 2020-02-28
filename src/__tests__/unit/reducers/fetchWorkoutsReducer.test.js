@@ -1,16 +1,10 @@
 import { fetchWorkoutsReducer } from '../../../reducers/fetchWorkoutsReducer';
-import {
-  FETCH_WORKOUTS_START,
-  FETCH_WORKOUTS_SUCCESS,
-  FETCH_WORKOUTS_ERROR
-} from '../../../actions/fetchWorkoutsActions';
+import { FETCH_WORKOUTS } from '../../../actions/fetchWorkoutsActions';
 import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
 
 describe('fetch workout reducer tests', () => {
   test('should return initial state', () => {
     expect(fetchWorkoutsReducer(undefined, {})).toEqual({
-      err: null,
-      isLoading: false,
       workouts: []
     });
   });
@@ -21,7 +15,7 @@ describe('fetch workout reducer tests', () => {
         type: CREATE_WORKOUT,
         payload: { foo: 'bar' }
       })
-    ).toEqual({ err: null, isLoading: false, workouts: [{ foo: 'bar' }] });
+    ).toEqual({ workouts: [{ foo: 'bar' }] });
   });
 
   test('should handle EDIT_WORKOUT', () => {
@@ -43,29 +37,12 @@ describe('fetch workout reducer tests', () => {
     });
   });
 
-  test('should handle FETCH_WORKOUTS_START', () => {
+  test('should handle FETCH_WORKOUTS', () => {
     expect(
       fetchWorkoutsReducer(undefined, {
-        type: FETCH_WORKOUTS_START
+        type: FETCH_WORKOUTS,
+        payload: 'foo'
       })
-    ).toEqual({ err: null, isLoading: true, workouts: [] });
-  });
-
-  test('should handle FETCH_WORKOUTS_SUCCESS', () => {
-    expect(
-      fetchWorkoutsReducer(undefined, {
-        type: FETCH_WORKOUTS_SUCCESS,
-        payload: [{ name: 'name' }]
-      })
-    ).toEqual({ err: null, isLoading: false, workouts: [{ name: 'name' }] });
-  });
-
-  test('should handle FETCH_WORKOUTS_ERROR', () => {
-    expect(
-      fetchWorkoutsReducer(undefined, {
-        type: FETCH_WORKOUTS_ERROR,
-        payload: 'TEST error'
-      })
-    ).toEqual({ err: 'TEST error', isLoading: false, workouts: [] });
+    ).toEqual({ workouts: 'foo' });
   });
 });

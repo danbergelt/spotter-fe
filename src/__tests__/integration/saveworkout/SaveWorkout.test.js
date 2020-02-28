@@ -5,7 +5,7 @@ import wrapper from '../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
 import axios from 'axios';
 import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
-import { FETCH_WORKOUTS_SUCCESS } from '../../../actions/fetchWorkoutsActions';
+import { FETCH_WORKOUTS } from '../../../actions/fetchWorkoutsActions';
 import { reducer } from '../../../reducers/index';
 import { act } from 'react-dom/test-utils';
 
@@ -33,7 +33,7 @@ describe('can save workout', () => {
     });
 
     store.dispatch({
-      type: FETCH_WORKOUTS_SUCCESS,
+      type: FETCH_WORKOUTS,
       payload: mockWorkoutRes.data.workouts
     });
 

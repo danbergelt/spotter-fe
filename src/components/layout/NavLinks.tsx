@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOutAction } from '../../actions/globalActions';
@@ -14,17 +14,23 @@ interface Props {
 const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
   const token = useToken();
   const dispatch = useDispatch();
-  const [, call] = useApi();
+  const [res, call] = useApi();
 
-  const logOut: () => Promise<void> = async () => {
-    // clears refresh token and access token
-    try {
-      await call(logout);
+  useEffect(() => {
+    if (res.data) {
+      if (isOpen && setIsOpen) {
+        setIsOpen(false);
+      }
       dispatch(logOutAction());
-    } catch (error) {
-      // no-op, will consider solution for broken logout action later
     }
-    if (setIsOpen) setIsOpen(!isOpen);
+
+    if (res.error) {
+      // will handle later
+    }
+  }, [res, dispatch, isOpen, setIsOpen]);
+
+  const logOutUser = async (): Promise<void> => {
+    await call(logout);
   };
 
   return (
@@ -42,7 +48,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       {token && (
         <Link
           data-testid='logout'
-          onClick={logOut}
+          onClick={logOutUser}
           className='spotter-nav-link styled'
           to='/login'
         >

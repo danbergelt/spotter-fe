@@ -34,8 +34,6 @@ export interface OptionsReducer {
 }
 
 export interface FetchWorkoutsReducer {
-  err: string | null;
-  isLoading: boolean;
   workouts: Array<Workout>;
 }
 

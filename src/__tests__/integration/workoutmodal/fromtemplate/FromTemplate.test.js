@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { FETCH_WORKOUTS_SUCCESS } from '../../../../actions/fetchWorkoutsActions';
+import { FETCH_WORKOUTS } from '../../../../actions/fetchWorkoutsActions';
 import { act } from 'react-dom/test-utils';
 import WorkoutModal from '../../../../components/dash/workoutmodal/WorkoutModal';
 import WorkoutOptions from '../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions';
@@ -80,7 +80,7 @@ describe('from template functionality', () => {
     );
 
     store.dispatch({
-      type: FETCH_WORKOUTS_SUCCESS,
+      type: FETCH_WORKOUTS,
       payload: { exercises: [], tags: [] }
     });
 

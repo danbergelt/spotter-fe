@@ -4,7 +4,6 @@ import WorkoutModal from '../../workoutmodal/WorkoutModal';
 import { generateWeek, dashHead } from '../../../../utils/momentUtils';
 import DashControls from '../DashControls';
 import { useHistory } from 'react-router-dom';
-import reFetch from '../../../../utils/reFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   incOrDecAction,
@@ -16,6 +15,9 @@ import { State } from 'src/types/State';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
 import { closeWorkoutModalAction } from 'src/actions/globalActions';
+import { fetchWorkoutsQuery } from 'src/utils/queries';
+import useApi from 'src/hooks/useApi';
+import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -27,6 +29,7 @@ const WorkoutColumns: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [modal, setModal] = useState<boolean>(false);
+  const [res, call] = useApi();
 
   const workouts: Array<Workout> = useSelector(
     (state: State) => state.fetchWorkoutsReducer.workouts
@@ -34,6 +37,16 @@ const WorkoutColumns: React.FC = () => {
   const { scope, t, timeSpan }: GlobalReducer = useSelector(
     (state: State) => state.globalReducer
   );
+
+  useEffect(() => {
+    if (res.data) {
+      dispatch(fetchWorkoutsAction(res.data.workouts));
+    }
+
+    if (res.error) {
+      // handle later
+    }
+  }, [res, dispatch, history]);
 
   // increment or decrement by one week/day at a time
   const inc = (): void => {
@@ -43,10 +56,12 @@ const WorkoutColumns: React.FC = () => {
     dispatch(incOrDecAction('dec', timeSpan));
   };
 
-  // refetches data upon dashboard state change
+  // fetch workouts
   useEffect(() => {
-    reFetch(timeSpan, history, scope.value, t);
-  }, [timeSpan, history, scope.value, t]);
+    if (t) {
+      call(fetchWorkoutsQuery, [t, timeSpan, scope.value]);
+    }
+  }, [timeSpan, scope.value, t, dispatch, call]);
 
   // opens modal to add a new workout
   const paramsHelper = { setModal, fetchExercises, t, history };
