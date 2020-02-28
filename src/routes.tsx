@@ -20,14 +20,14 @@ const Routes: React.FC = () => {
     <Layout>
       <Switch>
         <PublicRoute exact path='/' component={Home} />
-        <PublicRoute exact path='/login' component={LogIn} />
-        <PublicRoute exact path='/signup' component={SignUp} />
-        <PublicRoute exact path='/forgotpassword' component={ForgotPassword} />
-        <PublicRoute exact path='/-/:id' component={ForgotPassword} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
-        <PrivateRoute exact path='/settings' component={Settings} />
-        <PrivateRoute exact path='/prs' component={Prs} />
-        <Route exact path='/500' component={ServerError} />
+        <PublicRoute path='/login' component={LogIn} />
+        <PublicRoute path='/signup' component={SignUp} />
+        <PublicRoute path='/forgotpassword' component={ForgotPassword} />
+        <PublicRoute path='/-/:id' component={ForgotPassword} />
+        <PrivateRoute path='/dashboard' component={Dashboard} />
+        <PrivateRoute path='/settings' component={Settings} />
+        <PrivateRoute path='/prs' component={Prs} />
+        <Route path='/500' component={ServerError} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
