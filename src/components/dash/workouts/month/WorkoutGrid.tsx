@@ -10,7 +10,6 @@ import {
 } from '../../../../actions/globalActions';
 import WorkoutModal from '../../workoutmodal/WorkoutModal';
 import { useHistory } from 'react-router-dom';
-import { fetchExercises } from '../../../../actions/fetchExercisesActions';
 import { State } from 'src/types/State';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
@@ -69,7 +68,7 @@ const WorkoutGrid: React.FC = () => {
   };
 
   // opens modal to add a new workout
-  const paramsHelper = { setModal, fetchExercises, t, history };
+  const paramsHelper = { setModal, t, history };
   const openAddWorkoutModal: (date: Moment) => void = useCallback(
     date => {
       dispatch(addWorkoutModalAction({ ...paramsHelper, date }));

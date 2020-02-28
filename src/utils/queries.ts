@@ -152,3 +152,26 @@ export const fetchWorkoutsQuery = async (
     range: formattedRange
   });
 };
+
+// delete an exercise
+export const deleteExerciseQuery = async (
+  t: Token,
+  id: string
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).delete(endpoint(`exercises/${id}`));
+};
+
+// fetch user's exercises
+export const fetchExercisesQuery = async (t: Token): Promise<AxiosResponse> => {
+  return axiosWithAuth(t).get(endpoint('exercises'));
+};
+
+// create an exercise
+export const createExerciseQuery = async (
+  t: Token,
+  name: string
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).post(endpoint('exercises'), {
+    name
+  });
+};

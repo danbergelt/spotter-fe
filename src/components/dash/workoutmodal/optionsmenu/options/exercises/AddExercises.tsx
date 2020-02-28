@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createExerciseAction } from '../../../../../../actions/fetchExercisesActions';
 import SaveExerciseMsg from './SaveExerciseMsg';
 import useToken from '../../../../../../hooks/useToken';
 import { Msg } from '../../../../../../types/ExerciseOption';
+import useApi from 'src/hooks/useApi';
+import { createExerciseQuery } from 'src/utils/queries';
 
 // create exercise
 
@@ -20,17 +22,31 @@ const AddExercises: React.FC<Props> = ({ msg, setMsg }) => {
 
   const token: string | null = useToken();
   const dispatch = useDispatch();
+  const [res, call] = useApi();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  useEffect(() => {
+    if (res.data) {
+      setExercise('');
+      dispatch(createExerciseAction(res.data.exercise));
+      setMsg({ success: 'Tag created' });
+    }
+
+    if (res.error) {
+      setMsg({ error: res.error });
+    }
+  }, [res, dispatch, setExercise]);
+
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
-    setExercise('');
-    dispatch(createExerciseAction(token, exercise, setMsg));
+    await call(createExerciseQuery, [token, exercise]);
   };
 
   return (
     <>
       <form
-        onSubmit={(e): void => handleSubmit(e)}
+        onSubmit={(e): Promise<void> => handleSubmit(e)}
         style={{
           display: 'flex',
           flexDirection: 'column',

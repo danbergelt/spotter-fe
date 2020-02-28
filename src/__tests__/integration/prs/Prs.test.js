@@ -8,7 +8,7 @@ import axios from 'axios';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-import { FETCH_EXERCISES_SUCCESS } from '../../../actions/fetchExercisesActions';
+import { FETCH_EXERCISES } from '../../../actions/fetchExercisesActions';
 import { act } from 'react-dom/test-utils';
 
 const moment = extendMoment(Moment);
@@ -36,7 +36,7 @@ describe('Prs page functionality', () => {
     store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     store.dispatch({
-      type: FETCH_EXERCISES_SUCCESS,
+      type: FETCH_EXERCISES,
       payload: [
         { name: 'squat', prDate: moment().format('MMM DD YYYY'), pr: 100 },
         {
@@ -72,7 +72,7 @@ describe('Prs page functionality', () => {
     store.dispatch({ type: ADD_TOKEN, payload: 'token' });
 
     store.dispatch({
-      type: FETCH_EXERCISES_SUCCESS,
+      type: FETCH_EXERCISES,
       payload: [
         {
           name: 'deadlift',
