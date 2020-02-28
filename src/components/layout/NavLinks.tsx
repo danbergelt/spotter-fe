@@ -27,7 +27,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
     if (res.error) {
       // will handle later
     }
-  }, [res, dispatch]);
+  }, [res, dispatch, isOpen, setIsOpen]);
 
   const logOutUser = async (): Promise<void> => {
     await call(logout);
