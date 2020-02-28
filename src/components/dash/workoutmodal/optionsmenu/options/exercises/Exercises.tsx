@@ -1,12 +1,16 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useEffect } from 'react';
 import Modal from 'react-modal';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useExerciseModalStyles } from './styles';
 import ExercisesHead from './ExercisesHead';
 import ManageExercises from './ManageExercises';
 import AddExercises from './AddExercises';
 import { State } from 'src/types/State';
 import { Exercise, Msg } from '../../../../../../types/ExerciseOption';
+import useApi from 'src/hooks/useApi';
+import useToken from 'src/hooks/useToken';
+import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
+import { fetchExercisesQuery } from 'src/utils/queries';
 
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
@@ -18,22 +22,39 @@ const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
   const modalState: boolean = useSelector(
     (state: State) => state.optionsReducer.exercises
   );
-
   const savedExercises: Array<Exercise> = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
-
+  const t = useToken();
   const [tab, setTab] = useState<number>(0);
   const [msg, setMsg] = useState<Msg>({});
-
+  const [res, call] = useApi();
+  const dispatch = useDispatch();
   // clear modal state on close
   const handleCloseExerciseModal = (): void => {
     setExercisesModal(false);
     setTab(0);
     setMsg({});
   };
-
   const styles = useExerciseModalStyles();
+
+  // on fetch exercises query result, either dispatch data or display error
+  useEffect(() => {
+    if (res.data) {
+      dispatch(fetchExercisesAction(res.data.exercises));
+    }
+
+    if (res.error) {
+      // handle later
+    }
+  }, [res, dispatch]);
+
+  // fetch exercises on modal render
+  useEffect(() => {
+    if (modalState) {
+      call(fetchExercisesQuery, [t]);
+    }
+  }, [call, t, modalState]);
 
   return (
     <Modal

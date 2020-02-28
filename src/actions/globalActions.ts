@@ -61,7 +61,6 @@ export const incOrDecAction: TIncOrDec = (incOrDec, timespan) => {
 interface AddWorkoutModal {
   date: Moment;
   setModal: Function;
-  fetchExercises: Function;
   t: string | null;
   history: History;
   workout?: Workout;
@@ -69,12 +68,12 @@ interface AddWorkoutModal {
 
 type TAddWorkoutModal = (
   paramsHelper: AddWorkoutModal
-) => (dispatch: ThunkDispatch<State, void, Action>) => Promise<void>;
+) => (dispatch: ThunkDispatch<State, void, Action>) => void;
 
 export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
-  const { date, setModal, fetchExercises, t, history } = paramsHelper;
+  const { date, setModal } = paramsHelper;
 
-  return async (dispatch): Promise<void> => {
+  return (dispatch): void => {
     // saves the clicked date to state
     // when saved, the date is then associated with that workout
     dispatch({
@@ -90,18 +89,15 @@ export const addWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
 
     //opens modal
     setModal(true);
-
-    // fetches exercises
-    await dispatch(fetchExercises(history, t));
   };
 };
 
 //opens view workout modal
 export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
-  const { date, setModal, fetchExercises, t, history, workout } = paramsHelper;
+  const { date, setModal, workout } = paramsHelper;
 
   // functionality is largely the same as add workout, with some key differences
-  return async (dispatch): Promise<void> => {
+  return (dispatch): void => {
     dispatch({
       type: SET_DATE,
       payload: date
@@ -117,7 +113,6 @@ export const viewWorkoutModalAction: TAddWorkoutModal = paramsHelper => {
       payload: workout
     });
     setModal(true);
-    await dispatch(fetchExercises(history, t));
   };
 };
 

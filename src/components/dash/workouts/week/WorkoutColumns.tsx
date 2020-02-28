@@ -10,7 +10,6 @@ import {
   addWorkoutModalAction,
   viewWorkoutModalAction
 } from '../../../../actions/globalActions';
-import { fetchExercises } from '../../../../actions/fetchExercisesActions';
 import { State } from 'src/types/State';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
@@ -64,7 +63,7 @@ const WorkoutColumns: React.FC = () => {
   }, [timeSpan, scope.value, t, dispatch, call]);
 
   // opens modal to add a new workout
-  const paramsHelper = { setModal, fetchExercises, t, history };
+  const paramsHelper = { setModal, t, history };
   const openAddWorkoutModal: (date: Moment) => void = useCallback(
     date => {
       dispatch(addWorkoutModalAction({ ...paramsHelper, date }));

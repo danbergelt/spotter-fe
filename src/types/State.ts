@@ -38,7 +38,6 @@ export interface FetchWorkoutsReducer {
 }
 
 export interface FetchExercisesReducer {
-  err: string | null;
   savedExercises: Array<E>;
 }
 

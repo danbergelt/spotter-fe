@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import * as Moment from 'moment';
 import { extendMoment, MomentRange } from 'moment-range';
 import PrSection from '../components/prs/PrSection';
 import { State } from 'src/types/State';
 import { SortedPrs, SortedPrsRange } from '../types/Prs';
-import { fetchExercises } from 'src/actions/fetchExercisesActions';
+import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
 import { Helmet } from 'react-helmet-async';
 import { Exercise } from 'src/types/ExerciseOption';
 import useToken from '../hooks/useToken';
+import useApi from 'src/hooks/useApi';
 const moment: MomentRange = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -29,18 +29,26 @@ const Prs: React.FC = () => {
     allTime: []
   });
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [res, call] = useApi();
   const exercises: Array<Exercise> = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
 
   const t: string | null = useToken();
 
-  const history = useHistory();
+  useEffect(() => {
+    if (res.data) {
+      dispatch(fetchExercisesAction(res.data.exercises));
+    }
+
+    if (res.error) {
+      // handle later
+    }
+  }, [res, dispatch]);
 
   useEffect(() => {
-    dispatch(fetchExercises(history, t));
-  }, [dispatch, t, history]);
+    call(t);
+  }, [call, t]);
 
   // finds the difference between two moment dates
   const findDiff = (exercise: Exercise): number =>

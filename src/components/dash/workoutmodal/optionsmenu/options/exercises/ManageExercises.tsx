@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Exercise from './Exercise';
 import { deleteExerciseAction } from '../../../../../../actions/fetchExercisesActions';
 import useToken from '../../../../../../hooks/useToken';
 import { Exercise as E } from '../../../../../../types/ExerciseOption';
+import useApi from 'src/hooks/useApi';
+import { deleteExerciseQuery } from 'src/utils/queries';
 
 interface Props {
   exercises: Array<E>;
@@ -17,17 +19,28 @@ const ManageExercises: React.FC<Props> = ({ exercises }) => {
 
   const token: string | null = useToken();
   const dispatch = useDispatch();
+  const [res, call] = useApi();
 
   // search filter function
   const filter: Array<E> = exercises.filter((e: E) =>
     e.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  useEffect(() => {
+    if (res.data) {
+      dispatch(deleteExerciseAction(res.data.exercise._id));
+    }
+
+    if (res.error) {
+      // handle later
+    }
+  }, [res, dispatch]);
+
   const deleteExercise = useCallback(
-    (id: string) => {
-      dispatch(deleteExerciseAction(token, id));
+    async (id: string) => {
+      await call(deleteExerciseQuery, [token, id]);
     },
-    [dispatch, token]
+    [token, call]
   );
 
   return (
