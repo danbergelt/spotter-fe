@@ -6,6 +6,7 @@ import mockAxios from 'axios';
 import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
 import { reducer } from '../../../reducers/index';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
+import { act } from 'react-dom/test-utils';
 
 describe('redirects and conditional rendering', () => {
   afterEach(cleanup);
@@ -47,41 +48,49 @@ describe('redirects and conditional rendering', () => {
     expect(history.location.pathname).toEqual('/login');
   });
 
-  test('home path pushes logged in users to dashboard', () => {
+  test('home path pushes logged in users to dashboard', async () => {
     const { container, getByText, history, store } = wrapper(
       reducer,
       <Routes />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    await act(async () => {
+      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    });
 
     expect(history.location.pathname).toEqual('/dashboard');
     expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
-  test('login path pushes logged in users to dashboard', () => {
+  test('login path pushes logged in users to dashboard', async () => {
     const { container, getByText, history, store } = wrapper(
       reducer,
       <Routes />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    await act(async () => {
+      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    });
 
     history.push('/login');
-    expect(history.location.pathname).toEqual('/dashboard');
+
+    await wait(() => expect(history.location.pathname).toEqual('/dashboard'));
     expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
-  test('signup path pushes logged in users to dashboard', () => {
+  test('signup path pushes logged in users to dashboard', async () => {
     const { container, getByText, history, store } = wrapper(
       reducer,
       <Routes />
     );
 
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    await act(async () => {
+      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    });
 
     history.push('/signup');
-    expect(history.location.pathname).toEqual('/dashboard');
+
+    await wait(() => expect(history.location.pathname).toEqual('/dashboard'));
     expect(container.contains(getByText(/week/i))).toBeTruthy();
   });
 
@@ -91,12 +100,4 @@ describe('redirects and conditional rendering', () => {
 
     expect(container.innerHTML).toMatch(/404/i);
   });
-
-  // test("500 page displays at server error", async () => {
-  //   mockAxios.post.mockRejectedValue({ unhandled: "error" });
-  //   const { container, history, store } = wrapper(reducer, <Routes />);
-
-  //   history.push("/dashboard");
-  //   await wait(() => expect(container.innerHTML).toMatch(/500/i));
-  // });
 });

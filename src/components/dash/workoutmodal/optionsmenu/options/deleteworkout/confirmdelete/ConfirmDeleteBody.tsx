@@ -1,7 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteWorkoutAction } from 'src/actions/fetchWorkoutsActions';
 import useToken from '../../../../../../../hooks/useToken';
+import useApi from 'src/hooks/useApi';
+import { deleteWorkoutQuery } from 'src/utils/queries';
 
 interface Props {
   closeConfirmDelete: () => void;
@@ -14,14 +16,28 @@ const ConfirmDeleteBody: React.FC<Props> = ({
   closeParentModal,
   workoutId
 }) => {
-  const token: string | null = useToken();
+  const token = useToken();
   const dispatch = useDispatch();
+  const [res, call] = useApi();
 
-  const deleteWorkout: () => void = () => {
-    if (workoutId) {
-      dispatch(deleteWorkoutAction(token, workoutId));
+  // actions subsequent to delete workout call
+  useEffect(() => {
+    // if successful, delete workout from store and close both open modals
+    if (res.data) {
+      dispatch(deleteWorkoutAction(res.data.workout._id));
       closeConfirmDelete();
       closeParentModal();
+    }
+
+    if (res.error) {
+      // handle error later
+    }
+  }, [res, dispatch, closeConfirmDelete, closeParentModal]);
+
+  // delete workout
+  const deleteWorkout = async (): Promise<void> => {
+    if (workoutId) {
+      await call(deleteWorkoutQuery, [token, workoutId]);
     }
   };
 

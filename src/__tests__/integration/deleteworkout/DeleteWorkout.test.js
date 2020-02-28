@@ -5,7 +5,7 @@ import wrapper from '../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
 import axios from 'axios';
 import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
-import { FETCH_WORKOUTS_SUCCESS } from '../../../actions/fetchWorkoutsActions';
+import { FETCH_WORKOUTS } from '../../../actions/fetchWorkoutsActions';
 import { wait } from '@testing-library/react';
 import { reducer } from '../../../reducers/index';
 import { act } from 'react-dom/test-utils';
@@ -24,7 +24,7 @@ describe('can close modal on delete click', () => {
     );
 
     store.dispatch({
-      type: FETCH_WORKOUTS_SUCCESS,
+      type: FETCH_WORKOUTS,
       payload: mockWorkoutRes.data.workouts
     });
 
@@ -40,14 +40,17 @@ describe('can close modal on delete click', () => {
   });
 
   test('can delete workout', async () => {
-    axios.post.mockResolvedValue({});
+    axios.get.mockResolvedValue({});
+    axios.delete.mockResolvedValue({
+      data: { workout: { _id: mockWorkoutRes.data.workouts[0]._id } }
+    });
     const { store, history, getByTestId, queryByText, getByText } = wrapper(
       reducer,
       <WorkoutColumns />
     );
 
     store.dispatch({
-      type: FETCH_WORKOUTS_SUCCESS,
+      type: FETCH_WORKOUTS,
       payload: mockWorkoutRes.data.workouts
     });
 

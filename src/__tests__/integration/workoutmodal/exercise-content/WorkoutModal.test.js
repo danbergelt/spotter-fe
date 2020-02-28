@@ -35,7 +35,6 @@ describe('add workout modal functionality', () => {
 
     expect(queryByTestId(/exit-modal/i)).toBeFalsy();
     expect(queryByPlaceholderText(/e.g. squat/i)).toBeFalsy();
-    expect(axios.post).toHaveBeenCalledTimes(1);
   });
 
   test('can hold user-entered text in title and notes', () => {

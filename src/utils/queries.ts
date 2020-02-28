@@ -10,6 +10,7 @@ import endpoint from './endpoint';
 import axiosWithAuth from './axiosWithAuth';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
+import { generateWeek, generateMonth } from './momentUtils';
 
 type Token = string | null;
 
@@ -114,4 +115,40 @@ export const editWorkoutQuery = async (
 // delete account
 export const deleteAccountQuery = async (t: Token): Promise<AxiosResponse> => {
   return await axiosWithAuth(t).delete(endpoint('user/delete'));
+};
+
+// delete workout
+export const deleteWorkoutQuery = async (
+  t: Token,
+  id: string
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).delete(endpoint(`workouts/${id}`));
+};
+
+// fetch workouts
+export const fetchWorkoutsQuery = async (
+  t: Token,
+  time: number,
+  scope: string
+): Promise<AxiosResponse> => {
+  let range: Array<Moment> = [];
+
+  // identify the scope, and generate an array of dates within that scope
+  if (scope === 'Week') {
+    range = generateWeek(time);
+  }
+
+  if (scope === 'Month') {
+    range = generateMonth(time);
+  }
+
+  // format the days
+  const formattedRange: Array<string> = range.map(day =>
+    day.format('MMM DD YYYY')
+  );
+
+  // call the server, passing in a range of dates to match workouts
+  return await axiosWithAuth(t).post(endpoint('workouts/range'), {
+    range: formattedRange
+  });
 };

@@ -8,8 +8,9 @@ import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
 import axios from 'axios';
 import { reducer } from '../../../reducers/index.ts';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
-import { FETCH_WORKOUTS_SUCCESS } from '../../../actions/fetchWorkoutsActions';
+import { FETCH_WORKOUTS } from '../../../actions/fetchWorkoutsActions';
 import WorkoutColumns from '../../../components/dash/workouts/week/WorkoutColumns';
+import { act } from 'react-dom/test-utils';
 
 describe('Weekly dash date settings', () => {
   afterEach(() => {
@@ -19,7 +20,7 @@ describe('Weekly dash date settings', () => {
 
   const moment = extendMoment(Moment);
 
-  it('can go back in time', () => {
+  it('can go back in time', async () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const {
       container,
@@ -30,7 +31,9 @@ describe('Weekly dash date settings', () => {
       store
     } = wrapper(reducer, <Routes />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    await act(async () => {
+      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    });
 
     history.push('/dashboard');
 
@@ -45,18 +48,23 @@ describe('Weekly dash date settings', () => {
       )
     ).toBeTruthy();
 
-    fireEvent.click(getByTestId(/back/i));
+    await act(async () => {
+      fireEvent.click(getByTestId(/back/i));
+    });
 
-    expect(
-      container.contains(
-        queryByTestId(
-          moment()
-            .add(-1, 'weeks')
-            .startOf('week')
-            .format('MMM DD YYYY')
+    await wait(() => {
+      expect(
+        container.contains(
+          queryByTestId(
+            moment()
+              .add(-1, 'weeks')
+              .startOf('week')
+              .format('MMM DD YYYY')
+          )
         )
-      )
-    ).toBeTruthy();
+      ).toBeTruthy();
+    });
+
     expect(
       container.contains(
         queryByTestId(
@@ -80,7 +88,7 @@ describe('Weekly dash date settings', () => {
     expect(axios.post).toHaveBeenCalledTimes(2);
   });
 
-  it('can go forward in time', () => {
+  it('can go forward in time', async () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const {
       container,
@@ -91,7 +99,9 @@ describe('Weekly dash date settings', () => {
       store
     } = wrapper(reducer, <Routes />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    await act(async () => {
+      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    });
 
     history.push('/dashboard');
 
@@ -106,7 +116,9 @@ describe('Weekly dash date settings', () => {
       )
     ).toBeTruthy();
 
-    fireEvent.click(getByTestId(/forward/i));
+    await act(async () => {
+      fireEvent.click(getByTestId(/forward/i));
+    });
 
     expect(
       container.contains(
@@ -148,7 +160,7 @@ describe('Weekly dash date settings', () => {
     );
 
     store.dispatch({
-      type: FETCH_WORKOUTS_SUCCESS,
+      type: FETCH_WORKOUTS,
       payload: mockWorkoutRes.data.workouts
     });
 

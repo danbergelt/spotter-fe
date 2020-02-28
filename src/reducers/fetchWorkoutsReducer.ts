@@ -1,8 +1,6 @@
 import {
-  FETCH_WORKOUTS_START,
-  FETCH_WORKOUTS_SUCCESS,
-  FETCH_WORKOUTS_ERROR,
-  DELETE_WORKOUT
+  DELETE_WORKOUT,
+  FETCH_WORKOUTS
 } from '../actions/fetchWorkoutsActions';
 import { AnyAction } from 'redux';
 import { UPDATE_TAG, DELETE_TAG } from '../actions/workoutActions';
@@ -12,8 +10,6 @@ import { remove } from 'lodash';
 import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
 
 const fetchedWorkoutsState: FetchWorkoutsReducer = {
-  err: null,
-  isLoading: false,
   workouts: []
 };
 
@@ -35,16 +31,8 @@ export const fetchWorkoutsReducer = (
           }
         });
         return;
-      case FETCH_WORKOUTS_START:
-        draft.isLoading = true;
-        return;
-      case FETCH_WORKOUTS_SUCCESS:
-        draft.isLoading = false;
+      case FETCH_WORKOUTS:
         draft.workouts = action.payload;
-        return;
-      case FETCH_WORKOUTS_ERROR:
-        draft.isLoading = false;
-        draft.err = action.payload;
         return;
       case DELETE_WORKOUT:
         remove(draft.workouts, el => el._id === action.payload);

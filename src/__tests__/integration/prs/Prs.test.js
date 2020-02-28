@@ -9,18 +9,21 @@ import { ADD_TOKEN } from '../../../actions/addTokenActions';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import { FETCH_EXERCISES_SUCCESS } from '../../../actions/fetchExercisesActions';
+import { act } from 'react-dom/test-utils';
 
 const moment = extendMoment(Moment);
 
 describe('Prs page functionality', () => {
   afterEach(cleanup);
 
-  test('can navigate to prs page', () => {
+  test('can navigate to prs page', async () => {
     axios.post.mockResolvedValue({});
     axios.get.mockResolvedValue({});
     const { getByText, history, store } = wrapper(reducer, <Routes />);
 
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    await act(async () => {
+      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+    });
 
     fireEvent.click(getByText(/prs/i));
     expect(history.location.pathname).toEqual('/prs');

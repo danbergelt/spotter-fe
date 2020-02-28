@@ -10,12 +10,14 @@ import {
 } from '../../../../actions/globalActions';
 import WorkoutModal from '../../workoutmodal/WorkoutModal';
 import { useHistory } from 'react-router-dom';
-import reFetch from '../../../../utils/reFetch';
 import { fetchExercises } from '../../../../actions/fetchExercisesActions';
 import { State } from 'src/types/State';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
 import { closeWorkoutModalAction } from 'src/actions/globalActions';
+import useApi from 'src/hooks/useApi';
+import { fetchWorkoutsQuery } from 'src/utils/queries';
+import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
 
 interface GlobalReducer {
   scope: { value: string; label: string };
@@ -26,6 +28,7 @@ interface GlobalReducer {
 const WorkoutGrid: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [res, call] = useApi();
 
   const [modal, setModal] = useState<boolean>(false);
 
@@ -42,10 +45,20 @@ const WorkoutGrid: React.FC = () => {
     (state: State) => state.globalReducer
   );
 
-  // fetches up-to-date list of workouts on re-render
   useEffect(() => {
-    reFetch(timeSpan, history, scope.value, t);
-  }, [timeSpan, history, scope.value, t]);
+    if (res.data) {
+      dispatch(fetchWorkoutsAction(res.data.workouts));
+    }
+
+    if (res.error) {
+      history.push('/500');
+    }
+  }, [res, dispatch, history]);
+
+  // fetch workouts
+  useEffect(() => {
+    call(fetchWorkoutsQuery, [t, timeSpan, scope.value]);
+  }, [timeSpan, scope.value, t, dispatch, call]);
 
   // increment or decrement by one week/month at a time
   const inc = (): void => {
