@@ -25,7 +25,9 @@ describe('Prs page functionality', () => {
       await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
     });
 
-    fireEvent.click(getByText(/prs/i));
+    await act(async () => {
+      await fireEvent.click(getByText(/prs/i));
+    });
     expect(history.location.pathname).toEqual('/prs');
   });
 
