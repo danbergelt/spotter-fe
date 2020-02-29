@@ -58,20 +58,20 @@ const Prs: React.FC = () => {
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
     // temporary variables for sorted prs
-    let lastMonth: SortedPrsRange = [];
-    let lastYear: SortedPrsRange = [];
-    let allTime: SortedPrsRange = [];
+    const lastMonth: SortedPrsRange = [];
+    const lastYear: SortedPrsRange = [];
+    const allTime: SortedPrsRange = [];
     // loop through prs, and partition by date
     if (exercises.length) {
       exercises.forEach(exercise => {
-        const diff = findDiff(exercise);
+        const timeSincePr = findDiff(exercise);
         if (exercise.pr && exercise.pr > 0 && exercise.prDate) {
-          if (diff <= 31) {
-            lastMonth = [...lastMonth, exercise];
-          } else if (diff <= 365) {
-            lastYear = [...lastYear, exercise];
+          if (timeSincePr <= 31) {
+            lastMonth.push(exercise);
+          } else if (timeSincePr <= 365) {
+            lastYear.push(exercise);
           } else {
-            allTime = [...allTime, exercise];
+            allTime.push(exercise);
           }
         }
       });
