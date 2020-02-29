@@ -1,6 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import PrivateRoute from './components/auth/PrivateRoute';
+import { Switch } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
@@ -11,24 +10,29 @@ import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import ServerError from './pages/ServerError';
-import PublicRoute from './components/auth/PublicRoute';
+import AuthRoute from './components/auth/AuthRoute';
 
-// component contains routes and handles routing authenticated users to various parts of app
+// primary application router. uses a custom route component to push auth'd and unauth'd users to their allowed pages
 
 const Routes: React.FC = () => {
   return (
     <Layout>
       <Switch>
-        <PublicRoute exact path='/' component={Home} />
-        <PublicRoute path='/login' component={LogIn} />
-        <PublicRoute path='/signup' component={SignUp} />
-        <PublicRoute path='/forgotpassword' component={ForgotPassword} />
-        <PublicRoute path='/-/:id' component={ForgotPassword} />
-        <PrivateRoute path='/dashboard' component={Dashboard} />
-        <PrivateRoute path='/settings' component={Settings} />
-        <PrivateRoute path='/prs' component={Prs} />
-        <Route path='/500' component={ServerError} />
-        <Route component={NotFound} />
+        <AuthRoute exact path='/' component={Home} auth={false} />
+        <AuthRoute path='/login' component={LogIn} auth={false} />
+        <AuthRoute path='/signup' component={SignUp} auth={false} />
+        <AuthRoute
+          path='/forgotpassword'
+          component={ForgotPassword}
+          auth={false}
+        />
+        <AuthRoute path='/-/:id' component={ForgotPassword} auth={false} />
+        <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
+        <AuthRoute path='/settings' component={Settings} auth={true} />
+        <AuthRoute path='/prs' component={Prs} auth={true} />
+        {/* both auth'd and unauth'd users can access the below routes */}
+        <AuthRoute path='/500' component={ServerError} auth={null} />
+        <AuthRoute component={NotFound} auth={null} />
       </Switch>
     </Layout>
   );
