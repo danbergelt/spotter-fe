@@ -4,13 +4,13 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
 import Loader from 'react-loader-spinner';
-import endpoint from '../../utils/endpoint';
+import endpoint from '..//utils/endpoint';
 
 // allows a user to change a forgotten password
 // accessed via link sent out through mailgun
 // param is their reset password token
 
-const ForgotAndChangePass: React.FC = () => {
+const ChangePassword: React.FC = () => {
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -79,4 +79,4 @@ const ForgotAndChangePass: React.FC = () => {
   );
 };
 
-export default ForgotAndChangePass;
+export default ChangePassword;

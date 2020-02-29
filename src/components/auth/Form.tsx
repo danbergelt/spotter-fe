@@ -1,13 +1,11 @@
 import React, { ReactNode, memo } from 'react';
-import { Form, Field, Formik, FormikActions } from 'formik';
+import { Form, Field, Formik } from 'formik';
 import axios from 'axios';
 import { History } from 'history';
 import { Link } from 'react-router-dom';
 import { ValidationSchema } from './ValidationSchema';
 
-// component for login + signup forms
-// Formik components, while stuffed with useful functionality, are exceedingly long and not very developer-friendly
-// Consider looking into react-hook-form for shorter, less obtuse functionality
+// shared component for login + signup forms
 
 interface Props {
   action: string;
@@ -16,10 +14,6 @@ interface Props {
   children: ReactNode;
   addToken: (t: string) => void;
 }
-
-type FormValues = { email: string; password: string };
-
-type FormActions = FormikActions<{ email: string; password: string }>;
 
 const SpotterForm: React.FC<Props> = ({
   action,
@@ -36,26 +30,19 @@ const SpotterForm: React.FC<Props> = ({
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={ValidationSchema}
-        onSubmit={async (
-          values: FormValues,
-          { resetForm, setStatus }: FormActions
-        ): Promise<void> => {
+        onSubmit={async (values, { resetForm, setStatus }): Promise<void> => {
           try {
             const res = await axios.post(api, values, {
               withCredentials: true
             });
             resetForm();
-            // adds token to memory for use in application (does not persist)
             addToken(res.data.token);
             history.push('/dashboard');
           } catch (error) {
             if (error.response) {
-              // "status" is essentially a type of state messaging system that allows us to push messages to the user
-              // in this case, that's an error
-              // useful for providing server-side errors in addition to the native Yup errors on the FE
               setStatus(error.response.data.error);
             } else {
-              history.push('/500');
+              setStatus('Server error, try again later');
             }
           }
         }}
