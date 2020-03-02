@@ -175,3 +175,17 @@ export const createExerciseQuery = async (
     name
   });
 };
+
+// change a forgotten password
+export const changeForgottenPasswordQuery = async (
+  values: Record<string, string>,
+  id: string
+): Promise<AxiosResponse> => {
+  const { newPassword, confirmPassword } = values;
+
+  return await axios.put(
+    endpoint(`user/forgotpassword/${id}`),
+    { newPassword, confirmPassword },
+    { withCredentials: true }
+  );
+};
