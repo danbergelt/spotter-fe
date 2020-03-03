@@ -1,0 +1,21 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+.container {
+  font-size: 1.3rem;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  display: flex;
+
+  @include small {
+    font-size: 1.2rem;
+  }
+
+  .link {
+    margin-left: 0.25rem;
+    color: $info;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
