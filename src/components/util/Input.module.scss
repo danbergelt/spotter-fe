@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.input {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  font-size: 1.3rem;
+  width: 100%;
+  outline: 0;
+  border: 1px solid darken($gray4, 20%);
+  border-radius: 4px;
+
+  @include medium {
+    padding: 0.75rem;
+    font-size: 1.2rem;
+  }
+
+  @include small {
+    margin-bottom: 2rem;
+  }
+
+  &:focus {
+    border: 1px solid $primary;
+  }
+}

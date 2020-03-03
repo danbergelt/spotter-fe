@@ -6,10 +6,11 @@ import produce from 'immer';
 // utility hook to automate, abstract, and shorten api calls
 // useful for when state is not being managed by a third party (e.g. formik)
 // handles errors and loading. returns all metadata + a callback to call as
-// a side effect
+// a side effect, along with a reset function to clear the state
 //
 ////////////////////////////////////////////////////////////////////////////
 
+// the state that manages the api call data
 interface Res {
   // eslint-disable-next-line
   data: any;
@@ -17,23 +18,37 @@ interface Res {
   isLoading: boolean;
 }
 
-export default (): [Res, Function] => {
+// the params passed into the call function
+type Call = (
+  query: Function,
+  // eslint-disable-next-line
+  vars?: any[],
+  errorMsg?: string | null
+) => Promise<void>;
+
+export default (): [Res, Call, () => void] => {
   const [res, setRes] = useState<Res>({
     data: null,
     error: null,
     isLoading: false
   });
 
-  const call = useCallback(
-    async (query: Function, vars = [], errorMsg = null) => {
-      // clear state and remove stale data
-      setRes(state =>
-        produce(state, draft => {
-          draft.data = null;
-          draft.error = null;
-          draft.isLoading = false;
-        })
-      );
+  // reset state to null data
+  // useful for clearing error messages, wiping state to prep for new api call
+  const reset = useCallback(() => {
+    setRes(state =>
+      produce(state, draft => {
+        draft.data = null;
+        draft.error = null;
+        draft.isLoading = false;
+      })
+    );
+  }, []);
+
+  const call: Call = useCallback(
+    async (query, vars = [], errorMsg = null) => {
+      // clear state
+      reset();
       try {
         // start loading
         setRes(state =>
@@ -76,8 +91,8 @@ export default (): [Res, Function] => {
         }
       }
     },
-    []
+    [reset]
   );
 
-  return [res, call];
+  return [res, call, reset];
 };
