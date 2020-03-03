@@ -26,18 +26,26 @@ const HTTPResponse: React.FC<Props> = ({ error, success, reset }) => {
   // error case --> return a message with error styles
   if (error) {
     return (
-      <div className={styles.error}>
+      <div data-testid='res' className={styles.error}>
         <p>{error}</p>
-        <FiX onClick={handleClose} className={styles.close} />
+        <FiX
+          data-testid='close'
+          onClick={handleClose}
+          className={styles.close}
+        />
       </div>
     );
   }
   // success case --> return a message with success styles
   if (success) {
     return (
-      <div className={styles.success}>
+      <div data-testid='res' className={styles.success}>
         <p>{success}</p>
-        <FiX onClick={handleClose} className={styles.close} />
+        <FiX
+          data-testid='close'
+          onClick={handleClose}
+          className={styles.close}
+        />
       </div>
     );
   }

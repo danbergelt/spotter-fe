@@ -25,7 +25,9 @@ const Button: React.FC<Props> = ({ content, loading }) => {
   return (
     <button type='submit' className={styles.button}>
       {loading ? (
-        <Loader type='ThreeDots' color='white' height={10} width={30} />
+        <div data-testid='loader'>
+          <Loader type='ThreeDots' color='white' height={10} width={30} />
+        </div>
       ) : (
         content
       )}
