@@ -23,7 +23,7 @@ interface Props {
 
 const Button: React.FC<Props> = ({ content, loading }) => {
   return (
-    <button type='submit' className={styles.button}>
+    <button data-testid='button' type='submit' className={styles.button}>
       {loading ? (
         <div data-testid='loader'>
           <Loader type='ThreeDots' color='white' height={10} width={30} />

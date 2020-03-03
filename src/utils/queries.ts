@@ -196,3 +196,19 @@ export const forgotPasswordQuery = async (
 ): Promise<AxiosResponse> => {
   return await axios.post(endpoint('user/forgotpassword'), { email });
 };
+
+// log in
+export const logInQuery = async (values: {
+  email: string;
+  password: string;
+}): Promise<AxiosResponse> => {
+  return await axios.post(endpoint('login'), values);
+};
+
+// sign up
+export const signUpQuery = async (values: {
+  email: string;
+  password: string;
+}): Promise<AxiosResponse> => {
+  return await axios.post(endpoint('register'), values);
+};

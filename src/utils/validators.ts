@@ -1,5 +1,15 @@
 import * as Yup from 'yup';
 
+// auth form (log in/sign up)
+export const AuthSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Six char minimum')
+    .required('Password is required')
+});
+
 // change password validation (forgotten passwords)
 export const ChangeForgottenPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()

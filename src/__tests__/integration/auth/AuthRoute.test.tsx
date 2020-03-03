@@ -6,11 +6,10 @@ import { reducer } from '../../../reducers/index';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
 import axios from 'axios';
 import { wait } from '@testing-library/react';
-import { AxiosMock } from '../../../__testUtils__/types';
 import ForgotPassword from 'src/pages/ForgotPassword';
 import NotFound from 'src/pages/NotFound';
-
-const mockAxios = axios as AxiosMock;
+jest.mock('axios');
+const mockAxios = axios as jest.Mocked<typeof axios>;
 
 beforeEach(() => jest.clearAllMocks());
 
@@ -27,7 +26,7 @@ describe('auth route', () => {
   });
 
   test('authenticated user passes through to component', async () => {
-    mockAxios.mockResolvedValue({});
+    mockAxios.post.mockResolvedValue({});
     const { queryByTestId, store, history } = wrapper(
       reducer,
       <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
