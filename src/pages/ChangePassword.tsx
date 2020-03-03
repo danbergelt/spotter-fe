@@ -12,6 +12,7 @@ import styles from './ChangePassword.module.scss';
 import Label from 'src/components/util/Label';
 import Input from 'src/components/util/Input';
 import Button from 'src/components/util/Button';
+import { Helmet } from 'react-helmet-async';
 
 /*== Change password page =====================================================
 
@@ -43,49 +44,58 @@ const ChangePassword: React.FC = () => {
   }, [res, dispatch, history]);
 
   return (
-    <Formik
-      initialValues={{ newPassword: '', confirmPassword: '' }}
-      validationSchema={ChangeForgottenPasswordSchema}
-      // on submit, reset the form and send the request
-      onSubmit={async (values, { resetForm }): Promise<void> => {
-        resetForm();
-        await call(changeForgottenPasswordQuery, [values, id]);
-      }}
-    >
-      {({ errors, touched }): JSX.Element => (
-        <section className={styles.container}>
-          <h1 className={styles.title}>Change Password</h1>
-          <HTTPResponse reset={reset} error={res.error} />
-          <Form>
-            <div className={styles.flex}>
-              <Label content='New Password' input='newPassword' />
-              <FormError touched={touched} errors={errors} node='newPassword' />
-            </div>
-            <Field
-              as={Input}
-              name='newPassword'
-              placeholder='New password'
-              type='password'
-            />
-            <div className={styles.flex}>
-              <Label content='Confirm Password' input='confirmPassword' />
-              <FormError
-                touched={touched}
-                errors={errors}
-                node='confirmPassword'
+    <>
+      <Helmet>
+        <title>Change Password | Spotter</title>
+      </Helmet>
+      <Formik
+        initialValues={{ newPassword: '', confirmPassword: '' }}
+        validationSchema={ChangeForgottenPasswordSchema}
+        // on submit, reset the form and send the request
+        onSubmit={async (values, { resetForm }): Promise<void> => {
+          resetForm();
+          await call(changeForgottenPasswordQuery, [values, id]);
+        }}
+      >
+        {({ errors, touched }): JSX.Element => (
+          <section className={styles.container}>
+            <h1 className={styles.title}>Change Password</h1>
+            <HTTPResponse reset={reset} error={res.error} />
+            <Form>
+              <div className={styles.flex}>
+                <Label content='New Password' input='newPassword' />
+                <FormError
+                  touched={touched}
+                  errors={errors}
+                  node='newPassword'
+                />
+              </div>
+              <Field
+                as={Input}
+                name='newPassword'
+                placeholder='New password'
+                type='password'
               />
-            </div>
-            <Field
-              as={Input}
-              name='confirmPassword'
-              placeholder='Confirm password'
-              type='password'
-            />
-            <Button loading={res.isLoading} content='Submit' />
-          </Form>
-        </section>
-      )}
-    </Formik>
+              <div className={styles.flex}>
+                <Label content='Confirm Password' input='confirmPassword' />
+                <FormError
+                  touched={touched}
+                  errors={errors}
+                  node='confirmPassword'
+                />
+              </div>
+              <Field
+                as={Input}
+                name='confirmPassword'
+                placeholder='Confirm password'
+                type='password'
+              />
+              <Button loading={res.isLoading} content='Submit' />
+            </Form>
+          </section>
+        )}
+      </Formik>
+    </>
   );
 };
 

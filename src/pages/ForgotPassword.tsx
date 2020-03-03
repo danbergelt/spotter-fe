@@ -9,6 +9,7 @@ import { forgotPasswordQuery } from 'src/utils/queries';
 import HTTPResponse from 'src/components/util/HTTPResponse';
 import Label from 'src/components/util/Label';
 import FormError from 'src/components/util/FormError';
+import { Helmet } from 'react-helmet-async';
 
 /*== Forgot Password =====================================================
 
@@ -27,39 +28,44 @@ const ForgotPassword: React.FC = () => {
   const [res, call, reset] = useApi();
 
   return (
-    <Formik
-      initialValues={{ email: '' }}
-      validationSchema={ForgotPasswordSchema}
-      // on submit, reset the form and send the query
-      onSubmit={async (values, { resetForm }): Promise<void> => {
-        resetForm();
-        await call(forgotPasswordQuery, [values.email]);
-      }}
-    >
-      {({ errors, touched }): JSX.Element => (
-        <section className={styles.container}>
-          <h1 className={styles.title}>Forgot your password?</h1>
-          <HTTPResponse
-            reset={reset}
-            error={res.error}
-            success={res.data && res.data.message}
-          />
-          <Form>
-            <div className={styles.flex}>
-              <Label content='Email' input='email' />
-              <FormError touched={touched} errors={errors} node='email' />
-            </div>
-            <Field
-              as={Input}
-              name='email'
-              placeholder='name@email.com'
-              type='email'
+    <>
+      <Helmet>
+        <title>Forgot Password | Spotter</title>
+      </Helmet>
+      <Formik
+        initialValues={{ email: '' }}
+        validationSchema={ForgotPasswordSchema}
+        // on submit, reset the form and send the query
+        onSubmit={async (values, { resetForm }): Promise<void> => {
+          resetForm();
+          await call(forgotPasswordQuery, [values.email]);
+        }}
+      >
+        {({ errors, touched }): JSX.Element => (
+          <section className={styles.container}>
+            <h1 className={styles.title}>Forgot your password?</h1>
+            <HTTPResponse
+              reset={reset}
+              error={res.error}
+              success={res.data && res.data.message}
             />
-            <Button loading={res.isLoading} content='Send Instructions' />
-          </Form>
-        </section>
-      )}
-    </Formik>
+            <Form>
+              <div className={styles.flex}>
+                <Label content='Email' input='email' />
+                <FormError touched={touched} errors={errors} node='email' />
+              </div>
+              <Field
+                as={Input}
+                name='email'
+                placeholder='name@email.com'
+                type='email'
+              />
+              <Button loading={res.isLoading} content='Send Instructions' />
+            </Form>
+          </section>
+        )}
+      </Formik>
+    </>
   );
 };
 
