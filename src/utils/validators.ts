@@ -10,3 +10,10 @@ export const ChangeForgottenPasswordSchema = Yup.object().shape({
     'Fields must match'
   )
 });
+
+// send change password link (forgotten passwords)
+export const ForgotPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Enter your email')
+});

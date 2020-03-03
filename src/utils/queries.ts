@@ -189,3 +189,10 @@ export const changeForgottenPasswordQuery = async (
     { withCredentials: true }
   );
 };
+
+// send forgot password instructions
+export const forgotPasswordQuery = async (
+  email: string
+): Promise<AxiosResponse> => {
+  return await axios.post(endpoint('user/forgotpassword'), { email });
+};
