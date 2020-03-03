@@ -5,7 +5,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "jest", "react", "emotion", "prettier"],
+  "plugins": ["@typescript-eslint", "jest", "react", "prettier"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],

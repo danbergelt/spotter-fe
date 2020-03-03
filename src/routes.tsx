@@ -27,13 +27,12 @@ const Routes: React.FC = () => {
           component={ForgotPassword}
           auth={false}
         />
-        <AuthRoute path='/-/:id' component={ForgotPassword} auth={false} />
+        <AuthRoute path='/-/:id' component={ChangePassword} auth={false} />
         <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
         <AuthRoute path='/settings' component={Settings} auth={true} />
         <AuthRoute path='/prs' component={Prs} auth={true} />
         {/* both auth'd and unauth'd users can access the below routes */}
         <AuthRoute path='/500' component={ServerError} auth={null} />
-        <AuthRoute path='/test' component={ChangePassword} auth={null} />
         <AuthRoute component={NotFound} auth={null} />
       </Switch>
     </Layout>
