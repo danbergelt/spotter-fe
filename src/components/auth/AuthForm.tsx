@@ -11,7 +11,25 @@ import FormError from '../util/FormError';
 import Button from '../util/Button';
 import AltLink from '../util/AltLink';
 
-// shared component for login + signup forms
+/*== Auth form =====================================================
+
+This component is the form used for both log in and sign up processes
+
+Accepts props that determine which context this will be used for
+
+Props:
+  action: string
+    Either "log out" or "sign up"
+  api: function
+    Either a log in api call or sign up api call
+  history: History
+    On successful request, push user to their dashboard
+  children:
+    Used to render an SVG image, which will differ depending on context
+  addToken: function
+    A callback that stores the token (on successful request) to memory
+
+*/
 
 interface Props {
   action: string;
@@ -28,8 +46,10 @@ const AuthForm: React.FC<Props> = ({
   children,
   addToken
 }) => {
+  // api resources
   const [res, call, reset] = useApi();
 
+  // on successful request, save the token and push user to dashboard
   useEffect(() => {
     if (res.data) {
       addToken(res.data.token);
@@ -39,12 +59,14 @@ const AuthForm: React.FC<Props> = ({
 
   return (
     <section className={styles.container}>
+      {/* the logo passed by parent */}
       <div className={styles.logoContainer}>
         <div>{children}</div>
       </div>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={AuthSchema}
+        // on submit, reset the form and call the api
         onSubmit={async (values, { resetForm }): Promise<void> => {
           resetForm();
           await call(api, [values]);

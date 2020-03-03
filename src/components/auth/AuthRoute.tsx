@@ -19,7 +19,6 @@ const AuthRoute: React.FC<Props> = ({
   auth,
   ...otherProps
 }) => {
-  // auth token
   const token = useToken();
 
   // redirect fallback action
@@ -28,12 +27,10 @@ const AuthRoute: React.FC<Props> = ({
     if (!token && auth) {
       return '/login';
     }
-
     // if auth'd, push to dashboard
     if (token && !auth) {
       return '/dashboard';
     }
-
     // total fallback --> push to 500 page (should not happen)
     return '/500';
   };
