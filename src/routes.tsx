@@ -11,6 +11,7 @@ import Settings from './pages/Settings';
 import NotFound from './pages/NotFound';
 import ServerError from './pages/ServerError';
 import AuthRoute from './components/auth/AuthRoute';
+import ChangePassword from './pages/ChangePassword';
 
 // primary application router. uses a custom route component to push auth'd and unauth'd users to their allowed pages
 
@@ -26,7 +27,7 @@ const Routes: React.FC = () => {
           component={ForgotPassword}
           auth={false}
         />
-        <AuthRoute path='/-/:id' component={ForgotPassword} auth={false} />
+        <AuthRoute path='/-/:id' component={ChangePassword} auth={false} />
         <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
         <AuthRoute path='/settings' component={Settings} auth={true} />
         <AuthRoute path='/prs' component={Prs} auth={true} />

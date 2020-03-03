@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.error {
+  font-size: 1.3rem;
+  color: $danger;
+
+  @include medium {
+    font-size: 1.1rem;
+  }
+}

@@ -1,81 +1,91 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { ChangeForgottenPasswordSchema } from '../utils/validators';
+import FormError from 'src/components/util/FormError';
+import useApi from 'src/hooks/useApi';
+import { changeForgottenPasswordQuery } from 'src/utils/queries';
 import { useParams, useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
-import Loader from 'react-loader-spinner';
-import endpoint from '..//utils/endpoint';
+import HTTPResponse from 'src/components/util/HTTPResponse';
+import styles from './ChangePassword.module.scss';
+import Label from 'src/components/util/Label';
+import Input from 'src/components/util/Input';
+import Button from 'src/components/util/Button';
 
-// allows a user to change a forgotten password
-// accessed via link sent out through mailgun
-// param is their reset password token
+/*== Change password page =====================================================
+
+This page is used for unauthenticated users who have forgotten their password.
+
+After sending a forgot password request, the user receives an email with a link
+to this page. The slug is their reset password token that will be used to 
+validate their request. The slug expires 10 minutes after being created. 
+
+The user needs to enter a new password, confirm that new password, and submit a
+request to change their password. If that request succeeds, the user is routed
+to their dashboard. If it fails, an error message is displayed.
+
+*/
 
 const ChangePassword: React.FC = () => {
+  // the slug/token
   const { id } = useParams();
-  const history = useHistory();
+  const [res, call, reset] = useApi();
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const [newPassword, setNewPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [res, setRes] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const changePass = async (
-    e?: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
-    e?.preventDefault();
-    setLoading(true);
-    try {
-      const res = await axios.put(
-        endpoint(`user/forgotpassword/${id}`),
-        { newPassword, confirmPassword },
-        { withCredentials: true }
-      );
+  // if request is successful, save the token and push user to dashboard
+  useEffect(() => {
+    if (res.data) {
       dispatch(addTokenAction(res.data.token));
       history.push('/dashboard');
-    } catch (error) {
-      setLoading(false);
-      setRes(error.response.data.error);
     }
-  };
+  }, [res, dispatch, history]);
 
   return (
-    <section className='forgot-password-container'>
-      <header className='forgot-password-title'>Change Password</header>
-      {res && (
-        <p style={{ marginTop: '2rem' }} className='forgot-password-res err'>
-          {res}
-        </p>
+    <Formik
+      initialValues={{ newPassword: '', confirmPassword: '' }}
+      validationSchema={ChangeForgottenPasswordSchema}
+      // on submit, reset the form and send the request
+      onSubmit={async (values, { resetForm }): Promise<void> => {
+        resetForm();
+        await call(changeForgottenPasswordQuery, [values, id]);
+      }}
+    >
+      {({ errors, touched }): JSX.Element => (
+        <section className={styles.container}>
+          <h1 className={styles.title}>Change Password</h1>
+          <HTTPResponse reset={reset} error={res.error} />
+          <Form>
+            <div className={styles.flex}>
+              <Label content='New Password' input='newPassword' />
+              <FormError touched={touched} errors={errors} node='newPassword' />
+            </div>
+            <Field
+              as={Input}
+              name='newPassword'
+              placeholder='New password'
+              type='password'
+            />
+            <div className={styles.flex}>
+              <Label content='Confirm Password' input='confirmPassword' />
+              <FormError
+                touched={touched}
+                errors={errors}
+                node='confirmPassword'
+              />
+            </div>
+            <Field
+              as={Input}
+              name='confirmPassword'
+              placeholder='Confirm password'
+              type='password'
+            />
+            <Button loading={res.isLoading} content='Submit' />
+          </Form>
+        </section>
       )}
-      <form onSubmit={(e): false | Promise<void> => !loading && changePass(e)}>
-        <label className='forgot-password-label'>New Password</label>
-        <input
-          type='password'
-          placeholder='Pick a secure password...'
-          onChange={(e): void => setNewPassword(e.target.value)}
-          value={newPassword}
-          className='forgot-password-input'
-        />
-        <label className='forgot-password-label'>Confirm New Password</label>
-        <input
-          type='password'
-          placeholder='Confirm secure password...'
-          onChange={(e): void => setConfirmPassword(e.target.value)}
-          value={confirmPassword}
-          className='forgot-password-input'
-        />
-        <button
-          style={{ outline: 0, border: 0 }}
-          className='forgot-password-submit'
-        >
-          {loading ? (
-            <Loader type='ThreeDots' color='white' height={10} width={30} />
-          ) : (
-            'Change Password'
-          )}
-        </button>
-      </form>
-    </section>
+    </Formik>
   );
 };
 

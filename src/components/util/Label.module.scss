@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.label {
+  color: $gray2;
+  font-size: 1.3rem;
+
+  @include medium {
+    font-size: 1.1rem;
+  }
+}
