@@ -23,7 +23,7 @@ interface Props {
   name: string;
   placeholder: string;
   type: string;
-  value: string;
+  value: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -36,6 +36,7 @@ const Input: React.FC<Props> = ({
 }) => {
   return (
     <input
+      data-testid='input'
       className={styles.input}
       name={name}
       placeholder={placeholder}

@@ -29,7 +29,11 @@ const FormError: React.FC<Props> = ({ touched, errors, node }) => {
   // if input has been touched and there is an error, return the error
   const error = (): JSX.Element | undefined => {
     if (touched[node] && errors[node]) {
-      return <p className={styles.error}>{errors[node]}</p>;
+      return (
+        <p data-testid='error' className={styles.error}>
+          {errors[node]}
+        </p>
+      );
     }
     return;
   };
