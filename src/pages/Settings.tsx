@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ChangePassword from '../components/settings/changepassword/ChangePassword';
-import ChangeEmail from '../components/settings/changeemail/ChangeEmail';
+import ChangePassword from '../components/settings/ChangePassword';
+import ChangeEmail from '../components/settings//ChangeEmail';
 import ExportWorkouts from 'src/components/settings/exports/ExportWorkouts';
 import CloseAccount from 'src/components/settings/closeaccount/CloseAccount';
 import { Helmet } from 'react-helmet-async';
@@ -25,27 +25,11 @@ const Settings: React.FC = () => {
           <ChangePassword
             changePassword={changePassword}
             setChangePassword={setChangePassword}
-          >
-            <div
-              role='button'
-              onClick={(): void => setChangePassword(true)}
-              className='settings-action'
-            >
-              Change password...
-            </div>
-          </ChangePassword>
+          />
           <ChangeEmail
             changeEmail={changeEmail}
             setChangeEmail={setChangeEmail}
-          >
-            <div
-              role='button'
-              onClick={(): void => setChangeEmail(true)}
-              className='settings-action'
-            >
-              Change email...
-            </div>
-          </ChangeEmail>
+          />
         </section>
 
         {/* export workout data as a CSV file */}

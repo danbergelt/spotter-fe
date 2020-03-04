@@ -1,0 +1,26 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: $gray2;
+
+  .close {
+    color: $gray1;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 100%;
+    @include hover;
+    border: 0;
+    outline: 0;
+    background: transparent;
+
+    &:hover {
+      background: $gray3;
+    }
+  }
+}
