@@ -10,6 +10,7 @@ import FormError from '../util/FormError';
 import Input from '../util/Input';
 import Button from '../util/Button';
 import HTTPResponse from '../util/HTTPResponse';
+import Flex from '../util/Flex';
 
 interface Props {
   setState: React.Dispatch<SetStateAction<boolean>>;
@@ -26,8 +27,7 @@ const ChangeAccountForm: React.FC<Props> = ({
   labels,
   inputType
 }) => {
-  const t: string | null = useToken();
-
+  const token = useToken();
   const [res, call, reset] = useApi();
 
   // when HTTP response is exited, component is re-rendered, automatically closing the popup
@@ -48,15 +48,15 @@ const ChangeAccountForm: React.FC<Props> = ({
         validationSchema={schema}
         onSubmit={async (values, { resetForm }): Promise<void> => {
           resetForm();
-          await call(api, [t, values]);
+          await call(api, [token, values]);
         }}
       >
         {({ errors, touched }): JSX.Element => (
           <Form className={styles.form}>
-            <div className={styles.flex}>
+            <Flex sb>
               <Label content={labels.old} input='old' />
               <FormError touched={touched} errors={errors} node='old' />
-            </div>
+            </Flex>
             <Field
               css={{ padding: '0.5rem', marginBottom: '1rem' }}
               as={Input}
@@ -64,10 +64,10 @@ const ChangeAccountForm: React.FC<Props> = ({
               name='old'
               type={inputType}
             />
-            <div className={styles.flex}>
+            <Flex sb>
               <Label content={labels.new} input='new' />
               <FormError touched={touched} errors={errors} node='new' />
-            </div>
+            </Flex>
             <Field
               css={{ padding: '0.5rem', marginBottom: '1rem' }}
               as={Input}
@@ -75,10 +75,10 @@ const ChangeAccountForm: React.FC<Props> = ({
               name='new'
               type={inputType}
             />
-            <div className={styles.flex}>
+            <Flex sb>
               <Label content={labels.confirm} input='confirm' />
               <FormError touched={touched} errors={errors} node='confirm' />
-            </div>
+            </Flex>
             <Field
               css={{ padding: '0.5rem', marginBottom: '1rem' }}
               data-testid='confirm'

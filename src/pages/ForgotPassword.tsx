@@ -10,6 +10,7 @@ import HTTPResponse from 'src/components/util/HTTPResponse';
 import Label from 'src/components/util/Label';
 import FormError from 'src/components/util/FormError';
 import { Helmet } from 'react-helmet-async';
+import Flex from 'src/components/util/Flex';
 
 /*== Forgot Password =====================================================
 
@@ -50,10 +51,10 @@ const ForgotPassword: React.FC = () => {
               success={res.data?.message}
             />
             <Form>
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Email' input='email' />
                 <FormError touched={touched} errors={errors} node='email' />
-              </div>
+              </Flex>
               <Field
                 as={Input}
                 name='email'

@@ -10,6 +10,7 @@ import Input from '../util/Input';
 import FormError from '../util/FormError';
 import Button from '../util/Button';
 import AltLink from '../util/AltLink';
+import Flex from '../util/Flex';
 
 /*== Auth form =====================================================
 
@@ -77,20 +78,20 @@ const AuthForm: React.FC<Props> = ({
             <h1 className={styles.title}>{action}</h1>
             <HTTPResponse reset={reset} error={res.error} />
             <Form data-testid='test-form' className={styles.form}>
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Email' input='email' />
                 <FormError touched={touched} errors={errors} node='email' />
-              </div>
+              </Flex>
               <Field
                 as={Input}
                 name='email'
                 placeholder='name@email.com'
                 type='email'
               />
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Password' input='password' />
                 <FormError touched={touched} errors={errors} node='password' />
-              </div>
+              </Flex>
               <Field
                 as={Input}
                 name='password'

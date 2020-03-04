@@ -13,6 +13,7 @@ import Label from 'src/components/util/Label';
 import Input from 'src/components/util/Input';
 import Button from 'src/components/util/Button';
 import { Helmet } from 'react-helmet-async';
+import Flex from 'src/components/util/Flex';
 
 /*== Change password page =====================================================
 
@@ -62,28 +63,28 @@ const ChangePassword: React.FC = () => {
             <h1 className={styles.title}>Change Password</h1>
             <HTTPResponse reset={reset} error={res.error} />
             <Form>
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='New Password' input='newPassword' />
                 <FormError
                   touched={touched}
                   errors={errors}
                   node='newPassword'
                 />
-              </div>
+              </Flex>
               <Field
                 as={Input}
                 name='newPassword'
                 placeholder='New password'
                 type='password'
               />
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Confirm Password' input='confirmPassword' />
                 <FormError
                   touched={touched}
                   errors={errors}
                   node='confirmPassword'
                 />
-              </div>
+              </Flex>
               <Field
                 as={Input}
                 name='confirmPassword'
