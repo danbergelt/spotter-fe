@@ -1,87 +1,102 @@
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import useToken from '../../hooks/useToken';
 import Head from '../util/Head';
 import * as Yup from 'yup';
 import useApi from 'src/hooks/useApi';
+import styles from './ChangeAccount.module.scss';
+import Label from '../util/Label';
+import FormError from '../util/FormError';
+import Input from '../util/Input';
+import Button from '../util/Button';
+import HTTPResponse from '../util/HTTPResponse';
 
 interface Props {
   setState: React.Dispatch<SetStateAction<boolean>>;
   schema: Yup.ObjectSchema<Yup.Shape<object, Record<string, string>>>;
   api: Function;
   labels: { [key: string]: string };
+  inputType: string;
 }
 
 const ChangeAccountForm: React.FC<Props> = ({
   setState,
   schema,
   api,
-  labels
+  labels,
+  inputType
 }) => {
   const t: string | null = useToken();
 
-  const [res, call] = useApi();
+  const [res, call, reset] = useApi();
+
+  // when HTTP response is exited, component is re-rendered, automatically closing the popup
+  // the below is a side effect that shortcircuits that behavior
+  useEffect(() => {
+    setState(true);
+  }, [res, setState]);
 
   return (
-    <article>
-      <Head setState={setState} />
-      <section className='change-form'>
-        <Formik
-          validateOnChange={false}
-          validateOnBlur={false}
-          initialValues={{
-            old: '',
-            new: '',
-            confirm: ''
-          }}
-          validationSchema={schema}
-          onSubmit={async (values, { resetForm }): Promise<void> => {
-            resetForm();
-            await call(api, [t, values]);
-          }}
-        >
-          {({ errors, touched }): JSX.Element => (
-            <Form>
-              <div className='change-inp'>
-                <label className='change-label'>{labels.old}</label>
-                <Field data-testid='old' className='inp-component' name='old' />
-              </div>
-              <div className='change-inp'>
-                <label className='change-label'>{labels.new}</label>
-                <Field data-testid='new' className='inp-component' name='new' />
-              </div>
-              <div className='change-inp'>
-                <label className='change-label'>{labels.confirm}</label>
-                <Field
-                  data-testid='confirm'
-                  className='inp-component'
-                  name='confirm'
-                />
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
-              >
-                <button
-                  data-testid='save'
-                  className='change-button'
-                  type='submit'
-                >
-                  Save
-                </button>
-                {errors.confirm && touched.confirm && (
-                  <p className='change-err'>{errors.confirm}</p>
-                )}
-                {res.error && <p className='change-err'>{res.error}</p>}
-                {res.data && <p className='change-succ'>{res.data}</p>}
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </section>
-    </article>
+    <>
+      <Head size={13} setState={setState} />
+      <Formik
+        initialValues={{
+          old: '',
+          new: '',
+          confirm: ''
+        }}
+        validationSchema={schema}
+        onSubmit={async (values, { resetForm }): Promise<void> => {
+          resetForm();
+          await call(api, [t, values]);
+        }}
+      >
+        {({ errors, touched }): JSX.Element => (
+          <Form className={styles.form}>
+            <div className={styles.flex}>
+              <Label content={labels.old} input='old' />
+              <FormError touched={touched} errors={errors} node='old' />
+            </div>
+            <Field
+              css={{ padding: '0.5rem', marginBottom: '1rem' }}
+              as={Input}
+              data-testid='old'
+              name='old'
+              type={inputType}
+            />
+            <div className={styles.flex}>
+              <Label content={labels.new} input='new' />
+              <FormError touched={touched} errors={errors} node='new' />
+            </div>
+            <Field
+              css={{ padding: '0.5rem', marginBottom: '1rem' }}
+              as={Input}
+              data-testid='new'
+              name='new'
+              type={inputType}
+            />
+            <div className={styles.flex}>
+              <Label content={labels.confirm} input='confirm' />
+              <FormError touched={touched} errors={errors} node='confirm' />
+            </div>
+            <Field
+              css={{ padding: '0.5rem', marginBottom: '1rem' }}
+              data-testid='confirm'
+              as={Input}
+              name='confirm'
+              type={inputType}
+            />
+            <Button content='Save' loading={res.isLoading} />
+            <HTTPResponse
+              css={{ padding: '1rem', marginTop: '1rem', marginBottom: '1rem' }}
+              reset={reset}
+              error={res.error}
+              success={res.data?.message}
+            />
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 

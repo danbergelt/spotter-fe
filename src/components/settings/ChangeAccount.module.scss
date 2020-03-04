@@ -3,3 +3,14 @@
 .action {
   @include settingsAction;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+}

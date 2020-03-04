@@ -25,6 +25,7 @@ const ChangePassword: React.FC<Props> = ({
       onClickOutside={(): void => setChangePassword(false)}
       content={
         <ChangeAccountForm
+          inputType='password'
           schema={ChangePasswordSchema}
           setState={setChangePassword}
           api={changePasswordQuery}

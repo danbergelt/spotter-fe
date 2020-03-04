@@ -4,9 +4,10 @@ import styles from './Head.module.scss';
 
 interface Props {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
+  size?: number;
 }
 
-const Head: React.FC<Props> = ({ setState }) => {
+const Head: React.FC<Props> = ({ setState, size }) => {
   return (
     <section className={styles.head}>
       <button
@@ -14,7 +15,7 @@ const Head: React.FC<Props> = ({ setState }) => {
         onClick={(): void => setState(false)}
         className={styles.close}
       >
-        <FiX />
+        <FiX size={size && size} />
       </button>
     </section>
   );

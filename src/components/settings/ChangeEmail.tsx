@@ -23,6 +23,7 @@ const ChangeEmail: React.FC<Props> = ({ changeEmail, setChangeEmail }) => {
       onClickOutside={(): void => setChangeEmail(false)}
       content={
         <ChangeAccountForm
+          inputType='email'
           schema={ChangeEmailSchema}
           setState={setChangeEmail}
           api={changeEmailQuery}

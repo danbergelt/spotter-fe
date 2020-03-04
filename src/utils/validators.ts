@@ -40,24 +40,20 @@ export const ContactSchema = Yup.object().shape({
 
 // change email
 export const ChangeEmailSchema = Yup.object().shape({
-  oldEmail: Yup.string()
+  old: Yup.string()
     .email('Invalid email')
-    .required('Enter your old email'),
-  newEmail: Yup.string()
+    .required('Enter old email'),
+  new: Yup.string()
     .email('Invalid email')
-    .required(),
-  confirmEmail: Yup.string()
-    .email('Invalid email')
-    .oneOf([Yup.ref('newEmail'), null], 'Emails must match')
-    .required('Enter your new email')
+    .required('Enter new email'),
+  confirm: Yup.string().oneOf([Yup.ref('new'), null], 'Match new email')
 });
 
 // change passwords
 export const ChangePasswordSchema = Yup.object().shape({
-  oldPassword: Yup.string().required('Enter your old password'),
-  newPassword: Yup.string().required(),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
-    .required('Enter your new password')
-    .min(6, 'Six character minimum')
+  old: Yup.string().required('Enter old password'),
+  new: Yup.string()
+    .min(6, 'Six char minimum')
+    .required('Enter new password'),
+  confirm: Yup.string().oneOf([Yup.ref('new'), null], 'Match new password')
 });
