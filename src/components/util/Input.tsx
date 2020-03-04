@@ -32,7 +32,7 @@ interface Props {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   css?: React.CSSProperties;
-  style?: 'input' | 'textarea';
+  element?: 'input' | 'textarea';
 }
 
 const Input: React.FC<Props> = ({
@@ -42,10 +42,10 @@ const Input: React.FC<Props> = ({
   onChange,
   value,
   css,
-  style = 'input'
+  element = 'input'
 }) => {
   // default renders as a normal input (or if user explicitly passes the style prop)
-  if (style === 'input') {
+  if (element === 'input') {
     return (
       <input
         data-testid='input'
@@ -61,7 +61,7 @@ const Input: React.FC<Props> = ({
   }
 
   // if the style prop is passed as a textarea, render a textarea
-  if (style === 'textarea') {
+  if (element === 'textarea') {
     return (
       <textarea
         data-testid='input'

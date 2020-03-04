@@ -113,7 +113,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 as={Input}
                 placeholder='Your message goes here...'
                 name='message'
-                style='textarea'
+                element='textarea'
               />
               <Button content='Submit' loading={res.isLoading} />
             </section>
