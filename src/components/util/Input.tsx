@@ -3,7 +3,9 @@ import styles from './Input.module.scss';
 
 /*== Input =====================================================
 
-Custom input component tailored for use with Formik
+Custom input component tailored for use with Formik.
+
+Also re
 
 Props:
   name: string
@@ -16,6 +18,8 @@ Props:
     the value as stored in Formik's managed state
   onChange: function
     the function that handles changes in Formik inputs
+  style: enum['textarea' | 'input']
+    optional prop that renders a texarea instead of a default input
 
 */
 
@@ -24,7 +28,11 @@ interface Props {
   placeholder: string;
   type: string;
   value: string | number;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  css?: React.CSSProperties;
+  style?: 'input' | 'textarea';
 }
 
 const Input: React.FC<Props> = ({
@@ -32,19 +40,41 @@ const Input: React.FC<Props> = ({
   placeholder,
   type,
   onChange,
-  value
+  value,
+  css,
+  style = 'input'
 }) => {
-  return (
-    <input
-      data-testid='input'
-      className={styles.input}
-      name={name}
-      placeholder={placeholder}
-      type={type}
-      value={value}
-      onChange={onChange}
-    />
-  );
+  // default renders as a normal input (or if user explicitly passes the style prop)
+  if (style === 'input') {
+    return (
+      <input
+        data-testid='input'
+        className={styles.input}
+        name={name}
+        placeholder={placeholder}
+        type={type}
+        value={value}
+        onChange={onChange}
+        style={{ ...css }}
+      />
+    );
+  }
+
+  // if the style prop is passed as a textarea, render a textarea
+  if (style === 'textarea') {
+    return (
+      <textarea
+        data-testid='input'
+        className={styles.textarea}
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        style={{ ...css }}
+      />
+    );
+  }
+  return <></>;
 };
 
 export default Input;

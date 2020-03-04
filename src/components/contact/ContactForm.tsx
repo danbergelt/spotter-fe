@@ -10,73 +10,115 @@ import FormError from '../util/FormError';
 import Input from '../util/Input';
 import Button from '../util/Button';
 
-const ContactForm: React.FC = () => {
+/*== Contact form =====================================================
+
+This component renders a contact pop-up that allows all users,
+auth'd or not, to send a message to the service team at spotter.
+
+This form is present on all pages in the bottom right-hand corner. The
+design is inspired by enterprise chat support systems such as Intercom:
+https://www.intercom.com/
+
+Props:
+  form: boolean
+    a boolean that states whether the form is open or closed. used to
+    determine the transition animation, be it fade in or fade out
+
+*/
+
+interface Props {
+  form: boolean;
+}
+
+const ContactForm: React.FC<Props> = ({ form }) => {
+  // api utilities
   const [res, call, reset] = useApi();
+
+  // a function that dynamically generates a classname depending on
+  // the form prop. returns either a fade in animation or fade out
+  const animateForm = (): string => {
+    return `animated ${form ? 'fadeIn' : 'fadeOut'} faster ${styles.contact}`;
+  };
 
   return (
     <Formik
       initialValues={{ name: '', email: '', subject: '', message: '' }}
       validationSchema={ContactSchema}
+      // on form submit, reset the fields and call the api
       onSubmit={async (values, { resetForm }): Promise<void> => {
         resetForm();
         await call(contactQuery, [values]);
       }}
     >
-      {({
-        errors,
-        touched,
-        setFieldValue,
-        values,
-        handleBlur,
-        isSubmitting
-      }): JSX.Element => (
-        <Form>
-          <HTTPResponse
-            error={res.error}
-            success={res.data && res.data.message}
-            reset={reset}
-          />
-          <section className={styles.container}>
-            <div className={styles.flex}>
-              <Label content='Name' input='name' />
-              <FormError touched={touched} errors={errors} node='name' />
-            </div>
-            <Field as={Input} placeholder='Jane Doe' type='text' name='name' />
-            <div className={styles.flex}>
-              <Label content='Email' input='email' />
-              <FormError touched={touched} errors={errors} node='email' />
-            </div>
-            <Field
-              as={Input}
-              placeholder='name@email.com'
-              type='email'
-              name='email'
+      {({ errors, touched }): JSX.Element => (
+        <section data-testid='contact-form' className={animateForm()}>
+          <div>
+            <p className={styles.title}>
+              Hi there!{' '}
+              <span role='img' aria-label='hand-wave'>
+                👋
+              </span>
+            </p>
+            <p className={styles.description}>
+              Ask us anything, or share your feedback.
+            </p>
+          </div>
+          <Form>
+            <HTTPResponse
+              css={{ padding: '1rem' }}
+              error={res.error}
+              success={res.data?.message}
+              reset={reset}
             />
-            <div className={styles.flex}>
-              <Label content='Subject' input='subject' />
-              <FormError touched={touched} errors={errors} node='subject' />
-            </div>
-            <Field
-              placeholder='e.g. feature request'
-              as={Input}
-              type='text'
-              name='subject'
-            />
-            <div className={styles.flex}>
-              <Label content='Message' input='message' />
-              <FormError touched={touched} errors={errors} node='message' />
-            </div>
-            <textarea
-              name='message'
-              onBlur={handleBlur}
-              value={values.message}
-              onChange={(e): void => setFieldValue('message', e.target.value)}
-              placeholder='Your message goes here...'
-              className='contact-form-message'
-            />
-            <Button content='Submit' loading={res.isLoading} />
-          </section>
-        </Form>
+            <section className={styles.container}>
+              <div className={styles.flex}>
+                <Label content='Name' input='name' />
+                <FormError touched={touched} errors={errors} node='name' />
+              </div>
+              <Field
+                css={{ marginBottom: '2rem' }}
+                as={Input}
+                placeholder='Jane Doe'
+                type='text'
+                name='name'
+              />
+              <div className={styles.flex}>
+                <Label content='Email' input='email' />
+                <FormError touched={touched} errors={errors} node='email' />
+              </div>
+              <Field
+                css={{ marginBottom: '2rem' }}
+                as={Input}
+                placeholder='name@email.com'
+                type='email'
+                name='email'
+              />
+              <div className={styles.flex}>
+                <Label content='Subject' input='subject' />
+                <FormError touched={touched} errors={errors} node='subject' />
+              </div>
+              <Field
+                css={{ marginBottom: '2rem' }}
+                placeholder='e.g. feature request'
+                as={Input}
+                type='text'
+                name='subject'
+              />
+              <div className={styles.flex}>
+                <Label content='Message' input='message' />
+                <FormError touched={touched} errors={errors} node='message' />
+              </div>
+              <Field
+                css={{ marginBottom: '2rem' }}
+                as={Input}
+                placeholder='Your message goes here...'
+                name='message'
+                style='textarea'
+              />
+              <Button content='Submit' loading={res.isLoading} />
+            </section>
+          </Form>
+        </section>
       )}
     </Formik>
   );

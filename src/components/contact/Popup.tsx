@@ -4,7 +4,7 @@ import { FiX } from 'react-icons/fi';
 import useDelayUnmount from './useDelayUnmount';
 import { useLocation } from 'react-router-dom';
 import 'animate.css';
-import Contact from './Contact';
+import ContactForm from './ContactForm';
 import ScrollLock from 'react-scrolllock';
 import { useWindowSize } from 'react-use';
 
@@ -32,7 +32,7 @@ const Popup: React.FC = () => {
   return (
     <>
       <ScrollLock isActive={width <= 450 && form} />
-      {customMount && <Contact form={form} />}
+      {customMount && <ContactForm form={form} />}
       <div
         data-testid='contact-button'
         role='button'
