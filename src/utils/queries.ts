@@ -15,7 +15,7 @@ import { generateWeek, generateMonth } from './momentUtils';
 type Token = string | null;
 
 // submit a contact form
-export const contact = async (
+export const contactQuery = async (
   values: Record<string, string>
 ): Promise<AxiosResponse> => await axios.post(endpoint('contact'), values);
 

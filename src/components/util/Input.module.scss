@@ -24,3 +24,20 @@
     border: 1px solid $primary;
   }
 }
+
+.textarea {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  width: 100%;
+  font-size: 1.3rem;
+  resize: none;
+  padding: 1rem;
+  height: 100px;
+  border: 1px solid darken($gray4, 20%);
+  outline: 0;
+  border-radius: 4px;
+
+  &::placeholder {
+    color: lighten($gray2, 25%);
+  }
+}

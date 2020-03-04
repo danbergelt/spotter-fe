@@ -6,33 +6,32 @@ import wrapper from '../../../__testUtils__/wrapper';
 import { reducer } from '../../../reducers/index';
 import axios from 'axios';
 import userEvent from '@testing-library/user-event';
+jest.mock('axios');
+const mockAxios = axios as jest.Mocked<typeof axios>;
 
 describe('can close modal on delete click', () => {
   // initial setup
   afterEach(cleanup);
 
   test('open and close contact modal', async () => {
-    axios.get.mockResolvedValue({ data: { token: null } });
+    mockAxios.get.mockResolvedValue({ data: { token: null } });
     const { getByTestId, queryByTestId, queryByText } = wrapper(
       reducer,
       <App />
     );
-
     await wait(() => expect(queryByText(/lifting pal/i)).toBeTruthy());
-
     expect(queryByTestId(/contact-form/i)).toBeFalsy();
-
     fireEvent.click(getByTestId(/contact-button/i));
-
     await wait(() => expect(queryByTestId(/contact-form/i)).toBeTruthy());
-
     fireEvent.click(getByTestId(/contact-button/i));
-
     await wait(() => expect(queryByTestId(/contact-form/i)).toBeFalsy());
   });
 
   test('contact form renders empty inputs', () => {
-    const { getByPlaceholderText } = wrapper(reducer, <ContactForm />);
+    const { getByPlaceholderText } = wrapper(
+      reducer,
+      <ContactForm form={true} />
+    );
 
     const name = getByPlaceholderText(/Jane Doe/i);
     const email = getByPlaceholderText(/name@email.com/i);
@@ -50,7 +49,7 @@ describe('can close modal on delete click', () => {
   test('fields can be typed in', async () => {
     const { container, getByPlaceholderText } = wrapper(
       reducer,
-      <ContactForm />
+      <ContactForm form={true} />
     );
 
     const name = getByPlaceholderText(/Jane Doe/i);
@@ -81,9 +80,30 @@ describe('can close modal on delete click', () => {
   });
 
   test('touched field validation', async () => {
-    const { container, getByPlaceholderText, findByText } = wrapper(
+    const { getByTestId, findByText, getByPlaceholderText } = wrapper(
       reducer,
-      <ContactForm />
+      <ContactForm form={true} />
+    );
+
+    fireEvent.click(getByTestId(/button/i));
+
+    await findByText(/name is required/i);
+    await findByText(/email is required/i);
+    await findByText(/subject is required/i);
+    await findByText(/message is required/i);
+
+    fireEvent.change(getByPlaceholderText(/name@email.com/i), {
+      target: { value: 'foo' }
+    });
+
+    await findByText(/invalid email/i);
+  });
+
+  test('successful submission', async () => {
+    mockAxios.post.mockResolvedValue({ data: { message: 'success' } });
+    const { findByText, getByTestId, getByPlaceholderText } = wrapper(
+      reducer,
+      <ContactForm form={true} />
     );
 
     const name = getByPlaceholderText(/Jane Doe/i);
@@ -91,28 +111,59 @@ describe('can close modal on delete click', () => {
     const subject = getByPlaceholderText(/e.g. feature request/i);
     const message = getByPlaceholderText(/your message goes here.../i);
 
-    fireEvent.focus(name);
-    fireEvent.blur(name);
+    fireEvent.change(name, {
+      target: { value: 'foo' }
+    });
 
-    const err1 = await findByText(/name is required/i);
-    expect(container.contains(err1)).toBeTruthy();
+    fireEvent.change(email, {
+      target: { value: 'bar@email.com' }
+    });
 
-    fireEvent.focus(email);
-    fireEvent.blur(email);
+    fireEvent.change(subject, {
+      target: { value: 'baz' }
+    });
 
-    const err2 = await findByText(/email is required/i);
-    expect(container.contains(err2)).toBeTruthy();
+    fireEvent.change(message, {
+      target: { value: 'qux' }
+    });
 
-    fireEvent.focus(subject);
-    fireEvent.blur(subject);
+    fireEvent.click(getByTestId(/button/i));
 
-    const err3 = await findByText(/subject is required/i);
-    expect(container.contains(err3)).toBeTruthy();
+    await findByText(/success/i);
+  });
 
-    message.focus();
-    message.blur();
+  test('rejected submission', async () => {
+    mockAxios.post.mockRejectedValue({
+      response: { data: { error: 'rejected' } }
+    });
+    const { findByText, getByTestId, getByPlaceholderText } = wrapper(
+      reducer,
+      <ContactForm form={true} />
+    );
 
-    const err4 = await findByText(/message is required/i);
-    expect(container.contains(err4)).toBeTruthy();
+    const name = getByPlaceholderText(/Jane Doe/i);
+    const email = getByPlaceholderText(/name@email.com/i);
+    const subject = getByPlaceholderText(/e.g. feature request/i);
+    const message = getByPlaceholderText(/your message goes here.../i);
+
+    fireEvent.change(name, {
+      target: { value: 'foo' }
+    });
+
+    fireEvent.change(email, {
+      target: { value: 'bar@email.com' }
+    });
+
+    fireEvent.change(subject, {
+      target: { value: 'baz' }
+    });
+
+    fireEvent.change(message, {
+      target: { value: 'qux' }
+    });
+
+    fireEvent.click(getByTestId(/button/i));
+
+    await findByText(/rejected/i);
   });
 });

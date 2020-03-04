@@ -18,15 +18,16 @@ interface Props {
   error?: string | null;
   success?: string | null;
   reset?: Function;
+  css?: React.CSSProperties;
 }
 
-const HTTPResponse: React.FC<Props> = ({ error, success, reset }) => {
+const HTTPResponse: React.FC<Props> = ({ error, success, reset, css }) => {
   // close the error message
   const handleClose = (): void | false => reset && reset();
   // error case --> return a message with error styles
   if (error) {
     return (
-      <div data-testid='res' className={styles.error}>
+      <div style={{ ...css }} data-testid='res' className={styles.error}>
         <p>{error}</p>
         <FiX
           data-testid='close'
@@ -39,7 +40,7 @@ const HTTPResponse: React.FC<Props> = ({ error, success, reset }) => {
   // success case --> return a message with success styles
   if (success) {
     return (
-      <div data-testid='res' className={styles.success}>
+      <div style={{ ...css }} data-testid='res' className={styles.success}>
         <p>{success}</p>
         <FiX
           data-testid='close'

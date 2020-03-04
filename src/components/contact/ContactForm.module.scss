@@ -1,0 +1,66 @@
+@import '../../styles/mixins.scss';
+
+.contact {
+  z-index: 999;
+  background: white;
+  width: 400px;
+  height: 625px;
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: 'Nanum Gothic';
+
+  @media (max-width: 450px) {
+    width: 100vw;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    right: 0px;
+    bottom: 0px;
+    justify-content: flex-start;
+    padding: 5rem;
+  }
+
+  .title {
+    font-size: 3.5rem;
+    color: $gray1;
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    font-size: 1.75rem;
+    color: $gray2;
+    margin-bottom: 2rem;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+.popup {
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: $primary;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

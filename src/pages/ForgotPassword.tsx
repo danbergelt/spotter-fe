@@ -47,7 +47,7 @@ const ForgotPassword: React.FC = () => {
             <HTTPResponse
               reset={reset}
               error={res.error}
-              success={res.data && res.data.message}
+              success={res.data?.message}
             />
             <Form>
               <div className={styles.flex}>
