@@ -1,6 +1,6 @@
 import React from 'react';
 import App from '../../../App';
-import ContactForm from '../../../components/contact/ContactForm';
+import ContactForm from '../../../components/contact/Contact';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
 import wrapper from '../../../__testUtils__/wrapper';
 import { reducer } from '../../../reducers/index';

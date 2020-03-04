@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ReactComponent as Contact } from '../../assets/contact_icon_1.svg';
+import { ReactComponent as Chat } from '../../assets/contact_icon_1.svg';
 import { FiX } from 'react-icons/fi';
 import useDelayUnmount from './useDelayUnmount';
 import { useLocation } from 'react-router-dom';
 import 'animate.css';
-import ContactForm from './ContactForm';
+import Contact from './Contact';
 import ScrollLock from 'react-scrolllock';
 import { useWindowSize } from 'react-use';
 
@@ -31,8 +31,8 @@ const Popup: React.FC = () => {
 
   return (
     <>
-      <ScrollLock isActive={width <= 450 && form && true} />
-      {customMount && <ContactForm form={form} />}
+      <ScrollLock isActive={width <= 450 && form} />
+      {customMount && <Contact form={form} />}
       <div
         data-testid='contact-button'
         role='button'
@@ -47,9 +47,7 @@ const Popup: React.FC = () => {
         )}
 
         {!form && (
-          <Contact
-            className={!form ? `${open} contact-open` : 'contact-open'}
-          />
+          <Chat className={!form ? `${open} contact-open` : 'contact-open'} />
         )}
       </div>
     </>
