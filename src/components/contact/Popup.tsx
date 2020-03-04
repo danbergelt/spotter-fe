@@ -7,6 +7,7 @@ import 'animate.css';
 import ContactForm from './ContactForm';
 import ScrollLock from 'react-scrolllock';
 import { useWindowSize } from 'react-use';
+import styles from './ContactForm.module.scss';
 
 /*== Contact popup =====================================================
 
@@ -31,9 +32,15 @@ const Popup: React.FC = () => {
   // whenever we travel to a new page
   const { pathname } = useLocation();
 
-  // animation strings from animate.css https://github.com/daneden/animate.css/
-  const close = 'animated rotateIn faster';
-  const open = 'animated zoomIn faster';
+  // if mounting, animate in, else animate out
+  // animations from https://github.com/daneden/animate.css/
+  const animatePopup = (): string => {
+    if (form) {
+      return 'animated rotateIn faster';
+    } else {
+      return 'animated zoomIn faster';
+    }
+  };
 
   // close the form when the page changes
   useEffect(() => {
@@ -54,20 +61,13 @@ const Popup: React.FC = () => {
         data-testid='contact-button'
         role='button'
         onClick={(): void => setForm(!form)}
-        className='contact-popup-button'
+        className={styles.popup}
       >
         {/* render X icon if form is open */}
-        {form && (
-          <FiX
-            size='27.5px'
-            className={form ? `${close} contact-close` : 'contact-close'}
-          />
-        )}
+        {form && <FiX color='white' size='27.5px' className={animatePopup()} />}
 
         {/* render chat icon if form is closed */}
-        {!form && (
-          <Chat className={!form ? `${open} contact-open` : 'contact-open'} />
-        )}
+        {!form && <Chat className={animatePopup()} />}
       </div>
     </>
   );
