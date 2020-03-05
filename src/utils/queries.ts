@@ -137,16 +137,13 @@ export const fetchWorkoutsQuery = async (
   if (scope === 'Week') {
     range = generateWeek(time);
   }
-
   if (scope === 'Month') {
     range = generateMonth(time);
   }
-
   // format the days
   const formattedRange: Array<string> = range.map(day =>
     day.format('MMM DD YYYY')
   );
-
   // call the server, passing in a range of dates to match workouts
   return await axiosWithAuth(t).post(endpoint('workouts/range'), {
     range: formattedRange
@@ -202,7 +199,7 @@ export const logInQuery = async (values: {
   email: string;
   password: string;
 }): Promise<AxiosResponse> => {
-  return await axios.post(endpoint('login'), values);
+  return await axios.post(endpoint('login'), values, { withCredentials: true });
 };
 
 // sign up
@@ -210,5 +207,23 @@ export const signUpQuery = async (values: {
   email: string;
   password: string;
 }): Promise<AxiosResponse> => {
-  return await axios.post(endpoint('register'), values);
+  return await axios.post(endpoint('register'), values, {
+    withCredentials: true
+  });
+};
+
+// change email
+export const changeEmailQuery = async (
+  t: string,
+  values: Record<string, string>
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).put(endpoint('user/email'), values);
+};
+
+// change password
+export const changePasswordQuery = async (
+  t: string,
+  values: Record<string, string>
+): Promise<AxiosResponse> => {
+  return await axiosWithAuth(t).put(endpoint('user/password'), values);
 };

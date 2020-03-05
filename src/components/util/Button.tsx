@@ -19,11 +19,17 @@ Props:
 interface Props {
   content: string;
   loading?: boolean;
+  css?: React.CSSProperties;
 }
 
-const Button: React.FC<Props> = ({ content, loading }) => {
+const Button: React.FC<Props> = ({ content, loading, css }) => {
   return (
-    <button data-testid='button' type='submit' className={styles.button}>
+    <button
+      style={{ ...css }}
+      data-testid='button'
+      type='submit'
+      className={styles.button}
+    >
       {loading ? (
         <div data-testid='loader'>
           <Loader type='ThreeDots' color='white' height={10} width={30} />

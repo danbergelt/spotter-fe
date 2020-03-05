@@ -1,0 +1,20 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+.popup {
+  background: white;
+  width: 275px;
+  height: auto;
+  box-shadow: $box;
+  padding: 1rem;
+}
+
+.action {
+  @include settingsAction;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

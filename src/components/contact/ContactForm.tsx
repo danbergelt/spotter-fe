@@ -9,6 +9,7 @@ import Label from '../util/Label';
 import FormError from '../util/FormError';
 import Input from '../util/Input';
 import Button from '../util/Button';
+import Flex from '../util/Flex';
 
 /*== Contact form =====================================================
 
@@ -71,10 +72,10 @@ const ContactForm: React.FC<Props> = ({ form }) => {
               reset={reset}
             />
             <section className={styles.container}>
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Name' input='name' />
                 <FormError touched={touched} errors={errors} node='name' />
-              </div>
+              </Flex>
               <Field
                 css={{ marginBottom: '2rem' }}
                 as={Input}
@@ -82,10 +83,10 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 type='text'
                 name='name'
               />
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Email' input='email' />
                 <FormError touched={touched} errors={errors} node='email' />
-              </div>
+              </Flex>
               <Field
                 css={{ marginBottom: '2rem' }}
                 as={Input}
@@ -93,10 +94,10 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 type='email'
                 name='email'
               />
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Subject' input='subject' />
                 <FormError touched={touched} errors={errors} node='subject' />
-              </div>
+              </Flex>
               <Field
                 css={{ marginBottom: '2rem' }}
                 placeholder='e.g. feature request'
@@ -104,10 +105,10 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 type='text'
                 name='subject'
               />
-              <div className={styles.flex}>
+              <Flex sb>
                 <Label content='Message' input='message' />
                 <FormError touched={touched} errors={errors} node='message' />
-              </div>
+              </Flex>
               <Field
                 css={{ marginBottom: '2rem' }}
                 as={Input}

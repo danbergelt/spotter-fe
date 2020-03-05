@@ -1,5 +1,20 @@
 @import './variables.scss';
 
+@mixin settingsAction {
+  margin-top: 0.5rem;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  color: $gray1;
+  cursor: pointer;
+  text-decoration: underline;
+  border-radius: 4px;
+  @include hover;
+
+  &:hover {
+    background: $gray3;
+  }
+}
+
 @mixin flex-center {
   display: flex;
   align-items: center;

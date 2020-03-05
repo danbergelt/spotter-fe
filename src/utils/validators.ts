@@ -10,7 +10,7 @@ export const AuthSchema = Yup.object().shape({
     .required('Password is required')
 });
 
-// change password validation (forgotten passwords)
+// change password (forgotten passwords)
 export const ChangeForgottenPasswordSchema = Yup.object().shape({
   newPassword: Yup.string()
     .min(6, 'Six char minimum')
@@ -36,4 +36,24 @@ export const ContactSchema = Yup.object().shape({
     .required('Email is required'),
   subject: Yup.string().required('Subject is required'),
   message: Yup.string().required('Message is required')
+});
+
+// change email
+export const ChangeEmailSchema = Yup.object().shape({
+  old: Yup.string()
+    .email('Invalid email')
+    .required('Enter old email'),
+  new: Yup.string()
+    .email('Invalid email')
+    .required('Enter new email'),
+  confirm: Yup.string().oneOf([Yup.ref('new'), null], 'Match new email')
+});
+
+// change passwords
+export const ChangePasswordSchema = Yup.object().shape({
+  old: Yup.string().required('Enter old password'),
+  new: Yup.string()
+    .min(6, 'Six char minimum')
+    .required('Enter new password'),
+  confirm: Yup.string().oneOf([Yup.ref('new'), null], 'Match new password')
 });
