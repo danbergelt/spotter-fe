@@ -1,5 +1,6 @@
 import React from 'react';
 import Popover from 'react-tiny-popover';
+import styles from './ChangeAccount.module.scss';
 import ChangeAccountForm from './ChangeAccountForm';
 import { ChangePasswordSchema } from 'src/utils/validators';
 import { changePasswordQuery } from 'src/utils/queries';
@@ -39,7 +40,7 @@ const ChangePassword: React.FC<Props> = ({
       <div
         role='button'
         onClick={(): void => setChangePassword(true)}
-        className='settings-action'
+        className={styles.action}
       >
         Change password...
       </div>
