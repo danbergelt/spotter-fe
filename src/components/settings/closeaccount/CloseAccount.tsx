@@ -5,12 +5,13 @@ import { logOutAction } from 'src/actions/globalActions';
 import useToken from '../../../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { deleteAccountQuery } from 'src/utils/queries';
+import Checkbox from 'src/components/util/Checkbox';
 
 const CloseAccount: React.FC = () => {
   const dispatch = useDispatch();
   // const history = useHistory();
 
-  const [confirmClose, setConfirmClose] = useState<boolean>(false);
+  const [confirmClose, setConfirmClose] = useState(false);
 
   const t: string | null = useToken();
 
@@ -41,13 +42,8 @@ const CloseAccount: React.FC = () => {
       <br />
       Are you sure you want to close your account?
       <section className='confirm-close'>
-        <input
-          onChange={(): void => setConfirmClose(!confirmClose)}
-          className='confirm-check'
-          type='checkbox'
-          data-testid='close-check'
-        />
-        <p>Yes, I&#39;m sure</p>
+        <Checkbox state={confirmClose} setState={setConfirmClose} />
+        <p style={{ marginLeft: '0.75rem' }}>Yes, I&#39;m sure</p>
       </section>
       <div
         role='button'
