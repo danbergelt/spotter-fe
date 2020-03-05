@@ -35,7 +35,7 @@ const ChangePassword: React.FC<Props> = ({
       }
       align='start'
       position='bottom'
-      containerClassName='change-popup'
+      containerClassName={styles.popup}
     >
       <div
         role='button'

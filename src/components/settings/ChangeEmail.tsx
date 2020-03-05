@@ -32,7 +32,7 @@ const ChangeEmail: React.FC<Props> = ({ changeEmail, setChangeEmail }) => {
       }
       align='start'
       position='bottom'
-      containerClassName='change-popup'
+      containerClassName={styles.popup}
     >
       <div
         role='button'
