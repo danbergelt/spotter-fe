@@ -60,7 +60,6 @@ const ChangeAccountForm: React.FC<Props> = ({
             <Field
               css={{ padding: '0.5rem', marginBottom: '1rem' }}
               as={Input}
-              data-testid='old'
               name='old'
               type={inputType}
             />
@@ -71,7 +70,6 @@ const ChangeAccountForm: React.FC<Props> = ({
             <Field
               css={{ padding: '0.5rem', marginBottom: '1rem' }}
               as={Input}
-              data-testid='new'
               name='new'
               type={inputType}
             />
@@ -81,7 +79,6 @@ const ChangeAccountForm: React.FC<Props> = ({
             </Flex>
             <Field
               css={{ padding: '0.5rem', marginBottom: '1rem' }}
-              data-testid='confirm'
               as={Input}
               name='confirm'
               type={inputType}
