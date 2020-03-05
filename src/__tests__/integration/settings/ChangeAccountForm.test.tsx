@@ -4,10 +4,11 @@ import ChangeAccountForm from '../../../components/settings/ChangeAccountForm';
 import { fireEvent, cleanup, wait } from '@testing-library/react';
 import wrapper from '../../../__testUtils__/wrapper';
 import { reducer } from '../../../reducers/index';
-import { ChangeEmailSchema } from 'src/utils/validators';
+import { ChangeEmailSchema, ChangePasswordSchema } from 'src/utils/validators';
 import { changeEmailQuery } from 'src/utils/queries';
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
+import { act } from 'react-dom/test-utils';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
@@ -16,7 +17,13 @@ const props = {
   schema: ChangeEmailSchema,
   api: changeEmailQuery,
   labels: { old: 'Old Email', new: 'New Email', confirm: 'Confirm Email' },
-  inputType: 'email'
+  pwLabels: {
+    old: 'Old Password',
+    new: 'New Password',
+    confirm: 'Confirm Password'
+  },
+  inputType: 'email',
+  pwInputType: 'password'
 };
 
 describe('Change email', () => {
@@ -62,7 +69,7 @@ describe('Change email', () => {
     expect(confirm.value).toEqual('new');
   });
 
-  test('field errors', async () => {
+  test('field errors for change email', async () => {
     const { getByTestId, getAllByTestId, getByText, queryByText } = wrapper(
       reducer,
       <ChangeAccountForm
@@ -92,6 +99,35 @@ describe('Change email', () => {
     await wait(() => expect(getByText(/invalid email/i)).toBeTruthy());
     fireEvent.change(confirm, { target: { value: 'confirm' } });
     await wait(() => expect(getByText(/match new email/i)).toBeTruthy());
+  });
+
+  test('field errors for change password', async () => {
+    const { getByTestId, getAllByTestId, getByText } = wrapper(
+      reducer,
+      <ChangeAccountForm
+        schema={ChangePasswordSchema}
+        setState={props.setState}
+        api={props.api}
+        labels={props.pwLabels}
+        inputType={props.pwInputType}
+      />
+    );
+
+    await act(async () => {
+      fireEvent.click(getByTestId(/button/i));
+    });
+
+    await wait(() => expect(getByText(/enter old password/i)).toBeTruthy());
+    expect(getByText(/enter new password/i)).toBeTruthy();
+
+    const inputs = getAllByTestId(/input/i) as Array<HTMLInputElement>;
+    const newE = inputs[1];
+    const confirm = inputs[2];
+
+    fireEvent.change(newE, { target: { value: 'new' } });
+    await wait(() => expect(getByText(/six char minimum/i)).toBeTruthy());
+    fireEvent.change(confirm, { target: { value: 'confirm' } });
+    await wait(() => expect(getByText(/match new password/i)).toBeTruthy());
   });
 
   test('renders passed-in labels', () => {
