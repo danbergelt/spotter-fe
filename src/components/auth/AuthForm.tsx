@@ -68,8 +68,7 @@ const AuthForm: React.FC<Props> = ({
         initialValues={{ email: '', password: '' }}
         validationSchema={AuthSchema}
         // on submit, reset the form and call the api
-        onSubmit={async (values, { resetForm }): Promise<void> => {
-          resetForm();
+        onSubmit={async (values): Promise<void> => {
           await call(api, [values]);
         }}
       >
