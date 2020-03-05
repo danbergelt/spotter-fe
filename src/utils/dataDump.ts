@@ -2,8 +2,6 @@ import axiosWithAuth from './axiosWithAuth';
 import { SetStateAction } from 'react';
 import endpoint from './endpoint';
 
-// TODO --> need to test this file. for an example on how that might work, look here: https://codesandbox.io/s/6xp9lqjzk3
-
 type TDownloadWorkoutData = (
   setError: React.Dispatch<SetStateAction<string>>,
   t: string | null,

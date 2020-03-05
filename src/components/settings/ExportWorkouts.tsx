@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { downloadData } from '../../utils/dataDump';
 import styles from './ExportWorkouts.module.scss';
+import HTTPResponse from '../util/HTTPResponse';
 
 /*== Export workouts =====================================================
 
@@ -28,6 +29,11 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
 
   return (
     <article className={styles.container}>
+      <HTTPResponse
+        css={{ width: '275px', marginLeft: '1.5rem', padding: '1rem' }}
+        error={error}
+        reset={(): void => setError('')}
+      />
       <p className={styles.desc}>
         Export your workout data as a CSV file. Click below to start your
         download.
@@ -40,7 +46,6 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
       >
         Export workout data...
       </div>
-      {error && <p>{error}</p>}
     </article>
   );
 };
