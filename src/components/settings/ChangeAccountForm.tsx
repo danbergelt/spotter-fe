@@ -12,6 +12,27 @@ import Button from '../util/Button';
 import HTTPResponse from '../util/HTTPResponse';
 import Flex from '../util/Flex';
 
+/*== Change Account Details =====================================================
+
+Form component used to change account details (email, password)
+
+User enters their current email/password, their new email/password, and confirm
+that new email/password. Clicks submit, and their account is updated in the DB
+
+Props:
+  setState: React setStateAction
+    the state setter that controls the popup state (open/closed)
+  schema: Yup schema
+    the form validator, either for emails or passwords
+  api: Function
+    the api call, either to change email or password
+  labels: {string: string}
+    labels for the inputs
+  inputType: string
+    either email or password
+
+*/
+
 interface Props {
   setState: React.Dispatch<SetStateAction<boolean>>;
   schema: Yup.ObjectSchema<Yup.Shape<object, Record<string, string>>>;
@@ -27,7 +48,10 @@ const ChangeAccountForm: React.FC<Props> = ({
   labels,
   inputType
 }) => {
+  // auth token
   const token = useToken();
+
+  // api utils
   const [res, call, reset] = useApi();
 
   // when HTTP response is exited, component is re-rendered, automatically closing the popup

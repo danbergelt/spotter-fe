@@ -21,7 +21,7 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
       >
         Export workout data...
       </div>
-      <p>{dataDump && dataDump}</p>
+      {dataDump && <p>{dataDump}</p>}
     </article>
   );
 };

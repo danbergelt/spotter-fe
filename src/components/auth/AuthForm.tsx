@@ -67,9 +67,8 @@ const AuthForm: React.FC<Props> = ({
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={AuthSchema}
-        // on submit, reset the form and call the api
-        onSubmit={async (values, { resetForm }): Promise<void> => {
-          resetForm();
+        // call the api
+        onSubmit={async (values): Promise<void> => {
           await call(api, [values]);
         }}
       >
