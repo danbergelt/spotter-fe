@@ -21,14 +21,17 @@ the last year) is blue, and an old PR (older than a year) is red.
 Props:
   exercise: Exercise
     the saved exercise that contains PR data
+  i: number
+    the index, used to manipulate styles
 
 */
 
 interface Props {
   exercise: Exercise;
+  i: number;
 }
 
-const Pr: React.FC<Props> = ({ exercise }) => {
+const Pr: React.FC<Props> = ({ exercise, i }) => {
   // set the PR's classname according to the date the PR was set
   const setClassName = (): string => {
     // calc diff between current date and pr date
@@ -47,7 +50,7 @@ const Pr: React.FC<Props> = ({ exercise }) => {
   };
 
   return (
-    <Flex sb>
+    <Flex sb css={{ marginTop: i > 0 ? '2rem' : undefined }}>
       <Flex ac>
         <div className={setClassName()}>
           <FaCircle />

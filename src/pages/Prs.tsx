@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Moment from 'moment';
 import { extendMoment, MomentRange } from 'moment-range';
-import PrSection from '../components/prs/PrSection';
+import PrGroup from '../components/prs/PrGroup';
 import { State } from 'src/types/State';
 import { SortedPrs, SortedPrsRange } from '../types/Prs';
 import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
@@ -94,7 +94,7 @@ const Prs: React.FC = () => {
       <div className='prs-container spacer'>
         {!loading &&
           Object.keys(sortedPrs).map((key, i) => (
-            <PrSection
+            <PrGroup
               key={categories[i]}
               prs={sortedPrs[key]}
               title={categories[i]}

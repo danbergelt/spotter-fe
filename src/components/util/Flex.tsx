@@ -18,15 +18,17 @@ Props (WIP, plan on adding more props + collision handling as time goes on)
 interface Props {
   sb?: boolean;
   ac?: boolean;
+  css?: React.CSSProperties;
 }
 
-const Flex: React.FC<Props> = ({ children, sb, ac }) => {
+const Flex: React.FC<Props> = ({ children, sb, ac, css }) => {
   return (
     <div
       style={{
         display: 'flex',
         justifyContent: sb ? 'space-between' : undefined,
-        alignItems: ac ? 'center' : undefined
+        alignItems: ac ? 'center' : undefined,
+        ...css
       }}
       data-testid='flex'
     >
