@@ -18,7 +18,7 @@ Props:
     the value as stored in Formik's managed state
   onChange: function
     the function that handles changes in Formik inputs
-  style: enum['textarea' | 'input']
+  element: enum['textarea' | 'input']
     optional prop that renders a texarea instead of a default input
 
 */

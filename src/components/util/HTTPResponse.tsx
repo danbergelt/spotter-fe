@@ -11,6 +11,8 @@ Props
     rejected error message
   success: string
     resolved success message
+  reset: function
+    reset the triggering state, unmount the HTTP response
 
 */
 
