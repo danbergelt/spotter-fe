@@ -20,6 +20,10 @@
   align-items: center;
 }
 
+@mixin spacer {
+  margin: 0rem 10rem;
+}
+
 @mixin modalContainer {
   display: flex;
   flex-direction: column;

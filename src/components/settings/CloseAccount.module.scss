@@ -1,0 +1,27 @@
+@import '../../styles/variables.scss';
+
+.container {
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  color: $gray2;
+  line-height: 1.5;
+
+  #danger {
+    color: $danger;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+
+  .desc {
+    margin-bottom: 2rem;
+  }
+
+  .question {
+    margin-bottom: 2rem;
+  }
+
+  .confirm {
+    margin-left: 0.75rem;
+  }
+}
