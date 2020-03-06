@@ -4,7 +4,7 @@
   position: relative;
   display: inline-block;
   cursor: help;
-  color: $gray1;
+  color: $gray2;
 
   .tip {
     visibility: hidden;
@@ -23,7 +23,7 @@
   .top {
     bottom: 150%;
     left: 50%;
-    margin-left: -70px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-left: -70px;
   }
 
   .right {
@@ -39,7 +39,7 @@
   .bottom {
     top: 150%;
     left: 50%;
-    margin-left: -70px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-left: -70px;
   }
 }
 .container:hover .tip {
