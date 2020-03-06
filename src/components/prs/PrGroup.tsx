@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import Pr from './Pr';
-import { FiInfo } from 'react-icons/fi';
-import ReactTooltip from 'react-tooltip';
+// import { FiInfo } from 'react-icons/fi';
+// import ReactTooltip from 'react-tooltip';
 import { SortedPrsRange } from '../../types/Prs';
-import { useWindowSize } from 'react-use';
 import moment from 'moment';
 import styles from './PrGroup.module.scss';
 import Toggler from '../util/Toggler';
+import Tip from '../util/Tip';
+import { FiInfo } from 'react-icons/fi';
 
 interface Props {
   title: string;
@@ -18,17 +19,10 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
   // expandable pr group - toggle to open and close
   const [open, setOpen] = useState(true);
 
-  // used to modify mobile styles in JS
-  const { width } = useWindowSize();
-
   return (
     <section className={styles.container}>
       <div className={open ? `${styles.head} ${styles.open}` : styles.head}>
-        <div
-          role='button'
-          className={styles.prSpacer}
-          onClick={(): void => setOpen(!open)}
-        >
+        <div className={styles.prSpacer} onClick={(): void => setOpen(!open)}>
           <Toggler
             state={open}
             on={IoMdArrowDropdown}
@@ -37,15 +31,8 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
           <div className={styles.title}>{title}</div>
         </div>
         {title === 'Last Month' && (
-          <div data-tip data-for='pr-info' className={styles.info}>
-            <FiInfo />
-          </div>
+          <Tip place='left' trigger={FiInfo} content='tracks saved exercises' />
         )}
-        <ReactTooltip place='left' id='pr-info' effect='solid'>
-          <p style={{ width: width <= 500 ? '150px' : '200px' }}>
-            Save your exercises, and we&#39;ll show your PRs on this page!
-          </p>
-        </ReactTooltip>
       </div>
       {open && (
         <section className={styles.box}>

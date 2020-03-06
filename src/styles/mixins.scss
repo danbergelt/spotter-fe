@@ -1,5 +1,11 @@
 @import './variables.scss';
 
+@mixin icon {
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
 @mixin settingsAction {
   margin-top: 0.5rem;
   padding: 1.5rem;
