@@ -9,13 +9,21 @@ interface Props {
 
 const Checkbox: React.FC<Props> = ({ state, setState }) => {
   return state ? (
-    <div onClick={(): void => setState(false)} data-testid='checked'>
-      <FiCheckSquare size={15} strokeWidth='3px' className={styles.box} />
-    </div>
+    <span
+      className={styles.box}
+      data-testid='checked'
+      onClick={(): void => setState(false)}
+    >
+      <FiCheckSquare size={15} strokeWidth='3px' />
+    </span>
   ) : (
-    <div onClick={(): void => setState(true)} data-testid='unchecked'>
-      <FiSquare size={15} strokeWidth='3px' className={styles.box} />
-    </div>
+    <span
+      className={styles.box}
+      data-testid='unchecked'
+      onClick={(): void => setState(true)}
+    >
+      <FiSquare size={15} strokeWidth='3px' />
+    </span>
   );
 };
 

@@ -13,6 +13,11 @@ Props:
     the button content
   loading: boolean
     the loading state of the current request
+  css: React CSS properties
+    additional custom styles to spread in as inline styles
+  func: Function
+    when used outside of a form, an optional function prop
+    to pass in as onClick handler
 
 */
 
@@ -20,11 +25,13 @@ interface Props {
   content: string;
   loading?: boolean;
   css?: React.CSSProperties;
+  func?: Function;
 }
 
-const Button: React.FC<Props> = ({ content, loading, css }) => {
+const Button: React.FC<Props> = ({ content, loading, css, func }) => {
   return (
     <button
+      onClick={() => func && func()}
       style={{ ...css }}
       data-testid='button'
       type='submit'

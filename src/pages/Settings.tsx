@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ChangePassword from '../components/settings/ChangePassword';
-import ChangeEmail from '../components/settings//ChangeEmail';
+import ChangeEmail from '../components/settings/ChangeEmail';
 import ExportWorkouts from 'src/components/settings/ExportWorkouts';
-import CloseAccount from 'src/components/settings/closeaccount/CloseAccount';
+import CloseAccount from 'src/components/settings/CloseAccount';
 import { Helmet } from 'react-helmet-async';
 import useToken from '../hooks/useToken';
 
