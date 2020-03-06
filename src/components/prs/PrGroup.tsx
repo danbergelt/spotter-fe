@@ -4,46 +4,36 @@ import Pr from './Pr';
 import { FiInfo } from 'react-icons/fi';
 import ReactTooltip from 'react-tooltip';
 import { SortedPrsRange } from '../../types/Prs';
-import { Exercise } from '../../types/ExerciseOption';
 import { useWindowSize } from 'react-use';
-
-// Hacky fix to resolve error with default imports from moment and typescript
-// eslint-disable-next-line
-let m = require('moment');
-if ('default' in m) {
-  m = m['default'];
-}
+import moment from 'moment';
+import styles from './PrGroup.module.scss';
+import Toggler from '../util/Toggler';
 
 interface Props {
   title: string;
   prs: SortedPrsRange;
 }
 
-const PrSection: React.FC<Props> = ({ title, prs }) => {
+const PrGroup: React.FC<Props> = ({ title, prs }) => {
+  // expandable pr group - toggle to open and close
   const [open, setOpen] = useState(true);
-  const [hover, setHover] = useState(false);
 
+  // used to modify mobile styles in JS
   const { width } = useWindowSize();
 
   return (
-    <section className='pr-section'>
-      <div className={open ? 'pr-title open' : 'pr-title closed'}>
+    <section className={styles.container}>
+      <div className={open ? `${styles.title} ${styles.open}` : styles.title}>
         <div
           role='button'
-          className='pr-spacer'
-          onMouseEnter={(): void => setHover(true)}
-          onMouseLeave={(): void => setHover(false)}
+          className={styles.prSpacer}
           onClick={(): void => setOpen(!open)}
         >
-          {open ? (
-            <div className={hover ? 'hover-pr-dropdown' : 'pr-dropdown'}>
-              <IoMdArrowDropdown />
-            </div>
-          ) : (
-            <div className={hover ? 'hover-pr-dropdown' : 'pr-dropdown'}>
-              <IoMdArrowDropright />
-            </div>
-          )}
+          <Toggler
+            state={open}
+            on={IoMdArrowDropdown}
+            off={IoMdArrowDropright}
+          />
           <div style={{ marginLeft: '1rem' }}>{title}</div>
         </div>
         {title === 'Last Month' && (
@@ -53,8 +43,7 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
         )}
         <ReactTooltip place='left' id='pr-info' effect='solid'>
           <p style={{ width: width <= 500 ? '150px' : '200px' }}>
-            Save your favorite exercises, and we&#39;ll show your PRs on this
-            page!
+            Save your exercises, and we&#39;ll show your PRs on this page!
           </p>
         </ReactTooltip>
       </div>
@@ -63,11 +52,13 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
           {!prs.length && <p className='no-prs'>No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
-            .sort((a: Exercise, b: Exercise) =>
-              m(b.prDate, 'MMM DD YYYY').diff(m(a.prDate, 'MMM DD YYYY'))
+            .sort((a, b) =>
+              moment(b.prDate, 'MMM DD YYYY').diff(
+                moment(a.prDate, 'MMM DD YYYY')
+              )
             )
-            .map((exercise: Exercise) => (
-              <Pr key={exercise.name} exercise={exercise} />
+            .map((exercise, i) => (
+              <Pr key={exercise.name} exercise={exercise} i={i} />
             ))}
         </section>
       )}
@@ -75,4 +66,4 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
   );
 };
 
-export default PrSection;
+export default PrGroup;

@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  font-size: 1.9rem;
+  color: $gray1;
+
+  @include medium {
+    font-size: 1.5rem;
+  }
+
+  .title {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid $gray4;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .open {
+    border: none;
+  }
+
+  .prSpacer {
+    display: flex;
+    width: auto;
+    cursor: pointer;
+  }
+}
