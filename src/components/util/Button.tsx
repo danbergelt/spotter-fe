@@ -31,7 +31,7 @@ interface Props {
 const Button: React.FC<Props> = ({ content, loading, css, func }) => {
   return (
     <button
-      onClick={() => func && func()}
+      onClick={(): void => func && func()}
       style={{ ...css }}
       data-testid='button'
       type='submit'
