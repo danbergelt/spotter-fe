@@ -1,38 +1,38 @@
 import React from 'react';
-import Routes from '../../../routes';
 import Prs from '../../../pages/Prs';
-import { fireEvent, cleanup, wait } from '@testing-library/react';
+import { cleanup, wait } from '@testing-library/react';
 import wrapper from '../../../__testUtils__/wrapper';
 import { reducer } from '../../../reducers/index';
 import axios from 'axios';
 import { ADD_TOKEN } from '../../../actions/addTokenActions';
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
+import moment from 'moment';
 import { FETCH_EXERCISES } from '../../../actions/fetchExercisesActions';
-import { act } from 'react-dom/test-utils';
-
-const moment = extendMoment(Moment);
+jest.mock('axios');
+const mockAxios = axios as jest.Mocked<typeof axios>;
 
 describe('Prs page functionality', () => {
   afterEach(cleanup);
 
-  test('can navigate to prs page', async () => {
-    axios.post.mockResolvedValue({});
-    axios.get.mockResolvedValue({});
-    const { getByText, history, store } = wrapper(reducer, <Routes />);
+  // TO-DO --> move this test to a specific "page" test file to test routing capabilities
+  // this file is for integration testing functionality once on the PRs page
 
-    await act(async () => {
-      await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
-    });
+  // test('can navigate to prs page', async () => {
+  //   mockAxios.post.mockResolvedValue({});
+  //   mockAxios.get.mockResolvedValue({});
+  //   const { getByText, history, store } = wrapper(reducer, <Routes />);
 
-    await act(async () => {
-      await fireEvent.click(getByText(/prs/i));
-    });
-    expect(history.location.pathname).toEqual('/prs');
-  });
+  //   await act(async () => {
+  //     await store.dispatch({ type: ADD_TOKEN, payload: 'token' });
+  //   });
+
+  //   await act(async () => {
+  //     await fireEvent.click(getByText(/prs/i));
+  //   });
+  //   expect(history.location.pathname).toEqual('/prs');
+  // });
 
   test('displays pr', async () => {
-    axios.get.mockResolvedValue({});
+    mockAxios.get.mockResolvedValue({});
     const { getByText, queryByText, store } = wrapper(reducer, <Prs />);
 
     store.dispatch({ type: ADD_TOKEN, payload: 'token' });
@@ -68,7 +68,7 @@ describe('Prs page functionality', () => {
   });
 
   test('displays no range found', async () => {
-    axios.get.mockResolvedValue({});
+    mockAxios.get.mockResolvedValue({});
     const { getByText, getAllByText, store } = wrapper(reducer, <Prs />);
 
     store.dispatch({ type: ADD_TOKEN, payload: 'token' });

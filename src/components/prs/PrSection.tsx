@@ -66,8 +66,8 @@ const PrSection: React.FC<Props> = ({ title, prs }) => {
             .sort((a: Exercise, b: Exercise) =>
               m(b.prDate, 'MMM DD YYYY').diff(m(a.prDate, 'MMM DD YYYY'))
             )
-            .map((pr: Exercise) => (
-              <Pr key={pr.name} pr={pr} />
+            .map((exercise: Exercise) => (
+              <Pr key={exercise.name} exercise={exercise} />
             ))}
         </section>
       )}
