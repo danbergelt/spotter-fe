@@ -23,7 +23,7 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
 
   return (
     <section className={styles.container}>
-      <div className={open ? `${styles.title} ${styles.open}` : styles.title}>
+      <div className={open ? `${styles.head} ${styles.open}` : styles.head}>
         <div
           role='button'
           className={styles.prSpacer}
@@ -34,10 +34,10 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
             on={IoMdArrowDropdown}
             off={IoMdArrowDropright}
           />
-          <div style={{ marginLeft: '1rem' }}>{title}</div>
+          <div className={styles.title}>{title}</div>
         </div>
         {title === 'Last Month' && (
-          <div data-tip data-for='pr-info' className='pr-info'>
+          <div data-tip data-for='pr-info' className={styles.info}>
             <FiInfo />
           </div>
         )}
@@ -48,7 +48,7 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
         </ReactTooltip>
       </div>
       {open && (
-        <section className='pr-section-box'>
+        <section className={styles.box}>
           {!prs.length && <p className='no-prs'>No PRs found in this range</p>}
           {prs
             // sorting the prs by date (most recent comes first)
