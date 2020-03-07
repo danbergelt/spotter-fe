@@ -17,7 +17,7 @@ const WorkoutCard: React.FC<Props> = ({ data }) => {
     <>
       <p data-testid='workout-title' className='workout-card-title'>
         {width <= 500 && data.title.length > 4
-          ? `${data.title.slice(0, 4)}...`
+          ? `${data.title.slice(0, 3)}...`
           : data.title}
       </p>
       {data.notes || data.exercises.length ? (
