@@ -41,9 +41,11 @@ const Tip: React.FC<Props> = ({ trigger, content, place }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div data-testid='tip' className={styles.container}>
       {renderTrigger()}
-      <div className={`${styles.tip} ${styles[place]}`}>{content}</div>
+      <div data-testid='content' className={`${styles.tip} ${styles[place]}`}>
+        {content}
+      </div>
     </div>
   );
 };
