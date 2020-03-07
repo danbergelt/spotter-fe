@@ -12,7 +12,8 @@ const Hero: React.FC = () => {
       </section>
       <section className='home-hero-sub'>
         <p className='home-hero-sub-text'>
-          Stop living in Excel. Track your lifts, and have fun doing it.
+          Stop living in Excel. Track your lifts with{' '}
+          <span className='alt'>Spotter</span>, and go crush some PRs.
         </p>
       </section>
       <Link to='/signup' className='home-hero-reg'>

@@ -20,20 +20,41 @@ Props (WIP, plan on adding more props + collision handling as time goes on)
 */
 
 interface Props {
-  sb?: boolean;
-  ac?: boolean;
+  justify?:
+    | 'space-between'
+    | 'center'
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-around'
+    | 'initial'
+    | 'inherit';
+  align?:
+    | 'stretch'
+    | 'center'
+    | 'baseline'
+    | 'flex-start'
+    | 'flex-end'
+    | 'initial'
+    | 'inherit';
   css?: React.CSSProperties;
   cn?: string;
   click?: Function;
 }
 
-const Flex: React.FC<Props> = ({ children, sb, ac, css, cn, click }) => {
+const Flex: React.FC<Props> = ({
+  children,
+  justify,
+  align,
+  cn,
+  css,
+  click
+}) => {
   return (
     <div
       style={{
         display: 'flex',
-        justifyContent: sb ? 'space-between' : undefined,
-        alignItems: ac ? 'center' : undefined,
+        justifyContent: justify,
+        alignItems: align,
         ...css
       }}
       data-testid='flex'

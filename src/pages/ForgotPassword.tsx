@@ -51,7 +51,7 @@ const ForgotPassword: React.FC = () => {
               success={res.data?.message}
             />
             <Form>
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Email' input='email' />
                 <FormError touched={touched} errors={errors} node='email' />
               </Flex>

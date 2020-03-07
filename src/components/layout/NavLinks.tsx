@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOutAction } from '../../actions/globalActions';
@@ -14,22 +14,13 @@ interface Props {
 const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
   const token = useToken();
   const dispatch = useDispatch();
-  const [res, call] = useApi();
-
-  useEffect(() => {
-    if (res.data) {
-      if (isOpen && setIsOpen) {
-        setIsOpen(false);
-      }
-      dispatch(logOutAction());
-    }
-
-    if (res.error) {
-      // will handle later
-    }
-  }, [res, dispatch, isOpen, setIsOpen]);
+  const [, call] = useApi();
 
   const logOutUser = async (): Promise<void> => {
+    if (isOpen && setIsOpen) {
+      setIsOpen(false);
+    }
+    dispatch(logOutAction());
     await call(logout);
   };
 

@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-bottom: 2rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.home {
+  @extend .footer;
+  background: $gray4;
+}
+
+.site {
+  @extend .site;
+  background: white;
+}

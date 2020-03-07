@@ -59,7 +59,7 @@ const CloseAccount: React.FC = () => {
       <p className={styles.question}>
         Are you sure you want to close your account?
       </p>
-      <Flex ac>
+      <Flex align='center'>
         <Checkbox state={confirmClose} setState={setConfirmClose} />
         <p className={styles.confirm}>Yes, I&#39;m sure</p>
       </Flex>

@@ -31,7 +31,7 @@ const Nav: React.FC = () => {
         </div>
       </Menu>
       <Link data-testid='spotter' className='spotter-nav-head-logo' to={'/'}>
-        spotter<span className='spot'>.</span>
+        s<span className='spot'>.</span>
       </Link>
     </div>
   ) : (
@@ -58,7 +58,7 @@ const Nav: React.FC = () => {
             className='spotter-nav-head-logo'
             to={'/'}
           >
-            spotter<span className='spot'>.</span>
+            s<span className='spot'>.</span>
           </Link>
         </section>
         <NavLinks />
