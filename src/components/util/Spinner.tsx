@@ -25,6 +25,7 @@ interface Props {
 const Spinner: React.FC<Props> = ({ size, color }) => {
   return (
     <FiRotateCw
+      data-testid='spinner'
       strokeWidth='3px'
       className={styles.spinner}
       size={size}
