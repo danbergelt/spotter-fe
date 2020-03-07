@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Button.module.scss';
-import Loader from 'react-loader-spinner';
+import Spinner from './Spinner';
 
 /*== Button =====================================================
 
@@ -39,7 +39,7 @@ const Button: React.FC<Props> = ({ content, loading, css, func }) => {
     >
       {loading ? (
         <div data-testid='loader'>
-          <Loader type='ThreeDots' color='white' height={10} width={30} />
+          <Spinner size={13} />
         </div>
       ) : (
         content
