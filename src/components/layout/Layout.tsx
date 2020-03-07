@@ -3,8 +3,7 @@ import Nav from './Nav';
 import Footer from './Footer';
 
 interface Props {
-  // eslint-disable-next-line
-  children: any;
+  children: JSX.Element;
 }
 
 const Layout: React.FC<Props> = ({ children }) => {

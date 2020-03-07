@@ -8,15 +8,15 @@ describe('custom spinner', () => {
     const { getByTestId } = render(<Spinner size={25} color='orange' />);
 
     const spinner = getByTestId(/spinner/i);
-    expect(spinner).toHaveAttribute('height', '25px');
-    expect(spinner).toHaveAttribute('width', '25px');
-    expect(spinner).toHaveAttribute('fill', 'orange');
+    expect(spinner).toHaveAttribute('height', '25');
+    expect(spinner).toHaveAttribute('width', '25');
+    expect(spinner).toHaveAttribute('color', 'orange');
   });
 
   test('renders white for default color', () => {
     const { getByTestId } = render(<Spinner size={25} />);
 
     const spinner = getByTestId(/spinner/i);
-    expect(spinner).toHaveAttribute('fill', 'white');
+    expect(spinner).toHaveAttribute('color', 'white');
   });
 });
