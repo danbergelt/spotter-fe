@@ -24,6 +24,7 @@ interface Props {
 const Spinner: React.FC<Props> = ({ size, color }) => {
   return (
     <svg
+      data-testid='spinner'
       className={styles.spinner}
       height={`${size}px`}
       width={`${size}px`}
