@@ -63,7 +63,7 @@ const ChangePassword: React.FC = () => {
             <h1 className={styles.title}>Change Password</h1>
             <HTTPResponse reset={reset} error={res.error} />
             <Form>
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='New Password' input='newPassword' />
                 <FormError
                   touched={touched}
@@ -77,7 +77,7 @@ const ChangePassword: React.FC = () => {
                 placeholder='New password'
                 type='password'
               />
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Confirm Password' input='confirmPassword' />
                 <FormError
                   touched={touched}

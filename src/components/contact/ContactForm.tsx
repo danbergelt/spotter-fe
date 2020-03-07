@@ -72,7 +72,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
               reset={reset}
             />
             <section className={styles.container}>
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Name' input='name' />
                 <FormError touched={touched} errors={errors} node='name' />
               </Flex>
@@ -83,7 +83,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 type='text'
                 name='name'
               />
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Email' input='email' />
                 <FormError touched={touched} errors={errors} node='email' />
               </Flex>
@@ -94,7 +94,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 type='email'
                 name='email'
               />
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Subject' input='subject' />
                 <FormError touched={touched} errors={errors} node='subject' />
               </Flex>
@@ -105,7 +105,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 type='text'
                 name='subject'
               />
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Message' input='message' />
                 <FormError touched={touched} errors={errors} node='message' />
               </Flex>

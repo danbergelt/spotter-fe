@@ -77,7 +77,7 @@ const ChangeAccountForm: React.FC<Props> = ({
       >
         {({ errors, touched }): JSX.Element => (
           <Form className={styles.form}>
-            <Flex sb>
+            <Flex justify='space-between'>
               <Label content={labels.old} input='old' />
               <FormError touched={touched} errors={errors} node='old' />
             </Flex>
@@ -87,7 +87,7 @@ const ChangeAccountForm: React.FC<Props> = ({
               name='old'
               type={inputType}
             />
-            <Flex sb>
+            <Flex justify='space-between'>
               <Label content={labels.new} input='new' />
               <FormError touched={touched} errors={errors} node='new' />
             </Flex>
@@ -97,7 +97,7 @@ const ChangeAccountForm: React.FC<Props> = ({
               name='new'
               type={inputType}
             />
-            <Flex sb>
+            <Flex justify='space-between'>
               <Label content={labels.confirm} input='confirm' />
               <FormError touched={touched} errors={errors} node='confirm' />
             </Flex>

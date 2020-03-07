@@ -49,7 +49,11 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
 
   return (
     <section className={styles.container}>
-      <Flex sb ac cn={open ? `${styles.head} ${styles.open}` : styles.head}>
+      <Flex
+        justify='space-between'
+        align='center'
+        cn={open ? `${styles.head} ${styles.open}` : styles.head}
+      >
         <Flex cn={styles.prSpacer} click={(): void => setOpen(!open)}>
           <Toggler
             state={open}

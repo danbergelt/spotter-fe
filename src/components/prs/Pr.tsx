@@ -50,8 +50,11 @@ const Pr: React.FC<Props> = ({ exercise, i }) => {
   };
 
   return (
-    <Flex sb css={{ marginTop: i > 0 ? '2rem' : undefined }}>
-      <Flex ac>
+    <Flex
+      justify='space-between'
+      css={{ marginTop: i > 0 ? '2rem' : undefined }}
+    >
+      <Flex align='center'>
         <div className={setClassName()}>
           <FaCircle />
         </div>

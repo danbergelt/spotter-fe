@@ -16,7 +16,7 @@ describe('flex component', () => {
 
   test('sb prop', () => {
     const { getByTestId, rerender } = render(
-      <Flex sb>
+      <Flex justify='space-between'>
         <div>foo</div>
       </Flex>
     );

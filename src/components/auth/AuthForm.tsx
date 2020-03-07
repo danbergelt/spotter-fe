@@ -77,7 +77,7 @@ const AuthForm: React.FC<Props> = ({
             <h1 className={styles.title}>{action}</h1>
             <HTTPResponse reset={reset} error={res.error} />
             <Form data-testid='test-form' className={styles.form}>
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Email' input='email' />
                 <FormError touched={touched} errors={errors} node='email' />
               </Flex>
@@ -87,7 +87,7 @@ const AuthForm: React.FC<Props> = ({
                 placeholder='name@email.com'
                 type='email'
               />
-              <Flex sb>
+              <Flex justify='space-between'>
                 <Label content='Password' input='password' />
                 <FormError touched={touched} errors={errors} node='password' />
               </Flex>

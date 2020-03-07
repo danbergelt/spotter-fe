@@ -56,6 +56,10 @@
       @include small {
         font-size: $p;
       }
+
+      .alt {
+        color: $primary;
+      }
     }
   }
 
