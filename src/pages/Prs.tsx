@@ -20,7 +20,7 @@ if ('default' in m) {
   m = moment['default'];
 }
 
-const categories: Array<string> = ['Last Month', 'Last Year', 'All Time'];
+const CATEGORIES = ['Last Month', 'Last Year', 'All Time'];
 
 const Prs: React.FC = () => {
   const dispatch = useDispatch();
@@ -95,9 +95,9 @@ const Prs: React.FC = () => {
         {!loading &&
           Object.keys(sortedPrs).map((key, i) => (
             <PrGroup
-              key={categories[i]}
+              key={CATEGORIES[i]}
               prs={sortedPrs[key]}
-              title={categories[i]}
+              title={CATEGORIES[i]}
             />
           ))}
       </div>
