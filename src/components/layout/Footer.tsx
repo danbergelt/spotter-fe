@@ -2,11 +2,11 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Footer: React.FC = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <nav
-      style={{ background: location.pathname === '/' ? '#f6f8f9' : 'white' }}
+      style={{ background: pathname === '/' ? '#f6f8f9' : 'white' }}
       className='spotter-footer'
     >
       <p className='spotter-footer-link'>
