@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useWindowSize } from 'react-use';
+import { useWindowSize, useWindowScroll } from 'react-use';
 import NavLinks from './NavLinks';
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu, FiX } from 'react-icons/fi';
 import Flex from '../util/Flex';
 import styles from './Nav.module.scss';
 import Dropdown from '../util/Dropdown';
@@ -9,10 +9,9 @@ import { Link } from 'react-router-dom';
 
 const Nav: React.FC = () => {
   const { width } = useWindowSize();
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLSpanElement>(null);
+  const { y } = useWindowScroll();
 
   useEffect(() => {
     if (width > 500) {
@@ -25,11 +24,19 @@ const Nav: React.FC = () => {
       return (
         <>
           <span ref={menuRef}>
-            <FiMenu
-              className={styles.burger}
-              onClick={(): void => setIsOpen(!isOpen)}
-              size={22.5}
-            />
+            {isOpen ? (
+              <FiX
+                className={styles.mobile}
+                onClick={(): void => setIsOpen(!isOpen)}
+                size={20}
+              />
+            ) : (
+              <FiMenu
+                className={styles.mobile}
+                onClick={(): void => setIsOpen(!isOpen)}
+                size={20}
+              />
+            )}
           </span>
           {isOpen && (
             <Dropdown triggerRef={menuRef} setState={setIsOpen}>
@@ -44,12 +51,18 @@ const Nav: React.FC = () => {
   };
 
   return (
-    <Flex justify='space-between' align='center' cn={styles.container}>
-      <Link data-testid='spotter' className={styles.logo} to={'/'}>
-        s<span className={styles.spot}>.</span>
-      </Link>
-      {renderLinks()}
-    </Flex>
+    <div className={y > 50 ? styles.scrolling : styles.top}>
+      <Flex
+        justify='space-between'
+        align={width <= 500 ? 'flex-end' : undefined}
+        cn={styles.container}
+      >
+        <Link className={styles.logo} data-testid='spotter' to={'/'}>
+          spotter
+        </Link>
+        {renderLinks()}
+      </Flex>
+    </div>
   );
 };
 

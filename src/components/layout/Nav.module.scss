@@ -2,24 +2,33 @@
 
 .container {
   @include spacer;
-  padding-top: 0.5rem;
+  padding-top: 1rem;
 
   .logo {
-    font-size: 5rem;
+    font-size: 3.2rem;
     font-weight: bold;
     color: $gray1;
     text-decoration: none;
-    overflow: none;
 
-    .spot {
-      color: $primary;
-    }
     @include medium {
-      font-size: 4rem;
+      font-size: 2.5rem;
     }
   }
 
-  .burger {
+  .mobile {
     cursor: pointer;
   }
+}
+
+.top {
+  position: fixed;
+  width: 100%;
+}
+
+.scrolling {
+  @extend .top;
+  padding-bottom: 2rem;
+  box-shadow: 0 2px 12px 0 rgba(36, 50, 66, 0.075);
+  background: white;
+  transition: box-shadow 0.3s ease-in-out;
 }
