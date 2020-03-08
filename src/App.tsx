@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Profiler } from 'react';
+import React, { useState, useEffect /*Profiler*/ } from 'react';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
 import Routes from './routes';
@@ -53,14 +53,14 @@ const App: React.FC = () => {
 
   return (
     <main className='app-container'>
-      <Profiler
+      {/* <Profiler
         id='app'
         // eslint-disable-next-line
         onRender={(id, phase, duration): void => console.log(duration)}
-      >
-        <Popup />
-        <Routes />
-      </Profiler>
+      > */}
+      <Popup />
+      <Routes />
+      {/* </Profiler> */}
     </main>
   );
 };

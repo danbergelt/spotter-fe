@@ -8,14 +8,16 @@ Utility wrapper that adds flexbox styling to children. Useful for not
 having to repeat common flex-based styling patterns
 
 Props (WIP, plan on adding more props + collision handling as time goes on)
-  sb: boolean
-    space-between (renders content on opposite ends of container)
-  ac: boolean
-    align-items center (renders content horizontally centered)
+  justify: string enum (see below):
+    the justify content prop. if not passed, defaults to undefined
+  align: string enum (see below):
+    the align items prop. if not passed, defaults to undefined
   cn: string
-    custom class name
+    custom classname
+  css: React CSS properties
+    inline styles (useful if styles need to be controlled by javascript)
   click: function
-    onClick function
+    onclick function
 
 */
 
