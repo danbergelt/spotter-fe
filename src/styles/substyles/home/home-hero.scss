@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
 
 .home-hero-container {
-  padding: 20rem;
+  padding: 17.5rem 17.5rem 22.5rem 17.5rem;
   flex-direction: column;
   text-align: center;
   @include flex-center;
@@ -13,6 +13,10 @@
 
   @include large {
     padding: 15rem 2.5rem;
+  }
+
+  @include small {
+    padding: 12.5rem 2.5rem;
   }
 
   .home-hero-main-text {
