@@ -1,18 +1,15 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import styles from './Footer.module.scss';
+import Flex from '../util/Flex';
 
 const Footer: React.FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <nav
-      style={{ background: pathname === '/' ? '#f6f8f9' : 'white' }}
-      className='spotter-footer'
-    >
-      <p className='spotter-footer-link'>
-        Spotter © 2020. All Rights Reserved.
-      </p>
-    </nav>
+    <Flex justify='center' cn={pathname === '/' ? styles.home : styles.site}>
+      <p>Spotter © 2020. All Rights Reserved.</p>
+    </Flex>
   );
 };
 
