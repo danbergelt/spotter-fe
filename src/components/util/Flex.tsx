@@ -38,6 +38,7 @@ interface Props {
     | 'flex-end'
     | 'initial'
     | 'inherit';
+  fd?: 'column';
   css?: React.CSSProperties;
   cn?: string;
   click?: Function;
@@ -47,6 +48,7 @@ const Flex: React.FC<Props> = ({
   children,
   justify,
   align,
+  fd,
   cn,
   css,
   click
@@ -57,6 +59,7 @@ const Flex: React.FC<Props> = ({
         display: 'flex',
         justifyContent: justify,
         alignItems: align,
+        flexDirection: fd,
         ...css
       }}
       data-testid='flex'

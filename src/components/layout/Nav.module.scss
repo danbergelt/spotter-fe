@@ -1,0 +1,25 @@
+@import '../../styles/mixins.scss';
+
+.container {
+  @include spacer;
+  padding-top: 0.5rem;
+
+  .logo {
+    font-size: 5rem;
+    font-weight: bold;
+    color: $gray1;
+    text-decoration: none;
+    overflow: none;
+
+    .spot {
+      color: $primary;
+    }
+    @include medium {
+      font-size: 4rem;
+    }
+  }
+
+  .burger {
+    cursor: pointer;
+  }
+}

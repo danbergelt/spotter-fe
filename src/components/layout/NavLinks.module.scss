@@ -1,0 +1,58 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+.links {
+  display: flex;
+
+  @include small {
+    flex-direction: column;
+    font-weight: bold;
+    justify-content: space-between;
+  }
+
+  .link {
+    color: $gray2;
+    font-size: $p;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: $border;
+    @include textHover;
+
+    @include medium {
+      font-size: 1.3rem;
+      padding: 0.85rem 1.7rem;
+    }
+
+    @include small {
+      width: 100%;
+      color: $gray1;
+      padding: 2rem;
+      font-size: 1.5rem;
+
+      &:hover {
+        background: $gray3;
+      }
+    }
+  }
+
+  .btn {
+    @extend .link;
+    margin-left: 3rem;
+    background: $primary;
+    color: white;
+    border: 1px solid $primary;
+    margin-right: 0;
+    box-shadow: $subtle;
+    @include hover;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($primary, 10%);
+      color: white;
+    }
+
+    @include medium {
+      margin-left: 2rem;
+    }
+  }
+}

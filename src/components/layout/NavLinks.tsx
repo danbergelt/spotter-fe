@@ -5,33 +5,35 @@ import { logOutAction } from '../../actions/globalActions';
 import useApi from '../../hooks/useApi';
 import useToken from '../../hooks/useToken';
 import { logout } from 'src/utils/queries';
+import styles from './NavLinks.module.scss';
+import { useWindowSize } from 'react-use';
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen?: boolean;
 }
 
-const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
+const NavLinks: React.FC<Props> = ({ setIsOpen }) => {
   const token = useToken();
+  const { width } = useWindowSize();
   const dispatch = useDispatch();
   const [, call] = useApi();
 
+  const closeMenu = (): void => setIsOpen && setIsOpen(false);
+
   const logOutUser = async (): Promise<void> => {
-    if (isOpen && setIsOpen) {
-      setIsOpen(false);
-    }
+    closeMenu();
     dispatch(logOutAction());
     await call(logout);
   };
 
   return (
-    <nav className='spotter-nav-links'>
+    <nav className={styles.links}>
       {token && (
         <Link
           data-testid='settings'
-          className='spotter-nav-link'
+          className={styles.link}
           to='/settings'
-          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
+          onClick={closeMenu}
         >
           Settings
         </Link>
@@ -40,7 +42,7 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
         <Link
           data-testid='logout'
           onClick={logOutUser}
-          className='spotter-nav-link styled'
+          className={width <= 500 ? styles.link : styles.btn}
           to='/login'
         >
           Log Out{' '}
@@ -49,9 +51,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       {!token && (
         <Link
           data-testid='login'
-          className='spotter-nav-link dashboard'
+          className={styles.link}
           to='/login'
-          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
+          onClick={closeMenu}
         >
           Log In
         </Link>
@@ -59,9 +61,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       {!token && (
         <Link
           data-testid='signup'
-          className='spotter-nav-link styled'
+          className={width <= 500 ? styles.link : styles.btn}
           to='/signup'
-          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
+          onClick={closeMenu}
         >
           Sign Up
         </Link>
