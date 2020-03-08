@@ -97,7 +97,11 @@ const AuthForm: React.FC<Props> = ({
                 placeholder='Password'
                 type='password'
               />
-              <Button content={action} loading={res.isLoading} />
+              <Button
+                css={{ fontSize: '1.5rem' }}
+                content={action}
+                loading={res.isLoading}
+              />
             </Form>
             {action === 'Sign Up' && (
               <AltLink
