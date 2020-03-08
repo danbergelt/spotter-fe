@@ -20,13 +20,7 @@
   }
 }
 
-.top {
-  position: fixed;
-  width: 100%;
-}
-
 .scrolling {
-  @extend .top;
   padding-bottom: 2rem;
   box-shadow: 0 2px 12px 0 rgba(36, 50, 66, 0.075);
   background: white;

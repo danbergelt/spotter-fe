@@ -5,12 +5,13 @@ import { FiMenu, FiX } from 'react-icons/fi';
 import Flex from '../util/Flex';
 import styles from './Nav.module.scss';
 import Dropdown from '../util/Dropdown';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Nav: React.FC = () => {
   const { width } = useWindowSize();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLSpanElement>(null);
+  const { pathname } = useLocation();
   const { y } = useWindowScroll();
 
   useEffect(() => {
@@ -50,8 +51,16 @@ const Nav: React.FC = () => {
     }
   };
 
+  const checkPath = (): boolean => pathname === '/';
+
   return (
-    <div className={y > 50 ? styles.scrolling : styles.top}>
+    <div
+      style={{
+        position: checkPath() ? 'fixed' : undefined,
+        width: checkPath() ? '100%' : undefined
+      }}
+      className={checkPath() && y > 50 ? styles.scrolling : undefined}
+    >
       <Flex
         justify='space-between'
         align={width <= 500 ? 'flex-end' : undefined}
