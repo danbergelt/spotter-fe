@@ -18,6 +18,8 @@ Props (WIP, plan on adding more props + collision handling as time goes on)
     inline styles (useful if styles need to be controlled by javascript)
   click: function
     onclick function
+  fd: string
+    flex direction
 
 */
 
@@ -38,7 +40,7 @@ interface Props {
     | 'flex-end'
     | 'initial'
     | 'inherit';
-  fd?: 'column';
+  fd?: 'column' | 'column-reverse';
   css?: React.CSSProperties;
   cn?: string;
   click?: Function;

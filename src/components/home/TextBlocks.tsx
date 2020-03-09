@@ -33,6 +33,7 @@ const TextBlock: React.FC<Props> = ({ icon: Icon, id, title, content }) => {
         <Icon strokeWidth={STROKE_WIDTH} />
       </div>
       <p className={styles.blockTitle}>{title}</p>
+      {/* content is split in three for styling purposes */}
       <p className={styles.content}>
         {content[0]}
         <span className={styles.highlight}>{content[1]}</span>
