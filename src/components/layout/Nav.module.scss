@@ -19,3 +19,16 @@
     cursor: pointer;
   }
 }
+
+.homeNav {
+  position: fixed;
+  width: 100%;
+}
+
+.sticky {
+  @extend .homeNav;
+  padding-bottom: 1.5rem;
+  box-shadow: 0 2px 12px 0 rgba(36, 50, 66, 0.075);
+  transition: box-shadow 0.3s ease-in-out;
+  background: white;
+}
