@@ -37,6 +37,15 @@
   cursor: pointer;
 }
 
+@mixin move {
+  transition: transform 150ms, box-shadow 150ms;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
 @mixin flex-center {
   display: flex;
   align-items: center;
