@@ -3,10 +3,33 @@ import { FiEdit3, FiTarget, FiCalendar } from 'react-icons/fi';
 import styles from './TextBlocks.module.scss';
 import Flex from '../lib/Flex';
 import { useWindowSize } from 'react-use';
+import { IconType } from 'react-icons/lib/cjs';
+
+const STROKE_WIDTH = '1.25px';
+
+interface Props {
+  icon: IconType;
+  id: string;
+  title: string;
+  content: [string, string, string];
+}
+
+const TextBlock: React.FC<Props> = ({ icon: Icon, id, title, content }) => {
+  return (
+    <div className={styles.block}>
+      <div className={`${styles.icon} ${styles[id]}`}>
+        <Icon strokeWidth={STROKE_WIDTH} />
+      </div>
+      <p className={styles.blockTitle}>{title}</p>
+      <p className={styles.content}>
+        {content[0]}
+        <span className={styles.highlight}>{content[1]}</span> {content[2]}
+      </p>
+    </div>
+  );
+};
 
 export const TextBlocks: React.FC = () => {
-  const STROKE_WIDTH = '1.25px';
-
   const { width } = useWindowSize();
 
   return (
@@ -20,42 +43,36 @@ export const TextBlocks: React.FC = () => {
         justify='space-between'
         cn={styles.blocks}
       >
-        <div className={styles.block}>
-          <div className={`${styles.icon} ${styles.track}`}>
-            <FiEdit3 strokeWidth={STROKE_WIDTH} />
-          </div>
-          <p className={styles.blockTitle}>Track your lifts</p>
-          <p className={styles.content}>
-            Our dashboard{' '}
-            <span className={styles.highlight}>
-              automates your fitness journey
-            </span>{' '}
-            and makes tracking your lifts fun and easy.
-          </p>
-        </div>
-        <div className={styles.block}>
-          <div className={`${styles.icon} ${styles.bests}`}>
-            <FiTarget strokeWidth={STROKE_WIDTH} />
-          </div>
-          <p className={styles.blockTitle}>Log your personal bests</p>
-          <p className={styles.content}>
-            Save the exercises you want tracked, and we&#39;ll{' '}
-            <span className={styles.highlight}>
-              calculate your PRs automatically.
-            </span>
-          </p>
-        </div>
-        <div className={styles.block}>
-          <div className={`${styles.icon} ${styles.scale}`}>
-            <FiCalendar strokeWidth={STROKE_WIDTH} />
-          </div>
-          <p className={styles.blockTitle}>Stay organized</p>
-          <p className={styles.content}>
-            Spreadsheets are unwieldy.{' '}
-            <span className={styles.highlight}>Access, view, and edit</span> any
-            of your workouts, with ease.
-          </p>
-        </div>
+        <TextBlock
+          icon={FiEdit3}
+          id='track'
+          title='Track your lifts'
+          content={[
+            'Our dashboard ',
+            'automates your fitiness journey',
+            ' and makes tracking your lifts fun and easy.'
+          ]}
+        />
+        <TextBlock
+          icon={FiTarget}
+          id='bests'
+          title='Log your personal bests'
+          content={[
+            "Save the exercises you want tracked, and we'll ",
+            'calculate your PRs automatically.',
+            ''
+          ]}
+        />
+        <TextBlock
+          id='scale'
+          icon={FiCalendar}
+          title='Stay organized'
+          content={[
+            'Spreadsheets are unwieldy. ',
+            'Access, view, and edit',
+            ' any of your workouts with ease.'
+          ]}
+        />
       </Flex>
     </Flex>
   );
