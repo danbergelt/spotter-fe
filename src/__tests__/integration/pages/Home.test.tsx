@@ -14,4 +14,28 @@ describe('home page tests', () => {
 
     expect(history.location.pathname).toEqual('/signup');
   });
+
+  test('image text link works', () => {
+    const { getByTestId, history } = wrapper(reducer, <Home />);
+
+    history.push('/');
+
+    fireEvent.click(getByTestId(/imgtxt/i));
+
+    expect(history.location.pathname).toEqual('/signup');
+  });
+
+  test('hero links works', () => {
+    const { getByTestId, history } = wrapper(reducer, <Home />);
+
+    history.push('/');
+
+    fireEvent.click(getByTestId(/hero/i));
+
+    expect(history.location.pathname).toEqual('/signup');
+
+    fireEvent.click(getByTestId(/alt/i));
+
+    expect(history.location.pathname).toEqual('/login');
+  });
 });
