@@ -91,7 +91,11 @@ const ChangePassword: React.FC = () => {
                 placeholder='Confirm password'
                 type='password'
               />
-              <Button loading={res.isLoading} content='Submit' />
+              <Button
+                css={{ width: '100%' }}
+                loading={res.isLoading}
+                content='Submit'
+              />
             </Form>
           </section>
         )}

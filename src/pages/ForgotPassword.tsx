@@ -61,7 +61,11 @@ const ForgotPassword: React.FC = () => {
                 placeholder='name@email.com'
                 type='email'
               />
-              <Button loading={res.isLoading} content='Send Instructions' />
+              <Button
+                css={{ width: '100%' }}
+                loading={res.isLoading}
+                content='Send Instructions'
+              />
             </Form>
           </section>
         )}
