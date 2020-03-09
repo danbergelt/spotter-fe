@@ -34,7 +34,7 @@ const ImageText: React.FC = () => {
         <p className={styles.text}>
           With Spotter, tracking your lifts has never been easier.
         </p>
-        <Link className={styles.cta} to='/signup'>
+        <Link data-testid='imgtxt' className={styles.cta} to='/signup'>
           Get Tracking
         </Link>
       </Flex>

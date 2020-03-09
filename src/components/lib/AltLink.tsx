@@ -30,7 +30,7 @@ const AltLink: React.FC<Props> = ({ content, path, linkContent }) => {
   return (
     <div className={styles.container}>
       <div>{content}</div>
-      <Link className={styles.link} to={path}>
+      <Link data-testid='alt' className={styles.link} to={path}>
         {linkContent}
       </Link>
     </div>
