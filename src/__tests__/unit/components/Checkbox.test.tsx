@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Checkbox from 'src/components/util/Checkbox';
+import Checkbox from 'src/components/lib/Checkbox';
 
 describe('checkbox utility component', () => {
   test('can turn checkbox on and off', () => {

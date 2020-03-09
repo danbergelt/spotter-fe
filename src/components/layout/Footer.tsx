@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Footer.module.scss';
-import Flex from '../util/Flex';
+import Flex from '../lib/Flex';
 
 /*== Footer =====================================================
 

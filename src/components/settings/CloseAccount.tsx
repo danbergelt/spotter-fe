@@ -4,11 +4,11 @@ import { logOutAction } from 'src/actions/globalActions';
 import useToken from '../../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { deleteAccountQuery } from 'src/utils/queries';
-import Checkbox from 'src/components/util/Checkbox';
-import HTTPResponse from '../util/HTTPResponse';
+import Checkbox from 'src/components/lib/Checkbox';
+import HTTPResponse from '../lib/HTTPResponse';
 import styles from './CloseAccount.module.scss';
-import Flex from '../util/Flex';
-import Button from '../util/Button';
+import Flex from '../lib/Flex';
+import Button from '../lib/Button';
 
 /*== Close Account =====================================================
 

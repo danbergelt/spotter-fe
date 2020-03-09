@@ -3,13 +3,13 @@ import { Form, Field, Formik } from 'formik';
 import { ContactSchema } from '../../utils/validators';
 import { contactQuery } from '../../utils/queries';
 import useApi from 'src/hooks/useApi';
-import HTTPResponse from '../util/HTTPResponse';
+import HTTPResponse from '../lib/HTTPResponse';
 import styles from './ContactForm.module.scss';
-import Label from '../util/Label';
-import FormError from '../util/FormError';
-import Input from '../util/Input';
-import Button from '../util/Button';
-import Flex from '../util/Flex';
+import Label from '../lib/Label';
+import FormError from '../lib/FormError';
+import Input from '../lib/Input';
+import Button from '../lib/Button';
+import Flex from '../lib/Flex';
 
 /*== Contact form =====================================================
 

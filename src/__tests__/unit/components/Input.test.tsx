@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Input from 'src/components/util/Input';
+import Input from 'src/components/lib/Input';
 
 describe('Input utility component', () => {
   test('can render input', () => {

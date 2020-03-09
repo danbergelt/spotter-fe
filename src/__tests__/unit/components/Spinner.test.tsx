@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Spinner from 'src/components/util/Spinner';
+import Spinner from 'src/components/lib/Spinner';
 
 describe('custom spinner', () => {
   test('can render spinner with props', () => {

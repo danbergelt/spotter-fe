@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Toggler from 'src/components/util/Toggler';
+import Toggler from 'src/components/lib/Toggler';
 
 describe('toggler component', () => {
   test('can toggle on and off', () => {

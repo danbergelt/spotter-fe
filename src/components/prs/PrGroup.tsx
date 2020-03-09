@@ -4,10 +4,10 @@ import Pr from './Pr';
 import { SortedPrsRange } from '../../types/Prs';
 import moment from 'moment';
 import styles from './PrGroup.module.scss';
-import Toggler from '../util/Toggler';
-import Tip from '../util/Tip';
+import Toggler from '../lib/Toggler';
+import Tip from '../lib/Tip';
 import { FiInfo } from 'react-icons/fi';
-import Flex from '../util/Flex';
+import Flex from '../lib/Flex';
 
 /*== Pr Group =====================================================
 

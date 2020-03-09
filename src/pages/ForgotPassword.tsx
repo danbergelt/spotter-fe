@@ -1,16 +1,16 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
-import Button from 'src/components/util/Button';
+import Button from 'src/components/lib/Button';
 import { ForgotPasswordSchema } from 'src/utils/validators';
-import Input from 'src/components/util/Input';
+import Input from 'src/components/lib/Input';
 import styles from './ChangePassword.module.scss';
 import useApi from 'src/hooks/useApi';
 import { forgotPasswordQuery } from 'src/utils/queries';
-import HTTPResponse from 'src/components/util/HTTPResponse';
-import Label from 'src/components/util/Label';
-import FormError from 'src/components/util/FormError';
+import HTTPResponse from 'src/components/lib/HTTPResponse';
+import Label from 'src/components/lib/Label';
+import FormError from 'src/components/lib/FormError';
 import { Helmet } from 'react-helmet-async';
-import Flex from 'src/components/util/Flex';
+import Flex from 'src/components/lib/Flex';
 
 /*== Forgot Password =====================================================
 

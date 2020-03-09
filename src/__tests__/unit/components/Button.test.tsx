@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Button from 'src/components/util/Button';
+import Button from 'src/components/lib/Button';
 
 describe('button utility component', () => {
   test('can render button', () => {

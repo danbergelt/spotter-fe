@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Head from 'src/components/util/Head';
+import Head from 'src/components/lib/Head';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('head utility component', () => {

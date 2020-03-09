@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { downloadData } from '../../utils/dataDump';
 import styles from './ExportWorkouts.module.scss';
-import HTTPResponse from '../util/HTTPResponse';
+import HTTPResponse from '../lib/HTTPResponse';
 
 /*== Export workouts =====================================================
 

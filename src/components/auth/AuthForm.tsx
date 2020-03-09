@@ -4,13 +4,13 @@ import styles from './AuthForm.module.scss';
 import { History } from 'history';
 import { AuthSchema } from '../../utils/validators';
 import useApi from 'src/hooks/useApi';
-import HTTPResponse from '../util/HTTPResponse';
-import Label from '../util/Label';
-import Input from '../util/Input';
-import FormError from '../util/FormError';
-import Button from '../util/Button';
-import AltLink from '../util/AltLink';
-import Flex from '../util/Flex';
+import HTTPResponse from '../lib/HTTPResponse';
+import Label from '../lib/Label';
+import Input from '../lib/Input';
+import FormError from '../lib/FormError';
+import Button from '../lib/Button';
+import AltLink from '../lib/AltLink';
+import Flex from '../lib/Flex';
 
 /*== Auth form =====================================================
 

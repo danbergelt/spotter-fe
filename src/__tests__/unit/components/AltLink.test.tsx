@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import AltLink from 'src/components/util/AltLink';
+import AltLink from 'src/components/lib/AltLink';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 
