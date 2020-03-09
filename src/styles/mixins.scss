@@ -21,6 +21,22 @@
   }
 }
 
+@mixin btn {
+  outline: 0;
+  border: 0;
+  margin-top: 1rem;
+  font-family: 'Roboto';
+  text-align: center;
+  color: white;
+  background: $primary;
+  padding: 1.5rem 3.5rem;
+  font-size: 1.3rem;
+  border-radius: 4px;
+  box-shadow: $subtle;
+  @include hover;
+  cursor: pointer;
+}
+
 @mixin flex-center {
   display: flex;
   align-items: center;
