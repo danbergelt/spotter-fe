@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ChangeForgottenPasswordSchema } from '../utils/validators';
-import FormError from 'src/components/util/FormError';
+import FormError from 'src/components/lib/FormError';
 import useApi from 'src/hooks/useApi';
 import { changeForgottenPasswordQuery } from 'src/utils/queries';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
-import HTTPResponse from 'src/components/util/HTTPResponse';
+import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './ChangePassword.module.scss';
-import Label from 'src/components/util/Label';
-import Input from 'src/components/util/Input';
-import Button from 'src/components/util/Button';
+import Label from 'src/components/lib/Label';
+import Input from 'src/components/lib/Input';
+import Button from 'src/components/lib/Button';
 import { Helmet } from 'react-helmet-async';
-import Flex from 'src/components/util/Flex';
+import Flex from 'src/components/lib/Flex';
 
 /*== Change password page =====================================================
 

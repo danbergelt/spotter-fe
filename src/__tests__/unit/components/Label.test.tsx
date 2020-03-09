@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Label from 'src/components/util/Label';
+import Label from 'src/components/lib/Label';
 
 describe('Label utility component', () => {
   test('can render label', () => {

@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useWindowSize, useWindowScroll } from 'react-use';
 import NavLinks from './NavLinks';
 import { FiMenu, FiX } from 'react-icons/fi';
-import Flex from '../util/Flex';
+import Flex from '../lib/Flex';
 import styles from './Nav.module.scss';
-import Dropdown from '../util/Dropdown';
+import Dropdown from '../lib/Dropdown';
 import { Link, useLocation } from 'react-router-dom';
 
 /*== Nav =====================================================

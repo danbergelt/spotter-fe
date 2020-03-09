@@ -2,7 +2,7 @@ import React from 'react';
 import { FaCircle } from 'react-icons/fa';
 import moment from 'moment';
 import { Exercise } from 'src/types/ExerciseOption';
-import Flex from '../util/Flex';
+import Flex from '../lib/Flex';
 import styles from './Pr.module.scss';
 
 /*== PR Data =====================================================

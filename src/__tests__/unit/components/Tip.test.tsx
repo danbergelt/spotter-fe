@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Tip from 'src/components/util/Tip';
+import Tip from 'src/components/lib/Tip';
 import '@testing-library/jest-dom/extend-expect';
 
 describe('tip component', () => {

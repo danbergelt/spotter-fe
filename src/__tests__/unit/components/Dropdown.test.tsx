@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Dropdown from 'src/components/util/Dropdown';
+import Dropdown from 'src/components/lib/Dropdown';
 
 const Foo = () => {
   const [state, setState] = useState(false);

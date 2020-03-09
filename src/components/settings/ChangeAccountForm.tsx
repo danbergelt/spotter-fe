@@ -1,16 +1,16 @@
 import React, { SetStateAction, useEffect } from 'react';
 import { Formik, Form, Field } from 'formik';
 import useToken from '../../hooks/useToken';
-import Head from '../util/Head';
+import Head from '../lib/Head';
 import * as Yup from 'yup';
 import useApi from 'src/hooks/useApi';
 import styles from './ChangeAccount.module.scss';
-import Label from '../util/Label';
-import FormError from '../util/FormError';
-import Input from '../util/Input';
-import Button from '../util/Button';
-import HTTPResponse from '../util/HTTPResponse';
-import Flex from '../util/Flex';
+import Label from '../lib/Label';
+import FormError from '../lib/FormError';
+import Input from '../lib/Input';
+import Button from '../lib/Button';
+import HTTPResponse from '../lib/HTTPResponse';
+import Flex from '../lib/Flex';
 
 /*== Change Account Details =====================================================
 

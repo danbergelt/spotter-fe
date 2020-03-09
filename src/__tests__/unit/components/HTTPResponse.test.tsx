@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import HTTPResponse from 'src/components/util/HTTPResponse';
+import HTTPResponse from 'src/components/lib/HTTPResponse';
 
 describe('HTTP response utility component', () => {
   test('can render HTTP response w/ error', () => {
