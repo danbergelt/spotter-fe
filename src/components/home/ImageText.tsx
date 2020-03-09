@@ -5,7 +5,14 @@ import Flex from '../lib/Flex';
 import { useWindowSize } from 'react-use';
 import styles from './ImageText.module.scss';
 
+/*== Image text =====================================================
+
+Alternate homepage CTA that features an image of the workout modal
+
+*/
+
 const ImageText: React.FC = () => {
+  // used to dynamically change flex styling
   const { width } = useWindowSize();
 
   return (
