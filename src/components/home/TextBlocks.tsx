@@ -5,7 +5,15 @@ import Flex from '../lib/Flex';
 import { useWindowSize } from 'react-use';
 import { IconType } from 'react-icons/lib/cjs';
 
-const STROKE_WIDTH = '1.25px';
+/*== Textblocks =====================================================
+
+Homepage section that highlights various features and benefits of 
+incorporating spotter into your fitness repertoire.
+
+Since the textblock logic is repeated, using a small sub component
+to abstract away any repetition + improve readability
+
+*/
 
 interface Props {
   icon: IconType;
@@ -14,7 +22,11 @@ interface Props {
   content: [string, string, string];
 }
 
+// small reusable component for each textblock
 const TextBlock: React.FC<Props> = ({ icon: Icon, id, title, content }) => {
+  // constant for icon stroke width
+  const STROKE_WIDTH = '1.25px';
+
   return (
     <div className={styles.block}>
       <div className={`${styles.icon} ${styles[id]}`}>
@@ -23,13 +35,16 @@ const TextBlock: React.FC<Props> = ({ icon: Icon, id, title, content }) => {
       <p className={styles.blockTitle}>{title}</p>
       <p className={styles.content}>
         {content[0]}
-        <span className={styles.highlight}>{content[1]}</span> {content[2]}
+        <span className={styles.highlight}>{content[1]}</span>
+        {content[2]}
       </p>
     </div>
   );
 };
 
+// the exported component
 export const TextBlocks: React.FC = () => {
+  // hook into viewport size to set dynamic styles
   const { width } = useWindowSize();
 
   return (
