@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useWindowSize } from 'react-use';
+import { useWindowSize, useWindowScroll } from 'react-use';
 import NavLinks from './NavLinks';
 import { FiMenu, FiX } from 'react-icons/fi';
 import Flex from '../util/Flex';
 import styles from './Nav.module.scss';
 import Dropdown from '../util/Dropdown';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 /*== Nav =====================================================
 
@@ -21,6 +21,9 @@ const Nav: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   // ref for mobile menu (passed to dropdown, allows dropdown close on menu onClick)
   const menuRef = useRef<HTMLSpanElement>(null);
+
+  const { pathname } = useLocation();
+  const { y } = useWindowScroll();
 
   // automatically closes menu when user resizes desktop from small --> large
   useEffect(() => {
@@ -64,17 +67,35 @@ const Nav: React.FC = () => {
     }
   };
 
+  // generate sticky nav classname
+  // TO-DO -> incorporate for all pages (currently breaks UI)
+  const sticky = (): string | undefined => {
+    if (pathname === '/') {
+      // if on the homepage and scrolling, make nav sticky
+      if (y > 25) {
+        return styles.sticky;
+      }
+      // if just on homepage, make nav sticky w/out styles
+      // not technically necessary, but prevents jittering on scroll
+      return styles.homeNav;
+    }
+    // else don't add classname to div
+    return undefined;
+  };
+
   return (
-    <Flex
-      justify='space-between'
-      align={width <= 500 ? 'flex-end' : undefined}
-      cn={styles.container}
-    >
-      <Link className={styles.logo} data-testid='spotter' to={'/'}>
-        spotter
-      </Link>
-      {renderLinks()}
-    </Flex>
+    <div className={sticky()}>
+      <Flex
+        justify='space-between'
+        align={width <= 500 ? 'flex-end' : undefined}
+        cn={styles.container}
+      >
+        <Link className={styles.logo} data-testid='spotter' to={'/'}>
+          spotter
+        </Link>
+        {renderLinks()}
+      </Flex>
+    </div>
   );
 };
 
