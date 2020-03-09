@@ -107,6 +107,7 @@
     "eslint-plugin-jest": "^23.6.0",
     "eslint-plugin-prettier": "^3.1.2",
     "identity-obj-proxy": "^3.0.0",
+    "mq-polyfill": "^1.1.8",
     "prettier": "^1.19.1",
     "react-test-renderer": "^16.12.0",
     "redux-mock-store": "^1.5.3"
