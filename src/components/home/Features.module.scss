@@ -1,18 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
-@import '../../variables.scss';
-@import '../../mixins.scss';
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
 
-.features-container {
+.container {
   padding: 20rem 0rem;
-  display: flex;
   width: 100%;
-  justify-content: center;
   font-family: 'Nanum Gothic';
 
   @include large {
-    flex-direction: column;
-    align-items: center;
     padding: 15rem 2.5rem;
   }
 
@@ -20,12 +16,18 @@
     padding: 10rem 2.5rem;
   }
 
-  .features-tabs-container {
+  .tabs {
     @include large {
       text-align: center;
     }
 
-    .feature-tabs-select {
+    .title {
+      color: $gray1;
+      font-size: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .select {
       margin-bottom: 4rem;
       width: 225px;
       font-size: $p;
@@ -37,12 +39,6 @@
       -webkit-appearance: menulist;
     }
 
-    .features-title {
-      color: $gray1;
-      font-size: 3rem;
-      margin-bottom: 2.5rem;
-    }
-
     .feature {
       width: 325px;
       color: $gray2;
@@ -51,7 +47,7 @@
       padding-right: 20rem;
       cursor: pointer;
 
-      @include xLarge {
+      @include large {
         width: 250px;
         padding-right: 5rem;
         font-size: $p;
@@ -59,15 +55,17 @@
     }
 
     .selected {
+      @extend .feature;
       border-right: 5px solid $primary;
       color: $primary;
       @include textHover;
     }
   }
 
-  .features-img {
-    width: 900px;
+  .img {
     height: auto;
+    z-index: -1;
+    width: 900px;
     box-shadow: 0 20px 30px 0 rgba(36, 50, 66, 0.14);
 
     @include xLarge {

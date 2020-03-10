@@ -5,7 +5,7 @@
 
 .container {
   margin: 0;
-  padding: 17.5rem 17.5rem 22.5rem 17.5rem;
+  padding: 22.5rem 17.5rem;
   text-align: center;
   @include flex-center;
   background-image: linear-gradient(0deg, #f6f8f9 3%, #fff);
@@ -44,7 +44,7 @@
       color: darken($gray2, 10%);
       font-family: 'Nanum Gothic';
 
-      @include small {
+      @include medium {
         font-size: $p;
       }
 
@@ -61,7 +61,7 @@
     margin-top: 2rem;
     text-decoration: none;
 
-    @include small {
+    @include medium {
       font-size: $p;
       margin-top: 1rem;
     }
