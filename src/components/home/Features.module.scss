@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  padding: 20rem 0rem;
+  width: 100%;
+  font-family: 'Nanum Gothic';
+
+  @include large {
+    padding: 15rem 2.5rem;
+  }
+
+  @include small {
+    padding: 10rem 2.5rem;
+  }
+
+  .tabs {
+    @include large {
+      text-align: center;
+    }
+
+    .title {
+      color: $gray1;
+      font-size: 3rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .select {
+      margin-bottom: 4rem;
+      width: 225px;
+      font-size: $p;
+      outline: 0;
+      border: 1px solid $gray4;
+      padding: 0.5rem;
+      color: $gray2;
+      background: transparent;
+      -webkit-appearance: menulist;
+    }
+
+    .feature {
+      width: 325px;
+      color: $gray2;
+      font-size: 1.75rem;
+      padding: 1.5rem 0;
+      padding-right: 20rem;
+      cursor: pointer;
+
+      @include large {
+        width: 250px;
+        padding-right: 5rem;
+        font-size: $p;
+      }
+    }
+
+    .selected {
+      @extend .feature;
+      border-right: 5px solid $primary;
+      color: $primary;
+      @include textHover;
+    }
+  }
+
+  .img {
+    height: auto;
+    z-index: -1;
+    width: 900px;
+    box-shadow: 0 20px 30px 0 rgba(36, 50, 66, 0.14);
+
+    @include xLarge {
+      width: 700px;
+    }
+
+    @include medium {
+      width: 480px;
+    }
+
+    @include small {
+      width: 400px;
+    }
+
+    @media (max-width: 400px) {
+      width: 320px;
+    }
+  }
+}
