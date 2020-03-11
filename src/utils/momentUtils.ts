@@ -36,11 +36,17 @@ export const generateWeek: Params = num => {
 };
 
 // Used to set header of dashboard
+export const setHead = (num: number, ctx: 'week' | 'month'): string => {
+  if (ctx === 'week') {
+    return m()
+      .add(num, 'weeks')
+      .startOf('week')
+      .format('MMMM YYYY');
+  }
 
-export const dashHead = (num: number): string => {
   return m()
-    .add(num, 'weeks')
-    .startOf('week')
+    .add(num, 'months')
+    .startOf('month')
     .format('MMMM YYYY');
 };
 
@@ -68,13 +74,4 @@ export const generateMonth = (num: number): Moment.Moment[] => {
   }
 
   return days;
-};
-
-// Used to set header of monthly dashboard view
-
-export const monthDashHead = (num: number): string => {
-  return m()
-    .add(num, 'months')
-    .startOf('month')
-    .format('MMMM YYYY');
 };

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import WorkoutColumn from './WorkoutColumn';
 import WorkoutModal from '../../workoutmodal/WorkoutModal';
-import { generateWeek, dashHead } from '../../../../utils/momentUtils';
-import DashControls from '../DashControls';
+import { generateWeek, setHead } from '../../../../utils/momentUtils';
+import DashControls from '../../controls/Controls';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  incOrDecAction,
   addWorkoutModalAction,
   viewWorkoutModalAction
 } from '../../../../actions/globalActions';
@@ -47,14 +46,6 @@ const WorkoutColumns: React.FC = () => {
     }
   }, [res, dispatch, history]);
 
-  // increment or decrement by one week/day at a time
-  const inc = (): void => {
-    dispatch(incOrDecAction('inc', timeSpan));
-  };
-  const dec = (): void => {
-    dispatch(incOrDecAction('dec', timeSpan));
-  };
-
   // fetch workouts
   useEffect(() => {
     if (t) {
@@ -87,7 +78,7 @@ const WorkoutColumns: React.FC = () => {
 
   return (
     <div className='spacer'>
-      <DashControls inc={inc} dec={dec} time={timeSpan} month={dashHead} />
+      <DashControls time={timeSpan} setHead={setHead} ctx='week' />
       <section className='week-workouts-days'>
         {generateWeek(timeSpan).map((date, i) => (
           <WorkoutColumn

@@ -1,10 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { generateMonth, monthDashHead } from '../../../../utils/momentUtils';
-import DashControls from '../DashControls';
+import { generateMonth, setHead } from '../../../../utils/momentUtils';
+import DashControls from '../../controls/Controls';
 import GridDay from './GridDay';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  incOrDecAction,
   addWorkoutModalAction,
   viewWorkoutModalAction
 } from '../../../../actions/globalActions';
@@ -59,14 +58,6 @@ const WorkoutGrid: React.FC = () => {
     call(fetchWorkoutsQuery, [t, timeSpan, scope]);
   }, [timeSpan, scope, t, dispatch, call]);
 
-  // increment or decrement by one week/month at a time
-  const inc = (): void => {
-    dispatch(incOrDecAction('inc', timeSpan));
-  };
-  const dec = (): void => {
-    dispatch(incOrDecAction('dec', timeSpan));
-  };
-
   // opens modal to add a new workout
   const paramsHelper = { setModal, t, history };
   const openAddWorkoutModal: (date: Moment) => void = useCallback(
@@ -90,7 +81,7 @@ const WorkoutGrid: React.FC = () => {
 
   return (
     <div className='spacer'>
-      <DashControls inc={inc} dec={dec} time={timeSpan} month={monthDashHead} />
+      <DashControls time={timeSpan} setHead={setHead} ctx='month' />
       <section className='month-workout-days'>
         {generateMonth(timeSpan).map((date, i) => (
           <GridDay
