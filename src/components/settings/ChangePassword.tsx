@@ -1,9 +1,9 @@
-import React from 'react';
-import Popover from 'react-tiny-popover';
+import React, { useRef } from 'react';
 import styles from './ChangeAccount.module.scss';
 import ChangeAccountForm from './ChangeAccountForm';
 import { ChangePasswordSchema } from 'src/utils/validators';
 import { changePasswordQuery } from 'src/utils/queries';
+import Dropdown from '../lib/Dropdown';
 
 /*== Change password popup wrapper =====================================================
 
@@ -35,33 +35,34 @@ const ChangePassword: React.FC<Props> = ({
     confirm: 'Confirm Password'
   };
 
+  const ref = useRef<HTMLParagraphElement>(null);
+
   return (
-    // TODO --> consider refactoring away from a third party and making your own component
-    <Popover
-      isOpen={changePassword}
-      onClickOutside={(): void => setChangePassword(false)}
-      // the content prop accepts the component to be rendered on popup open
-      content={
-        <ChangeAccountForm
-          inputType='password'
-          schema={ChangePasswordSchema}
-          setState={setChangePassword}
-          api={changePasswordQuery}
-          labels={labels}
-        />
-      }
-      align='start'
-      position='bottom'
-      containerClassName={styles.popup}
-    >
-      <div
+    <>
+      <p
+        ref={ref}
         role='button'
-        onClick={(): void => setChangePassword(true)}
+        onClick={(): void => setChangePassword(!changePassword)}
         className={styles.action}
       >
         Change password...
-      </div>
-    </Popover>
+      </p>
+      {changePassword && (
+        <Dropdown
+          css={{ padding: '1.5rem', width: '275px' }}
+          setState={setChangePassword}
+          triggerRef={ref}
+        >
+          <ChangeAccountForm
+            inputType='email'
+            schema={ChangePasswordSchema}
+            setState={setChangePassword}
+            api={changePasswordQuery}
+            labels={labels}
+          />
+        </Dropdown>
+      )}
+    </>
   );
 };
 

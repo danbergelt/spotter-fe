@@ -17,6 +17,10 @@ Props:
     a ref attached to the dropdown trigger. makes it so that clicking
     the trigger once dropdown is open closes the dropdown without
     bugs (without this there's a race condition bug)
+  top, right, bottom, left: string
+    manual positioning
+  css: CSSProperties
+    override styles, spread inline
 
 */
 
@@ -27,6 +31,7 @@ interface Props {
   right?: string;
   bottom?: string;
   left?: string;
+  css?: React.CSSProperties;
 }
 
 const Dropdown: React.FC<Props> = ({
@@ -36,7 +41,8 @@ const Dropdown: React.FC<Props> = ({
   top,
   right,
   bottom,
-  left
+  left,
+  css
 }) => {
   // a ref attached to the dropdown. used to close dropdown when
   // clicking outside of the component
@@ -69,7 +75,7 @@ const Dropdown: React.FC<Props> = ({
   return (
     // wraps the dropdown contents via the children prop
     <div
-      style={{ top, right, bottom, left }}
+      style={{ top, right, bottom, left, ...css }}
       ref={dropdownRef}
       className={styles.dropdown}
     >
