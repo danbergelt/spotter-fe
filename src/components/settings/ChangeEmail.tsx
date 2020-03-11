@@ -1,6 +1,7 @@
-import React from 'react';
-import Popover from 'react-tiny-popover';
+import React, { useRef } from 'react';
+// import Popover from 'react-tiny-popover';
 import styles from './ChangeAccount.module.scss';
+import Dropdown from '../lib/Dropdown';
 import ChangeAccountForm from './ChangeAccountForm';
 import { ChangeEmailSchema } from 'src/utils/validators';
 import { changeEmailQuery } from 'src/utils/queries';
@@ -32,33 +33,35 @@ const ChangeEmail: React.FC<Props> = ({ changeEmail, setChangeEmail }) => {
     confirm: 'Confirm Email'
   };
 
+  // trigger ref for dropdown
+  const ref = useRef<HTMLParagraphElement>(null);
+
   return (
-    // TODO --> consider refactoring away from a third party and making your own component
-    <Popover
-      isOpen={changeEmail}
-      onClickOutside={(): void => setChangeEmail(false)}
-      // the content prop accepts the component to be rendered on popup open
-      content={
-        <ChangeAccountForm
-          inputType='email'
-          schema={ChangeEmailSchema}
-          setState={setChangeEmail}
-          api={changeEmailQuery}
-          labels={labels}
-        />
-      }
-      align='start'
-      position='bottom'
-      containerClassName={styles.popup}
-    >
-      <div
+    <>
+      <p
+        ref={ref}
         role='button'
-        onClick={(): void => setChangeEmail(true)}
+        onClick={(): void => setChangeEmail(!changeEmail)}
         className={styles.action}
       >
         Change email...
-      </div>
-    </Popover>
+      </p>
+      {changeEmail && (
+        <Dropdown
+          css={{ padding: '1.5rem', width: '275px' }}
+          setState={setChangeEmail}
+          triggerRef={ref}
+        >
+          <ChangeAccountForm
+            inputType='email'
+            schema={ChangeEmailSchema}
+            setState={setChangeEmail}
+            api={changeEmailQuery}
+            labels={labels}
+          />
+        </Dropdown>
+      )}
+    </>
   );
 };
 
