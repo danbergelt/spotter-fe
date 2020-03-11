@@ -107,7 +107,11 @@ const ChangeAccountForm: React.FC<Props> = ({
               name='confirm'
               type={inputType}
             />
-            <Button content='Save' loading={res.isLoading} />
+            <Button
+              css={{ padding: '1.25rem' }}
+              content='Save'
+              loading={res.isLoading}
+            />
             <HTTPResponse
               css={{ padding: '1rem', marginTop: '1rem', marginBottom: '1rem' }}
               reset={reset}
