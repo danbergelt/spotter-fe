@@ -56,7 +56,12 @@ const Nav: React.FC = () => {
           </span>
           {isOpen && (
             // if burger is clicked, render a dropdown with the nav links
-            <Dropdown triggerRef={menuRef} setState={setIsOpen}>
+            <Dropdown
+              top='35px'
+              right='25px'
+              triggerRef={menuRef}
+              setState={setIsOpen}
+            >
               <NavLinks setIsOpen={setIsOpen} />
             </Dropdown>
           )}

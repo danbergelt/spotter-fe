@@ -23,9 +23,21 @@ Props:
 interface Props {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
   triggerRef: React.RefObject<HTMLElement>;
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
 }
 
-const Dropdown: React.FC<Props> = ({ children, setState, triggerRef }) => {
+const Dropdown: React.FC<Props> = ({
+  children,
+  setState,
+  triggerRef,
+  top,
+  right,
+  bottom,
+  left
+}) => {
   // a ref attached to the dropdown. used to close dropdown when
   // clicking outside of the component
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -56,7 +68,11 @@ const Dropdown: React.FC<Props> = ({ children, setState, triggerRef }) => {
 
   return (
     // wraps the dropdown contents via the children prop
-    <div ref={dropdownRef} className={styles.dropdown}>
+    <div
+      style={{ top, right, bottom, left }}
+      ref={dropdownRef}
+      className={styles.dropdown}
+    >
       {children}
     </div>
   );

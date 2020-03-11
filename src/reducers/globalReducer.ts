@@ -14,7 +14,7 @@ import produce from 'immer';
 const globalState: GlobalReducer = {
   t: null,
   ctx: null,
-  scope: { value: 'Week', label: 'Week' },
+  scope: 'Week',
   date: null,
   timeSpan: 0
 };

@@ -1,5 +1,3 @@
-import { ValueType } from 'react-select';
-import { Option } from 'src/components/dash/subnav/types/types';
 import { Moment } from 'moment';
 import { History } from 'history';
 import { FROM_SAVED } from './workoutActions';
@@ -8,6 +6,7 @@ import { ADD_TOKEN } from './addTokenActions';
 import { Action } from 'redux';
 import { State } from 'src/types/State';
 import { ThunkDispatch } from 'redux-thunk';
+import { ReduxAction } from 'src/types/Types';
 
 export const MODAL_CTX = 'MODAL_CTX';
 export const LOGOUT = 'LOGOUT';
@@ -18,10 +17,7 @@ export const CHANGE_SCOPE = 'CHANGE_SCOPE';
 export const CLOSE_WORKOUT_MODAL = 'CLOSE_WORKOUT_MODAL';
 
 // sets dashboard scope to either weekly/monthly
-type THandleScopeChange = (
-  option: ValueType<Option>
-) => { type: string; payload: ValueType<Option> };
-export const handleScopeChangeAction: THandleScopeChange = option => {
+export const setScopeAction = (option: string): ReduxAction<string> => {
   return {
     type: CHANGE_SCOPE,
     payload: option
