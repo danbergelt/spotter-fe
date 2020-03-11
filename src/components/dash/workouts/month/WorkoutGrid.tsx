@@ -19,7 +19,7 @@ import { fetchWorkoutsQuery } from 'src/utils/queries';
 import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
 
 interface GlobalReducer {
-  scope: { value: string; label: string };
+  scope: 'Month' | 'Week';
   t: string | null;
   timeSpan: number;
 }
@@ -56,8 +56,8 @@ const WorkoutGrid: React.FC = () => {
 
   // fetch workouts
   useEffect(() => {
-    call(fetchWorkoutsQuery, [t, timeSpan, scope.value]);
-  }, [timeSpan, scope.value, t, dispatch, call]);
+    call(fetchWorkoutsQuery, [t, timeSpan, scope]);
+  }, [timeSpan, scope, t, dispatch, call]);
 
   // increment or decrement by one week/month at a time
   const inc = (): void => {

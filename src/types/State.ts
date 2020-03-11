@@ -7,7 +7,7 @@ import { Moment } from 'moment';
 export interface GlobalReducer {
   t: null | string;
   ctx: null | string;
-  scope: { value: string; label: string };
+  scope: 'Week' | 'Month';
   date: null | Moment;
   timeSpan: number;
 }

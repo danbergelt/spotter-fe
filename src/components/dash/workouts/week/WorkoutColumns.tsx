@@ -19,7 +19,7 @@ import useApi from 'src/hooks/useApi';
 import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
 
 interface GlobalReducer {
-  scope: { value: string; label: string };
+  scope: 'Month' | 'Week';
   t: string | null;
   timeSpan: number;
 }
@@ -58,9 +58,9 @@ const WorkoutColumns: React.FC = () => {
   // fetch workouts
   useEffect(() => {
     if (t) {
-      call(fetchWorkoutsQuery, [t, timeSpan, scope.value]);
+      call(fetchWorkoutsQuery, [t, timeSpan, scope]);
     }
-  }, [timeSpan, scope.value, t, dispatch, call]);
+  }, [timeSpan, scope, t, dispatch, call]);
 
   // opens modal to add a new workout
   const paramsHelper = { setModal, t, history };

@@ -193,7 +193,9 @@ describe('Change email', () => {
     fireEvent.change(newE, { target: { value: 'bar@baz.com' } });
     fireEvent.change(confirm, { target: { value: 'bar@baz.com' } });
 
-    fireEvent.click(getByTestId(/button/i));
+    await act(async () => {
+      await fireEvent.click(getByTestId(/button/i));
+    });
 
     await wait(() => expect(getByText(/test error/i)).toBeTruthy());
   });

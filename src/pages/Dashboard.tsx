@@ -8,9 +8,7 @@ import { State } from 'src/types/State';
 import { Helmet } from 'react-helmet-async';
 
 const Dashboard: React.FC = () => {
-  const scope: { value: string; label: string } = useSelector(
-    (state: State) => state.globalReducer.scope
-  );
+  const scope = useSelector((state: State) => state.globalReducer.scope);
 
   return (
     <>
@@ -18,8 +16,8 @@ const Dashboard: React.FC = () => {
         <title>Dashboard | Spotter</title>
       </Helmet>
       <SubNav />
-      {scope.value === 'Week' && <WorkoutColumns />}
-      {scope.value === 'Month' && <WorkoutGrid />}
+      {scope === 'Week' && <WorkoutColumns />}
+      {scope === 'Month' && <WorkoutGrid />}
     </>
   );
 };
