@@ -1,0 +1,54 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+.container {
+  margin-top: 2rem;
+  color: $gray1;
+  font-size: 2rem;
+  text-align: center;
+
+  @include medium {
+    font-size: 1.75rem;
+  }
+
+  @include small {
+    margin-top: 1rem;
+    font-size: $p;
+  }
+
+  .icons {
+    margin-right: 2rem;
+    color: $gray2;
+
+    @include small {
+      margin-right: 0.5rem;
+    }
+
+    .icon {
+      margin-right: 1.5rem;
+      cursor: pointer;
+      font-size: 2.75rem;
+
+      @include medium {
+        font-size: 2.25rem;
+      }
+    }
+  }
+}
+
+.pr {
+  @include btn;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  background: $info;
+  font-size: $p;
+
+  &:hover {
+    background: darken($info, 10%);
+  }
+
+  @include medium {
+    font-size: 1.3rem;
+    padding: 0.85rem 1.7rem;
+  }
+}

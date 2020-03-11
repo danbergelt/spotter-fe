@@ -7,24 +7,24 @@ import { useWindowSize } from 'react-use';
 // data represents data for each workout
 
 interface Props {
-  data: Workout;
+  workout: Workout;
 }
 
-const WorkoutCard: React.FC<Props> = ({ data }) => {
+const WorkoutCard: React.FC<Props> = ({ workout }) => {
   const { width } = useWindowSize();
 
   return (
     <>
       <p data-testid='workout-title' className='workout-card-title'>
-        {width <= 500 && data.title.length > 4
-          ? `${data.title.slice(0, 3)}...`
-          : data.title}
+        {width <= 500 && workout.title.length > 4
+          ? `${workout.title.slice(0, 3)}...`
+          : workout.title}
       </p>
-      {data.notes || data.exercises.length ? (
+      {workout.notes || workout.exercises.length ? (
         <FiAlignLeft className='workout-card-notes-ind' />
       ) : null}
       <section className='workout-card-tag-container'>
-        {data.tags.map(el => (
+        {workout.tags.map(el => (
           <p
             className='workout-card-tag'
             key={el._id}

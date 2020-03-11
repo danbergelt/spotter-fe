@@ -31,14 +31,14 @@ const WorkoutColumn: React.FC<Props> = ({
         {/* filter workouts for workouts matching this date */}
         {workouts
           .filter(el => el.date === date.format('MMM DD YYYY'))
-          .map(data => (
+          .map(workout => (
             <div
               className='workout-card-container'
-              onClick={(): void => openViewModal(data, date)}
-              key={data._id}
+              onClick={(): void => openViewModal(workout, date)}
+              key={workout._id}
               role='button'
             >
-              <WorkoutCard data={data} />
+              <WorkoutCard workout={workout} />
             </div>
           ))}
       </div>
