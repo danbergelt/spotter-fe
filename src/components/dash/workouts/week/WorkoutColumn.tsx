@@ -8,25 +8,14 @@ import { Workout } from 'src/types/Workout';
 interface Props {
   date: Moment;
   i: number;
-  openAddWorkoutModal: (date: Moment) => void;
-  openViewModal: (workout: Workout, date: Moment) => void;
+  openModal: Function;
   workouts: Array<Workout>;
 }
 
-const WorkoutColumn: React.FC<Props> = ({
-  date,
-  i,
-  openAddWorkoutModal,
-  openViewModal,
-  workouts
-}) => {
+const WorkoutColumn: React.FC<Props> = ({ date, i, openModal, workouts }) => {
   return (
     <div role='button' className='week-workouts-column'>
-      <WorkoutColumnContent
-        date={date}
-        i={i}
-        openAddWorkoutModal={(): void => openAddWorkoutModal(date)}
-      />
+      <WorkoutColumnContent date={date} i={i} openModal={openModal} />
       <div>
         {/* filter workouts for workouts matching this date */}
         {workouts
@@ -34,7 +23,7 @@ const WorkoutColumn: React.FC<Props> = ({
           .map(workout => (
             <div
               className='workout-card-container'
-              onClick={(): void => openViewModal(workout, date)}
+              onClick={(): void => openModal(date, 'view', workout)}
               key={workout._id}
               role='button'
             >

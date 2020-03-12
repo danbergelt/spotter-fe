@@ -135,10 +135,10 @@ export const fetchWorkoutsQuery = async (
   let range: Array<Moment> = [];
 
   // identify the scope, and generate an array of dates within that scope
-  if (scope === 'Week') {
+  if (scope === 'week') {
     range = generateWeek(time);
   }
-  if (scope === 'Month') {
+  if (scope === 'month') {
     range = generateMonth(time);
   }
   // format the days

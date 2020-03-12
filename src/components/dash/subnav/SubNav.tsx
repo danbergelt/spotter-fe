@@ -61,17 +61,17 @@ const SubNav: React.FC = () => {
         <Dropdown top={setTop()} triggerRef={ref} setState={setIsOpen}>
           <p
             data-testid='opt'
-            onClick={(): void => setScope('Week')}
+            onClick={(): void => setScope('week')}
             className={styles.option}
           >
-            Week
+            week
           </p>
           <p
             data-testid='opt2'
-            onClick={(): void => setScope('Month')}
+            onClick={(): void => setScope('month')}
             className={styles.option}
           >
-            Month
+            month
           </p>
         </Dropdown>
       )}

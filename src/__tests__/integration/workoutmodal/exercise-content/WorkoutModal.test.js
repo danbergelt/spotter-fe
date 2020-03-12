@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkoutColumns from '../../../../components/dash/workouts/week/WorkoutColumns';
+import Dashboard from '../../../../pages/Dashboard';
 import WorkoutModal from '../../../../components/dash/workoutmodal/WorkoutModal';
 import WorkoutData from '../../../../components/dash/workoutmodal/data/WorkoutData';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
@@ -23,7 +23,7 @@ describe('add workout modal functionality', () => {
     axios.get.mockResolvedValue({});
     const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
       reducer,
-      <WorkoutColumns />
+      <Dashboard />
     );
 
     fireEvent.click(getByTestId(/modal-click/i));

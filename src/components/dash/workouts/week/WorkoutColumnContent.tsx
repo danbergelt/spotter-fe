@@ -7,15 +7,11 @@ import { useWindowSize } from 'react-use';
 
 interface Props {
   date: Moment;
-  openAddWorkoutModal: (date: Moment) => void;
+  openModal: Function;
   i: number;
 }
 
-const WorkoutColumnContent: React.FC<Props> = ({
-  date,
-  openAddWorkoutModal,
-  i
-}) => {
+const WorkoutColumnContent: React.FC<Props> = ({ date, openModal, i }) => {
   const { width } = useWindowSize();
 
   const dynamicContentHelper = (): string | null => {
@@ -39,7 +35,7 @@ const WorkoutColumnContent: React.FC<Props> = ({
       </section>
       <div
         data-testid={i === 0 && 'modal-click'}
-        onClick={(): void => openAddWorkoutModal(date)}
+        onClick={(): void => openModal(date, 'add')}
         className='week-workouts-add-workout'
         role='button'
       >

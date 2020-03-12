@@ -11,8 +11,7 @@ import { useWindowSize } from 'react-use';
 interface Props {
   date: M.Moment;
   i: number;
-  openAddWorkoutModal: (date: M.Moment) => void;
-  openViewModal: (workout: Workout, date: M.Moment) => void;
+  openModal: Function;
   workouts: Array<Workout>;
   popover: P;
   setPopover: React.Dispatch<React.SetStateAction<P>>;
@@ -23,8 +22,7 @@ interface Props {
 const GridDay: React.FC<Props> = ({
   date,
   i,
-  openAddWorkoutModal,
-  openViewModal,
+  openModal,
   workouts,
   popover,
   setPopover
@@ -39,13 +37,9 @@ const GridDay: React.FC<Props> = ({
       {i <= 6 ? (
         // in the first week, also include the days of the week (e.g. Monday, Tuesday, etc.)
         // not very DRY to have separate components, possibly pass a notifier prop to change the context, and use a single component?
-        <GridHeadFirstWeek
-          openAddWorkoutModal={openAddWorkoutModal}
-          i={i}
-          date={date}
-        />
+        <GridHeadFirstWeek openModal={openModal} i={i} date={date} />
       ) : (
-        <GridHead openAddWorkoutModal={openAddWorkoutModal} date={date} />
+        <GridHead openModal={openModal} date={date} />
       )}
       {workouts
         // if the workout matches this day's date, map over it and render it out into the day
@@ -62,11 +56,7 @@ const GridDay: React.FC<Props> = ({
                 }}
                 key={data._id}
               >
-                <GridWorkout
-                  data={data}
-                  openViewModal={openViewModal}
-                  date={date}
-                />
+                <GridWorkout data={data} openModal={openModal} date={date} />
                 {workouts.filter(el => el.date === date.format('MMM DD YYYY'))
                   .length > 1 && (
                   // if there is more than one workout in a day, render a popover to control overflow
@@ -74,7 +64,7 @@ const GridDay: React.FC<Props> = ({
                     workouts={workouts}
                     popover={popover}
                     setPopover={setPopover}
-                    openViewModal={openViewModal}
+                    openModal={openModal}
                     date={date}
                   >
                     <div

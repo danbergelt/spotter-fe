@@ -5,13 +5,13 @@ import { useWindowSize } from 'react-use';
 
 interface Props {
   data: Workout;
-  openViewModal: (workout: Workout, date: Moment) => void;
+  openModal: Function;
   date: Moment;
 }
 
 // prompt to view a pre-existing workout
 
-const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
+const GridWorkout: React.FC<Props> = ({ data, openModal, date }) => {
   const { width }: { width: number } = useWindowSize();
 
   return (
@@ -19,7 +19,7 @@ const GridWorkout: React.FC<Props> = ({ data, openViewModal, date }) => {
       style={{ background: data.tags[0] && data.tags[0].color }}
       className='month-grid-workout'
       role='button'
-      onClick={(): void => openViewModal(data, date)}
+      onClick={(): void => openModal(date, 'view', data)}
       key={data._id}
     >
       {width <= 800 && data.title.length > 5

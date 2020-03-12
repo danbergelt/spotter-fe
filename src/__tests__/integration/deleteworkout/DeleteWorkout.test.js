@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkoutColumns from '../../../components/dash/workouts/week/WorkoutColumns';
+import Dashboard from '../../../pages/Dashboard';
 import { cleanup, fireEvent } from '@testing-library/react';
 import wrapper from '../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
@@ -20,7 +20,7 @@ describe('can close modal on delete click', () => {
     axios.get.mockResolvedValue({});
     const { store, history, getByTestId, queryByText } = wrapper(
       reducer,
-      <WorkoutColumns />
+      <Dashboard />
     );
 
     store.dispatch({
@@ -46,7 +46,7 @@ describe('can close modal on delete click', () => {
     });
     const { store, history, getByTestId, queryByText, getByText } = wrapper(
       reducer,
-      <WorkoutColumns />
+      <Dashboard />
     );
 
     store.dispatch({
@@ -60,9 +60,9 @@ describe('can close modal on delete click', () => {
 
     await act(async () => {
       await fireEvent.click(getByTestId(/del-workout/i));
-      await fireEvent.click(getByTestId(/conf-del/i));
     });
 
+    fireEvent.click(getByTestId(/conf-del/i));
     await wait(() => expect(queryByText(/workout for testing/i)).toBeFalsy());
   });
 });

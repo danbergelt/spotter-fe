@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkoutColumns from '../../../../components/dash/workouts/week/WorkoutColumns';
+import Dashboard from '../../../../pages/Dashboard';
 import { cleanup, fireEvent } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
@@ -19,7 +19,7 @@ describe('view workout modal functionality', () => {
     axios.post.mockResolvedValue({});
     const { queryAllByText, queryByText, getByText, store, history } = wrapper(
       reducer,
-      <WorkoutColumns />
+      <Dashboard />
     );
 
     store.dispatch({

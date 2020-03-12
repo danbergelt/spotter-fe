@@ -5,6 +5,7 @@ import Flex from 'src/components/lib/Flex';
 import styles from './Controls.module.scss';
 import { useDispatch } from 'react-redux';
 import { incOrDecAction } from 'src/actions/globalActions';
+import { Scope } from 'src/types/Types';
 
 /*== Controls =====================================================
 
@@ -27,13 +28,13 @@ Props:
 
 interface Props {
   time: number;
-  setHead: (num: number, ctx: 'week' | 'month') => string;
-  ctx: 'week' | 'month';
+  setHead: (num: number, scope: Scope) => string;
+  scope: Scope;
 }
 
 // controls incrementing/decrementing the date in view
 
-const Controls: React.FC<Props> = ({ time, setHead, ctx }) => {
+const Controls: React.FC<Props> = ({ time, setHead, scope }) => {
   // state dispatcher
   const dispatch = useDispatch();
 
@@ -62,7 +63,7 @@ const Controls: React.FC<Props> = ({ time, setHead, ctx }) => {
             className={styles.icon}
           />
         </div>
-        <div data-testid='date'>{setHead(time, ctx)}</div>
+        <div data-testid='date'>{setHead(time, scope)}</div>
       </Flex>
       <Link to='/prs' className={styles.pr}>
         PRs

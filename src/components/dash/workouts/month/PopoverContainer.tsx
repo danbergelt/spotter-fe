@@ -10,7 +10,7 @@ interface Props {
   children?: any;
   popover: P;
   setPopover: React.Dispatch<React.SetStateAction<P>>;
-  openViewModal: (workout: Workout, date: Moment) => void;
+  openModal: Function;
   date: Moment;
   workouts: Array<Workout>;
 }
@@ -20,7 +20,7 @@ const PopoverContainer: React.FC<Props> = ({
   popover,
   setPopover,
   workouts,
-  openViewModal,
+  openModal,
   date
 }) => {
   return (
@@ -35,7 +35,7 @@ const PopoverContainer: React.FC<Props> = ({
         <ViewMoreContent
           setPopover={setPopover}
           workouts={workouts}
-          openViewModal={openViewModal}
+          openModal={openModal}
           date={date}
         />
       }
