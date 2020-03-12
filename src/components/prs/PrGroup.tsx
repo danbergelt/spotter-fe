@@ -52,9 +52,9 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
       <Flex
         justify='space-between'
         align='center'
-        cn={open ? `${styles.head} ${styles.open}` : styles.head}
+        css={open ? `${styles.head} ${styles.open}` : styles.head}
       >
-        <Flex cn={styles.prSpacer} click={(): void => setOpen(!open)}>
+        <Flex css={styles.prSpacer} click={(): void => setOpen(!open)}>
           <Toggler
             state={open}
             on={IoMdArrowDropdown}

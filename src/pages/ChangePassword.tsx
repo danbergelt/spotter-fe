@@ -92,7 +92,7 @@ const ChangePassword: React.FC = () => {
                 type='password'
               />
               <Button
-                css={{ width: '100%' }}
+                css={styles.btn}
                 loading={res.isLoading}
                 content='Submit'
               />

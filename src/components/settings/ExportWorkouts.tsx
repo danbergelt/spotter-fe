@@ -30,7 +30,7 @@ const ExportWorkouts: React.FC<Props> = ({ t }) => {
   return (
     <article className={styles.container}>
       <HTTPResponse
-        css={{ width: '275px', marginLeft: '1.5rem', padding: '1rem' }}
+        css={styles.res}
         error={error}
         reset={(): void => setError('')}
       />

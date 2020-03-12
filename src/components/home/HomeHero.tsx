@@ -13,7 +13,7 @@ signup
 
 const Hero: React.FC = () => {
   return (
-    <Flex fd='column' cn={styles.container}>
+    <Flex fd='column' css={styles.container}>
       <section>
         <h1 className={styles.title}>
           A <span className={styles.alt}>lifting pal</span> that includes what

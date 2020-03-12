@@ -20,12 +20,12 @@ const ImageText: React.FC = () => {
       align='center'
       justify='center'
       fd={width <= 800 ? 'column-reverse' : undefined}
-      cn={styles.container}
+      css={styles.container}
     >
       <div>
         <img className={styles.image} src={image} alt='Dashboard View' />
       </div>
-      <Flex fd='column' justify='space-between' cn={styles.content}>
+      <Flex fd='column' justify='space-between' css={styles.content}>
         <p className={styles.title}>For people who lift, by people who lift</p>
         <p className={styles.text}>
           Excel is a drag, tracking by hand is unsustainable, and other apps are

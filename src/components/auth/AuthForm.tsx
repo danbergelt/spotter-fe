@@ -98,7 +98,7 @@ const AuthForm: React.FC<Props> = ({
                 type='password'
               />
               <Button
-                css={{ fontSize: '1.5rem' }}
+                css={styles.btn}
                 content={action}
                 loading={res.isLoading}
               />

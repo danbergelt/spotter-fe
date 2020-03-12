@@ -49,7 +49,7 @@ export const TextBlocks: React.FC = () => {
   const { width } = useWindowSize();
 
   return (
-    <Flex align='center' fd='column' cn={styles.container}>
+    <Flex align='center' fd='column' css={styles.container}>
       <h2 className={styles.title}>
         Spotter is a lifting-focused fitness pal that helps you...
       </h2>
@@ -57,7 +57,7 @@ export const TextBlocks: React.FC = () => {
         fd={width <= 800 ? 'column' : undefined}
         align={width <= 800 ? 'center' : undefined}
         justify='space-between'
-        cn={styles.blocks}
+        css={styles.blocks}
       >
         <TextBlock
           icon={FiEdit3}
