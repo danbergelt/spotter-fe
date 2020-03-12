@@ -39,6 +39,7 @@ interface Props {
     | 'initial'
     | 'inherit';
   fd?: 'column' | 'column-reverse';
+  fw?: 'wrap';
   css?: string;
   click?: Function;
 }
@@ -48,6 +49,7 @@ const Flex: React.FC<Props> = ({
   justify,
   align,
   fd,
+  fw,
   css,
   click
 }) => {
@@ -57,6 +59,7 @@ const Flex: React.FC<Props> = ({
         display: 'flex',
         justifyContent: justify,
         alignItems: align,
+        flexWrap: fw,
         flexDirection: fd
       }}
       data-testid='flex'

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, getByText } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import PrGroup from 'src/components/prs/PrGroup';
 import { e1 } from 'src/__testUtils__/exercise';
 
