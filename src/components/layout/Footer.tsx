@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
 
   return (
     // if user is home, display a different background (since bottom of homepage is gray, not white)
-    <Flex justify='center' cn={pathname === '/' ? styles.home : styles.site}>
+    <Flex justify='center' css={pathname === '/' ? styles.home : styles.site}>
       <p>Spotter © 2020. All Rights Reserved.</p>
     </Flex>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
 import Spinner from './Spinner';
+import cx from 'classnames';
 
 /*== Button =====================================================
 
@@ -13,8 +14,8 @@ Props:
     the button content
   loading: boolean
     the loading state of the current request
-  css: React CSS properties
-    additional custom styles to spread in as inline styles
+  css: string
+    custom classname
   func: Function
     when used outside of a form, an optional function prop
     to pass in as onClick handler
@@ -24,7 +25,7 @@ Props:
 interface Props {
   content: string;
   loading?: boolean;
-  css?: React.CSSProperties;
+  css?: string;
   func?: Function;
 }
 
@@ -32,10 +33,9 @@ const Button: React.FC<Props> = ({ content, loading, css, func }) => {
   return (
     <button
       onClick={(): void => func && func()}
-      style={{ ...css }}
       data-testid='button'
       type='submit'
-      className={styles.button}
+      className={cx(styles.button, css)}
     >
       {loading ? (
         <div data-testid='loader'>

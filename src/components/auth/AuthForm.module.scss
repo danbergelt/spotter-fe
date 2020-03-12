@@ -40,6 +40,10 @@
       @include small {
         width: 300px;
       }
+
+      .btn {
+        font-size: 1.5rem;
+      }
     }
   }
 }

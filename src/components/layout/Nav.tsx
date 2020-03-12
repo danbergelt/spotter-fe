@@ -93,7 +93,7 @@ const Nav: React.FC = () => {
       <Flex
         justify='space-between'
         align={width <= 500 ? 'flex-end' : undefined}
-        cn={styles.container}
+        css={styles.container}
       >
         <Link className={styles.logo} data-testid='spotter' to={'/'}>
           spotter

@@ -49,12 +49,12 @@ const ChangePassword: React.FC<Props> = ({
       </p>
       {changePassword && (
         <Dropdown
-          css={{ padding: '1.5rem', width: '275px' }}
+          css={styles.container}
           setState={setChangePassword}
           triggerRef={ref}
         >
           <ChangeAccountForm
-            inputType='email'
+            inputType='password'
             schema={ChangePasswordSchema}
             setState={setChangePassword}
             api={changePasswordQuery}

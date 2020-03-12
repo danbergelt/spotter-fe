@@ -50,8 +50,8 @@ const SubNav: React.FC = () => {
   };
 
   return (
-    <Flex cn={styles.container}>
-      <Flex cn={styles.dropdown} click={(): void => setIsOpen(!isOpen)}>
+    <Flex css={styles.container}>
+      <Flex css={styles.dropdown} click={(): void => setIsOpen(!isOpen)}>
         <div className={styles.selected} ref={ref}>
           {scope}
         </div>

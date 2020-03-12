@@ -81,39 +81,25 @@ const ChangeAccountForm: React.FC<Props> = ({
               <Label content={labels.old} input='old' />
               <FormError touched={touched} errors={errors} node='old' />
             </Flex>
-            <Field
-              css={{ padding: '0.5rem', marginBottom: '1rem' }}
-              as={Input}
-              name='old'
-              type={inputType}
-            />
+            <Field css={styles.inp} as={Input} name='old' type={inputType} />
             <Flex justify='space-between'>
               <Label content={labels.new} input='new' />
               <FormError touched={touched} errors={errors} node='new' />
             </Flex>
-            <Field
-              css={{ padding: '0.5rem', marginBottom: '1rem' }}
-              as={Input}
-              name='new'
-              type={inputType}
-            />
+            <Field css={styles.inp} as={Input} name='new' type={inputType} />
             <Flex justify='space-between'>
               <Label content={labels.confirm} input='confirm' />
               <FormError touched={touched} errors={errors} node='confirm' />
             </Flex>
             <Field
-              css={{ padding: '0.5rem', marginBottom: '1rem' }}
+              css={styles.inp}
               as={Input}
               name='confirm'
               type={inputType}
             />
-            <Button
-              css={{ padding: '1.25rem' }}
-              content='Save'
-              loading={res.isLoading}
-            />
+            <Button css={styles.btn} content='Save' loading={res.isLoading} />
             <HTTPResponse
-              css={{ padding: '1rem', marginTop: '1rem', marginBottom: '1rem' }}
+              css={styles.res}
               reset={reset}
               error={res.error}
               success={res.data?.message}

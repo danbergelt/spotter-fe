@@ -50,7 +50,7 @@ const Controls: React.FC<Props> = ({ time, setHead, scope }) => {
 
   return (
     <Flex justify='space-between' align='center'>
-      <Flex align='center' cn={styles.container}>
+      <Flex align='center' css={styles.container}>
         <div className={styles.icons}>
           <FiChevronLeft
             data-testid='back'

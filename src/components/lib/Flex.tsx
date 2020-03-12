@@ -12,10 +12,8 @@ Props (WIP, plan on adding more props + collision handling as time goes on)
     the justify content prop. if not passed, defaults to undefined
   align: string enum (see below):
     the align items prop. if not passed, defaults to undefined
-  cn: string
+  css: string
     custom classname
-  css: React CSS properties
-    inline styles (useful if styles need to be controlled by javascript)
   click: function
     onclick function
   fd: string
@@ -41,8 +39,7 @@ interface Props {
     | 'initial'
     | 'inherit';
   fd?: 'column' | 'column-reverse';
-  css?: React.CSSProperties;
-  cn?: string;
+  css?: string;
   click?: Function;
 }
 
@@ -51,7 +48,6 @@ const Flex: React.FC<Props> = ({
   justify,
   align,
   fd,
-  cn,
   css,
   click
 }) => {
@@ -61,11 +57,10 @@ const Flex: React.FC<Props> = ({
         display: 'flex',
         justifyContent: justify,
         alignItems: align,
-        flexDirection: fd,
-        ...css
+        flexDirection: fd
       }}
       data-testid='flex'
-      className={cn}
+      className={css}
       onClick={(): void => click && click()}
     >
       {children}

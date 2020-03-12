@@ -63,20 +63,12 @@ const CloseAccount: React.FC = () => {
         <Checkbox state={confirmClose} setState={setConfirmClose} />
         <p className={styles.confirm}>Yes, I&#39;m sure</p>
       </Flex>
-      <HTTPResponse
-        css={{ marginTop: '2rem', width: '275px', padding: '1rem' }}
-        error={res.error}
-        reset={reset}
-      />
+      <HTTPResponse css={styles.res} error={res.error} reset={reset} />
       <Button
         content='Close Account'
         loading={res.isLoading}
         func={deleteAccount}
-        css={{
-          cursor: !confirmClose ? 'not-allowed' : undefined,
-          background: !confirmClose ? 'rgba(237, 61, 52, 0.7)' : undefined,
-          marginTop: '2rem'
-        }}
+        css={!confirmClose ? styles.btnDisabled : styles.btn}
       />
     </article>
   );

@@ -62,7 +62,7 @@ const ForgotPassword: React.FC = () => {
                 type='email'
               />
               <Button
-                css={{ width: '100%' }}
+                css={styles.btn}
                 loading={res.isLoading}
                 content='Send Instructions'
               />

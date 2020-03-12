@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, RefObject, useCallback } from 'react';
 import styles from './Dropdown.module.scss';
+import cx from 'classnames';
 
 /*== Dropdown =====================================================
 
@@ -19,8 +20,8 @@ Props:
     bugs (without this there's a race condition bug)
   top, right, bottom, left: string
     manual positioning
-  css: CSSProperties
-    override styles, spread inline
+  css: string
+    custom classname
 
 */
 
@@ -31,7 +32,7 @@ interface Props {
   right?: string;
   bottom?: string;
   left?: string;
-  css?: React.CSSProperties;
+  css?: string;
 }
 
 const Dropdown: React.FC<Props> = ({
@@ -75,9 +76,9 @@ const Dropdown: React.FC<Props> = ({
   return (
     // wraps the dropdown contents via the children prop
     <div
-      style={{ top, right, bottom, left, ...css }}
+      style={{ top, right, bottom, left }}
       ref={dropdownRef}
-      className={styles.dropdown}
+      className={cx(styles.dropdown, css)}
     >
       {children}
     </div>

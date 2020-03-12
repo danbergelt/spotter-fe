@@ -38,9 +38,17 @@
     margin-bottom: 2rem;
   }
 
+  .res {
+    padding: 1rem;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
+
+    .inp {
+      margin-bottom: 2rem;
+    }
   }
 }
 

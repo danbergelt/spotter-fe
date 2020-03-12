@@ -66,7 +66,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
           </div>
           <Form>
             <HTTPResponse
-              css={{ padding: '1rem' }}
+              css={styles.res}
               error={res.error}
               success={res.data?.message}
               reset={reset}
@@ -77,7 +77,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 <FormError touched={touched} errors={errors} node='name' />
               </Flex>
               <Field
-                css={{ marginBottom: '2rem' }}
+                css={styles.inp}
                 as={Input}
                 placeholder='Jane Doe'
                 type='text'
@@ -88,7 +88,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 <FormError touched={touched} errors={errors} node='email' />
               </Flex>
               <Field
-                css={{ marginBottom: '2rem' }}
+                css={styles.inp}
                 as={Input}
                 placeholder='name@email.com'
                 type='email'
@@ -99,7 +99,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 <FormError touched={touched} errors={errors} node='subject' />
               </Flex>
               <Field
-                css={{ marginBottom: '2rem' }}
+                css={styles.inp}
                 placeholder='e.g. feature request'
                 as={Input}
                 type='text'
@@ -110,7 +110,7 @@ const ContactForm: React.FC<Props> = ({ form }) => {
                 <FormError touched={touched} errors={errors} node='message' />
               </Flex>
               <Field
-                css={{ marginBottom: '2rem' }}
+                css={styles.inp}
                 as={Input}
                 placeholder='Your message goes here...'
                 name='message'

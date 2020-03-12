@@ -1,5 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import styles from './Input.module.scss';
+import cx from 'classnames';
 
 /*== Input =====================================================
 
@@ -20,7 +21,8 @@ Props:
     the function that handles changes in Formik inputs
   element: enum['textarea' | 'input']
     optional prop that renders a texarea instead of a default input
-
+  css: string
+    custom classname
 */
 
 interface Props {
@@ -31,7 +33,7 @@ interface Props {
   onChange: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-  css?: React.CSSProperties;
+  css?: string;
   element?: 'input' | 'textarea';
 }
 
@@ -49,13 +51,12 @@ const Input: React.FC<Props> = ({
     return (
       <input
         data-testid='input'
-        className={styles.input}
+        className={cx(styles.input, css)}
         name={name}
         placeholder={placeholder}
         type={type}
         value={value}
         onChange={onChange}
-        style={{ ...css }}
       />
     );
   }
@@ -65,12 +66,11 @@ const Input: React.FC<Props> = ({
     return (
       <textarea
         data-testid='input'
-        className={styles.textarea}
+        className={cx(styles.textarea, css)}
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        style={{ ...css }}
       />
     );
   }

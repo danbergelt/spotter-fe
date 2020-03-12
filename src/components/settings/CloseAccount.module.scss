@@ -24,4 +24,20 @@
   .confirm {
     margin-left: 0.75rem;
   }
+
+  .res {
+    padding: 1rem;
+    margin-top: 2rem;
+    width: 275px;
+  }
+
+  .btn {
+    margin-top: 2rem;
+  }
+
+  .btnDisabled {
+    @extend .btn;
+    cursor: not-allowed;
+    background: rgba(237, 61, 52, 0.7);
+  }
 }

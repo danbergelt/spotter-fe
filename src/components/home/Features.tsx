@@ -54,7 +54,7 @@ const Features: React.FC<Props> = ({ images }) => {
     return (
       <>
         <Flex
-          cn={styles.container}
+          css={styles.container}
           justify='center'
           align={width <= 1000 ? 'center' : undefined}
           fd={width <= 1000 ? 'column' : undefined}
