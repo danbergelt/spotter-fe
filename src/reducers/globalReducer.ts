@@ -1,5 +1,6 @@
 import { ADD_TOKEN } from '../actions/addTokenActions';
 import {
+  OPEN_MODAL,
   MODAL_CTX,
   SET_SCOPE,
   SET_DATE,
@@ -14,7 +15,7 @@ import produce from 'immer';
 const globalState: GlobalReducer = {
   t: null,
   ctx: null,
-  scope: 'Week',
+  scope: 'week',
   date: null,
   timeSpan: 0
 };
@@ -27,6 +28,10 @@ export const globalReducer = (
 ): GlobalReducer => {
   return produce(state, draft => {
     switch (action.type) {
+      case OPEN_MODAL:
+        draft.date = action.payload.date;
+        draft.ctx = action.payload.ctx;
+        return;
       case ADD_TOKEN:
         draft.t = action.payload;
         return;

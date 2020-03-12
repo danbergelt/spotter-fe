@@ -14,7 +14,7 @@ if ('default' in m) {
 interface Props {
   setPopover: React.Dispatch<React.SetStateAction<P>>;
   workouts: Array<Workout>;
-  openViewModal: (workout: Workout, date: M.Moment) => void;
+  openModal: Function;
   date: M.Moment;
 }
 
@@ -23,13 +23,13 @@ interface Props {
 const ViewMoreContent: React.FC<Props> = ({
   setPopover,
   workouts,
-  openViewModal,
+  openModal,
   date
 }) => {
   // closes the popover when a workout is selected
   const handlePopover: (workout: Workout, date: M.Moment) => void = workout => {
     setPopover({ open: false, id: null });
-    openViewModal(workout, date);
+    openModal(date, 'view', workout);
   };
 
   return (

@@ -12,17 +12,13 @@ if ('default' in m) {
 
 interface Props {
   date: Moment;
-  openAddWorkoutModal: (date: Moment) => void;
+  openModal: Function;
   i: number;
 }
 
 // the first week also includes the week day + the date and the add workout button
 
-const GridHeadFirstWeek: React.FC<Props> = ({
-  date,
-  openAddWorkoutModal,
-  i
-}) => {
+const GridHeadFirstWeek: React.FC<Props> = ({ date, openModal, i }) => {
   const { width }: { width: number } = useWindowSize();
 
   return (
@@ -31,7 +27,7 @@ const GridHeadFirstWeek: React.FC<Props> = ({
         <p className='month-grid-day-of-week'>{date.format('ddd')}</p>
         <div
           role='button'
-          onClick={(): void => openAddWorkoutModal(date)}
+          onClick={(): void => openModal(date, 'add')}
           className='month-grid-add-workout'
           data-testid={i === 0 && 'add-for-testing'}
         >

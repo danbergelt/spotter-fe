@@ -11,13 +11,13 @@ if ('default' in m) {
 }
 
 interface Props {
-  openAddWorkoutModal: (date: Moment) => void;
+  openModal: Function;
   date: Moment;
 }
 
 // includes the button to add a new workout
 
-const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
+const GridHead: React.FC<Props> = ({ openModal, date }) => {
   const { width }: { width: number } = useWindowSize();
 
   return (
@@ -25,7 +25,7 @@ const GridHead: React.FC<Props> = ({ openAddWorkoutModal, date }) => {
       <section className='month-grid-day-head'>
         <div
           role='button'
-          onClick={(): void => openAddWorkoutModal(date)}
+          onClick={(): void => openModal(date, 'add')}
           style={{ marginLeft: 'auto' }}
           className='month-grid-add-workout'
         >

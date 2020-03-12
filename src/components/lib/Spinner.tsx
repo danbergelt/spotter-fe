@@ -20,9 +20,10 @@ Props:
 interface Props {
   size: number;
   color?: string;
+  css?: React.CSSProperties;
 }
 
-const Spinner: React.FC<Props> = ({ size, color }) => {
+const Spinner: React.FC<Props> = ({ size, color, css }) => {
   return (
     <FiRotateCw
       data-testid='spinner'
@@ -30,6 +31,7 @@ const Spinner: React.FC<Props> = ({ size, color }) => {
       className={styles.spinner}
       size={size}
       color={color ? color : 'white'}
+      style={{ ...css }}
     />
   );
 };

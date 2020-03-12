@@ -14,7 +14,7 @@ import {
   RESET_QUEUE,
   FROM_SAVED
 } from '../actions/workoutActions';
-import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
+import { CLOSE_WORKOUT_MODAL, OPEN_MODAL } from '../actions/globalActions';
 import { find, isMatch, isEqual, omit, pick, keys, remove } from 'lodash';
 import { WorkoutReducer } from 'src/types/State';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
@@ -82,6 +82,19 @@ export const workoutReducer = (
 ): WorkoutReducer => {
   return produce(state, draft => {
     switch (action.type) {
+      case OPEN_MODAL:
+        draft._id = action.payload.workout ? action.payload.workout._id : null;
+        draft.exercises = action.payload.workout
+          ? action.payload.workout.exercises
+          : [];
+        draft.notes = action.payload.workout
+          ? action.payload.workout.notes
+          : '';
+        draft.tags = action.payload.workout ? action.payload.workout.tags : [];
+        draft.title = action.payload.workout
+          ? action.payload.workout.title
+          : '';
+        return;
       case ADD_WORKOUT_TITLE:
         draft.title = action.payload;
         return;

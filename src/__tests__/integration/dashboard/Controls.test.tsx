@@ -13,7 +13,7 @@ describe('dash controls', () => {
   test('renders current date', () => {
     const { getByText } = wrapper(
       reducer,
-      <Controls time={0} ctx='week' setHead={setHead} />
+      <Controls time={0} scope='week' setHead={setHead} />
     );
 
     getByText(date);
@@ -22,7 +22,7 @@ describe('dash controls', () => {
   test('shows decremented weeks', () => {
     const { queryByText } = wrapper(
       reducer,
-      <Controls time={-4} ctx='week' setHead={setHead} />
+      <Controls time={-4} scope='week' setHead={setHead} />
     );
 
     expect(queryByText(date)).toBeFalsy();
@@ -31,7 +31,7 @@ describe('dash controls', () => {
   test('shows incremented weeks', () => {
     const { queryByText } = wrapper(
       reducer,
-      <Controls time={4} ctx='week' setHead={setHead} />
+      <Controls time={4} scope='week' setHead={setHead} />
     );
 
     expect(queryByText(date)).toBeFalsy();
@@ -40,7 +40,7 @@ describe('dash controls', () => {
   test('shows decremented months', () => {
     const { queryByText } = wrapper(
       reducer,
-      <Controls time={-1} ctx='month' setHead={setHead} />
+      <Controls time={-1} scope='month' setHead={setHead} />
     );
 
     expect(queryByText(date)).toBeFalsy();
@@ -49,7 +49,7 @@ describe('dash controls', () => {
   test('shows incremented months', () => {
     const { queryByText } = wrapper(
       reducer,
-      <Controls time={1} ctx='month' setHead={setHead} />
+      <Controls time={1} scope='month' setHead={setHead} />
     );
 
     expect(queryByText(date)).toBeFalsy();
@@ -58,7 +58,7 @@ describe('dash controls', () => {
   test('prs link works', () => {
     const { getByText, history } = wrapper(
       reducer,
-      <Controls time={1} ctx='month' setHead={setHead} />
+      <Controls time={1} scope='month' setHead={setHead} />
     );
 
     fireEvent.click(getByText(/prs/i));

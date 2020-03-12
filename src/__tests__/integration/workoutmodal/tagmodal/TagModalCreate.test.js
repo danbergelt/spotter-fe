@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkoutColumns from '../../../../components/dash/workouts/week/WorkoutColumns';
+import Dashboard from '../../../../pages/Dashboard';
 import WorkoutOptions from '../../../../components/dash/workoutmodal/optionsmenu/WorkoutOptions';
 import TagsModal from '../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/TagsModal';
 import { cleanup, fireEvent } from '@testing-library/react';
@@ -20,7 +20,7 @@ describe('tag modal functionalty', () => {
     axios.post.mockResolvedValue(mockWorkoutRes);
     const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
       reducer,
-      <WorkoutColumns />
+      <Dashboard />
     );
 
     fireEvent.click(getByTestId(/modal-click/i));

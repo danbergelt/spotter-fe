@@ -13,7 +13,7 @@ describe('global reducer', () => {
     expect(globalReducer(undefined, {})).toEqual({
       t: null,
       ctx: null,
-      scope: 'Week',
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
@@ -28,7 +28,7 @@ describe('global reducer', () => {
     ).toEqual({
       t: 'token',
       ctx: null,
-      scope: 'Week',
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
@@ -43,7 +43,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: 'ctx',
       t: null,
-      scope: 'Week',
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
@@ -53,12 +53,12 @@ describe('global reducer', () => {
     expect(
       globalReducer(undefined, {
         type: SET_SCOPE,
-        payload: 'Month'
+        payload: 'month'
       })
     ).toEqual({
       ctx: null,
       t: null,
-      scope: 'Month',
+      scope: 'month',
       date: null,
       timeSpan: 0
     });
@@ -73,7 +73,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: null,
       t: null,
-      scope: 'Week',
+      scope: 'week',
       date: { date: 'date' },
       timeSpan: 0
     });
@@ -87,7 +87,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: null,
       t: null,
-      scope: 'Week',
+      scope: 'week',
       date: null,
       timeSpan: 5
     });
@@ -96,12 +96,12 @@ describe('global reducer', () => {
     expect(
       globalReducer(undefined, {
         type: CHANGE_SCOPE,
-        payload: 'Week'
+        payload: 'week'
       })
     ).toEqual({
       ctx: null,
       t: null,
-      scope: 'Week',
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
