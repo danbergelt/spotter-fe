@@ -1,32 +1,65 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useRef } from 'react';
 import moment, { Moment } from 'moment';
-import GridWorkout from './GridWorkout';
-import Popover from './PopoverContainer';
 import { Workout } from 'src/types/Workout';
-import { P } from 'src/types/Grid';
 import { useWindowSize } from 'react-use';
 import { FiPlusCircle } from 'react-icons/fi';
+import Dropdown from 'src/components/lib/Dropdown';
+import Head from 'src/components/lib/Head';
+import styles from './GridDay.module.scss';
+import Flex from 'src/components/lib/Flex';
 
 interface Props {
   date: Moment;
   i: number;
   openModal: Function;
   workouts: Array<Workout>;
-  popover: P;
-  setPopover: React.Dispatch<React.SetStateAction<P>>;
 }
 
 // an individual day in the 30 day+ workout grid
 
-const GridDay: React.FC<Props> = ({
-  date,
-  i,
-  openModal,
-  workouts,
-  popover,
-  setPopover
-}) => {
+const GridDay: React.FC<Props> = ({ date, i, openModal, workouts }) => {
   const { width }: { width: number } = useWindowSize();
+  const ref = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openWorkout = (workout: Workout): void => {
+    setIsOpen(false);
+    openModal(date, 'view', workout);
+  };
+
+  // helper component that renders multiple workouts that appear on the same day
+  // allows multiple workouts in grid view without breaking UI
+  interface Props {
+    workouts: Array<Workout>;
+  }
+
+  const ViewMoreWorkouts: React.FC<Props> = ({ workouts }) => {
+    if (isOpen) {
+      return (
+        <Dropdown css={styles.dropdown} setState={setIsOpen} triggerRef={ref}>
+          <Head size={13} setState={setIsOpen} />
+          {workouts
+            .filter(el => el.date === date.format('MMM DD YYYY'))
+            .map(workout => (
+              <Flex
+                fd='column'
+                align='center'
+                click={(): void => openWorkout(workout)}
+                key={workout._id}
+              >
+                <p
+                  style={{ background: workout.tags[0]?.color }}
+                  className={styles.workout}
+                >
+                  {workout.title}
+                </p>
+              </Flex>
+            ))}
+        </Dropdown>
+      );
+    }
+    return <></>;
+  };
 
   return (
     <section
@@ -57,7 +90,6 @@ const GridDay: React.FC<Props> = ({
         {date.format('D')}
       </p>
       {workouts
-        // if the workout matches this day's date, map over it and render it out into the day
         .filter(el => el.date === date.format('MMM DD YYYY'))
         .map(
           (data, i) =>
@@ -71,30 +103,30 @@ const GridDay: React.FC<Props> = ({
                 }}
                 key={data._id}
               >
-                <GridWorkout data={data} openModal={openModal} date={date} />
+                <div
+                  style={{ background: data.tags[0] && data.tags[0].color }}
+                  className='month-grid-workout'
+                  role='button'
+                  onClick={(): void => openModal(date, 'view', data)}
+                  key={data._id}
+                >
+                  {width <= 800 && data.title.length > 5
+                    ? `${data.title.slice(0, 4)}...`
+                    : data.title}
+                </div>
                 {workouts.filter(el => el.date === date.format('MMM DD YYYY'))
                   .length > 1 && (
-                  // if there is more than one workout in a day, render a popover to control overflow
-                  <Popover
-                    workouts={workouts}
-                    popover={popover}
-                    setPopover={setPopover}
-                    openModal={openModal}
-                    date={date}
-                  >
+                  <>
                     <div
-                      onClick={(): void =>
-                        setPopover({
-                          open: true,
-                          id: date.format('MMM DD YYYY')
-                        })
-                      }
+                      ref={ref}
+                      onClick={(): void => setIsOpen(!isOpen)}
                       role='button'
                       className='grid-view-more'
                     >
                       {width <= 500 ? 'More' : 'View More'}
                     </div>
-                  </Popover>
+                    <ViewMoreWorkouts workouts={workouts} />
+                  </>
                 )}
               </div>
             )
