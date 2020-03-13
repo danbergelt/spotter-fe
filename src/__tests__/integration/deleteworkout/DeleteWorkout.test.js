@@ -18,7 +18,7 @@ describe('can close modal on delete click', () => {
   test('can close modal on delete click', async () => {
     axios.post.mockResolvedValue({});
     axios.get.mockResolvedValue({});
-    const { store, history, getByTestId, queryByText } = wrapper(
+    const { store, history, getByTestId, getAllByText, queryByText } = wrapper(
       reducer,
       <Dashboard />
     );
@@ -30,7 +30,7 @@ describe('can close modal on delete click', () => {
 
     history.push('/dashboard');
 
-    fireEvent.click(getByTestId(/modal-click/i));
+    fireEvent.click(getAllByText(/add workout/i)[0]);
 
     await act(async () => {
       await fireEvent.click(getByTestId(/del-workout/i));

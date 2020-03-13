@@ -15,26 +15,26 @@ beforeEach(() => jest.clearAllMocks());
 
 describe('auth route', () => {
   test('unauthenticated user redirects to login', () => {
-    const { queryByTestId, history } = wrapper(
+    const { queryAllByText, history } = wrapper(
       reducer,
       <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
     );
 
     history.push('/dashboard');
-    expect(queryByTestId(/modal-click/i)).toBeFalsy();
+    expect(queryAllByText(/add workout/i)).toEqual([]);
     expect(history.location.pathname).toEqual('/login');
   });
 
   test('authenticated user passes through to component', async () => {
     mockAxios.post.mockResolvedValue({});
-    const { queryByTestId, store, history } = wrapper(
+    const { queryAllByText, store, history } = wrapper(
       reducer,
       <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
     );
 
     store.dispatch({ type: ADD_TOKEN, payload: 'token' });
     history.push('/dashboard');
-    await wait(() => expect(queryByTestId(/modal-click/i)).toBeTruthy());
+    await wait(() => expect(queryAllByText(/add workout/i)).toHaveLength(7));
     expect(history.location.pathname).toEqual('/dashboard');
     expect(axios.post).toHaveBeenCalledTimes(1);
   });
@@ -55,7 +55,7 @@ describe('auth route', () => {
   });
 
   test('unauthenticated user passes through to component', async () => {
-    const { queryByTestId, history } = wrapper(
+    const { history } = wrapper(
       reducer,
       <AuthRoute
         path='/forgotpassword'
@@ -65,7 +65,6 @@ describe('auth route', () => {
     );
 
     history.push('/forgotpassword');
-    expect(queryByTestId(/modal-click/i)).toBeFalsy();
     expect(history.location.pathname).toEqual('/forgotpassword');
   });
 
