@@ -1,15 +1,14 @@
 import React, { memo } from 'react';
-import * as M from 'moment';
-import GridHeadFirstWeek from './GridHeadFirstWeek';
-import GridHead from './GridHead';
+import moment, { Moment } from 'moment';
 import GridWorkout from './GridWorkout';
 import Popover from './PopoverContainer';
 import { Workout } from 'src/types/Workout';
 import { P } from 'src/types/Grid';
 import { useWindowSize } from 'react-use';
+import { FiPlusCircle } from 'react-icons/fi';
 
 interface Props {
-  date: M.Moment;
+  date: Moment;
   i: number;
   openModal: Function;
   workouts: Array<Workout>;
@@ -34,13 +33,29 @@ const GridDay: React.FC<Props> = ({
       className='month-grid-day'
       data-testid={date.format('MMM DD YYYY')}
     >
-      {i <= 6 ? (
-        // in the first week, also include the days of the week (e.g. Monday, Tuesday, etc.)
-        // not very DRY to have separate components, possibly pass a notifier prop to change the context, and use a single component?
-        <GridHeadFirstWeek openModal={openModal} i={i} date={date} />
-      ) : (
-        <GridHead openModal={openModal} date={date} />
-      )}
+      <section className='month-grid-day-head'>
+        {i <= 6 && (
+          <p className='month-grid-day-of-week'>{date.format('ddd')}</p>
+        )}
+        <div
+          role='button'
+          onClick={(): void => openModal(date, 'add')}
+          style={{ marginLeft: 'auto' }}
+          className='month-grid-add-workout'
+        >
+          <FiPlusCircle />
+        </div>
+      </section>
+      <p
+        style={{ fontSize: width <= 800 ? '1.1rem' : '1.3rem' }}
+        className={
+          date.format('MMM DD YYYY') === moment().format('MMM DD YYYY')
+            ? 'today-date'
+            : undefined
+        }
+      >
+        {date.format('D')}
+      </p>
       {workouts
         // if the workout matches this day's date, map over it and render it out into the day
         .filter(el => el.date === date.format('MMM DD YYYY'))
