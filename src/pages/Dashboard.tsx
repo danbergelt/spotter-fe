@@ -12,7 +12,7 @@ import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
 import { fetchWorkoutsQuery } from 'src/utils/queries';
 import Controls from '../components/dash/controls/Controls';
 import { setHead, generateWeek, generateMonth } from 'src/utils/momentUtils';
-import WorkoutColumn from '../components/dash/workouts/week/WorkoutColumn';
+import Column from '../components/dash/workouts/week/Column';
 import WorkoutModal from '../components/dash/workoutmodal/WorkoutModal';
 import Cell from '../components/dash/workouts/month/Cell';
 import { Scope, Ctx } from 'src/types/Types';
@@ -112,17 +112,24 @@ const Dashboard: React.FC = () => {
     );
   };
 
+  // filter a list of workouts by a passed-in date
+  const filterWorkouts = (workouts: Workout[], date: Moment): Workout[] => {
+    return workouts.filter(
+      workout => workout.date === date.format('MMM DD YYYY')
+    );
+  };
+
   // if the scope is week, generate the columns view
   if (scope === 'week') {
     return (
       <Wrapper scope={scope}>
         <section data-testid='cols' className={styles.week}>
-          {generateWeek(timeSpan).map((date, i) => (
-            <WorkoutColumn
+          {generateWeek(timeSpan).map(date => (
+            <Column
               date={date}
               key={date.format('MMMM DD YYYY')}
               openModal={openModal}
-              workouts={workouts}
+              workouts={filterWorkouts(workouts, date)}
             />
           ))}
         </section>
@@ -140,7 +147,7 @@ const Dashboard: React.FC = () => {
             key={date.format('MMM DD YYYY')}
             date={date}
             i={i}
-            workouts={workouts}
+            workouts={filterWorkouts(workouts, date)}
           />
         ))}
       </section>
