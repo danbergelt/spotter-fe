@@ -14,7 +14,7 @@ import Controls from '../components/dash/controls/Controls';
 import { setHead, generateWeek, generateMonth } from 'src/utils/momentUtils';
 import WorkoutColumn from '../components/dash/workouts/week/WorkoutColumn';
 import WorkoutModal from '../components/dash/workoutmodal/WorkoutModal';
-import GridDay from '../components/dash/workouts/month/GridDay';
+import Cell from '../components/dash/workouts/month/Cell';
 import { Scope, Ctx } from 'src/types/Types';
 import SubNav from '../components/dash/subnav/SubNav';
 import { Helmet } from 'react-helmet-async';
@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
     <Wrapper scope={scope}>
       <section data-testid='grid' className={styles.month}>
         {generateMonth(timeSpan).map((date, i) => (
-          <GridDay
+          <Cell
             openModal={openModal}
             key={date.format('MMM DD YYYY')}
             date={date}

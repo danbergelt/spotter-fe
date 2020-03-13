@@ -28,8 +28,8 @@ const mockWorkoutRes = {
         ],
         notes: 'Notes for workout',
         exercises: [
-          { name: 'Exercise', weight: 100, sets: 1, reps: 1 },
-          { name: 'Exercise2', weight: 200, sets: 2, reps: 2 }
+          { _id: 'foo', name: 'Exercise', weight: 100, sets: 1, reps: 1 },
+          { _id: 'bar', name: 'Exercise2', weight: 200, sets: 2, reps: 2 }
         ],
         user: '5dd4a49f2f67ae62f99cec6b',
         createdAt: '2019-11-20T02:27:43.700Z',
@@ -40,7 +40,7 @@ const mockWorkoutRes = {
         date: moment()
           .startOf('week')
           .format('MMM DD YYYY'),
-        title: 'Workout FOR TESTING 2',
+        title: 'leg day',
         tags: [
           {
             _id: 'jfio2jiuhyi90fj892jf928',
@@ -57,8 +57,8 @@ const mockWorkoutRes = {
         ],
         notes: 'Notes for workout 2',
         exercises: [
-          { name: 'Exercise', weight: 100, sets: 1, reps: 1 },
-          { name: 'Exercise2', weight: 200, sets: 2, reps: 2 }
+          { _id: 'baz', name: 'Exercise', weight: 100, sets: 1, reps: 1 },
+          { _id: 'qux', name: 'Exercise2', weight: 200, sets: 2, reps: 2 }
         ],
         user: '5dd4a49f2f67ae62f99cec6b',
         createdAt: '2019-11-20T02:27:43.700Z',

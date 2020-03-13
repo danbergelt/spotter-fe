@@ -21,7 +21,8 @@ export const contactQuery = async (
 
 // log out
 export const logoutQuery = async (): Promise<AxiosResponse> => {
-  return await axios.get(endpoint('logout'), { withCredentials: true });
+  const res = await axios.get(endpoint('logout'), { withCredentials: true });
+  return res;
 };
 
 // update a tag
