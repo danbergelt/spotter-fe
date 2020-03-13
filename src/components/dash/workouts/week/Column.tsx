@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import WorkoutCard from './WorkoutCard';
+import Card from './Card';
 import { Moment } from 'moment';
 import { Workout } from 'src/types/Workout';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useWindowSize } from 'react-use';
-import styles from './WorkoutColumn.module.scss';
+import styles from './Column.module.scss';
 import Flex from 'src/components/lib/Flex';
 import { Ctx } from 'src/types/Types';
 
@@ -37,7 +37,7 @@ const WorkoutColumn: React.FC<Props> = ({ date, openModal, workouts }) => {
   const addWorkoutText = (): string | null => {
     if (width <= 500) {
       return null;
-    } else if (width < 800) {
+    } else if (width <= 800) {
       return 'Add';
     } else {
       return 'Add Workout';
@@ -57,25 +57,22 @@ const WorkoutColumn: React.FC<Props> = ({ date, openModal, workouts }) => {
         justify='center'
         click={(): void => openModal(date, 'add')}
         css={styles.add}
+        testid='add'
       >
         {<FiPlusCircle className={styles.icon} />} {addWorkoutText()}
       </Flex>
       {/* render all workouts for this date */}
-      {workouts
-        // filter by date (make sure the workout matches the date)
-        .filter(workout => workout.date === date.format('MMM DD YYYY'))
-        // map them into a clickable workout card (opens a modal that contains all workout data)
-        .map(workout => (
-          <Flex
-            fd='column'
-            align='flex-start'
-            css={styles.card}
-            click={(): void => openModal(date, 'view', workout)}
-            key={workout._id}
-          >
-            <WorkoutCard workout={workout} />
-          </Flex>
-        ))}
+      {workouts.map(workout => (
+        <Flex
+          fd='column'
+          align='flex-start'
+          css={styles.card}
+          click={(): void => openModal(date, 'view', workout)}
+          key={workout._id}
+        >
+          <Card workout={workout} />
+        </Flex>
+      ))}
     </div>
   );
 };

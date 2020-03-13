@@ -8,6 +8,33 @@ import Flex from 'src/components/lib/Flex';
 import MoreWorkouts from './MoreWorkouts';
 import { Ctx } from 'src/types/Types';
 
+/*== Grid cell =====================================================
+
+This component represents each cell in the monthly view on the dashboard.
+It contains all workouts for each day in any given month. Since space
+is more limited, the format in which workouts are rendered is slightly
+different. The title is rendered over a backdrop of whatever the first
+tag color is. If the workout has no tags, a default red is chosen.
+
+Click on each workout to open it's respective 'view' modal. There is
+also a small + icon to add a new workout. If there is more than one
+workout on any given day, an additional 'view more' button is rendered.
+This can be clicked on to display a dropdown of all workouts for that day
+in a more controlled format.
+
+Props:
+  date: Moment
+    today's date as a moment object
+  i: number
+    the index for each cell. the top row contains the weekday, so need
+    the index to track which cells are at the top
+  openModal: function
+    opens an add/view workout modal
+  workouts: Array<Workout>
+    today's workouts
+
+*/
+
 interface Props {
   date: Moment;
   i: number;
@@ -25,13 +52,6 @@ const Cell: React.FC<Props> = ({ date, i, openModal, workouts }) => {
       return `${title.slice(0, 4)}...`;
     }
     return title;
-  };
-
-  // filter all workouts that match the current cell's date
-  const matchDate = (workouts: Array<Workout>): Array<Workout> => {
-    return workouts.filter(
-      workout => workout.date === date.format('MMM DD YYYY')
-    );
   };
 
   // match a workout to today's date
@@ -62,7 +82,7 @@ const Cell: React.FC<Props> = ({ date, i, openModal, workouts }) => {
       <Flex align='center' justify='center' css={matchTodayDate()}>
         {date.format('D')}
       </Flex>
-      {matchDate(workouts).map(
+      {workouts.map(
         (workout, i) =>
           i === 0 && (
             <Fragment key={workout._id}>
@@ -73,9 +93,8 @@ const Cell: React.FC<Props> = ({ date, i, openModal, workouts }) => {
               >
                 {formatTitle(workout.title)}
               </div>
-              {matchDate(workouts).length > 1 && (
+              {workouts.length > 1 && (
                 <MoreWorkouts
-                  matchDate={matchDate}
                   workouts={workouts}
                   date={date}
                   openModal={openModal}

@@ -2,7 +2,7 @@ import React from 'react';
 import { FiAlignLeft } from 'react-icons/fi';
 import { Workout } from 'src/types/Workout';
 import { useWindowSize } from 'react-use';
-import styles from './WorkoutCard.module.scss';
+import styles from './Card.module.scss';
 import Flex from 'src/components/lib/Flex';
 
 /*== WorkoutCard =====================================================
@@ -24,7 +24,7 @@ interface Props {
   workout: Workout;
 }
 
-const WorkoutCard: React.FC<Props> = ({ workout }) => {
+const Card: React.FC<Props> = ({ workout }) => {
   // used to slice content as window size changes
   const { width } = useWindowSize();
 
@@ -75,4 +75,4 @@ const WorkoutCard: React.FC<Props> = ({ workout }) => {
   );
 };
 
-export default WorkoutCard;
+export default Card;

@@ -31,11 +31,9 @@ interface Props {
   workouts: Array<Workout>;
   date: Moment;
   openModal: (date: Moment, ctx: Ctx, workout?: Workout | undefined) => void;
-  matchDate: (workouts: Array<Workout>) => Array<Workout>;
 }
 
-// prettier-ignore
-const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal, matchDate }) => {
+const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal }) => {
   // dropdown state
   const [isOpen, setIsOpen] = useState(false);
 
@@ -62,7 +60,7 @@ const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal, matchDate })
       {isOpen && (
         <Dropdown css={styles.dropdown} setState={setIsOpen} triggerRef={ref}>
           <Head size={13} setState={setIsOpen} />
-          {matchDate(workouts).map(workout => (
+          {workouts.map(workout => (
             <Flex
               fd='column'
               align='center'
