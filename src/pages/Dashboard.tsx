@@ -44,12 +44,6 @@ const Dashboard: React.FC = () => {
   // workout modal state
   const [modal, setModal] = useState(false);
 
-  // popover state, used to contain multiple workouts on a single day in the monthly view
-  const [popover, setPopover] = useState<{ open: boolean; id: null | string }>({
-    open: false,
-    id: null
-  });
-
   // api utils
   const [res, call] = useApi();
 
@@ -147,8 +141,6 @@ const Dashboard: React.FC = () => {
             date={date}
             i={i}
             workouts={workouts}
-            popover={popover}
-            setPopover={setPopover}
           />
         ))}
       </section>
