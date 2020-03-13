@@ -18,6 +18,8 @@ Props (WIP, plan on adding more props + collision handling as time goes on)
     onclick function
   fd: string
     flex direction
+  testid: string
+    data-testid
 
 */
 
@@ -42,6 +44,7 @@ interface Props {
   fw?: 'wrap';
   css?: string;
   click?: Function;
+  testid?: string;
 }
 
 const Flex: React.FC<Props> = ({
@@ -51,7 +54,8 @@ const Flex: React.FC<Props> = ({
   fd,
   fw,
   css,
-  click
+  click,
+  testid
 }) => {
   return (
     <div
@@ -62,7 +66,7 @@ const Flex: React.FC<Props> = ({
         flexWrap: fw,
         flexDirection: fd
       }}
-      data-testid='flex'
+      data-testid={testid ? testid : 'flex'}
       className={css}
       onClick={(): void => click && click()}
     >

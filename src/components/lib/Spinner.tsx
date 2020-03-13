@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Spinner.module.scss';
-import { FiRotateCw } from 'react-icons/fi';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 /*== Spinner =====================================================
 
@@ -25,11 +25,10 @@ interface Props {
 
 const Spinner: React.FC<Props> = ({ size, color, css }) => {
   return (
-    <FiRotateCw
+    <AiOutlineLoading3Quarters
       data-testid='spinner'
-      strokeWidth='3px'
       className={styles.spinner}
-      size={size}
+      size={size ? size : 13}
       color={color ? color : 'white'}
       style={{ ...css }}
     />
