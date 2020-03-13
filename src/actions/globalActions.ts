@@ -47,7 +47,7 @@ interface OpenModal {
 export const openWorkoutModalAction = (
   date: Moment,
   ctx: Ctx,
-  workout: Workout
+  workout?: Workout
 ): ReduxAction<OpenModal> => {
   return { type: OPEN_MODAL, payload: { date, ctx, workout } };
 };

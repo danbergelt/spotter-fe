@@ -81,7 +81,7 @@ const Dashboard: React.FC = () => {
 
   // open the workout modal in either an add workout context, or view workout context
   const openModal = useCallback(
-    (date: Moment, ctx: Ctx, workout: Workout): void => {
+    (date: Moment, ctx: Ctx, workout?: Workout): void => {
       dispatch(openWorkoutModalAction(date, ctx, workout));
       setModal(true);
     },
@@ -126,8 +126,7 @@ const Dashboard: React.FC = () => {
           {generateWeek(timeSpan).map((date, i) => (
             <WorkoutColumn
               date={date}
-              key={i}
-              i={i}
+              key={date.format('MMMM DD YYYY')}
               openModal={openModal}
               workouts={workouts}
             />

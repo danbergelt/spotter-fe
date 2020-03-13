@@ -104,7 +104,7 @@ describe('workouts component', () => {
 
   test('can open add workout modal', async () => {
     mockAxios.post.mockResolvedValue(mockWorkoutRes);
-    const { queryByTestId, getByText, getByTestId } = wrapper(
+    const { queryByTestId, getByText, getAllByText } = wrapper(
       reducer,
       <Dashboard />
     );
@@ -112,7 +112,7 @@ describe('workouts component', () => {
 
     expect(queryByTestId(/exit-modal/i)).toBeFalsy();
 
-    fireEvent.click(getByTestId(/modal-click/i));
+    fireEvent.click(getAllByText(/add workout/i)[0]);
 
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();
   });

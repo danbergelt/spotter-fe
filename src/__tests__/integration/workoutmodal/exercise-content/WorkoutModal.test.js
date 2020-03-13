@@ -21,12 +21,14 @@ describe('add workout modal functionality', () => {
     console.error = jest.fn();
     axios.post.mockResolvedValue(mockWorkoutRes);
     axios.get.mockResolvedValue({});
-    const { queryByPlaceholderText, getByTestId, queryByTestId } = wrapper(
-      reducer,
-      <Dashboard />
-    );
+    const {
+      queryByPlaceholderText,
+      getByTestId,
+      getAllByText,
+      queryByTestId
+    } = wrapper(reducer, <Dashboard />);
 
-    fireEvent.click(getByTestId(/modal-click/i));
+    fireEvent.click(getAllByText(/add workout/i)[0]);
 
     expect(queryByPlaceholderText(/e.g. squat/i)).toBeTruthy();
     expect(queryByTestId(/exit-modal/i)).toBeTruthy();

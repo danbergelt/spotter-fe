@@ -1,5 +1,11 @@
 @import './variables.scss';
 
+@mixin resetBtn {
+  outline: 0;
+  border: 0;
+  background: transparent;
+}
+
 @mixin icon {
   border: 0;
   outline: 0;

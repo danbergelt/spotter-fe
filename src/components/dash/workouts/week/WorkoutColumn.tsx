@@ -1,36 +1,81 @@
 import React, { memo } from 'react';
-import WorkoutColumnContent from './WorkoutColumnContent';
-
 import WorkoutCard from './WorkoutCard';
 import { Moment } from 'moment';
 import { Workout } from 'src/types/Workout';
+import { FiPlusCircle } from 'react-icons/fi';
+import { useWindowSize } from 'react-use';
+import styles from './WorkoutColumn.module.scss';
+import Flex from 'src/components/lib/Flex';
+import { Ctx } from 'src/types/Types';
+
+/*== Workout Column =====================================================
+
+The column component that displays in the dashboard weekly view. One for
+each day of the week. Contains the current day, a button that allows you
+to add a new workout, and a list of all workouts for each day.
+
+Props:
+  date: Moment
+    the date for this column
+  openModal: Function
+    the function that opens a view/add workout modal
+  workouts: Array<Workout>
+    all workouts for this date
+*/
 
 interface Props {
   date: Moment;
-  i: number;
-  openModal: Function;
+  openModal: (date: Moment, ctx: Ctx, workout?: Workout) => void;
   workouts: Array<Workout>;
 }
 
-const WorkoutColumn: React.FC<Props> = ({ date, i, openModal, workouts }) => {
+const WorkoutColumn: React.FC<Props> = ({ date, openModal, workouts }) => {
+  // width for styling based on viewport size
+  const { width } = useWindowSize();
+
+  // helper that renders strings based on viewport size
+  const addWorkoutText = (): string | null => {
+    if (width <= 500) {
+      return null;
+    } else if (width < 800) {
+      return 'Add';
+    } else {
+      return 'Add Workout';
+    }
+  };
+
   return (
-    <div role='button' className='week-workouts-column'>
-      <WorkoutColumnContent date={date} i={i} openModal={openModal} />
-      <div>
-        {/* filter workouts for workouts matching this date */}
-        {workouts
-          .filter(el => el.date === date.format('MMM DD YYYY'))
-          .map(workout => (
-            <div
-              className='workout-card-container'
-              onClick={(): void => openModal(date, 'view', workout)}
-              key={workout._id}
-              role='button'
-            >
-              <WorkoutCard workout={workout} />
-            </div>
-          ))}
-      </div>
+    <div className={styles.container}>
+      {/* current date */}
+      <section className={styles.day} data-testid={date.format('MMM DD YYYY')}>
+        <p className={styles.weekday}>{date.format('ddd')}</p>
+        <p className={styles.date}>{date.format('D')}</p>
+      </section>
+      {/* add workout */}
+      <Flex
+        align='center'
+        justify='center'
+        click={(): void => openModal(date, 'add')}
+        css={styles.add}
+      >
+        {<FiPlusCircle className={styles.icon} />} {addWorkoutText()}
+      </Flex>
+      {/* render all workouts for this date */}
+      {workouts
+        // filter by date (make sure the workout matches the date)
+        .filter(workout => workout.date === date.format('MMM DD YYYY'))
+        // map them into a clickable workout card (opens a modal that contains all workout data)
+        .map(workout => (
+          <Flex
+            fd='column'
+            align='flex-start'
+            css={styles.card}
+            click={(): void => openModal(date, 'view', workout)}
+            key={workout._id}
+          >
+            <WorkoutCard workout={workout} />
+          </Flex>
+        ))}
     </div>
   );
 };
