@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import MoreWorkouts from 'src/components/dash/workouts/month/MoreWorkouts';
+import MoreWorkouts from 'src/components/dash/views/month/MoreWorkouts';
 import mockWorkoutRes from 'src/__testUtils__/mockMultipleWorkouts';
 import moment from 'moment';
 

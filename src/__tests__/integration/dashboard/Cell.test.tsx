@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Cell from 'src/components/dash/workouts/month/Cell';
+import Cell from 'src/components/dash/views/month/Cell';
 import moment from 'moment';
 import mockWorkoutRes from 'src/__testUtils__/mockMultipleWorkouts';
 import mqPolyfill from 'mq-polyfill';

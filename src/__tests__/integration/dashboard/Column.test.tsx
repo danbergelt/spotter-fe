@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import Column from 'src/components/dash/workouts/week/Column';
+import Column from 'src/components/dash/views/week/Column';
 import moment from 'moment';
 import mockWorkoutRes from 'src/__testUtils__/mockMultipleWorkouts';
 import mqPolyfill from 'mq-polyfill';
