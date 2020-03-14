@@ -9,6 +9,8 @@ import WorkoutExercises from './data/exercises/WorkoutExercises';
 import Title from './Title';
 import Notes from './Notes';
 
+// react modal chore, modal must mount differently in JSDom environment
+// see more here https://github.com/reactjs/react-modal/issues/632
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface Props {
@@ -20,22 +22,15 @@ interface Props {
 const WorkoutModal: React.FC<Props> = ({ modal, closeModal, time }) => {
   const { width } = useWindowSize();
 
-  const sizes = {
-    large: '750px',
-    largeMedium: '585px',
-    medium: '450px',
-    small: '300px'
-  };
-
   const setModalSize = (): string => {
     if (width <= 500) {
-      return sizes.small;
+      return '300px';
     } else if (width <= 650) {
-      return sizes.medium;
+      return '450px';
     } else if (width <= 800) {
-      return sizes.largeMedium;
+      return '585px';
     } else {
-      return sizes.large;
+      return '750px';
     }
   };
 

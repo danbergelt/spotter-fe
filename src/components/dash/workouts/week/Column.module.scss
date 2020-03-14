@@ -1,0 +1,112 @@
+@import '../../../../styles/mixins.scss';
+@import '../../../../styles/variables.scss';
+
+.container {
+  width: 15%;
+  text-align: center;
+
+  .day {
+    border-bottom: 1px solid $gray3;
+    padding: 2rem 0 2rem 0;
+
+    .weekday {
+      margin-bottom: 1rem;
+      font-size: $p;
+      color: $gray1;
+
+      @include medium {
+        font-size: 1.3rem;
+      }
+
+      @include small {
+        font-size: 1.1rem;
+      }
+    }
+
+    .date {
+      color: $gray2;
+
+      @include medium {
+        font-size: 1.2rem;
+      }
+
+      @include small {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .add {
+    @include resetBtn;
+    color: $gray1;
+    margin: 1rem;
+    padding: 1rem 0;
+    box-shadow: $box;
+    cursor: pointer;
+    border-radius: $border;
+    @include hover;
+
+    @include large {
+      margin: 0.5rem;
+    }
+
+    @include small {
+      margin: 0.5rem 0.33rem;
+      font-size: 1.1rem;
+      padding: 0.75rem;
+    }
+
+    &:hover {
+      background: $gray3;
+    }
+
+    .icon {
+      margin-right: 1rem;
+      font-size: 1.3rem;
+      color: $primary;
+
+      @include large {
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
+      }
+
+      @include small {
+        margin: 0;
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .card {
+    margin: 0 1rem;
+    margin-bottom: 1rem;
+    border-radius: $border;
+    padding: 1.5rem;
+    box-shadow: $box;
+    cursor: pointer;
+    @include hover;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    @include large {
+      padding: 1rem;
+      margin: 0rem 0.5rem;
+    }
+
+    @include medium {
+      padding: 0.75rem;
+    }
+
+    @include small {
+      margin: 0rem 0.33rem;
+    }
+
+    &:hover {
+      background: $gray3;
+    }
+  }
+}
+
+.container:nth-of-type(-n + 6) .day {
+  border-right: 1px solid $gray3;
+}
