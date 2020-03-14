@@ -1,4 +1,6 @@
 import React from 'react';
+import { StyleSheet, css as aphrodite } from 'aphrodite';
+import cx from 'classnames';
 
 /*== Flex wrapper =====================================================
 
@@ -6,6 +8,12 @@ WIP
 
 Utility wrapper that adds flexbox styling to children. Useful for not
 having to repeat common flex-based styling patterns
+
+Uses the CSS in JS library Aphrodite (https://www.npmjs.com/package/aphrodite)
+to generate hashed classname of passed-in flex styles. Then combines
+those props with any custom classnames using the classnames package
+https://www.npmjs.com/package/classnames. This allows for less JS bloat and
+easy-to-read markup when debugging in browser.
 
 Props (WIP, plan on adding more props + collision handling as time goes on)
   justify: string enum (see below):
@@ -57,17 +65,20 @@ const Flex: React.FC<Props> = ({
   click,
   testid
 }) => {
+  const styles = StyleSheet.create({
+    flex: {
+      display: 'flex',
+      justifyContent: justify,
+      alignItems: align,
+      flexWrap: fw,
+      flexDirection: fd
+    }
+  });
+
   return (
     <div
-      style={{
-        display: 'flex',
-        justifyContent: justify,
-        alignItems: align,
-        flexWrap: fw,
-        flexDirection: fd
-      }}
       data-testid={testid ? testid : 'flex'}
-      className={css}
+      className={cx(aphrodite(styles.flex), css)}
       onClick={(): void => click && click()}
     >
       {children}

@@ -1,7 +1,6 @@
 import React from 'react';
 import Dashboard from '../../../../pages/Dashboard';
 import WorkoutModal from '../../../../components/dash/workoutmodal/WorkoutModal';
-import WorkoutData from '../../../../components/dash/workoutmodal/data/WorkoutData';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
@@ -204,23 +203,5 @@ describe('add workout modal functionality', () => {
       expect(container.contains(getByText(/100 reps/i))).toBeTruthy();
       expect(container.contains(getByText(/100 sets/i))).toBeTruthy();
     });
-  });
-
-  test('exercise autosuggestion', async () => {
-    const { store, getByPlaceholderText, queryByText, getByText } = wrapper(
-      reducer,
-      <WorkoutData />
-    );
-
-    store.dispatch({
-      type: CREATE_EXERCISE,
-      payload: { name: 'deadlift', _id: 1 }
-    });
-
-    expect(queryByText(/deadlift/i)).toBeFalsy();
-    const name = getByPlaceholderText(/e.g. squat/i);
-    await userEvent.type(name, 'd');
-    name.focus();
-    await wait(() => expect(getByText(/deadlift/i)).toBeTruthy());
   });
 });

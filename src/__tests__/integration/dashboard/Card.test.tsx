@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Card from 'src/components/dash/workouts/week/Card';
+import Card from 'src/components/dash/views/week/Card';
 import { workout } from '../../../__testUtils__/workout';
 import mqPolyfill from 'mq-polyfill';
 

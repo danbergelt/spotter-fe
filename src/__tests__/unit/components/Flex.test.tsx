@@ -13,24 +13,4 @@ describe('flex component', () => {
 
     getByText(/foo/i);
   });
-
-  test('sb prop', () => {
-    const { getByTestId, rerender } = render(
-      <Flex justify='space-between'>
-        <div>foo</div>
-      </Flex>
-    );
-
-    expect(getByTestId(/flex/i)).toHaveStyle('justify-content: space-between');
-
-    rerender(
-      <Flex>
-        <div>bar</div>
-      </Flex>
-    );
-
-    expect(getByTestId(/flex/i)).not.toHaveStyle(
-      'justify-content: space-between'
-    );
-  });
 });
