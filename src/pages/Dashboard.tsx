@@ -146,7 +146,7 @@ const Dashboard: React.FC = () => {
             openModal={openModal}
             key={date.format('MMM DD YYYY')}
             date={date}
-            i={i}
+            cell={i}
             workouts={filterWorkouts(workouts, date)}
           />
         ))}

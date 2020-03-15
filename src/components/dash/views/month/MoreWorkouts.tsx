@@ -25,15 +25,18 @@ Props:
     open the workout modal
   matchDate: Functions
     a function to match a workout's date to it's respective cell
+  i: number
+    the index to nudge the dropdown on mobile
 */
 
 interface Props {
   workouts: Array<Workout>;
   date: Moment;
   openModal: (date: Moment, ctx: Ctx, workout?: Workout | undefined) => void;
+  cell: number;
 }
 
-const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal }) => {
+const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal, cell }) => {
   // dropdown state
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,6 +51,10 @@ const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal }) => {
     setIsOpen(false);
     openModal(date, 'view', workout);
   };
+
+  const rightCol = new Set([5, 6, 12, 13, 19, 20, 26, 27, 33, 34]);
+  const bottomRow = new Set([28, 29, 30, 31, 32, 33, 34]);
+
   return (
     <>
       <div
@@ -58,7 +65,13 @@ const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal }) => {
         {width <= 500 ? 'More' : 'View More'}
       </div>
       {isOpen && (
-        <Dropdown css={styles.dropdown} setState={setIsOpen} triggerRef={ref}>
+        <Dropdown
+          right={rightCol.has(cell) && width <= 800 ? '33px' : undefined}
+          bottom={bottomRow.has(cell) ? '99px' : undefined}
+          css={styles.dropdown}
+          setState={setIsOpen}
+          triggerRef={ref}
+        >
           <Head size={13} setState={setIsOpen} />
           {workouts.map(workout => (
             <Flex
