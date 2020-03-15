@@ -37,12 +37,12 @@ Props:
 
 interface Props {
   date: Moment;
-  i: number;
+  cell: number;
   openModal: (date: Moment, ctx: Ctx, workout?: Workout | undefined) => void;
   workouts: Array<Workout>;
 }
 
-const Cell: React.FC<Props> = ({ date, i, openModal, workouts }) => {
+const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
   // viewport width for dynamic styles
   const { width } = useWindowSize();
 
@@ -70,7 +70,7 @@ const Cell: React.FC<Props> = ({ date, i, openModal, workouts }) => {
       testid={date.format('MMM DD YYYY')}
     >
       <Flex justify='space-between' align='center' css={styles.head}>
-        {i <= 6 && <p>{date.format('ddd')}</p>}
+        {cell <= 6 && <p>{date.format('ddd')}</p>}
         <div
           onClick={(): void => openModal(date, 'add')}
           className={styles.add}
@@ -95,6 +95,7 @@ const Cell: React.FC<Props> = ({ date, i, openModal, workouts }) => {
               </div>
               {workouts.length > 1 && (
                 <MoreWorkouts
+                  cell={cell}
                   workouts={workouts}
                   date={date}
                   openModal={openModal}
