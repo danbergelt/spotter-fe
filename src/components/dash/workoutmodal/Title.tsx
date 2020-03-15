@@ -8,15 +8,33 @@ import { Action } from 'redux';
 import { FiX } from 'react-icons/fi';
 import { addTitleAction } from 'src/actions/workoutActions';
 
+/*== Modal title =====================================================
+
+The workout title as it appears on the workout modal. Renders as input
+element so title can be edited onClick. 
+
+Also includes an exit button so user can exit the modal. 
+Currently the exit button is the only way to exit the modal. 
+This is to avoid UX issues where the user accidentally clicks the overlay 
+and quits a workout while they are editing/filling it out. 
+
+Props:
+  closeModal: function
+    the function that closes the workout modal
+
+*/
+
 interface Props {
   closeModal: () => void;
 }
 
 const Title: React.FC<Props> = ({ closeModal }) => {
+  // the workout title stored in state
   const title: string = useSelector(
     (state: State) => state.workoutReducer.title
   );
 
+  // state dispatcher
   const dispatch = useDispatch();
 
   return (

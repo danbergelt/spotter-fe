@@ -65,6 +65,7 @@ const Flex: React.FC<Props> = ({
   click,
   testid
 }) => {
+  // aphrodite generated styles using flex props
   const styles = StyleSheet.create({
     flex: {
       display: 'flex',

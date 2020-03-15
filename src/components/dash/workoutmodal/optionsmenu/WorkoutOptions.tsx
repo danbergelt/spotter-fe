@@ -12,11 +12,10 @@ import { State } from 'src/types/State';
 
 interface Props {
   closeParentModal: () => void;
-  time: number;
 }
 
 // container for sidebar menu on workout modal
-const WorkoutOptions: React.FC<Props> = ({ closeParentModal, time }) => {
+const WorkoutOptions: React.FC<Props> = ({ closeParentModal }) => {
   const iconClass = 'add-workout-options-icon';
 
   const ctx: string | null = useSelector(

@@ -8,6 +8,20 @@ import styles from './Notes.module.scss';
 import { addNotesAction, resetNotesAction } from 'src/actions/workoutActions';
 import Flex from 'src/components/lib/Flex';
 
+/*== Notes =====================================================
+
+A workout's notes. Used to hold miscellaneous thoughts/comments,
+such as 'missed squats by one rep', etc. Utilizes textareaautosize
+component, courtsey of https://www.npmjs.com/package/react-textarea-autosize
+that grows the notes textarea with it's content.
+
+Also includes some helpers such as an edit button that focuses the 
+text area, a save button (which is functionless, but acts as a
+confirmation for UX purpose), and a trash button which resets
+the content
+
+*/
+
 const Notes: React.FC = () => {
   // actions for saving/trashing notes in current workout
   const [actions, setActions] = useState(false);
