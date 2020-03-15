@@ -28,7 +28,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
   // queued represents the exercise currently being edited
   const queued: Queued = useSelector(
     (state: State) => state.workoutReducer.queue
-  ) as Queued;
+  );
 
   // selecting exercises from state to populate auto-complete
   // that way, if a user has an exercise saved and wants to track PRs, they can click via auto-complete and avoid spelling mistakes
@@ -60,10 +60,10 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
         validateOnBlur={false}
         // if an exercise is queued, populate with that exercise. otherwise, initialize to empty fields
         initialValues={{
-          name: (!isEmpty(queued) && queued.exercise.name) || '',
-          weight: (!isEmpty(queued) && queued.exercise.weight) || '',
-          sets: (!isEmpty(queued) && queued.exercise.sets) || '',
-          reps: (!isEmpty(queued) && queued.exercise.reps) || ''
+          name: (!isEmpty(queued) && queued.exercise?.name) || '',
+          weight: (!isEmpty(queued) && queued.exercise?.weight) || '',
+          sets: (!isEmpty(queued) && queued.exercise?.sets) || '',
+          reps: (!isEmpty(queued) && queued.exercise?.reps) || ''
         }}
         validationSchema={ValidationSchema}
         // allow the form to populate with initial values after first render
@@ -83,7 +83,7 @@ const ExerciseForm: React.FC<Props> = ({ refs }) => {
           if (isEmpty(queued)) {
             dispatch(addExerciseAction(values));
           } else {
-            dispatch(editExerciseAction(values, queued.i));
+            dispatch(editExerciseAction(values, queued.i as number));
           }
         }}
       >

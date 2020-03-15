@@ -5,9 +5,9 @@ import Flex from 'src/components/lib/Flex';
 import { useWindowSize } from 'react-use';
 import WorkoutOptions from './optionsmenu/WorkoutOptions';
 import Tags from './Tags';
-import WorkoutExercises from './data/exercises/WorkoutExercises';
 import Title from './Title';
 import Notes from './Notes';
+import Exercises from './Exercises';
 
 /*== workout modal =====================================================
 
@@ -38,7 +38,7 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
   // dynamically adjust modal size
   const setModalSize = (): string => {
     if (width <= 500) {
-      return '300px';
+      return '95%';
     } else if (width <= 650) {
       return '450px';
     } else if (width <= 800) {
@@ -58,7 +58,8 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
           margin: '0 auto',
           background: '#f2f2f2',
           border: 0,
-          padding: width <= 500 ? '10px' : '20px'
+          padding: width <= 500 ? '10px' : '20px',
+          left: width <= 500 ? '2.5%' : '40px'
         }
       }}
       contentLabel='Add Workout Modal'
@@ -71,7 +72,7 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
           <div className={styles.data}>
             <Tags />
             <Notes />
-            <WorkoutExercises />
+            <Exercises />
           </div>
           <WorkoutOptions closeParentModal={closeModal} />
         </Flex>
