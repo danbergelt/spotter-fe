@@ -106,7 +106,7 @@ const Dashboard: React.FC = () => {
           {/* PR's link and go back/forth in time */}
           <Controls time={timeSpan} setHead={setHead} scope={scope} />
           {children}
-          <WorkoutModal time={timeSpan} modal={modal} closeModal={closeModal} />
+          <WorkoutModal modal={modal} closeModal={closeModal} />
         </div>
       </>
     );
