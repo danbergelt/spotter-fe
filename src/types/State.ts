@@ -18,7 +18,7 @@ export interface WorkoutReducer {
   notes: string;
   exercises: Array<Exercise>;
   tags: Array<Tag>;
-  queue: Partial<Queued>;
+  queue: Queued;
   _id: null | string;
 }
 
