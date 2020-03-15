@@ -29,7 +29,7 @@ describe('grid cell', () => {
     const { getByText } = render(
       <Cell
         date={date}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={mockWorkoutRes.data.workouts}
       />
@@ -45,7 +45,7 @@ describe('grid cell', () => {
     const { getByText } = render(
       <Cell
         date={date}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={mockWorkoutRes.data.workouts}
       />
@@ -58,7 +58,7 @@ describe('grid cell', () => {
     const { getByText } = render(
       <Cell
         date={date}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={mockWorkoutRes.data.workouts}
       />
@@ -72,7 +72,7 @@ describe('grid cell', () => {
     const { getByTestId } = render(
       <Cell
         date={date}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={mockWorkoutRes.data.workouts}
       />
@@ -86,7 +86,7 @@ describe('grid cell', () => {
     const { getByText } = render(
       <Cell
         date={date}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={mockWorkoutRes.data.workouts}
       />
@@ -100,7 +100,7 @@ describe('grid cell', () => {
     const { queryByText } = render(
       <Cell
         date={date}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={[mockWorkoutRes.data.workouts[0]]}
       />
@@ -113,7 +113,7 @@ describe('grid cell', () => {
     const { queryByText } = render(
       <Cell
         date={date.subtract(100, 'day')}
-        i={0}
+        cell={0}
         openModal={openModal}
         workouts={[mockWorkoutRes.data.workouts[0]].filter(
           workout => workout.date === date.format('MMM DD YYYY')
@@ -128,7 +128,7 @@ describe('grid cell', () => {
     const { queryByText } = render(
       <Cell
         date={date.subtract(1, 'day')}
-        i={16}
+        cell={16}
         openModal={openModal}
         workouts={[mockWorkoutRes.data.workouts[0]]}
       />
