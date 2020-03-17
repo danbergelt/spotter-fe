@@ -16,12 +16,18 @@ import Input from 'src/components/lib/Input';
 import FormError from 'src/components/lib/FormError';
 import Button from 'src/components/lib/Button';
 
-// READ: Formik claims to make working with forms easer,
-// but it does not play nicely with other libraries. I need to figure out how to optimize this,
-// or consider other options going forward (react-hook-form looks nice)
+/*== Exercise form =====================================================
+
+The form that allows a user to add an exercise to the current workout.
+Includes exercise name, weight, sets, reps.
+
+*/
 
 const ExerciseForm: React.FC = () => {
+  // state dispatcher
   const dispatch = useDispatch();
+
+  // viewport width for dynamic mobile styling
   const { width } = useWindowSize();
 
   // queued represents the exercise currently being edited
@@ -29,10 +35,14 @@ const ExerciseForm: React.FC = () => {
     (state: State) => state.workoutReducer.queue
   );
 
+  // helper function that sets initial value for form inputs
   const initialValue = (key: string): string => {
+    // if an exercise is queued for editing
     if (Object.keys(queued).length) {
+      // set initial value of form to the respective value in the exercise
       return queued.exercise?.[key];
     }
+    // otherwise set initial value as an empty string
     return '';
   };
 
@@ -45,6 +55,7 @@ const ExerciseForm: React.FC = () => {
         reps: initialValue('reps')
       }}
       validationSchema={ExerciseSchema}
+      // allow form to repopulate with queued values
       enableReinitialize={true}
       onSubmit={(values, { resetForm }): void => {
         resetForm();
@@ -58,7 +69,7 @@ const ExerciseForm: React.FC = () => {
       }}
     >
       {({ errors, touched }): JSX.Element => (
-        <Form className={styles.form}>
+        <Form data-testid='exercise-form' className={styles.form}>
           <Flex fd={width <= 500 ? 'column' : undefined} css={styles.fields}>
             <Flex fd='column' css={styles.field}>
               <Label input='name' content='Exercise' />

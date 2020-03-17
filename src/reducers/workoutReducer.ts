@@ -61,8 +61,7 @@ const testForUpdates: TestForUpdates = (tags, payload) =>
   });
 
 // Populate exercises on a workout from a saved template
-type ExercisesFromTemplate = (payload: Template) => Array<SavedExercise>;
-const exercisesFromTemplate: ExercisesFromTemplate = payload => {
+const exercisesFromTemplate = (payload: Template): Array<SavedExercise> => {
   const exercises = {
     name: null,
     sets: null,
@@ -74,8 +73,6 @@ const exercisesFromTemplate: ExercisesFromTemplate = payload => {
   ) as Array<SavedExercise>;
 };
 
-// contains active workout details to be shared globally
-
 export const workoutReducer = (
   state = workoutState,
   action: AnyAction
@@ -83,17 +80,13 @@ export const workoutReducer = (
   return produce(state, draft => {
     switch (action.type) {
       case OPEN_MODAL:
-        draft._id = action.payload.workout ? action.payload.workout._id : null;
-        draft.exercises = action.payload.workout
-          ? action.payload.workout.exercises
-          : [];
-        draft.notes = action.payload.workout
-          ? action.payload.workout.notes
-          : '';
-        draft.tags = action.payload.workout ? action.payload.workout.tags : [];
-        draft.title = action.payload.workout
-          ? action.payload.workout.title
-          : '';
+        if (action.payload.workout) {
+          draft._id = action.payload.workout._id;
+          draft.exercises = action.payload.workout.exercises;
+          draft.notes = action.payload.workout.notes;
+          draft.tags = action.payload.workout.tags;
+          draft.title = action.payload.workout.title;
+        }
         return;
       case ADD_WORKOUT_TITLE:
         draft.title = action.payload;
@@ -127,7 +120,7 @@ export const workoutReducer = (
         testForUpdates(draft.tags, action.payload) &&
           // loop through stale state, finds tag by id
           state.tags.forEach((tag, i) => {
-            // if the current tag is the stale tag, overwrite at that index in draft tree
+            // if the current tag is the stale tag, overwrite at that index in draft
             if (isEqual(tag, testForUpdates(state.tags, action.payload))) {
               draft.tags[i] = action.payload;
             }
@@ -141,6 +134,7 @@ export const workoutReducer = (
         draft.tags = action.payload.tags;
         return;
       case DEL_EXERCISE:
+        draft.queue = {};
         remove(draft.exercises, (_, index) => index === action.payload);
         return;
       case QUEUE_EDIT:

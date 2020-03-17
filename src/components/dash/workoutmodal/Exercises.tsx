@@ -67,7 +67,7 @@ const Exercises: React.FC = () => {
 
   return (
     <>
-      <Flex align='center' css={styles.head}>
+      <Flex testid='exercises' align='center' css={styles.head}>
         <FiStar className={styles.icon} />
         <div className={styles.title}>Workout</div>
         {clearFields()}
