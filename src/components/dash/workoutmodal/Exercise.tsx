@@ -1,7 +1,47 @@
 import React, { memo } from 'react';
-import { Props } from '../../../types/Exercises';
+import { Exercise as ExerciseType } from '../../../types/Exercises';
+import Flex from 'src/components/lib/Flex';
+import styles from './Exercise.module.scss';
+import { useWindowSize } from 'react-use';
 
-// the rendered exercise, including all the exercise stats and ability to delete/edit
+/*== Exercise =====================================================
+
+This component is mapped into the exercises section in the workout modal
+as an individual exercise. It includes the exercise name, the exercise
+stats (sets, reps, weight) and actions to delete it from the modal or
+load into the form and edit it
+
+TO-DO --> reconsider the UI/UX for this. Right now it renders like a gray
+blob at the bottom of the modal --> I think this can be improved!
+
+Props:
+  exercise: Exercise
+    the exercise data
+  i: number
+    the exercise index. used to manage editing and deleting
+  handleQueue: function
+    load an exercise into the queue for editing
+  delExercise: function
+    delete ane xercise
+
+*/
+
+// a helper component that renders out an exercise stat
+// either weight, sets, or reps
+interface StatProps {
+  stat: string;
+}
+
+const Stat: React.FC<StatProps> = ({ stat }) => {
+  return <p className={styles.stat}>{stat}</p>;
+};
+
+interface Props {
+  exercise: ExerciseType;
+  i: number;
+  handleQueue: (exercise: ExerciseType, i: number) => void;
+  delExercise: (i: number) => void;
+}
 
 const Exercise: React.FC<Props> = ({
   exercise,
@@ -9,44 +49,45 @@ const Exercise: React.FC<Props> = ({
   handleQueue,
   delExercise
 }) => {
+  // width to adjust flex styling at different window sizes
+  const { width } = useWindowSize();
+
   return (
-    <div className={'exercise-row'}>
-      <section className='exercise-results'>
-        <div style={{ width: '100%' }}>
-          <p className='exercise-name'>{exercise.name}</p>
-          <div className='exercise-results-spacer'>
-            <div className='exercise-stats'>
-              {exercise.weight && (
-                <p className='exercise-stat'>{exercise.weight} lbs</p>
-              )}
-              {exercise.sets && (
-                <p className='exercise-stat'>{exercise.sets} sets</p>
-              )}
-              {exercise.reps && (
-                <p className='exercise-stat'>{exercise.reps} reps</p>
-              )}
-            </div>
-            <section className='exercise-actions'>
+    <Flex align='center' css={styles.row}>
+      <Flex justify='space-between' align='flex-end' css={styles.stats}>
+        <div className={styles.stretch}>
+          <p className={styles.name}>{exercise.name}</p>
+          <Flex
+            justify='space-between'
+            fd={width <= 500 ? 'column' : undefined}
+            css={styles.spacer}
+          >
+            <Flex
+              align={width <= 500 ? 'center' : undefined}
+              css={styles.stats}
+            >
+              {exercise.weight && <Stat stat={`${exercise.weight} lbs`} />}
+              {exercise.sets && <Stat stat={`${exercise.sets} sets`} />}
+              {exercise.reps && <Stat stat={`${exercise.reps} reps`} />}
+            </Flex>
+            <Flex css={styles.actions}>
               <div
-                role='button'
-                data-testid='del-ex'
                 onClick={(): void => delExercise(i)}
-                className='exercise-edit'
+                className={styles.action}
               >
                 Delete
               </div>
               <div
-                role='button'
                 onClick={(): void => handleQueue(exercise, i)}
-                className='exercise-edit'
+                className={styles.action}
               >
                 Edit
               </div>
-            </section>
-          </div>
+            </Flex>
+          </Flex>
         </div>
-      </section>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 

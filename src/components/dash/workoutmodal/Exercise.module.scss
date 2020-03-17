@@ -1,0 +1,71 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+.row {
+  margin-bottom: 1rem;
+  padding: 1rem 0.5rem;
+  border-radius: $border;
+  background: $gray4;
+  margin-left: 3rem;
+
+  @include small {
+    padding: 1.5rem 0.5rem;
+    width: 85%;
+  }
+
+  .stats {
+    width: 100%;
+
+    .stretch {
+      width: 100%;
+
+      .name {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+
+        @include small {
+          font-size: 1.5rem;
+        }
+      }
+
+      .spacer {
+        width: 100%;
+
+        .stats {
+          font-size: 1.3rem;
+
+          @include small {
+            font-size: 1.2rem;
+          }
+
+          .stat {
+            padding-right: 1rem;
+
+            @include small {
+              margin-top: 1rem;
+              padding-right: 0.5rem;
+              margin-bottom: 1rem;
+              width: auto;
+            }
+          }
+        }
+
+        .actions {
+          font-weight: normal;
+          text-decoration: underline;
+          font-size: 1.2rem;
+          cursor: pointer;
+          width: auto;
+
+          @include small {
+            font-size: 1.1rem;
+          }
+
+          .action {
+            margin-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

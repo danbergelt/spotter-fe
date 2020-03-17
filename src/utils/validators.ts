@@ -57,3 +57,13 @@ export const ChangePasswordSchema = Yup.object().shape({
     .required('Enter new password'),
   confirm: Yup.string().oneOf([Yup.ref('new'), null], 'Match new password')
 });
+
+// validation schema for exercise form
+export const ExerciseSchema = Yup.object().shape({
+  name: Yup.string()
+    .required('Enter name')
+    .max(25, '25 character max'),
+  weight: Yup.number().max(2000, '2000 lb limit'),
+  reps: Yup.number().max(2000, '2000 reps limit'),
+  sets: Yup.number().max(2000, '2000 sets limit')
+});

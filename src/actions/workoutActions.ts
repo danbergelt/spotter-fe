@@ -39,6 +39,7 @@ export const resetExerciseFormAction: TResetExerciseForm = handleReset => {
 // adds a new exercise to the current workout
 type TAddExercise = (values: Exercise) => { type: string; payload: Exercise };
 export const addExerciseAction: TAddExercise = values => {
+  console.log(values);
   return { type: ADD_EXERCISE, payload: values };
 };
 

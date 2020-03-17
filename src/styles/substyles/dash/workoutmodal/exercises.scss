@@ -1,244 +1,250 @@
 @import '../../../variables.scss';
 @import '../../../mixins.scss';
 
-.workout-data-exercises {
-  .workout-data-exercises-head {
-    @include flex-center;
-    font-size: 1.75rem;
-    color: $gray1;
-    margin-top: 2rem;
+.workout-data-exercises-head {
+  @include flex-center;
+  font-size: 1.75rem;
+  color: $gray1;
+  margin-top: 2rem;
+
+  @include small {
+    font-size: 1.5rem;
+  }
+
+  .workout-data-exercises-icon {
+    font-size: $icon;
+  }
+
+  .workout-data-exercises-title {
+    padding: 1.25rem;
+  }
+
+  .workout-data-exercises-editing {
+    font-size: 1.3rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    background: $gray4;
+    cursor: pointer;
 
     @include small {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
 
-    .workout-data-exercises-icon {
-      font-size: $icon;
-    }
-
-    .workout-data-exercises-title {
-      padding: 1.25rem;
-    }
-
-    .workout-data-exercises-editing {
-      font-size: 1.3rem;
-      padding: 0.75rem;
-      border-radius: 4px;
-      background: $gray4;
-      cursor: pointer;
-
-      @include small {
-        font-size: 1.2rem;
-      }
-
-      &:hover {
-        background: darken($gray4, 2.5%);
-      }
+    &:hover {
+      background: darken($gray4, 2.5%);
     }
   }
-  .workout-data-exercises-content {
-    margin-top: 2rem;
+}
+.workout-data-exercises-content {
+  margin-top: 2rem;
 
-    @include small {
-      margin-top: 1rem;
+  @include small {
+    margin-top: 1rem;
+  }
+
+  .exercise-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: $gray1;
+    margin-bottom: 3rem;
+    margin-left: 3rem;
+
+    @include medium {
+      margin-bottom: 1rem;
     }
 
-    .exercise-form {
+    .exercise-form-fields-container {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      color: $gray1;
-      margin-bottom: 3rem;
-      margin-left: 3rem;
-
-      @include medium {
-        margin-bottom: 1rem;
-      }
-
-      .exercise-form-fields-container {
-        display: flex;
-        width: 100%;
-        margin-bottom: 1.5rem;
-
-        @include small {
-          flex-direction: column;
-        }
-
-        .exercise-form-field-container {
-          position: relative;
-          right: 1px;
-          display: flex;
-          flex-direction: column;
-          margin-right: 0.5rem;
-
-          @include small {
-            margin-bottom: 1rem;
-            width: 92.5%;
-          }
-
-          .exercise-form-field-label {
-            height: 15px;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            @include flex-center;
-            justify-content: space-between;
-
-            @include small {
-              font-size: 1.2rem;
-            }
-
-            .save-exercise-button {
-              font-size: $icon;
-              margin-right: 1.15rem;
-              color: $info;
-              cursor: pointer;
-            }
-          }
-
-          .error-exercise-form {
-            margin: 0.5rem;
-            font-size: 1.1rem;
-            color: $danger;
-          }
-
-          .exercise-form-field {
-            width: 100px;
-            height: 2.5rem;
-            outline: none;
-            border-radius: $border;
-            border: 0;
-            padding: 1.5rem 0 1.5rem 0.5rem;
-            font-size: 1.3rem;
-            border: 1px solid $gray4;
-            -webkit-appearance: none;
-
-            @include medium {
-              width: 100%;
-            }
-
-            @include small {
-              font-size: 1.2rem;
-            }
-
-            &:focus {
-              outline: 0;
-              box-shadow: 0 0 0 1px $primary;
-            }
-          }
-        }
-      }
-
-      .exercise-form-button {
-        font-size: $icon;
-        cursor: pointer;
-      }
-
-      .submit-exercise {
-        margin-right: 1.5rem;
-        position: relative;
-        font-size: 1.8rem;
-        text-decoration: underline;
-        color: $info;
-        cursor: pointer;
-      }
-
-      .exercise-form-button.clear {
-        color: $danger;
-        position: relative;
-        bottom: 3px;
-        padding: 0;
-        background: none;
-      }
-    }
-
-    .workout-data-exercises-list {
-      margin-top: 2rem;
-      margin-left: 2.8rem;
       width: 100%;
+      margin-bottom: 1.5rem;
 
       @include medium {
-        width: 85%;
-        margin-bottom: 5rem;
+        width: 90%;
       }
 
       @include small {
-        margin-top: 3rem;
-        margin-bottom: 3rem;
+        flex-direction: column;
       }
 
-      .exercise-row {
-        margin-bottom: 1rem;
-        padding: 1rem 0.5rem;
-        border-radius: $border;
+      .exercise-form-field-container {
+        position: relative;
+        right: 1px;
         display: flex;
-        background: $gray4;
-        align-items: center;
+        flex-direction: column;
+        margin-right: 0.5rem;
 
-        @include small {
-          padding: 1.5rem 0.5rem;
+        @include medium {
+          margin-bottom: 1rem;
+          width: 92.5%;
         }
 
-        .exercise-results {
-          width: 100%;
+        .exercise-form-field-label {
+          height: 15px;
+          margin-bottom: 1rem;
+          font-size: 1.3rem;
+          @include flex-center;
+          justify-content: space-between;
+
+          @include small {
+            font-size: 1.2rem;
+          }
+
+          .save-exercise-button {
+            font-size: $icon;
+            margin-right: 1.15rem;
+            color: $info;
+            cursor: pointer;
+          }
+        }
+
+        .error-exercise-form {
+          margin: 0.5rem;
+          font-size: 1.1rem;
+          color: $danger;
+
+          @include medium {
+            margin-left: 0;
+          }
+        }
+
+        .exercise-form-field {
+          width: 100px;
+          height: 2.5rem;
+          outline: none;
+          border-radius: $border;
+          border: 0;
+          padding: 1.5rem 0 1.5rem 0.5rem;
+          font-size: 1.3rem;
+          border: 1px solid $gray4;
+          -webkit-appearance: none;
+
+          @include medium {
+            width: 100%;
+          }
+
+          @include small {
+            font-size: 1.2rem;
+          }
+
+          &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 1px $primary;
+          }
+        }
+      }
+    }
+
+    .exercise-form-button {
+      font-size: $icon;
+      cursor: pointer;
+    }
+
+    .submit-exercise {
+      margin-right: 1.5rem;
+      position: relative;
+      font-size: 1.8rem;
+      text-decoration: underline;
+      color: $info;
+      cursor: pointer;
+    }
+
+    .exercise-form-button.clear {
+      color: $danger;
+      position: relative;
+      bottom: 3px;
+      padding: 0;
+      background: none;
+    }
+  }
+
+  .workout-data-exercises-list {
+    margin-top: 2rem;
+    margin-left: 2.8rem;
+    width: 100%;
+
+    @include medium {
+      width: 85%;
+      margin-bottom: 5rem;
+    }
+
+    @include small {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .exercise-row {
+      margin-bottom: 1rem;
+      padding: 1rem 0.5rem;
+      border-radius: $border;
+      display: flex;
+      background: $gray4;
+      align-items: center;
+
+      @include small {
+        padding: 1.5rem 0.5rem;
+      }
+
+      .exercise-results {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+
+        .exercise-results-spacer {
           display: flex;
           justify-content: space-between;
-          align-items: flex-end;
+          width: 100%;
 
-          .exercise-results-spacer {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-
-            @include small {
-              flex-direction: column;
-            }
+          @include small {
+            flex-direction: column;
           }
+        }
 
-          .exercise-name {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
+        .exercise-name {
+          font-size: 1.75rem;
+          margin-bottom: 1rem;
 
-            @include small {
-              font-size: 1.5rem;
-            }
+          @include small {
+            font-size: 1.5rem;
           }
+        }
 
-          .exercise-stats {
-            display: flex;
-            font-size: 1.3rem;
+        .exercise-stats {
+          display: flex;
+          font-size: 1.3rem;
 
-            @include small {
-              align-items: center;
-              font-size: 1.2rem;
-            }
-
-            .exercise-stat {
-              padding-right: 1rem;
-
-              @include small {
-                margin-top: 1rem;
-                padding-right: 0.5rem;
-                margin-bottom: 1rem;
-                width: auto;
-              }
-            }
-          }
-
-          .exercise-actions {
-            font-weight: normal;
-            text-decoration: underline;
-            display: flex;
+          @include small {
+            align-items: center;
             font-size: 1.2rem;
-            cursor: pointer;
-            width: auto;
+          }
+
+          .exercise-stat {
+            padding-right: 1rem;
 
             @include small {
-              font-size: 1.1rem;
+              margin-top: 1rem;
+              padding-right: 0.5rem;
+              margin-bottom: 1rem;
+              width: auto;
             }
+          }
+        }
 
-            .exercise-edit {
-              margin-right: 1rem;
-            }
+        .exercise-actions {
+          font-weight: normal;
+          text-decoration: underline;
+          display: flex;
+          font-size: 1.2rem;
+          cursor: pointer;
+          width: auto;
+
+          @include small {
+            font-size: 1.1rem;
+          }
+
+          .exercise-edit {
+            margin-right: 1rem;
           }
         }
       }

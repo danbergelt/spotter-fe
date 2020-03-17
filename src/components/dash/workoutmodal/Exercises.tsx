@@ -1,33 +1,37 @@
 import React, { useCallback } from 'react';
 import { FiStar } from 'react-icons/fi';
-import ExerciseForm from './data/exerciseform/ExerciseForm';
+import ExerciseForm from './ExerciseForm';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   handleQueueAction,
   delExerciseAction
 } from '../../../actions/workoutActions';
 import Exercise from './Exercise';
-import { times } from 'lodash';
 import { resetQueueAction } from '../../../actions/workoutActions';
 import { State } from 'src/types/State';
 import { Exercise as ExerciseType } from '../../../types/Exercises';
 import { Action } from 'redux';
+import Flex from 'src/components/lib/Flex';
+import styles from './Exercises.module.scss';
 
-// container to hold all exercises on a workout
+/*== Exercises =====================================================
+
+The exercises section on the workout modal. Contains the exercise form,
+and the list of all exercises on the current workout.
+
+*/
 
 const Exercises: React.FC = () => {
+  // this workout/s list of exercises
   const exercises = useSelector(
     (state: State) => state.workoutReducer.exercises
   );
 
-  // the app reads the queued state, and if it's not empty will render the clear button
+  // exercises that are queued to be edited
   const queue = useSelector((state: State) => state.workoutReducer.queue);
 
+  // state dispatcher
   const dispatch = useDispatch();
-
-  // refs to handle blurring fields on submit the form
-  const refs: Array<React.RefObject<HTMLInputElement>> = [];
-  times(3, i => (refs[i] = React.createRef()));
 
   // adds an exercise to the queue
   const handleQueue = useCallback(
@@ -45,12 +49,13 @@ const Exercises: React.FC = () => {
     [dispatch]
   );
 
+  // if the queue contains an exercise, render a button to clear the queue
   const clearFields = (): JSX.Element => {
     if (Object.keys(queue).length) {
       return (
         <div
           onClick={(): Action => dispatch(resetQueueAction())}
-          className='workout-data-exercises-editing'
+          className={styles.clear}
         >
           Clear
         </div>
@@ -61,15 +66,15 @@ const Exercises: React.FC = () => {
   };
 
   return (
-    <section className='workout-data-exercises'>
-      <header className='workout-data-exercises-head'>
-        <FiStar className='workout-data-exercises-icon' />
-        <div className='workout-data-exercises-title'>Workout</div>
+    <>
+      <Flex align='center' css={styles.head}>
+        <FiStar className={styles.icon} />
+        <div className={styles.title}>Workout</div>
         {clearFields()}
-      </header>
-      <section className='workout-data-exercises-content'>
-        <ExerciseForm refs={refs} />
-        <div className='workout-data-exercises-list'>
+      </Flex>
+      <section className={styles.container}>
+        <ExerciseForm />
+        <div className={styles.list}>
           {exercises.map((exercise, i) => (
             <Exercise
               key={i}
@@ -81,7 +86,7 @@ const Exercises: React.FC = () => {
           ))}
         </div>
       </section>
-    </section>
+    </>
   );
 };
 
