@@ -1,0 +1,53 @@
+@import '../../../styles/variables.scss';
+@import '../../../styles/mixins.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: $gray1;
+  margin-bottom: 3rem;
+  margin-left: 3rem;
+
+  @include medium {
+    margin-bottom: 1rem;
+  }
+
+  .fields {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    @include medium {
+      width: 90%;
+    }
+
+    .field {
+      position: relative;
+      right: 1px;
+      margin-right: 0.5rem;
+
+      @include medium {
+        margin-bottom: 1rem;
+        width: 100%;
+      }
+
+      .input {
+        padding: 0.5rem;
+        margin-bottom: 0.25rem;
+
+        @include small {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .btn {
+    padding: 1rem 2rem;
+    margin: 0;
+
+    @include medium {
+      margin-bottom: 2rem;
+    }
+  }
+}

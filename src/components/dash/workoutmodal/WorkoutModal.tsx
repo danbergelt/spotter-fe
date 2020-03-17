@@ -37,12 +37,8 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
 
   // dynamically adjust modal size
   const setModalSize = (): string => {
-    if (width <= 500) {
+    if (width <= 800) {
       return '95%';
-    } else if (width <= 650) {
-      return '450px';
-    } else if (width <= 800) {
-      return '585px';
     } else {
       return '750px';
     }
@@ -58,8 +54,8 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
           margin: '0 auto',
           background: '#f2f2f2',
           border: 0,
-          padding: width <= 500 ? '10px' : '20px',
-          left: width <= 500 ? '2.5%' : '40px'
+          padding: width <= 800 ? '10px' : '20px',
+          left: width <= 800 ? '2.5%' : '40px'
         }
       }}
       contentLabel='Add Workout Modal'

@@ -143,34 +143,6 @@ describe('add workout modal functionality', () => {
     expect(reps.value).toEqual('');
   });
 
-  test('trashcan empties exercise inputs', () => {
-    const { getByPlaceholderText, getByTestId } = wrapper(
-      reducer,
-      <WorkoutModal modal={true} />
-    );
-
-    const name = getByPlaceholderText(/e.g. squat/i);
-    const weight = getByPlaceholderText(/lbs/i);
-    const sets = getByPlaceholderText(/# of sets/i);
-    const reps = getByPlaceholderText(/# of reps/i);
-
-    fireEvent.change(name, { target: { value: 'test name' } });
-    expect(name.value).toEqual('test name');
-    fireEvent.change(weight, { target: { value: 100 } });
-    expect(weight.value).toEqual('100');
-    fireEvent.change(sets, { target: { value: 100 } });
-    expect(sets.value).toEqual('100');
-    fireEvent.change(reps, { target: { value: 100 } });
-    expect(reps.value).toEqual('100');
-
-    fireEvent.click(getByTestId(/trash-exercise/i));
-
-    expect(name.value).toEqual('');
-    expect(weight.value).toEqual('');
-    expect(sets.value).toEqual('');
-    expect(reps.value).toEqual('');
-  });
-
   test('submitted exercise renders on page', async () => {
     const { container, getByPlaceholderText, getByTestId, getByText } = wrapper(
       reducer,
@@ -191,7 +163,7 @@ describe('add workout modal functionality', () => {
     fireEvent.change(reps, { target: { value: 100 } });
     expect(reps.value).toEqual('100');
 
-    fireEvent.click(getByTestId(/submit-exercise/i));
+    fireEvent.click(getByTestId(/button/i));
 
     await wait(() => {
       expect(name.value).toEqual('');
