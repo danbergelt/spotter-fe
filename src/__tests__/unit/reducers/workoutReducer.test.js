@@ -189,7 +189,7 @@ describe('add workout reducer', () => {
         { exercises: [{ e: {} }] },
         { type: DEL_EXERCISE, payload: 0 }
       )
-    ).toEqual({ exercises: [] });
+    ).toEqual({ exercises: [], queue: {} });
   });
 
   test('should handle QUEUE_EDIT', () => {
