@@ -66,8 +66,6 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
           <SaveWorkout
             closeParentModal={closeParentModal}
             workoutId={workoutId}
-            ctx={ctx}
-            iconClass={iconClass}
           />
         </div>
       </section>

@@ -1,5 +1,31 @@
 @import './variables.scss';
 
+@mixin option {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  background: $gray4;
+  color: $gray1;
+  padding: 1.25rem;
+  border-radius: $border;
+  font-family: 'Roboto';
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  @include hover;
+
+  @include medium {
+    width: 100%;
+  }
+
+  &:hover {
+    background: darken($gray4, 2.5%);
+  }
+
+  .icon {
+    margin-right: 0.75rem;
+  }
+}
+
 @mixin resetBtn {
   outline: 0;
   border: 0;
