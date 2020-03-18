@@ -27,7 +27,6 @@
     "react-scripts": "3.2.0",
     "react-scrolllock": "^5.0.0",
     "react-textarea-autosize": "^7.1.2",
-    "react-tiny-popover": "^4.0.0",
     "react-use": "^13.14.3",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",

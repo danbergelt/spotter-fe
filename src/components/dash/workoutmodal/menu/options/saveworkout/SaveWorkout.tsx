@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect } from 'react';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -6,39 +6,26 @@ import {
   createWorkoutAction
 } from '../../../../../../actions/optionsActions';
 import { State, WorkoutReducer } from 'src/types/State';
-import { Moment } from 'moment';
 import useApi from 'src/hooks/useApi';
 import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
+import HTTPResponse from 'src/components/lib/HTTPResponse';
+import styles from './SaveWorkout.module.scss';
 
 interface Props {
   workoutId: string | null;
   closeParentModal: () => void;
-  ctx: string | null;
-  iconClass: string;
-}
-
-interface GlobalReducer {
-  date: null | Moment;
-  t: string | null;
 }
 
 // Save or Edit workout depending on global modal context
-const SaveWorkout: React.FC<Props> = ({
-  workoutId,
-  closeParentModal,
-  ctx,
-  iconClass
-}) => {
-  const [error, setError] = useState('');
+const SaveWorkout: React.FC<Props> = ({ workoutId, closeParentModal }) => {
   const workout: WorkoutReducer = useSelector(
     (state: State) => state.workoutReducer
   );
-  const { date, t }: GlobalReducer = useSelector(
-    (state: State) => state.globalReducer
-  );
+  const { date, t, ctx } = useSelector((state: State) => state.globalReducer);
   const dispatch = useDispatch();
-  const [res, call] = useApi();
+  const [res, call, reset] = useApi();
 
+  // handle successful api call
   useEffect(() => {
     if (res.data) {
       // if the ctx is add, push the returned workout to the list of workouts
@@ -52,10 +39,6 @@ const SaveWorkout: React.FC<Props> = ({
         dispatch(editWorkoutAction(res.data.workout));
         closeParentModal();
       }
-    }
-
-    if (res.error) {
-      setError(res.error);
     }
   }, [res, closeParentModal, ctx, dispatch]);
 
@@ -78,12 +61,12 @@ const SaveWorkout: React.FC<Props> = ({
         role='button'
         data-testid='save-workout'
         onClick={saveHandler}
-        className='add-workout-options-button publish'
+        className={styles.save}
       >
-        <FiPlusCircle className={iconClass} />
+        <FiPlusCircle className={styles.icon} />
         {ctx === 'add' ? 'Save' : 'Update'}
       </div>
-      {error && <div className='save error'>{error}</div>}
+      <HTTPResponse reset={reset} error={res.error} />
     </>
   );
 };
