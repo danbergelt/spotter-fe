@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import styles from './WorkoutModal.module.scss';
 import Flex from 'src/components/lib/Flex';
 import { useWindowSize } from 'react-use';
-import WorkoutOptions from './optionsmenu/WorkoutOptions';
+import Menu from './menu/Menu';
 import Tags from './Tags';
 import Title from './Title';
 import Notes from './Notes';
@@ -70,7 +70,7 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
             <Notes />
             <Exercises />
           </div>
-          <WorkoutOptions closeParentModal={closeModal} />
+          <Menu closeParentModal={closeModal} />
         </Flex>
       </Flex>
     </Modal>

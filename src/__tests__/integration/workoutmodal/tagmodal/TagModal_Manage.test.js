@@ -1,5 +1,5 @@
 import React from 'react';
-import TagsModalManage from '../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/manage/TagsModalManage';
+import TagsModalManage from '../../../../components/dash/workoutmodal/menu/options/tagsoption/tagsmodal/manage/TagsModalManage';
 import { ADD_TAGS } from '../../../../actions/tagsActions';
 import { cleanup } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';

@@ -1,90 +1,59 @@
 @import '../../../variables.scss';
 @import '../../../mixins.scss';
 
-.add-workout-options-container {
-  width: 35%;
-  height: auto;
+.add-workout-options-button {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  background: $gray4;
+  color: $gray1;
+  padding: 1.25rem;
+  border-radius: $border;
+  font-family: 'Roboto';
+  @include flex-center;
+  cursor: pointer;
+  @include hover;
 
   @include medium {
-    margin-left: 30px;
-    width: 85%;
+    width: 100%;
   }
 
-  .add-workout-options-title {
-    font-size: 1.3rem;
-    color: $gray2;
+  &:hover {
+    background: darken($gray4, 2.5%);
   }
 
-  .add-workout-options-buttons {
-    margin: 1.25rem 0;
-
-    @include medium {
-      width: 100%;
-      flex-direction: column-reverse;
-    }
-
-    .options-right {
-      @include medium {
-        display: flex;
-        flex-direction: column-reverse;
-      }
-    }
-
-    .add-workout-options-button {
-      font-size: 1.3rem;
-      margin-bottom: 0.75rem;
-      background: $gray4;
-      color: $gray1;
-      padding: 1.25rem;
-      border-radius: $border;
-      font-family: 'Roboto';
-      @include flex-center;
-      cursor: pointer;
-      @include hover;
-
-      @include medium {
-        width: 100%;
-      }
-
-      &:hover {
-        background: darken($gray4, 2.5%);
-      }
-
-      .add-workout-options-icon {
-        margin-right: 0.75rem;
-      }
-    }
-
-    .add-workout-options-button.delete {
-      background: $danger;
-      color: white;
-      @include hover;
-
-      &:hover {
-        background: darken($danger, 5%);
-      }
-    }
-
-    .add-workout-options-button.publish {
-      background: $success;
-      color: white;
-      @include hover;
-
-      &:hover {
-        background: darken($success, 5%);
-      }
-    }
-
-    .save {
-      width: 100%;
-      padding: 1rem 0.5rem;
-      margin: 0.5rem 0;
-      font-size: 1.3rem;
-      display: flex;
-    }
-
-    .save.error {
-      color: $danger;
-    }
+  .add-workout-options-icon {
+    margin-right: 0.75rem;
   }
+}
+
+.add-workout-options-button.delete {
+  background: $danger;
+  color: white;
+  @include hover;
+
+  &:hover {
+    background: darken($danger, 5%);
+  }
+}
+
+.add-workout-options-button.publish {
+  background: $success;
+  color: white;
+  @include hover;
+
+  &:hover {
+    background: darken($success, 5%);
+  }
+}
+
+.save {
+  width: 100%;
+  padding: 1rem 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+  display: flex;
+}
+
+.save.error {
+  color: $danger;
 }
