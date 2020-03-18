@@ -1,7 +1,7 @@
 import React from 'react';
 import { ADD_TAGS } from '../../../../actions/tagsActions';
 import { DELETE_TAG, UPDATE_TAG } from '../../../../actions/workoutActions';
-import TagsModalAdd from '../../../../components/dash/workoutmodal/optionsmenu/options/tagsoption/tagsmodal/add/TagsModalAdd';
+import TagsModalAdd from '../../../../components/dash/workoutmodal/menu/options/tagsoption/tagsmodal/add/TagsModalAdd';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
