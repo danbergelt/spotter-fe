@@ -25,7 +25,7 @@ describe('HTTP response utility component', () => {
     );
     expect(queryByText(/foo/i)).toBeTruthy();
     const x = getByTestId(/close/i);
-    fireEvent.click(x);
+    fireEvent.mouseDown(x);
     expect(reset).toHaveBeenCalledTimes(1);
   });
 
@@ -36,7 +36,7 @@ describe('HTTP response utility component', () => {
     );
     expect(queryByText(/foo/i)).toBeTruthy();
     const x = getByTestId(/close/i);
-    fireEvent.click(x);
+    fireEvent.mouseDown(x);
     expect(reset).toHaveBeenCalledTimes(1);
   });
 });

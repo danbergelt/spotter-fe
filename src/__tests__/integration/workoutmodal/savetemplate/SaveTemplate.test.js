@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import SaveTemplate from '../../../../components/dash/workoutmodal/menu/options/savetemplate/SaveTemplate';
-import WorkoutOptions from '../../../../components/dash/workoutmodal/menu/Menu';
+import SaveTemplate from '../../../../components/dash/workoutmodal/actions/savetemplate/SaveTemplate';
+import WorkoutOptions from '../../../../components/dash/workoutmodal/actions/Menu';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';
 import Modal from 'react-modal';

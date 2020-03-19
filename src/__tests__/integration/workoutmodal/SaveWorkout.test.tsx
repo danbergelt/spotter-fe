@@ -1,7 +1,7 @@
 import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
-import SaveWorkout from 'src/components/dash/workoutmodal/menu/options/saveworkout/SaveWorkout';
+import SaveWorkout from 'src/components/dash/workoutmodal/actions/saveworkout/SaveWorkout';
 import { MODAL_CTX } from 'src/actions/globalActions';
 import axios from 'axios';
 import { fireEvent, wait } from '@testing-library/dom';

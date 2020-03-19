@@ -2,8 +2,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import {
-  SET_CONFIRM_DELETE,
-  setConfirmDeleteAction,
   SET_EXERCISES,
   setExercisesModalAction,
   CREATE_WORKOUT,
@@ -31,16 +29,6 @@ describe('dispatches option actions', () => {
     const store = mockStore();
 
     store.dispatch(editWorkoutAction('foo'));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  test('set confirm delete modal state', () => {
-    const expectedActions = [{ type: SET_CONFIRM_DELETE, payload: false }];
-
-    const store = mockStore();
-
-    store.dispatch(setConfirmDeleteAction(false));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
