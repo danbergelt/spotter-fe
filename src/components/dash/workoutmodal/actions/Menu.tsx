@@ -4,10 +4,11 @@ import styles from './Menu.module.scss';
 import TagsOption from './tagsoption/TagsOption';
 import SaveTemplateOption from './savetemplate/SaveTemplateOption';
 import FromTemplateOption from './fromtemplate/FromTemplateOption';
-import ExerciseOption from './exercises/ExerciseOption';
+import Exercises from './exercises/Exercises';
 import DeleteWorkout from './deleteworkout/DeleteWorkout';
 import SaveWorkout from './saveworkout/SaveWorkout';
 import { State } from 'src/types/State';
+import { useWindowSize } from 'react-use';
 
 /*== Menu =====================================================
 
@@ -40,6 +41,31 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
     (state: State) => state.workoutReducer._id
   );
 
+  const { width } = useWindowSize();
+
+  // dynamically set position according to viewport width
+  const nudgeLeft = (): string | undefined => {
+    // push to bottom left corner at tablet and below
+    if (width <= 800) {
+      return '20px';
+    }
+
+    // nudge left when viewport closes in on border
+    if (width <= 875) {
+      return '68vw';
+    }
+
+    return;
+  };
+
+  const nudgeBottom = (): string | undefined => {
+    if (width <= 800) {
+      return '40px';
+    }
+
+    return;
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>ACTIONS</h1>
@@ -48,10 +74,12 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
           <TagsOption iconClass={iconClass} />
           <SaveTemplateOption iconClass={iconClass} />
           <FromTemplateOption iconClass={iconClass} />
-          <ExerciseOption iconClass={iconClass} />
+          <Exercises nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
         </div>
         <div>
           <DeleteWorkout
+            nudgeLeft={nudgeLeft}
+            nudgeBottom={nudgeBottom}
             closeParentModal={closeParentModal}
             workoutId={workoutId}
           />

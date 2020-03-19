@@ -139,13 +139,14 @@ export const fetchWorkoutsQuery = async (
   if (scope === 'week') {
     range = generateWeek(time);
   }
+
   if (scope === 'month') {
     range = generateMonth(time);
   }
+
   // format the days
-  const formattedRange: Array<string> = range.map(day =>
-    day.format('MMM DD YYYY')
-  );
+  const formattedRange = range.map(day => day.format('MMM DD YYYY'));
+
   // call the server, passing in a range of dates to match workouts
   return await axiosWithAuth(t).post(endpoint('workouts/range'), {
     range: formattedRange

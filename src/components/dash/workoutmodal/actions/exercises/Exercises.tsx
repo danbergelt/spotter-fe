@@ -1,84 +1,118 @@
-import React, { useState, memo, useEffect } from 'react';
-import Modal from 'react-modal';
-import { useSelector, useDispatch } from 'react-redux';
-import { useExerciseModalStyles } from './styles';
-import ExercisesHead from './ExercisesHead';
-import ManageExercises from './ManageExercises';
-import AddExercises from './AddExercises';
-import { State } from 'src/types/State';
-import { Exercise, Msg } from '../../../../../types/ExerciseOption';
+import React, { useState, useRef, useEffect } from 'react';
+import { FiTrendingUp } from 'react-icons/fi';
+import styles from './Exercises.module.scss';
+import Dropdown from 'src/components/lib/Dropdown';
+import Head from 'src/components/lib/Head';
+import Flex from 'src/components/lib/Flex';
 import useApi from 'src/hooks/useApi';
-import useToken from 'src/hooks/useToken';
-import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
 import { fetchExercisesQuery } from 'src/utils/queries';
-
-if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
+import { useSelector, useDispatch } from 'react-redux';
+import { State } from 'src/types/State';
+import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
+import Manage from './Manage';
+import useToken from 'src/hooks/useToken';
+import Create from './Create';
 
 interface Props {
-  setExercisesModal: (state: boolean) => void;
+  nudgeLeft: () => string | undefined;
+  nudgeBottom: () => string | undefined;
 }
 
-const Exercises: React.FC<Props> = ({ setExercisesModal }) => {
-  const modalState: boolean = useSelector(
-    (state: State) => state.optionsReducer.exercises
-  );
-  const savedExercises: Array<Exercise> = useSelector(
+const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
+  const manage = useRef(null);
+  const create = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const [res, call] = useApi();
+
+  const token = useToken();
+
+  const exercises = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
-  const t = useToken();
-  const [tab, setTab] = useState<number>(0);
-  const [msg, setMsg] = useState<Msg>({});
-  const [res, call] = useApi();
   const dispatch = useDispatch();
-  // clear modal state on close
-  const handleCloseExerciseModal = (): void => {
-    setExercisesModal(false);
-    setTab(0);
-    setMsg({});
-  };
-  const styles = useExerciseModalStyles();
 
-  // on fetch exercises query result, either dispatch data or display error
+  const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState(manage);
+
   useEffect(() => {
     if (res.data) {
       dispatch(fetchExercisesAction(res.data.exercises));
     }
 
     if (res.error) {
-      // handle later
+      // handle error later
     }
   }, [res, dispatch]);
 
-  // fetch exercises on modal render
   useEffect(() => {
-    if (modalState) {
-      call(fetchExercisesQuery, [t]);
+    if (!isOpen) {
+      setActive(manage);
     }
-  }, [call, t, modalState]);
+  }, [isOpen, setActive]);
+
+  const renderTab = (): JSX.Element => {
+    if (active === manage) {
+      return <Manage exercises={exercises} />;
+    }
+
+    if (active === create) {
+      return <Create />;
+    }
+
+    return <div>An error occurred</div>;
+  };
+
+  const toggle = async (): Promise<void> => {
+    if (!isOpen) {
+      await call(fetchExercisesQuery, [token]);
+    }
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <Modal
-      style={
-        tab === 1
-          ? // shrinks the size of the modal depending on the tab
-            { ...styles, content: { ...styles.content, height: '200px' } }
-          : styles
-      }
-      isOpen={modalState}
-      contentLabel='Saved Exercises'
-      onRequestClose={(): void => handleCloseExerciseModal()}
-    >
-      <section className='exercises-container'>
-        <ExercisesHead
-          tab={tab}
-          setTab={setTab}
-          handleCloseExerciseModal={handleCloseExerciseModal}
-        />
-        {tab === 0 && <ManageExercises exercises={savedExercises} />}
-        {tab === 1 && <AddExercises msg={msg} setMsg={setMsg} />}
-      </section>
-    </Modal>
+    <>
+      <div
+        ref={ref}
+        role='button'
+        onClick={toggle}
+        data-testid='exercises-modal'
+        className={styles.button}
+      >
+        <FiTrendingUp className={styles.icon} /> Exercises
+      </div>
+      {isOpen && (
+        <Dropdown
+          bottom={nudgeBottom()}
+          left={nudgeLeft()}
+          css={styles.dropdown}
+          setState={setIsOpen}
+          refs={[ref]}
+        >
+          <Flex justify='space-between' align='center'>
+            <Flex>
+              <p
+                ref={manage}
+                className={active === manage ? styles.active : styles.tab}
+                onClick={(): void => setActive(manage)}
+              >
+                Manage
+              </p>
+              <p
+                ref={create}
+                className={active === create ? styles.active : styles.tab}
+                onClick={(): void => setActive(create)}
+              >
+                Create
+              </p>
+            </Flex>
+            <Head size={13} setState={setIsOpen} />
+          </Flex>
+          {renderTab()}
+        </Dropdown>
+      )}
+    </>
   );
 };
 
-export default memo(Exercises);
+export default Exercises;

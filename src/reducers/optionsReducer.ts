@@ -2,8 +2,7 @@ import {
   OPEN_TAG_MODAL,
   CLOSE_TAG_MODAL,
   SET_ACTIVE,
-  SET_SAVE_MSG,
-  SET_EXERCISES
+  SET_SAVE_MSG
 } from '../actions/optionsActions';
 import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
 import { OptionsReducer } from 'src/types/State';
@@ -15,7 +14,6 @@ import produce from 'immer';
 const optionsState: OptionsReducer = {
   active: 0,
   tagModal: false,
-  exercises: false,
   saveMsg: {}
 };
 
@@ -34,9 +32,6 @@ export const optionsReducer = (
         return;
       case SET_ACTIVE:
         draft.active = action.payload;
-        return;
-      case SET_EXERCISES:
-        draft.exercises = action.payload;
         return;
       case SET_SAVE_MSG:
         draft.saveMsg = action.payload;
