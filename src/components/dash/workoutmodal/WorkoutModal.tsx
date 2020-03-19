@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import styles from './WorkoutModal.module.scss';
 import Flex from 'src/components/lib/Flex';
 import { useWindowSize } from 'react-use';
-import Menu from './menu/Menu';
+import Menu from './actions/Menu';
 import Tags from './Tags';
 import Title from './Title';
 import Notes from './Notes';

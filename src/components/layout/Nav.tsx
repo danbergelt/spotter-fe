@@ -59,7 +59,7 @@ const Nav: React.FC = () => {
             <Dropdown
               top='35px'
               right='25px'
-              triggerRef={menuRef}
+              refs={[menuRef]}
               setState={setIsOpen}
             >
               <NavLinks setIsOpen={setIsOpen} />

@@ -13,7 +13,7 @@ const Foo = () => {
         foo
       </button>
       {state && (
-        <Dropdown triggerRef={ref} setState={setState}>
+        <Dropdown refs={[ref]} setState={setState}>
           <div>baz</div>
         </Dropdown>
       )}

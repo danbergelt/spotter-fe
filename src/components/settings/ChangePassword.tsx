@@ -51,7 +51,7 @@ const ChangePassword: React.FC<Props> = ({
         <Dropdown
           css={styles.container}
           setState={setChangePassword}
-          triggerRef={ref}
+          refs={[ref]}
         >
           <ChangeAccountForm
             inputType='password'

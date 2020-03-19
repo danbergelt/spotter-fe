@@ -6,7 +6,6 @@ import {
   SET_SAVE_MSG,
   SET_TEMPLATES_ERR,
   SET_TEMPLATES,
-  SET_CONFIRM_DELETE,
   SET_FROM_TEMPLATE,
   SET_TEMPLATE_SAVE,
   SET_ACTIVE,
@@ -15,7 +14,6 @@ import {
 
 const state = {
   active: 0,
-  confirmDelete: false,
   exercises: false,
   saveMsg: {},
   tagModal: false
@@ -52,15 +50,6 @@ describe('options reducer', () => {
         payload: { msg: 'msg' }
       })
     ).toEqual({ ...state, saveMsg: { msg: 'msg' } });
-  });
-
-  test('should handle SET_CONFIRM_DELETE', () => {
-    expect(
-      optionsReducer(state, {
-        type: SET_CONFIRM_DELETE,
-        payload: true
-      })
-    ).toEqual({ ...state, confirmDelete: true });
   });
 
   test('should handle SET_ACTIVE', () => {

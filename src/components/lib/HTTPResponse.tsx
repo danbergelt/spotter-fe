@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './HTTPResponse.module.scss';
 import { FiX } from 'react-icons/fi';
 import cx from 'classnames';
@@ -24,39 +24,45 @@ interface Props {
   success?: string | null;
   reset?: Function;
   css?: string;
+  ref?: React.RefObject<HTMLDivElement>;
 }
 
-const HTTPResponse: React.FC<Props> = ({ error, success, reset, css }) => {
+const HTTPResponse: React.FC<Props> = ({ error, success, reset, css }, ref) => {
   // close the error message
   const handleClose = (): void | false => reset && reset();
+
   // error case --> return a message with error styles
   if (error) {
     return (
-      <div data-testid='res' className={cx(styles.error, css)}>
+      <div ref={ref} data-testid='res' className={cx(styles.error, css)}>
         <p>{error}</p>
         <FiX
           data-testid='close'
-          onClick={handleClose}
+          onMouseDown={handleClose}
           className={styles.close}
         />
       </div>
     );
   }
+
   // success case --> return a message with success styles
   if (success) {
     return (
-      <div data-testid='res' className={cx(styles.success, css)}>
+      <div ref={ref} data-testid='res' className={cx(styles.success, css)}>
         <p>{success}</p>
         <FiX
           data-testid='close'
-          onClick={handleClose}
+          onMouseDown={handleClose}
           className={styles.close}
         />
       </div>
     );
   }
-  // if there is no http response, render a fragment
-  return <></>;
+
+  // if there is no http response, render an empty div
+  // need to render a div with a ref instead of fragment. otherwise when paired with dropdown,
+  // ref.current === null, which breaks the dropdown functionality
+  return <div ref={ref}></div>;
 };
 
-export default HTTPResponse;
+export default forwardRef(HTTPResponse);

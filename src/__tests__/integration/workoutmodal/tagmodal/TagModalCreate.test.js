@@ -1,13 +1,13 @@
 import React from 'react';
 import Dashboard from '../../../../pages/Dashboard';
-import WorkoutOptions from '../../../../components/dash/workoutmodal/menu/Menu';
-import TagsModal from '../../../../components/dash/workoutmodal/menu/options/tagsoption/tagsmodal/TagsModal';
+import WorkoutOptions from '../../../../components/dash/workoutmodal/actions/Menu';
+import TagsModal from '../../../../components/dash/workoutmodal/actions/tagsoption/tagsmodal/TagsModal';
 import { cleanup, fireEvent } from '@testing-library/react';
 import wrapper from '../../../../__testUtils__/wrapper';
 import Modal from 'react-modal';
 import axios from 'axios';
 import mockWorkoutRes from '../../../../__testUtils__/mockWorkoutRes';
-import TagsModalCreate from '../../../../components/dash/workoutmodal/menu/options/tagsoption/tagsmodal/create/TagsModalCreate';
+import TagsModalCreate from '../../../../components/dash/workoutmodal/actions/tagsoption/tagsmodal/create/TagsModalCreate';
 import { reducer } from '../../../../reducers/index';
 
 describe('tag modal functionalty', () => {

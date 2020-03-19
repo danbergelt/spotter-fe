@@ -46,11 +46,7 @@ const ChangeEmail: React.FC<Props> = ({ changeEmail, setChangeEmail }) => {
         Change email...
       </p>
       {changeEmail && (
-        <Dropdown
-          css={styles.container}
-          setState={setChangeEmail}
-          triggerRef={ref}
-        >
+        <Dropdown css={styles.container} setState={setChangeEmail} refs={[ref]}>
           <ChangeAccountForm
             inputType='email'
             schema={ChangeEmailSchema}

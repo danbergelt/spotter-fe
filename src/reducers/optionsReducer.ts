@@ -2,7 +2,6 @@ import {
   OPEN_TAG_MODAL,
   CLOSE_TAG_MODAL,
   SET_ACTIVE,
-  SET_CONFIRM_DELETE,
   SET_SAVE_MSG,
   SET_EXERCISES
 } from '../actions/optionsActions';
@@ -16,7 +15,6 @@ import produce from 'immer';
 const optionsState: OptionsReducer = {
   active: 0,
   tagModal: false,
-  confirmDelete: false,
   exercises: false,
   saveMsg: {}
 };
@@ -39,9 +37,6 @@ export const optionsReducer = (
         return;
       case SET_EXERCISES:
         draft.exercises = action.payload;
-        return;
-      case SET_CONFIRM_DELETE:
-        draft.confirmDelete = action.payload;
         return;
       case SET_SAVE_MSG:
         draft.saveMsg = action.payload;

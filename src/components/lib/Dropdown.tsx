@@ -14,10 +14,9 @@ dropdown themselves, otherwise it will render by default
 Props:
   setState: react setStateAction
     the state setter that controls whether dropdown renders or not
-  triggerRef: HTMLElement ref
-    a ref attached to the dropdown trigger. makes it so that clicking
-    the trigger once dropdown is open closes the dropdown without
-    bugs (without this there's a race condition bug)
+  refs: <HTMLElement ref>
+    all refs that you would like to override the default behavior of
+    closing the dropdown on click
   top, right, bottom, left: string
     manual positioning
   css: string
@@ -27,7 +26,7 @@ Props:
 
 interface Props {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
-  triggerRef: React.RefObject<HTMLElement>;
+  refs: Array<React.RefObject<HTMLElement>>;
   top?: string;
   right?: string;
   bottom?: string;
@@ -38,7 +37,7 @@ interface Props {
 const Dropdown: React.FC<Props> = ({
   children,
   setState,
-  triggerRef,
+  refs,
   top,
   right,
   bottom,
@@ -59,11 +58,11 @@ const Dropdown: React.FC<Props> = ({
   // close the dropdown
   const handleClick = useCallback(
     (e: MouseEvent): void => {
-      if (refCheck(triggerRef, e) && refCheck(dropdownRef, e)) {
+      if (refCheck(dropdownRef, e) && refs.every(ref => refCheck(ref, e))) {
         setState(false);
       }
     },
-    [setState, triggerRef]
+    [setState, refs]
   );
 
   // attach an event listener to mousedown events on mount

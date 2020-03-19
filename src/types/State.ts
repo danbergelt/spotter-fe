@@ -29,7 +29,6 @@ export interface TagsReducer {
 export interface OptionsReducer {
   active: number;
   tagModal: boolean;
-  confirmDelete: boolean;
   exercises: boolean;
   saveMsg: object;
 }

@@ -58,7 +58,7 @@ const SubNav: React.FC = () => {
         {isOpen ? <FiChevronUp /> : <FiChevronDown />}
       </Flex>
       {isOpen && (
-        <Dropdown top={setTop()} triggerRef={ref} setState={setIsOpen}>
+        <Dropdown top={setTop()} refs={[ref]} setState={setIsOpen}>
           <p
             data-testid='opt'
             onClick={(): void => setScope('week')}

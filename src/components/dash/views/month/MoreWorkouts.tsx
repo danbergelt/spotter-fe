@@ -70,7 +70,7 @@ const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal, cell }) => {
           bottom={bottomRow.has(cell) ? '99px' : undefined}
           css={styles.dropdown}
           setState={setIsOpen}
-          triggerRef={ref}
+          refs={[ref]}
         >
           <Head size={13} setState={setIsOpen} />
           {workouts.map(workout => (

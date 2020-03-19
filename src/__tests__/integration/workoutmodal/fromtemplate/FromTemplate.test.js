@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FETCH_WORKOUTS } from '../../../../actions/fetchWorkoutsActions';
 import { act } from 'react-dom/test-utils';
 import WorkoutModal from '../../../../components/dash/workoutmodal/WorkoutModal';
-import WorkoutOptions from '../../../../components/dash/workoutmodal/menu/Menu';
+import WorkoutOptions from '../../../../components/dash/workoutmodal/actions/Menu';
 import { cleanup, fireEvent, wait } from '@testing-library/react';
 import mockTemplateRes from '../../../../__testUtils__/mockTemplateRes';
 import wrapper from '../../../../__testUtils__/wrapper';
