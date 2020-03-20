@@ -8,13 +8,11 @@ import {
   SET_TEMPLATES,
   SET_FROM_TEMPLATE,
   SET_TEMPLATE_SAVE,
-  SET_ACTIVE,
-  SET_EXERCISES
+  SET_ACTIVE
 } from '../../../actions/optionsActions';
 
 const state = {
   active: 0,
-  exercises: false,
   saveMsg: {},
   tagModal: false
 };
@@ -59,14 +57,5 @@ describe('options reducer', () => {
         payload: 2
       })
     ).toEqual({ ...state, active: 2 });
-  });
-
-  test('should handle SET_EXERCISES', () => {
-    expect(
-      optionsReducer(state, {
-        type: SET_EXERCISES,
-        payload: false
-      })
-    ).toEqual({ ...state, exercises: false });
   });
 });

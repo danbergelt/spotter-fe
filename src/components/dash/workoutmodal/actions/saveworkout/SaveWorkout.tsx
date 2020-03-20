@@ -10,6 +10,7 @@ import useApi from 'src/hooks/useApi';
 import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './SaveWorkout.module.scss';
+import useToken from 'src/hooks/useToken';
 
 /*== Save/Update Workout =====================================================
 
@@ -38,8 +39,11 @@ const SaveWorkout: React.FC<Props> = ({ workoutId, closeParentModal }) => {
     (state: State) => state.workoutReducer
   );
 
+  // auth token
+  const token = useToken();
+
   // global utils (selected date, auth token, modal context)
-  const { date, t, ctx } = useSelector((state: State) => state.globalReducer);
+  const { date, ctx } = useSelector((state: State) => state.globalReducer);
 
   // state dispatcher
   const dispatch = useDispatch();
@@ -68,12 +72,12 @@ const SaveWorkout: React.FC<Props> = ({ workoutId, closeParentModal }) => {
   const saveHandler = async (): Promise<void> => {
     // if user is adding a new workout
     if (ctx === 'add') {
-      await call(saveWorkoutQuery, [t, date, workout]);
+      await call(saveWorkoutQuery, [token, date, workout]);
     }
 
     // if user is editing a saved workout
     if (ctx === 'view') {
-      await call(editWorkoutQuery, [t, workoutId, workout]);
+      await call(editWorkoutQuery, [token, workoutId, workout]);
     }
   };
 

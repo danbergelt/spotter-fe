@@ -9,8 +9,8 @@ import { deleteWorkoutQuery } from 'src/utils/queries';
 import useApi from 'src/hooks/useApi';
 import { deleteWorkoutAction } from 'src/actions/fetchWorkoutsActions';
 import Button from 'src/components/lib/Button';
-import { useWindowSize } from 'react-use';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
+import useToken from 'src/hooks/useToken';
 
 /*== Delete workout action =====================================================
 
@@ -30,18 +30,22 @@ Props:
 interface Props {
   closeParentModal: () => void;
   workoutId: string | null;
+  nudgeLeft: () => string | undefined;
+  nudgeBottom: () => string | undefined;
 }
 
 // delete workout option container
-const DeleteWorkout: React.FC<Props> = ({ closeParentModal, workoutId }) => {
+const DeleteWorkout: React.FC<Props> = ({
+  closeParentModal,
+  workoutId,
+  nudgeLeft,
+  nudgeBottom
+}) => {
   // dropdate state
   const [isOpen, setIsOpen] = useState(false);
 
   // trigger ref
   const ref = useRef<HTMLDivElement>(null);
-
-  // HTTP response ref
-  const errRef = useRef<HTMLDivElement>(null);
 
   // api utils
   const [res, call, reset] = useApi();
@@ -49,11 +53,11 @@ const DeleteWorkout: React.FC<Props> = ({ closeParentModal, workoutId }) => {
   // state dispatcher
   const dispatch = useDispatch();
 
-  // width to manage dynamic sizing
-  const { width } = useWindowSize();
+  // auth token
+  const token = useToken();
 
   // the current modal context, either add or view
-  const { ctx, t } = useSelector((state: State) => state.globalReducer);
+  const { ctx } = useSelector((state: State) => state.globalReducer);
 
   const deleteHandler = (): void => {
     // if viewing a workout, open a confirm delete popup
@@ -79,7 +83,7 @@ const DeleteWorkout: React.FC<Props> = ({ closeParentModal, workoutId }) => {
 
   // delete workout
   const deleteWorkout = async (): Promise<void> => {
-    await call(deleteWorkoutQuery, [t, workoutId]);
+    await call(deleteWorkoutQuery, [token, workoutId]);
   };
 
   return (
@@ -95,24 +99,19 @@ const DeleteWorkout: React.FC<Props> = ({ closeParentModal, workoutId }) => {
       </div>
       {isOpen && (
         <Dropdown
-          bottom={width <= 800 ? '50px' : undefined}
-          left={width <= 800 ? '10px' : '56.5vw'}
+          bottom={nudgeBottom()}
+          left={nudgeLeft()}
           css={styles.confirm}
-          refs={[ref, errRef]}
+          refs={[ref]}
           setState={setIsOpen}
         >
           <Head size={13} setState={setIsOpen} />
           <p className={styles.text}>
-            Are you sure you want to delete this workout? There is no undoing
-            this action.
+            Are you sure you want to delete this workout? There is no going
+            back!
           </p>
           <Button css={styles.button} content='Delete' func={deleteWorkout} />
-          <HTTPResponse
-            ref={errRef}
-            css={styles.err}
-            reset={reset}
-            error={res.error}
-          />
+          <HTTPResponse css={styles.err} reset={reset} error={res.error} />
         </Dropdown>
       )}
     </>

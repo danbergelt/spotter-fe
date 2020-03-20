@@ -19,6 +19,7 @@ import { Scope, Ctx } from 'src/types/Types';
 import SubNav from '../components/dash/subnav/SubNav';
 import { Helmet } from 'react-helmet-async';
 import styles from './Dashboard.module.scss';
+import useToken from 'src/hooks/useToken';
 
 /*== Dashboard =====================================================
 
@@ -52,8 +53,11 @@ const Dashboard: React.FC = () => {
     (state: State) => state.fetchWorkoutsReducer.workouts
   );
 
+  // auth token
+  const token = useToken();
+
   // global utils: scope (month or week), auth token, and current timespan
-  const { scope, t, timeSpan } = useSelector(
+  const { scope, timeSpan } = useSelector(
     (state: State) => state.globalReducer
   );
 
@@ -70,8 +74,8 @@ const Dashboard: React.FC = () => {
 
   // fetch workouts call
   useEffect(() => {
-    call(fetchWorkoutsQuery, [t, timeSpan, scope]);
-  }, [timeSpan, scope, t, dispatch, call]);
+    call(fetchWorkoutsQuery, [token, timeSpan, scope]);
+  }, [timeSpan, scope, token, dispatch, call]);
 
   // open the workout modal in either an add workout context, or view workout context
   const openModal = useCallback(

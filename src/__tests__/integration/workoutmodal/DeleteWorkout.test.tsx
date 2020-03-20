@@ -10,6 +10,8 @@ const mockAxios = axios as jest.Mocked<typeof axios>;
 
 const closeParentModal = jest.fn();
 const workoutId = 'foo';
+const nudgeLeft = jest.fn();
+const nudgeBottom = jest.fn();
 
 describe('delete workout', () => {
   beforeEach(() => {
@@ -20,6 +22,8 @@ describe('delete workout', () => {
     const { store, getByText } = wrapper(
       reducer,
       <DeleteWorkout
+        nudgeLeft={nudgeLeft}
+        nudgeBottom={nudgeBottom}
         closeParentModal={closeParentModal}
         workoutId={workoutId}
       />
@@ -40,6 +44,8 @@ describe('delete workout', () => {
     const { store, getByText, getByTestId } = wrapper(
       reducer,
       <DeleteWorkout
+        nudgeLeft={nudgeLeft}
+        nudgeBottom={nudgeBottom}
         closeParentModal={closeParentModal}
         workoutId={workoutId}
       />
@@ -63,6 +69,8 @@ describe('delete workout', () => {
     const { store, getByText, getByTestId } = wrapper(
       reducer,
       <DeleteWorkout
+        nudgeLeft={nudgeLeft}
+        nudgeBottom={nudgeBottom}
         closeParentModal={closeParentModal}
         workoutId={workoutId}
       />
@@ -83,6 +91,8 @@ describe('delete workout', () => {
     const { store, getByText, queryByTestId, getByTestId } = wrapper(
       reducer,
       <DeleteWorkout
+        nudgeLeft={nudgeLeft}
+        nudgeBottom={nudgeBottom}
         closeParentModal={closeParentModal}
         workoutId={workoutId}
       />

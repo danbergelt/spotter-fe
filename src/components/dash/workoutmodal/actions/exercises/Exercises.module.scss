@@ -1,0 +1,27 @@
+@import '../../../../../styles/mixins.scss';
+@import '../../../../../styles/variables.scss';
+
+.button {
+  @include option;
+}
+
+.dropdown {
+  padding: 1rem;
+  width: 250px;
+  max-height: 250px;
+  overflow: auto;
+
+  .tab {
+    color: $gray2;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .active {
+    @extend .tab;
+    background: $gray3;
+    color: $gray1;
+  }
+}

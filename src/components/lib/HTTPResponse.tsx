@@ -38,7 +38,7 @@ const HTTPResponse: React.FC<Props> = ({ error, success, reset, css }, ref) => {
         <p>{error}</p>
         <FiX
           data-testid='close'
-          onMouseDown={handleClose}
+          onPointerUp={handleClose}
           className={styles.close}
         />
       </div>
@@ -52,7 +52,7 @@ const HTTPResponse: React.FC<Props> = ({ error, success, reset, css }, ref) => {
         <p>{success}</p>
         <FiX
           data-testid='close'
-          onMouseDown={handleClose}
+          onPointerUp={handleClose}
           className={styles.close}
         />
       </div>
