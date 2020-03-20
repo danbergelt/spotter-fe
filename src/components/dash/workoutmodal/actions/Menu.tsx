@@ -41,6 +41,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
     (state: State) => state.workoutReducer._id
   );
 
+  // width for dynamic resizing
   const { width } = useWindowSize();
 
   // dynamically set position according to viewport width
@@ -55,14 +56,18 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
       return '68vw';
     }
 
+    // otherwise render default position
     return;
   };
 
+  // dynamically set position according to viewport width
   const nudgeBottom = (): string | undefined => {
+    // push to bottom left corner at tablet and below
     if (width <= 800) {
       return '40px';
     }
 
+    // otherwise render default position
     return;
   };
 
