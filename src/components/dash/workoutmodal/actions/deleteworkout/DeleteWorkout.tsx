@@ -24,6 +24,10 @@ Props:
     close the workout modal
   workoutId: string
     the currentw workout's id, which is passed in to the delete query
+  nudgeLeft: function
+    dynamically nudge popup left on small viewports
+  nudgeBottom: function
+    dynamically nudge popup from bottom on small viewports
 
 */
 

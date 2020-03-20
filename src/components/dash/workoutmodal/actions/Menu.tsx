@@ -48,7 +48,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
   const nudgeLeft = (): string | undefined => {
     // push to bottom left corner at tablet and below
     if (width <= 800) {
-      return '20px';
+      return '16px';
     }
 
     // nudge left when viewport closes in on border
@@ -64,7 +64,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
   const nudgeBottom = (): string | undefined => {
     // push to bottom left corner at tablet and below
     if (width <= 800) {
-      return '40px';
+      return '44px';
     }
 
     // otherwise render default position

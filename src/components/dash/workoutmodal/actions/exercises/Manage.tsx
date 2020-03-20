@@ -9,40 +9,63 @@ import Input from 'src/components/lib/Input';
 import { FiX } from 'react-icons/fi';
 import styles from './Manage.module.scss';
 import Flex from 'src/components/lib/Flex';
+import HTTPResponse from 'src/components/lib/HTTPResponse';
+
+/*== Manage exercises =====================================================
+
+Manage exercises, either by deleting them or searching them to see what 
+exercises you have saved.
+
+TODO --> separating this form from the PRs/stats page is unintuitive,
+and has been a source of confusion. Look into moving this functionality to
+the PR's page, so that users can add exercises to track and view tracked
+exercises in one place instead of having to go back and forth. Also,
+this functionality is not clear ('why does this exist') unless a user knows
+about how the PR's are tracked.
+
+TODO --> Look into the ability to rename exercises in place
+
+Props:
+  exercises: Array<Exercise>
+    All exercises for this user
+
+*/
 
 interface Props {
   exercises: Array<Exercise>;
 }
 
-// search and delete exercises
-// look into including the ability to rename an exercise in place
-
 const Manage: React.FC<Props> = ({ exercises }) => {
+  // search filter
   const [search, setSearch] = useState<string>('');
 
-  const token: string | null = useToken();
-  const dispatch = useDispatch();
-  const [res, call] = useApi();
+  // auth token
+  const token = useToken();
 
-  // search filter function
+  // state dispatcher
+  const dispatch = useDispatch();
+
+  // api utils
+  const [res, call, reset] = useApi();
+
+  // filter exercises by search input
   const filter = exercises.filter(exercise =>
     exercise.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  // delete an exercise from app state on successful delete query
   useEffect(() => {
     if (res.data) {
       dispatch(deleteExerciseAction(res.data.exercise._id));
     }
-
-    if (res.error) {
-      // handle later
-    }
   }, [res, dispatch]);
 
+  // delete an exercise from the this user's account
   const deleteExercise = async (id: string): Promise<void> => {
     await call(deleteExerciseQuery, [token, id]);
   };
 
+  // if this user has exercises, map them into the component
   const renderExercises = (): JSX.Element => {
     if (exercises.length && filter.length) {
       return (
@@ -61,6 +84,7 @@ const Manage: React.FC<Props> = ({ exercises }) => {
       );
     }
 
+    // otherwise, render a message that there are no exercises for this user
     return <p className={styles.empty}>No exercises found</p>;
   };
 
@@ -74,6 +98,7 @@ const Manage: React.FC<Props> = ({ exercises }) => {
         name='search'
         css={styles.input}
       />
+      <HTTPResponse reset={reset} css={styles.err} error={res.error} />
       {renderExercises()}
     </>
   );
