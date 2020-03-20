@@ -63,9 +63,18 @@ export const ExerciseSchema = Yup.object().shape({
   name: Yup.string()
     .required('Enter name')
     .max(25, '25 character max'),
-  weight: Yup.number().max(2000, '2000 lb limit'),
-  reps: Yup.number().max(2000, '2000 reps limit'),
-  sets: Yup.number().max(2000, '2000 sets limit')
+  weight: Yup.number()
+    .nullable()
+    .typeError('Enter number')
+    .max(2000, '2000 lb limit'),
+  reps: Yup.number()
+    .nullable()
+    .typeError('Enter number')
+    .max(2000, '2000 reps limit'),
+  sets: Yup.number()
+    .nullable()
+    .typeError('Enter number')
+    .max(2000, '2000 sets limit')
 });
 
 // create an exercise (used to track PRs)

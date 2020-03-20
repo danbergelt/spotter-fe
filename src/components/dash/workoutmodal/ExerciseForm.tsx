@@ -60,6 +60,10 @@ const ExerciseForm: React.FC = () => {
       onSubmit={(values, { resetForm }): void => {
         resetForm();
 
+        // all exercise names must be lowercase to preserve consistency of PR tracking
+        // TODO --> improve PR aggregation on server so this is not necessary
+        values.name = values.name.toLowerCase();
+
         // if editing an exercise, submit an edit dispatch. otherwise submit an add dispatch
         if (Object.keys(queued).length) {
           dispatch(editExerciseAction(values, queued.i as number));
@@ -89,7 +93,7 @@ const ExerciseForm: React.FC = () => {
                 as={Input}
                 name='weight'
                 placeholder='lbs'
-                type='number'
+                type='text'
               />
               <FormError errors={errors} touched={touched} node='weight' />
             </Flex>
@@ -100,7 +104,7 @@ const ExerciseForm: React.FC = () => {
                 as={Input}
                 name='sets'
                 placeholder='# of sets'
-                type='number'
+                type='text'
               />
               <FormError errors={errors} touched={touched} node='sets' />
             </Flex>
@@ -111,7 +115,7 @@ const ExerciseForm: React.FC = () => {
                 as={Input}
                 name='reps'
                 placeholder='# of reps'
-                type='number'
+                type='text'
               />
               <FormError errors={errors} touched={touched} node='reps' />
             </Flex>
