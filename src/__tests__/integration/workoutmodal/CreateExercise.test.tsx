@@ -4,6 +4,9 @@ import { reducer } from 'src/reducers';
 import Create from 'src/components/dash/workoutmodal/actions/exercises/Create';
 import { fireEvent, wait } from '@testing-library/dom';
 import { act } from 'react-dom/test-utils';
+import axios from 'axios';
+jest.mock('axios');
+const mockAxios = axios as jest.Mocked<typeof axios>;
 
 describe('create workout', () => {
   test('input can be typed in', async () => {
@@ -37,5 +40,39 @@ describe('create workout', () => {
     });
 
     await wait(() => expect(getByText(/25 character max/i)).toBeTruthy());
+  });
+
+  test('displays error message on failure', async () => {
+    mockAxios.post.mockRejectedValue({
+      response: { data: { error: 'foobar' } }
+    });
+
+    const { getByPlaceholderText, getByText } = wrapper(reducer, <Create />);
+
+    const input = getByPlaceholderText(/e.g. squat/i);
+
+    await act(async () => {
+      await fireEvent.change(input, { target: { value: 'foo' } });
+    });
+
+    fireEvent.click(getByText(/create/i));
+
+    await wait(() => expect(getByText(/foobar/i)).toBeTruthy());
+  });
+
+  test('displays success message on success', async () => {
+    mockAxios.post.mockResolvedValue({ data: 'foobar' });
+
+    const { getByPlaceholderText, getByText } = wrapper(reducer, <Create />);
+
+    const input = getByPlaceholderText(/e.g. squat/i);
+
+    await act(async () => {
+      await fireEvent.change(input, { target: { value: 'foo' } });
+    });
+
+    fireEvent.click(getByText(/create/i));
+
+    await wait(() => expect(getByText(/exercise created/i)).toBeTruthy());
   });
 });
