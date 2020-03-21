@@ -2,13 +2,12 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Menu.module.scss';
 import TagsOption from './tagsoption/TagsOption';
-import SaveTemplateOption from './savetemplate/SaveTemplateOption';
-import FromTemplateOption from './fromtemplate/FromTemplateOption';
 import Exercises from './exercises/Exercises';
 import DeleteWorkout from './deleteworkout/DeleteWorkout';
 import SaveWorkout from './saveworkout/SaveWorkout';
 import { State } from 'src/types/State';
 import { useWindowSize } from 'react-use';
+import Templates from './templates/Templates';
 
 /*== Menu =====================================================
 
@@ -77,8 +76,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
       <section className={styles.buttons}>
         <div>
           <TagsOption iconClass={iconClass} />
-          <SaveTemplateOption iconClass={iconClass} />
-          <FromTemplateOption iconClass={iconClass} />
+          <Templates />
           <Exercises nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
         </div>
         <div>
