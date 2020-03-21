@@ -52,4 +52,23 @@ describe('manage exercises', () => {
 
     expect(mockAxios.delete).toHaveBeenCalledTimes(1);
   });
+
+  test('renders error on failed delete query', async () => {
+    mockAxios.delete.mockRejectedValue({
+      response: { data: { error: 'foobar' } }
+    });
+
+    const { getByTestId, getByText, store } = wrapper(
+      reducer,
+      <Manage exercises={[e1]} />
+    );
+
+    store.dispatch({ type: CREATE_EXERCISE, payload: e1 });
+
+    await act(async () => {
+      await fireEvent.click(getByTestId(/exercise-delete/i));
+    });
+
+    getByText(/foobar/i);
+  });
 });

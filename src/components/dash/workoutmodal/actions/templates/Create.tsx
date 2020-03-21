@@ -14,17 +14,35 @@ import styles from './Create.module.scss';
 import { CreateTemplateSchema } from '../../../../../utils/validators';
 import FormError from 'src/components/lib/FormError';
 
+/*== Create template =====================================================
+
+Create a new workout template. Can be used to easily load workouts to use
+in the context of a larger routine, e.g. leg day, arm day, etc. Give your
+template a name, press 'create', and save a template by loading the current
+workout from state and sending to the server to be persisted.
+
+Props:
+  setTemplates: React setStateAction
+  on a successful create query, push the new template into the template state
+  kept in the parent
+
+*/
+
 interface Props {
   setTemplates: React.Dispatch<React.SetStateAction<Template[]>>;
 }
 
 const Create: React.FC<Props> = ({ setTemplates }) => {
+  // api utils
   const [res, call, reset] = useApi();
 
+  // auth token
   const token = useToken();
 
+  // current workout details
   const workout = useSelector((state: State) => state.workoutReducer);
 
+  // on successful request, push the template into the template state
   useEffect(() => {
     if (res.data) {
       setTemplates(s =>
