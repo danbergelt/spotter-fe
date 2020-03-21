@@ -83,3 +83,10 @@ export const CreateExerciseSchema = Yup.object().shape({
     .required('Enter name')
     .max(25, '25 character max')
 });
+
+// create a workout template
+export const CreateTemplateSchema = Yup.object().shape({
+  template: Yup.string()
+    .required('Enter name')
+    .max(20, '20 character max')
+});

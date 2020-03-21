@@ -37,7 +37,7 @@ interface Props {
 
 const Manage: React.FC<Props> = ({ exercises }) => {
   // search filter
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState('');
 
   // auth token
   const token = useToken();
@@ -49,9 +49,9 @@ const Manage: React.FC<Props> = ({ exercises }) => {
   const [res, call, reset] = useApi();
 
   // filter exercises by search input
-  const filter = exercises.filter(exercise =>
-    exercise.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const filter = exercises.filter(exercise => {
+    return exercise.name.toLowerCase().includes(search.toLowerCase());
+  });
 
   // delete an exercise from app state on successful delete query
   useEffect(() => {
@@ -93,7 +93,7 @@ const Manage: React.FC<Props> = ({ exercises }) => {
       <Input
         value={search}
         onChange={(e): void => setSearch(e.target.value)}
-        placeholder='Search exercises...'
+        placeholder='Search exercises'
         type='text'
         name='search'
         css={styles.input}

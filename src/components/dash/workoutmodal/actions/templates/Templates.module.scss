@@ -4,3 +4,10 @@
 .templates {
   @include option;
 }
+
+.dropdown {
+  padding: 1rem;
+  width: 250px;
+  max-height: 250px;
+  overflow: auto;
+}
