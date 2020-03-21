@@ -12,6 +12,8 @@ import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
 import Manage from './Manage';
 import useToken from 'src/hooks/useToken';
 import Create from './Create';
+import Tabs from 'src/components/lib/Tabs';
+import useTabs from 'src/hooks/useTabs';
 
 /*== Exercises =====================================================
 
@@ -40,11 +42,11 @@ interface Props {
 }
 
 const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
-  // ref for manage tab
-  const manage = useRef(null);
+  // tabs utility hook that sets initial state + allows parent to access state
+  const tabState = useTabs('Manage');
 
-  // ref for create tab
-  const create = useRef(null);
+  // current active tab
+  const [active] = tabState;
 
   // trigger ref for popup
   const ref = useRef<HTMLDivElement>(null);
@@ -66,9 +68,6 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
   // popup state
   const [isOpen, setIsOpen] = useState(false);
 
-  // tab state
-  const [active, setActive] = useState(manage);
-
   // if successful get request, pass exercises into app state
   useEffect(() => {
     if (res.data) {
@@ -80,20 +79,13 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
     }
   }, [res, dispatch]);
 
-  // on popup close, reset the default tab state to manage
-  useEffect(() => {
-    if (!isOpen) {
-      setActive(manage);
-    }
-  }, [isOpen, setActive]);
-
   // tab controller
   const renderTab = (): JSX.Element => {
-    if (active === manage) {
+    if (active === 'Manage') {
       return <Manage exercises={exercises} />;
     }
 
-    if (active === create) {
+    if (active === 'Create') {
       return <Create />;
     }
 
@@ -130,22 +122,7 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
           refs={[ref]}
         >
           <Flex justify='space-between' align='center'>
-            <Flex>
-              <p
-                ref={manage}
-                className={active === manage ? styles.active : styles.tab}
-                onClick={(): void => setActive(manage)}
-              >
-                Manage
-              </p>
-              <p
-                ref={create}
-                className={active === create ? styles.active : styles.tab}
-                onClick={(): void => setActive(create)}
-              >
-                Create
-              </p>
-            </Flex>
+            <Tabs resetOnUnmount state={tabState} tabs={['Manage', 'Create']} />
             <Head size={13} setState={setIsOpen} />
           </Flex>
           {renderTab()}

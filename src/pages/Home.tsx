@@ -14,7 +14,7 @@ const Home: React.FC = () => {
 
   // preload images, prevent flickering when state changes
   // TODO --> move images to S3. Also, still getting
-  // app stil flickers in development mode, but goes away
+  // flickers in development mode, but goes away
   // in production bundle. something to be wary of(?)
   useEffect(() => {
     images.forEach(image => {
