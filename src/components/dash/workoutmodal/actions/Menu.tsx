@@ -76,7 +76,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
       <section className={styles.buttons}>
         <div>
           <TagsOption iconClass={iconClass} />
-          <Templates />
+          <Templates nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
           <Exercises nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
         </div>
         <div>
