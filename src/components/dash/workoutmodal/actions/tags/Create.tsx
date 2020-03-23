@@ -5,7 +5,6 @@ import * as colors from '../../../../../styles/variables.scss';
 import styles from './Create.module.scss';
 import Flex from 'src/components/lib/Flex';
 import Input from 'src/components/lib/Input';
-import adjust from 'src/utils/darkenColorInJS';
 import { FiCheck } from 'react-icons/fi';
 import useApi from 'src/hooks/useApi';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
@@ -13,13 +12,14 @@ import { createTagQuery } from 'src/utils/queries';
 import useToken from 'src/hooks/useToken';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 import produce from 'immer';
+import { HS } from 'src/types/Types';
 
 interface Props {
   setTags: React.Dispatch<React.SetStateAction<TagOnWorkout[]>>;
+  hs: HS;
 }
 
-const Create: React.FC<Props> = ({ setTags }) => {
-  const [hover, setHover] = useState('');
+const Create: React.FC<Props> = ({ setTags, hs }) => {
   const [active, setActive] = useState(colors.primary);
   const token = useToken();
   const [res, call, reset] = useApi();
@@ -59,12 +59,11 @@ const Create: React.FC<Props> = ({ setTags }) => {
           >
             {Object.keys(colors).map(k => (
               <div
-                onPointerEnter={(): void => setHover(colors[k])}
-                onPointerLeave={(): void => setHover('')}
+                onPointerEnter={(): void => hs.setHovered(colors[k])}
+                onPointerLeave={(): void => hs.setHovered('')}
                 onClick={(): void => setActive(colors[k])}
                 style={{
-                  background:
-                    hover === colors[k] ? adjust(colors[k], -40) : colors[k]
+                  background: hs.darken([hs.hovered, colors[k]], colors[k])
                 }}
                 className={styles.color}
                 key={colors[k]}

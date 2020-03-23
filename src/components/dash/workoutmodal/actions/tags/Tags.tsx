@@ -13,6 +13,7 @@ import Add from './Add';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 import Manage from './Manage';
 import Create from './Create';
+import adjust from 'src/utils/darkenColorInJS';
 
 interface Props {
   nudgeBottom: () => string | undefined;
@@ -23,6 +24,8 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [tags, setTags] = useState([] as Array<TagOnWorkout>);
 
+  const [hovered, setHovered] = useState('');
+
   const ref = useRef<HTMLDivElement>(null);
 
   const [res, call] = useApi();
@@ -32,6 +35,14 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
   const tabState = useTabs('Add');
 
   const [active, setActive] = tabState;
+
+  function darken<T>(comparands: [T, T], color: string): string {
+    if (comparands[0] === comparands[1]) {
+      return adjust(color, -40);
+    }
+
+    return color;
+  }
 
   const toggle = async (): Promise<void> => {
     if (!isOpen) {
@@ -48,16 +59,20 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
   }, [res]);
 
   const renderTabs = (): JSX.Element => {
+    const hs = { hovered, setHovered, darken };
+
     if (active === 'Add') {
-      return <Add tags={tags} />;
+      return <Add hs={hs} tags={tags} />;
     }
 
     if (active === 'Manage') {
-      return <Manage tags={tags} setTags={setTags} setTab={setActive} />;
+      return (
+        <Manage hs={hs} tags={tags} setTags={setTags} setTab={setActive} />
+      );
     }
 
     if (active === 'Create') {
-      return <Create setTags={setTags} />;
+      return <Create hs={hs} setTags={setTags} />;
     }
 
     return <div>An error occurred</div>;
