@@ -47,7 +47,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
     },
     "collectCoverageFrom": [
       "src/**/*.{js,ts,tsx}",

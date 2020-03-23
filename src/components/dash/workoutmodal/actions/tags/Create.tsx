@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import Button from 'src/components/lib/Button';
-import * as colors from '../../../../../styles/variables.scss';
 import styles from './Create.module.scss';
 import Flex from 'src/components/lib/Flex';
 import Input from 'src/components/lib/Input';
@@ -13,6 +12,21 @@ import useToken from 'src/hooks/useToken';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 import produce from 'immer';
 import { HS } from 'src/types/Types';
+import { colors } from 'src/utils/colors';
+
+/*== Create tag =====================================================
+
+This component allows a user to create a new tag. They have the option to
+pick a name, and a color from a pre-selected palette of 10 brand colors
+
+Props:
+  setTags: React setStateAction
+    when a new tag is created, push the new tag to the tags state in parent
+    using this setState function
+  hs: HS
+    hover state properties. handles hovering of colors in JS
+
+*/
 
 interface Props {
   setTags: React.Dispatch<React.SetStateAction<TagOnWorkout[]>>;
@@ -20,10 +34,16 @@ interface Props {
 }
 
 const Create: React.FC<Props> = ({ setTags, hs }) => {
-  const [active, setActive] = useState(colors.primary);
+  // selected color --> defaults to primary brand color
+  const [active, setActive] = useState(colors[0]);
+
+  // auth token
   const token = useToken();
+
+  // api utils
   const [res, call, reset] = useApi();
 
+  // if successful creation, push the new tag to the tag popup state
   useEffect(() => {
     if (res.data) {
       setTags(state =>
@@ -57,18 +77,21 @@ const Create: React.FC<Props> = ({ setTags, hs }) => {
             align='center'
             justify='center'
           >
-            {Object.keys(colors).map(k => (
+            {colors.map(color => (
               <div
-                onPointerEnter={(): void => hs.setHovered(colors[k])}
+                data-testid='color'
+                onPointerEnter={(): void => hs.setHovered(color)}
                 onPointerLeave={(): void => hs.setHovered('')}
-                onClick={(): void => setActive(colors[k])}
+                onClick={(): void => setActive(color)}
                 style={{
-                  background: hs.darken([hs.hovered, colors[k]], colors[k])
+                  background: hs.darken([hs.hovered, color], color)
                 }}
                 className={styles.color}
-                key={colors[k]}
+                key={color}
               >
-                {active === colors[k] && <FiCheck size={20} color='white' />}
+                {active === color && (
+                  <FiCheck data-testid='check' size={20} color='white' />
+                )}
               </div>
             ))}
           </Flex>
