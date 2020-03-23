@@ -1,0 +1,76 @@
+@import '../../../../../styles/mixins.scss';
+@import '../../../../../styles/variables.scss';
+
+.empty {
+  font-size: 1.3rem;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.confirm {
+  font-size: 1.3rem;
+  color: $gray1;
+  margin: 1.5rem 0;
+}
+
+.callDelete {
+  width: 100%;
+  background: $danger;
+  padding: 1rem;
+}
+
+.delRes {
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.tag {
+  margin: 0.5rem 0;
+  width: 100%;
+  border-radius: 4px;
+  height: 35px;
+  display: flex;
+  padding: 1rem;
+  align-items: center;
+  font-size: 1.3rem;
+  color: white;
+  cursor: pointer;
+}
+
+.delete {
+  @include resetBtn;
+  @include hover;
+  background: $gray3;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: $gray1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+
+  &:hover {
+    background: darken($gray3, 5%);
+  }
+}
+
+.form {
+  display: flex;
+  align-items: center;
+
+  .input {
+    padding: 0.75rem;
+    margin: 0;
+  }
+
+  .edit {
+    @extend .delete;
+    margin: 0;
+    margin-left: 1rem;
+  }
+}
+
+.err {
+  padding: 1rem;
+  margin: 0.5rem 0;
+}

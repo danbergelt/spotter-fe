@@ -28,6 +28,7 @@ Props:
 interface Props {
   name: string;
   placeholder: string;
+  innerRef?: React.RefObject<HTMLInputElement>;
   type: string;
   value: string | number;
   onChange: (
@@ -39,6 +40,7 @@ interface Props {
 
 const Input: React.FC<Props> = ({
   name,
+  innerRef,
   placeholder,
   type,
   onChange,
@@ -50,6 +52,7 @@ const Input: React.FC<Props> = ({
   if (element === 'input') {
     return (
       <input
+        ref={innerRef}
         data-testid='input'
         className={cx(styles.input, css)}
         name={name}
