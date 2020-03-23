@@ -26,7 +26,7 @@ export const logoutQuery = async (): Promise<AxiosResponse> => {
 };
 
 // update a tag
-export const updateTag = async (
+export const updateTagQuery = async (
   t: Token,
   id: string,
   updateInput: string
@@ -34,7 +34,7 @@ export const updateTag = async (
   await axiosWithAuth(t).put(endpoint(`tags/${id}`), { content: updateInput });
 
 // fetch user's tags
-export const fetchTags = async (t: Token): Promise<AxiosResponse> =>
+export const fetchTagsQuery = async (t: Token): Promise<AxiosResponse> =>
   await axiosWithAuth(t).get(endpoint('tags'));
 
 // create a tag

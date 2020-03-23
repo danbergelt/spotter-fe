@@ -63,7 +63,7 @@ const Features: React.FC<Props> = ({ images }) => {
             <h2 className={styles.title}>Features</h2>
             {children}
           </section>
-          <img src={setImg()} className={styles.img} alt={selected} />;
+          <img src={setImg()} className={styles.img} alt={selected} />
         </Flex>
       </>
     );

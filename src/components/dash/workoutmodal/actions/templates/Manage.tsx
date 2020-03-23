@@ -39,7 +39,7 @@ const Manage: React.FC<Props> = ({ templates, setTemplates }) => {
   const [search, setSearch] = useState('');
 
   // currently selected template (used to generate)
-  const [active, setActive] = useState({} as Template);
+  const [active, setActive] = useState(templates[0]);
 
   // api utils
   const [res, call, reset] = useApi();

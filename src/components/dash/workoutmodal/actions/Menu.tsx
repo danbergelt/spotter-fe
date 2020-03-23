@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './Menu.module.scss';
-import TagsOption from './tagsoption/TagsOption';
 import Exercises from './exercises/Exercises';
 import DeleteWorkout from './deleteworkout/DeleteWorkout';
 import SaveWorkout from './saveworkout/SaveWorkout';
 import { State } from 'src/types/State';
 import { useWindowSize } from 'react-use';
 import Templates from './templates/Templates';
+import Tags from './tags/Tags';
 
 /*== Menu =====================================================
 
@@ -32,9 +32,6 @@ interface Props {
 }
 
 const Menu: React.FC<Props> = ({ closeParentModal }) => {
-  // icon class shared across multiple menu buttons
-  const iconClass = 'add-workout-options-icon';
-
   // the current workout's id, used in edit/delete queries
   const workoutId: string | null = useSelector(
     (state: State) => state.workoutReducer._id
@@ -75,7 +72,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
       <h1 className={styles.title}>ACTIONS</h1>
       <section className={styles.buttons}>
         <div>
-          <TagsOption iconClass={iconClass} />
+          <Tags nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
           <Templates nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
           <Exercises nudgeBottom={nudgeBottom} nudgeLeft={nudgeLeft} />
         </div>
