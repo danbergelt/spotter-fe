@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import styles from './Manage.module.scss';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
-import adjust from 'src/utils/darkenColorInJS';
 import Flex from 'src/components/lib/Flex';
 import Button from 'src/components/lib/Button';
 import { Formik, Form, Field } from 'formik';
@@ -12,15 +11,16 @@ import useToken from 'src/hooks/useToken';
 import produce from 'immer';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import { remove } from 'lodash';
+import { HS } from 'src/types/Types';
 
 interface Props {
   tags: Array<TagOnWorkout>;
   setTags: React.Dispatch<React.SetStateAction<TagOnWorkout[]>>;
   setTab: React.Dispatch<React.SetStateAction<string>>;
+  hs: HS;
 }
 
-const Manage: React.FC<Props> = ({ tags, setTags, setTab }) => {
-  const [hover, setHover] = useState('');
+const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
   const [tagToDelete, setTagToDelete] = useState({} as TagOnWorkout);
   const [tagToEdit, setTagToEdit] = useState({} as TagOnWorkout);
   const token = useToken();
@@ -104,12 +104,11 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab }) => {
                   state._id === tag._id ? ({} as TagOnWorkout) : tag
                 )
               }
-              onPointerEnter={(): void => setHover(tag._id)}
-              onPointerLeave={(): void => setHover('')}
+              onPointerEnter={(): void => hs.setHovered(tag._id)}
+              onPointerLeave={(): void => hs.setHovered('')}
               className={styles.tag}
               style={{
-                background:
-                  hover === tag._id ? adjust(tag.color, -40) : tag.color
+                background: hs.darken([hs.hovered, tag._id], tag.color)
               }}
             >
               {tag.content}
