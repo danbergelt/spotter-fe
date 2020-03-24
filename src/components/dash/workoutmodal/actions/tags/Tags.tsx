@@ -15,36 +15,65 @@ import Manage from './Manage';
 import Create from './Create';
 import adjust from 'src/utils/darkenColorInJS';
 
+/*== Tags =====================================================
+
+This is the parent component for the tags popup in the workout
+modal. In here, a user can toggle a tag on the current workout,
+edit a tag, delete a tag, and create a tag.
+
+Props:
+  nudgeBottom: function
+    nudge the component from the bottom on tablet sizes and below
+  nudgeLeft: function
+    nudge the component from the left on tablet sizes and below 
+
+*/
+
 interface Props {
   nudgeBottom: () => string | undefined;
   nudgeLeft: () => string | undefined;
 }
 
 const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
+  // dropdown state
   const [isOpen, setIsOpen] = useState(false);
+
+  // fetched tags for this user
   const [tags, setTags] = useState([] as Array<TagOnWorkout>);
 
+  // hover state for the tags (tags change color on hover)
   const [hovered, setHovered] = useState('');
 
+  // triger ref for dropdown
   const ref = useRef<HTMLDivElement>(null);
 
+  // api utils
   const [res, call] = useApi();
 
+  // auth token
   const token = useToken();
 
+  // tabs compponent hook
   const tabState = useTabs('Add');
 
+  // active tab, tab state setter destructured from tabs hook
   const [active, setActive] = tabState;
 
+  // darken a hex color in JS
   function darken<T>(comparands: [T, T], color: string): string {
+    // if the comparands are equal (i.e. a hovered elemenet and the element in the DOM),
+    // return a darkened color
     if (comparands[0] === comparands[1]) {
       return adjust(color, -40);
     }
 
+    // otherwise, return a color
     return color;
   }
 
+  // toggle the dropdown
   const toggle = async (): Promise<void> => {
+    // if opening the dropdown, fetch the tagas
     if (!isOpen) {
       await call(fetchTagsQuery, [token]);
     }
@@ -52,13 +81,16 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
     setIsOpen(!isOpen);
   };
 
+  // if successful fetch, set the tags to local state
   useEffect(() => {
     if (res.data) {
       setTags(res.data.tags);
     }
   }, [res]);
 
+  // render JSX according to which tab is active
   const renderTabs = (): JSX.Element => {
+    // hover state (which tag is hovered, the state setter, and the darken function)
     const hs = { hovered, setHovered, darken };
 
     if (active === 'Add') {
@@ -75,6 +107,7 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
       return <Create hs={hs} setTags={setTags} />;
     }
 
+    // fallback (should not occur)
     return <div>An error occurred</div>;
   };
 
