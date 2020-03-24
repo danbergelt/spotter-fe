@@ -1,0 +1,62 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+.head {
+  font-size: 1.75rem;
+  color: $gray1;
+  margin-top: 2rem;
+
+  @include small {
+    font-size: 1.5rem;
+  }
+
+  .icon {
+    font-size: $icon;
+    position: relative;
+    bottom: 1px;
+  }
+
+  .title {
+    padding: 1.25rem;
+  }
+
+  .clear {
+    font-size: 1.3rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    background: $gray4;
+    cursor: pointer;
+
+    @include small {
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      background: darken($gray4, 2.5%);
+    }
+  }
+}
+
+.container {
+  margin-top: 2rem;
+
+  @include small {
+    margin-top: 1rem;
+  }
+
+  .exercises {
+    margin-top: 2rem;
+    margin-left: 2.8rem;
+    width: 100%;
+
+    @include medium {
+      width: 85%;
+      margin-bottom: 5rem;
+    }
+
+    @include small {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+  }
+}

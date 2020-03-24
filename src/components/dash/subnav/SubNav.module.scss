@@ -1,0 +1,29 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+.container {
+  @include spacer;
+  padding: 3rem 0 2rem 0;
+  font-size: $p;
+
+  @include medium {
+    font-size: 1.3rem;
+  }
+
+  .dropdown {
+    cursor: pointer;
+
+    .selected {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .option {
+    padding: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background: $gray3;
+    }
+  }
+}

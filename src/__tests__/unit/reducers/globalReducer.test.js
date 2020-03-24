@@ -13,10 +13,7 @@ describe('global reducer', () => {
     expect(globalReducer(undefined, {})).toEqual({
       t: null,
       ctx: null,
-      scope: {
-        label: 'Week',
-        value: 'Week'
-      },
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
@@ -31,10 +28,7 @@ describe('global reducer', () => {
     ).toEqual({
       t: 'token',
       ctx: null,
-      scope: {
-        label: 'Week',
-        value: 'Week'
-      },
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
@@ -49,10 +43,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: 'ctx',
       t: null,
-      scope: {
-        label: 'Week',
-        value: 'Week'
-      },
+      scope: 'week',
       date: null,
       timeSpan: 0
     });
@@ -62,15 +53,12 @@ describe('global reducer', () => {
     expect(
       globalReducer(undefined, {
         type: SET_SCOPE,
-        payload: { value: 'test', label: 'test' }
+        payload: 'month'
       })
     ).toEqual({
       ctx: null,
       t: null,
-      scope: {
-        label: 'test',
-        value: 'test'
-      },
+      scope: 'month',
       date: null,
       timeSpan: 0
     });
@@ -85,10 +73,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: null,
       t: null,
-      scope: {
-        label: 'Week',
-        value: 'Week'
-      },
+      scope: 'week',
       date: { date: 'date' },
       timeSpan: 0
     });
@@ -102,10 +87,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: null,
       t: null,
-      scope: {
-        label: 'Week',
-        value: 'Week'
-      },
+      scope: 'week',
       date: null,
       timeSpan: 5
     });
@@ -114,15 +96,12 @@ describe('global reducer', () => {
     expect(
       globalReducer(undefined, {
         type: CHANGE_SCOPE,
-        payload: { value: 'test', label: 'test' }
+        payload: 'week'
       })
     ).toEqual({
       ctx: null,
       t: null,
-      scope: {
-        label: 'test',
-        value: 'test'
-      },
+      scope: 'week',
       date: null,
       timeSpan: 0
     });

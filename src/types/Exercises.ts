@@ -1,11 +1,11 @@
 export interface Queued {
-  exercise: {
+  exercise?: {
     name: string;
     weight: number;
     sets: number;
     reps: number;
   };
-  i: number;
+  i?: number;
 }
 
 export interface Exercise {

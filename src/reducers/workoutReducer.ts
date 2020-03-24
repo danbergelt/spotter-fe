@@ -14,13 +14,14 @@ import {
   RESET_QUEUE,
   FROM_SAVED
 } from '../actions/workoutActions';
-import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
-import { find, isMatch, isEqual, omit, pick, keys } from 'lodash';
+import { CLOSE_WORKOUT_MODAL, OPEN_MODAL } from '../actions/globalActions';
+import { find, isMatch, isEqual, omit, pick, keys, remove } from 'lodash';
 import { WorkoutReducer } from 'src/types/State';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 import { Template } from 'src/types/Template';
 import { SavedExercise } from 'src/types/Workout';
 import { AnyAction } from 'redux';
+import produce from 'immer';
 
 const workoutState: WorkoutReducer = {
   title: '',
@@ -60,8 +61,7 @@ const testForUpdates: TestForUpdates = (tags, payload) =>
   });
 
 // Populate exercises on a workout from a saved template
-type ExercisesFromTemplate = (payload: Template) => Array<SavedExercise>;
-const exercisesFromTemplate: ExercisesFromTemplate = payload => {
+const exercisesFromTemplate = (payload: Template): Array<SavedExercise> => {
   const exercises = {
     name: null,
     sets: null,
@@ -73,114 +73,100 @@ const exercisesFromTemplate: ExercisesFromTemplate = payload => {
   ) as Array<SavedExercise>;
 };
 
-// contains active workout details to be shared globally
-
 export const workoutReducer = (
   state = workoutState,
   action: AnyAction
 ): WorkoutReducer => {
-  switch (action.type) {
-    case ADD_WORKOUT_TITLE:
-      return {
-        ...state,
-        title: action.payload
-      };
-    case ADD_WORKOUT_NOTES:
-      return {
-        ...state,
-        notes: action.payload
-      };
-    case RESET_WORKOUT:
-      return {
-        ...state,
-        title: '',
-        notes: '',
-        exercises: [],
-        tags: []
-      };
-    case RESET_NOTES:
-      return {
-        ...state,
-        notes: ''
-      };
-    case ADD_EXERCISE:
-      return {
-        ...state,
-        exercises: [...state.exercises, action.payload]
-      };
-    case TOGGLE_TAG:
-      return {
-        ...state,
-        tags: testForMatches(state.tags, action.payload)
-          ? state.tags.filter(el => el._id !== action.payload._id)
-          : [...state.tags, action.payload]
-      };
-    case DELETE_TAG:
-      return {
-        ...state,
-        tags: state.tags.filter(el => el._id !== action.payload._id)
-      };
-    case UPDATE_TAG:
-      return {
-        ...state,
-        tags: testForUpdates(state.tags, action.payload)
-          ? state.tags.map(t =>
-              isEqual(t, testForUpdates(state.tags, action.payload))
-                ? action.payload
-                : t
-            )
-          : [...state.tags]
-      };
-    case FROM_TEMPLATE:
-      return {
-        ...state,
-        title: action.payload.title,
-        exercises: exercisesFromTemplate(action.payload),
-        notes: action.payload.notes,
-        tags: action.payload.tags
-      };
-    case DEL_EXERCISE:
-      return {
-        ...state,
-        exercises: state.exercises.filter((_, i) => i !== action.payload)
-      };
-    case QUEUE_EDIT:
-      return {
-        ...state,
-        queue: action.payload
-      };
-    case HANDLE_EDIT:
-      return {
-        ...state,
-        queue: {},
-        exercises: state.exercises.map((exercise, i) =>
-          i === action.payload.i ? action.payload.exercise : exercise
-        )
-      };
-    case RESET_QUEUE:
-      return {
-        ...state,
-        queue: {}
-      };
-    case FROM_SAVED:
-      return {
-        ...state,
-        _id: action.payload._id,
-        exercises: action.payload.exercises,
-        notes: action.payload.notes,
-        tags: action.payload.tags,
-        title: action.payload.title
-      };
-    case CLOSE_WORKOUT_MODAL:
-      return {
-        ...state,
-        queue: {},
-        title: '',
-        notes: '',
-        exercises: [],
-        tags: []
-      };
-    default:
-      return state;
-  }
+  return produce(state, draft => {
+    switch (action.type) {
+      case OPEN_MODAL:
+        if (action.payload.workout) {
+          draft._id = action.payload.workout._id;
+          draft.exercises = action.payload.workout.exercises;
+          draft.notes = action.payload.workout.notes;
+          draft.tags = action.payload.workout.tags;
+          draft.title = action.payload.workout.title;
+        }
+        return;
+      case ADD_WORKOUT_TITLE:
+        draft.title = action.payload;
+        return;
+      case ADD_WORKOUT_NOTES:
+        draft.notes = action.payload;
+        return;
+      case RESET_WORKOUT:
+        draft.title = '';
+        draft.notes = '';
+        draft.exercises = [];
+        draft.tags = [];
+        return;
+      case RESET_NOTES:
+        draft.notes = '';
+        return;
+      case ADD_EXERCISE:
+        draft.exercises.push(action.payload);
+        return;
+      case TOGGLE_TAG:
+        // if workout contains tag, then toggle it off. if not, toggle it on
+        testForMatches(draft.tags, action.payload)
+          ? remove(draft.tags, tag => tag._id === action.payload._id)
+          : draft.tags.push(action.payload);
+        return;
+      case DELETE_TAG:
+        remove(draft.tags, tag => tag._id === action.payload._id);
+        return;
+      case UPDATE_TAG:
+        // checks if updated tag is on current workout
+        testForUpdates(draft.tags, action.payload) &&
+          // loop through stale state, finds tag by id
+          state.tags.forEach((tag, i) => {
+            // if the current tag is the stale tag, overwrite at that index in draft
+            if (isEqual(tag, testForUpdates(state.tags, action.payload))) {
+              draft.tags[i] = action.payload;
+            }
+          });
+        return;
+      case FROM_TEMPLATE:
+        draft.title = action.payload.title;
+        // pick relevant keys, populate exercise state
+        draft.exercises = exercisesFromTemplate(action.payload);
+        draft.notes = action.payload.notes;
+        draft.tags = action.payload.tags;
+        return;
+      case DEL_EXERCISE:
+        draft.queue = {};
+        remove(draft.exercises, (_, index) => index === action.payload);
+        return;
+      case QUEUE_EDIT:
+        draft.queue = action.payload;
+        return;
+      case HANDLE_EDIT:
+        draft.queue = {};
+        draft.exercises.forEach((_, index) => {
+          if (index === action.payload.i) {
+            draft.exercises[index] = action.payload.exercise;
+          }
+        });
+        return;
+      case RESET_QUEUE:
+        draft.queue = {};
+        return;
+      case FROM_SAVED:
+        draft._id = action.payload._id;
+        draft.exercises = action.payload.exercises;
+        draft.notes = action.payload.notes;
+        draft.tags = action.payload.tags;
+        draft.title = action.payload.title;
+        return;
+      case CLOSE_WORKOUT_MODAL:
+        draft.queue = {};
+        draft.title = '';
+        draft.notes = '';
+        draft.exercises = [];
+        draft.tags = [];
+        return;
+      default:
+        return draft;
+    }
+  });
 };

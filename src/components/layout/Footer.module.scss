@@ -1,0 +1,18 @@
+.footer {
+  margin-top: auto;
+  padding-bottom: 2rem;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.home {
+  @extend .footer;
+  background: #f6f8f9;
+}
+
+.site {
+  @extend .footer;
+  background: white;
+}

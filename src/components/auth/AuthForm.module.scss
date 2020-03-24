@@ -1,0 +1,49 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Nanum Gothic';
+  margin-top: 2rem;
+
+  .logoContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .formContainer {
+    position: relative;
+    bottom: 40px;
+
+    .title {
+      font-size: 4.5rem;
+      margin-bottom: 2rem;
+      color: $gray1;
+      text-align: center;
+
+      @include medium {
+        font-size: 3rem;
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+
+      @include medium {
+        width: 350px;
+      }
+
+      @include small {
+        width: 300px;
+      }
+
+      .btn {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

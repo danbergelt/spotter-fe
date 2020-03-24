@@ -5,12 +5,12 @@
   width: 80rem;
   margin: 5rem auto;
 
-  @include medium {
+  @include large {
     width: 50rem;
   }
 
   @include small {
-    width: 30rem;
+    width: 32rem;
   }
 
   .pr-section {

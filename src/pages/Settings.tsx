@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import ChangePassword from '../components/settings/changepassword/ChangePassword';
-import ChangeEmail from '../components/settings/changeemail/ChangeEmail';
-import { useSelector } from 'react-redux';
-import { fetchToken } from 'src/types/State';
-import ExportWorkouts from 'src/components/settings/exports/ExportWorkouts';
-import CloseAccount from 'src/components/settings/closeaccount/CloseAccount';
+import ChangePassword from '../components/settings/ChangePassword';
+import ChangeEmail from '../components/settings/ChangeEmail';
+import ExportWorkouts from 'src/components/settings/ExportWorkouts';
+import CloseAccount from 'src/components/settings/CloseAccount';
 import { Helmet } from 'react-helmet-async';
+import useToken from '../hooks/useToken';
+import styles from './Settings.module.scss';
 
 const Settings: React.FC = () => {
   const [changePassword, setChangePassword] = useState<boolean>(false);
   const [changeEmail, setChangeEmail] = useState<boolean>(false);
 
-  const t: string | null = useSelector(fetchToken);
+  const t: string | null = useToken();
 
   return (
     // account settings
@@ -20,45 +20,29 @@ const Settings: React.FC = () => {
       <Helmet>
         <title>Settings | Spotter</title>
       </Helmet>
-      <div className='settings-container spacer'>
-        <section className='settings-section'>
-          <p className='settings-head'>Account Settings</p>
+      <div className={styles.spacer}>
+        <section className={styles.section}>
+          <p className={styles.head}>Account Settings</p>
           <ChangePassword
             changePassword={changePassword}
             setChangePassword={setChangePassword}
-          >
-            <div
-              role='button'
-              onClick={(): void => setChangePassword(true)}
-              className='settings-action'
-            >
-              Change password...
-            </div>
-          </ChangePassword>
+          />
           <ChangeEmail
             changeEmail={changeEmail}
             setChangeEmail={setChangeEmail}
-          >
-            <div
-              role='button'
-              onClick={(): void => setChangeEmail(true)}
-              className='settings-action'
-            >
-              Change email...
-            </div>
-          </ChangeEmail>
+          />
         </section>
 
         {/* export workout data as a CSV file */}
-        <section className='settings-section'>
-          <div className='settings-head'>Exports</div>
+        <section className={styles.section}>
+          <div className={styles.head}>Exports</div>
           <ExportWorkouts t={t} />
         </section>
 
         {/* delete account permanently
       will wipe all account-related details and send user to signup */}
-        <section className='settings-section'>
-          <p className='settings-head'>Close Account</p>
+        <section className={styles.section}>
+          <p className={styles.head}>Close Account</p>
           <CloseAccount />
         </section>
       </div>

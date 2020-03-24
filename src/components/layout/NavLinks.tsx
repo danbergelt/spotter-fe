@@ -1,32 +1,61 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchToken } from '../../types/State';
+import { useDispatch } from 'react-redux';
 import { logOutAction } from '../../actions/globalActions';
+import useApi from '../../hooks/useApi';
+import useToken from '../../hooks/useToken';
+import { logoutQuery } from 'src/utils/queries';
+import styles from './NavLinks.module.scss';
+import { useWindowSize } from 'react-use';
+
+/*== NavLinks =====================================================
+
+Nav bar links. Includes:
+  log in (unauth)
+  sign up (unauth)
+  settings (auth)
+  sign out (auth)
+
+Props:
+  setIsOpen: React setStateAction
+    the state setter for the burger dropdown. whenever a link is clicked, 
+    close burger automatically
+
+*/
 
 interface Props {
   setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-  isOpen?: boolean;
 }
 
-const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
-  const token: string | null = useSelector(fetchToken);
+const NavLinks: React.FC<Props> = ({ setIsOpen }) => {
+  // auth token
+  const token = useToken();
+  // used to style links depending on window size
+  const { width } = useWindowSize();
+  // store dispatcher
   const dispatch = useDispatch();
+  // api utils
+  const [, call] = useApi();
 
-  const logOut: () => void = () => {
-    // clears refresh token and access token
+  // if the menu is open, close it
+  const closeMenu = (): void => setIsOpen && setIsOpen(false);
+
+  // on logout close the menu, dispatch a log out action (wipes global),
+  // and send a logout query to server
+  const logOutUser = async (): Promise<void> => {
+    closeMenu();
     dispatch(logOutAction());
-    if (setIsOpen) setIsOpen(!isOpen);
+    await call(logoutQuery);
   };
 
   return (
-    <nav className='spotter-nav-links'>
+    <nav className={styles.links}>
       {token && (
         <Link
           data-testid='settings'
-          className='spotter-nav-link'
+          className={styles.link}
           to='/settings'
-          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
+          onClick={closeMenu}
         >
           Settings
         </Link>
@@ -34,8 +63,8 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       {token && (
         <Link
           data-testid='logout'
-          onClick={logOut}
-          className='spotter-nav-link styled'
+          onClick={logOutUser}
+          className={width <= 500 ? styles.link : styles.btn}
           to='/login'
         >
           Log Out{' '}
@@ -44,9 +73,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       {!token && (
         <Link
           data-testid='login'
-          className='spotter-nav-link dashboard'
+          className={styles.link}
           to='/login'
-          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
+          onClick={closeMenu}
         >
           Log In
         </Link>
@@ -54,9 +83,9 @@ const NavLinks: React.FC<Props> = ({ setIsOpen, isOpen }) => {
       {!token && (
         <Link
           data-testid='signup'
-          className='spotter-nav-link styled'
+          className={width <= 500 ? styles.link : styles.btn}
           to='/signup'
-          onClick={(): void => setIsOpen && setIsOpen(!isOpen)}
+          onClick={closeMenu}
         >
           Sign Up
         </Link>

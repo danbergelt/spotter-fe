@@ -1,5 +1,6 @@
 import * as Moment from 'moment';
 import { extendMoment, MomentRange, DateRange } from 'moment-range';
+import { Scope } from 'src/types/Types';
 
 const moment: MomentRange = extendMoment(Moment);
 
@@ -36,11 +37,17 @@ export const generateWeek: Params = num => {
 };
 
 // Used to set header of dashboard
+export const setHead = (num: number, scope: Scope): string => {
+  if (scope === 'week') {
+    return m()
+      .add(num, 'weeks')
+      .startOf('week')
+      .format('MMMM YYYY');
+  }
 
-export const dashHead = (num: number): string => {
   return m()
-    .add(num, 'weeks')
-    .startOf('week')
+    .add(num, 'months')
+    .startOf('month')
     .format('MMMM YYYY');
 };
 
@@ -68,13 +75,4 @@ export const generateMonth = (num: number): Moment.Moment[] => {
   }
 
   return days;
-};
-
-// Used to set header of monthly dashboard view
-
-export const monthDashHead = (num: number): string => {
-  return m()
-    .add(num, 'months')
-    .startOf('month')
-    .format('MMMM YYYY');
 };

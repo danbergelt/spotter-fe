@@ -16,17 +16,3 @@ $hover-scale: scale(1.1);
 $border: 4px;
 $calendar-border: 1px solid $gray4;
 $subtle: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-
-:export {
-  primary: $primary;
-  danger: $danger;
-  success: $success;
-  info: $info;
-  warning: $warning;
-  info2: #07ebf7;
-  warning2: #ffd800;
-  success2: #0ddd83;
-  gray1: $gray1;
-  gray2: $gray2;
-  gray3: $gray3;
-}

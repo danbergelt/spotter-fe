@@ -3,12 +3,12 @@ import { Exercise as E } from './ExerciseOption';
 import { TagOnWorkout as Tag } from './TagOnWorkout';
 import { Workout } from './Workout';
 import { Moment } from 'moment';
-import { Template } from './Template';
+import { Scope } from './Types';
 
 export interface GlobalReducer {
   t: null | string;
   ctx: null | string;
-  scope: { value: string; label: string };
+  scope: Scope;
   date: null | Moment;
   timeSpan: number;
 }
@@ -18,36 +18,25 @@ export interface WorkoutReducer {
   notes: string;
   exercises: Array<Exercise>;
   tags: Array<Tag>;
-  queue: Partial<Queued>;
+  queue: Queued;
   _id: null | string;
 }
 
 export interface TagsReducer {
-  isLoading: boolean;
-  err: string | null;
   tags: Array<Tag>;
 }
 
 export interface OptionsReducer {
   active: number;
   tagModal: boolean;
-  templateSave: boolean;
-  fromTemplate: boolean;
-  confirmDelete: boolean;
-  exercises: boolean;
-  templates: Array<Template>;
-  templatesErr: string;
   saveMsg: object;
 }
 
 export interface FetchWorkoutsReducer {
-  err: string | null;
-  isLoading: boolean;
   workouts: Array<Workout>;
 }
 
 export interface FetchExercisesReducer {
-  err: string | null;
   savedExercises: Array<E>;
 }
 
@@ -59,6 +48,3 @@ export interface State {
   optionsReducer: OptionsReducer;
   tagsReducer: TagsReducer;
 }
-
-export const fetchToken = (state: State): string | null =>
-  state.globalReducer.t;

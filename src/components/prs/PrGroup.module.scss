@@ -1,0 +1,60 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  font-size: 1.9rem;
+  color: $gray1;
+
+  @include large {
+    font-size: 1.5rem;
+  }
+
+  .head {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid $gray4;
+    margin-top: 4rem;
+
+    .prSpacer {
+      width: auto;
+      cursor: pointer;
+
+      .title {
+        margin-left: 1rem;
+      }
+    }
+
+    .info {
+      color: $gray2;
+      cursor: pointer;
+    }
+
+    .tip {
+      width: 'max-content';
+
+      @include medium {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .open {
+    border: none;
+  }
+
+  .box {
+    border: 1px solid $gray4;
+    border-radius: 4px;
+    padding: 1rem;
+    box-shadow: $box;
+  }
+
+  .empty {
+    text-align: center;
+    font-size: 1.5rem;
+    color: $gray1;
+
+    @include large {
+      font-size: 1.3rem;
+    }
+  }
+}

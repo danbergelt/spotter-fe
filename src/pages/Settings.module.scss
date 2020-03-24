@@ -1,0 +1,17 @@
+@import '../styles/mixins.scss';
+@import '../styles/variables.scss';
+
+.spacer {
+  @include spacer;
+
+  .section {
+    margin: 5rem auto;
+
+    .head {
+      border-bottom: 1px solid $gray4;
+      padding-bottom: 1rem;
+      color: $gray1;
+      font-size: $p;
+    }
+  }
+}

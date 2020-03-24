@@ -1,0 +1,77 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+
+.container {
+  margin: 0;
+  padding: 20rem;
+  text-align: center;
+  @include flex-center;
+  background-image: linear-gradient(0deg, #f6f8f9 3%, #fff);
+
+  @include large {
+    padding: 20rem 2.5rem;
+  }
+
+  @include medium {
+    padding-bottom: 27.5rem;
+  }
+
+  @include small {
+    padding-bottom: 25rem;
+  }
+
+  .title {
+    line-height: 1.25;
+    font-size: 5rem;
+    color: $gray1;
+    font-family: 'Nanum Gothic';
+
+    @include medium {
+      font-size: 3.5rem;
+    }
+
+    .alt {
+      color: $primary;
+    }
+  }
+
+  .sub {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+
+    @include medium {
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    .text {
+      line-height: 1.5;
+      font-size: 2rem;
+      color: darken($gray2, 10%);
+      font-family: 'Nanum Gothic';
+
+      @include medium {
+        font-size: $p;
+      }
+
+      .subAlt {
+        color: $primary;
+      }
+    }
+  }
+
+  .btn {
+    @include btn;
+    @include move;
+    font-size: 2rem;
+    margin-top: 2rem;
+    text-decoration: none;
+
+    @include medium {
+      font-size: $p;
+      margin-top: 1rem;
+    }
+  }
+}

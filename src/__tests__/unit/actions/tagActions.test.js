@@ -1,73 +1,91 @@
 import {
-  fetchTags,
-  FETCH_TAGS_START,
-  FETCH_TAGS_SUCCESS,
-  FETCH_TAGS_ERROR,
+  ADD_TAGS,
+  CREATE_TAG,
+  fetchTagsAction,
+  createTagAction,
   setActiveTabAction,
+  deleteTagAction,
+  editTagAction,
   closeTagModalAction,
   openTagModalAction
 } from '../../../actions/tagsActions';
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import axios from 'axios';
-import mockTagRes from '../../../__testUtils__/mockTagRes';
-import { createMemoryHistory } from 'history';
 import {
   SET_ACTIVE,
   CLOSE_TAG_MODAL,
   OPEN_TAG_MODAL
 } from 'src/actions/optionsActions';
+import { UPDATE_TAG, DELETE_TAG } from 'src/actions/workoutActions';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore();
 
 describe('tag actions', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('can fetch tags', async () => {
-    axios.get.mockResolvedValue(mockTagRes);
-
-    const expectedActions = [
-      { type: FETCH_TAGS_START },
-      { type: FETCH_TAGS_SUCCESS, payload: mockTagRes.data.tags }
-    ];
+  test('can delete tag', () => {
+    const expectedActions = [{ type: DELETE_TAG, payload: { foo: 'bar' } }];
 
     const store = mockStore({ tags: {} });
 
-    const history = createMemoryHistory();
-
-    await store.dispatch(fetchTags(history, 'token'));
+    store.dispatch(deleteTagAction({ foo: 'bar' }));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test('proper rejection', async () => {
-    const history = createMemoryHistory();
+  test('can edit tag', () => {
+    const expectedActions = [{ type: UPDATE_TAG, payload: 'foo' }];
 
-    const err = {
-      response: {
-        data: {
-          error: 'TEST Error'
-        }
-      }
-    };
+    const store = mockStore({ tags: {} });
 
-    axios.get.mockRejectedValue(err);
-
-    const expectedActions = [
-      { type: FETCH_TAGS_START },
-      { type: FETCH_TAGS_ERROR, payload: err.response.data.error }
-    ];
-
-    const store = mockStore({ err: null });
-
-    await store.dispatch(fetchTags(history, 'token'));
+    store.dispatch(editTagAction('foo'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  test('delete tag', () => {
+  test('can add fetched tags', () => {
+    const expectedActions = [{ type: ADD_TAGS, payload: [{ foo: 'bar' }] }];
+
+    const store = mockStore({ tags: {} });
+
+    store.dispatch(fetchTagsAction([{ foo: 'bar' }]));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test('can create a tag', () => {
+    const expectedActions = [{ type: CREATE_TAG, payload: { foo: 'bar' } }];
+
+    const store = mockStore({ tags: {} });
+
+    store.dispatch(createTagAction({ foo: 'bar' }));
+
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  // test('proper rejection', async () => {
+  //   const history = createMemoryHistory();
+
+  //   const err = {
+  //     response: {
+  //       data: {
+  //         error: 'TEST Error'
+  //       }
+  //     }
+  //   };
+
+  //   axios.get.mockRejectedValue(err);
+
+  //   const expectedActions = [
+  //     { type: FETCH_TAGS_START },
+  //     { type: FETCH_TAGS_ERROR, payload: err.response.data.error }
+  //   ];
+
+  //   const store = mockStore({ err: null });
+
+  //   await store.dispatch(fetchTags(history, 'token'));
+
+  //   expect(store.getActions()).toEqual(expectedActions);
+  // });
+
+  test('set active tab', () => {
     const expectedActions = [{ type: SET_ACTIVE, payload: 1 }];
 
     const store = mockStore();

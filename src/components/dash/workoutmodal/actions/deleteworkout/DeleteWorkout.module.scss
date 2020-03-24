@@ -1,0 +1,37 @@
+@import '../../../../../styles/mixins.scss';
+@import '../../../../../styles/variables.scss';
+
+.delete {
+  @include option;
+  background: $danger;
+  color: white;
+
+  &:hover {
+    background: darken($danger, 5%);
+  }
+}
+
+.confirm {
+  width: 250px;
+  padding: 1rem;
+
+  .text {
+    font-size: 1.3rem;
+    margin: 1rem 0;
+  }
+
+  .button {
+    background: $danger;
+    width: 100%;
+    padding: 1rem;
+
+    &:hover {
+      background: darken($danger, 5%);
+    }
+  }
+
+  .err {
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+}

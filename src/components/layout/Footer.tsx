@@ -1,18 +1,24 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import styles from './Footer.module.scss';
+import Flex from '../lib/Flex';
+
+/*== Footer =====================================================
+
+Basic copyright statement, not much to see here. When spotter scales
+up there might be room here to expand. For now, keeping this minimal
+to not distract from the rest of the site
+
+*/
 
 const Footer: React.FC = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
-    <nav
-      style={{ background: location.pathname === '/' ? '#f6f8f9' : 'white' }}
-      className='spotter-footer'
-    >
-      <p className='spotter-footer-link'>
-        Spotter © 2020. All Rights Reserved.
-      </p>
-    </nav>
+    // if user is home, display a different background (since bottom of homepage is gray, not white)
+    <Flex justify='center' css={pathname === '/' ? styles.home : styles.site}>
+      <p>Spotter © 2020. All Rights Reserved.</p>
+    </Flex>
   );
 };
 

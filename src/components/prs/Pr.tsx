@@ -1,53 +1,67 @@
 import React from 'react';
 import { FaCircle } from 'react-icons/fa';
-import * as Moment from 'moment';
-import { extendMoment } from 'moment-range';
+import moment from 'moment';
 import { Exercise } from 'src/types/ExerciseOption';
-const moment = extendMoment(Moment);
+import Flex from '../lib/Flex';
+import styles from './Pr.module.scss';
 
-// Hacky fix to resolve error with default imports from moment and typescript
-// eslint-disable-next-line
-let m = require('moment');
-if ('default' in m) {
-  m = moment['default'];
-}
+/*== PR Data =====================================================
+
+This component renders PR data inside of each PR section. PR data
+includes exercise name, a color-coded SVG that corresponds to date
+set/parent section, PR date and PR weight.
+
+This data is mapped by the parent (last month, last year,
+all time) into each appropriate location. 
+
+The data is color-coded according to date the PR was set. A recent
+PR (set in the last month) is green, a moderately recent PR (set in
+the last year) is blue, and an old PR (older than a year) is red.
+
+Props:
+  exercise: Exercise
+    the saved exercise that contains PR data
+  i: number
+    the index, used to manipulate styles
+
+*/
 
 interface Props {
-  pr: Exercise;
+  exercise: Exercise;
+  i: number;
 }
 
-const Pr: React.FC<Props> = ({ pr }) => {
-  const setClassName = (pr: Exercise): string | undefined => {
-    // difference between the date on the pr and the current date
-    const diff: number = m().diff(m(pr.prDate, 'MMM DD YYYY'), 'days');
-
+const Pr: React.FC<Props> = ({ exercise, i }) => {
+  // set the PR's classname according to the date the PR was set
+  const setClassName = (): string => {
+    // calc diff between current date and pr date
+    const diff: number = moment().diff(
+      moment(exercise.prDate, 'MMM DD YYYY'),
+      'days'
+    );
+    // color code circles according to date
     if (diff <= 31) {
-      return 'pr-circle lastMonth';
+      return `${styles.circle} ${styles.month}`;
     } else if (31 < diff && diff <= 365) {
-      return 'pr-circle lastYear';
-    } else if (diff > 365) {
-      return 'pr-circle allTime';
+      return `${styles.circle} ${styles.year}`;
     } else {
-      return undefined;
+      return `${styles.circle} ${styles.allTime}`;
     }
   };
 
   return (
-    <article className='pr'>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div
-          // color-coding circle to indicate if a PR is recent or old
-          className={setClassName(pr)}
-        >
+    <Flex justify='space-between' css={i > 0 ? styles.top : undefined}>
+      <Flex align='center'>
+        <div className={setClassName()}>
           <FaCircle />
         </div>
-        <p>{pr.name}</p>
-      </div>
-      <div style={{ display: 'flex' }}>
-        <p className='pr-date'>{pr.prDate}</p>
-        <p style={{ fontWeight: 'bold' }}>{pr.pr}lbs</p>
-      </div>
-    </article>
+        <p className={styles.font}>{exercise.name}</p>
+      </Flex>
+      <Flex>
+        <p className={styles.date}>{exercise.prDate}</p>
+        <p className={styles.weight}>{exercise.pr}lbs</p>
+      </Flex>
+    </Flex>
   );
 };
 

@@ -1,8 +1,102 @@
 @import './variables.scss';
 
+@mixin option {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  background: $gray4;
+  color: $gray1;
+  padding: 1.25rem;
+  border-radius: $border;
+  font-family: 'Roboto';
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  @include hover;
+
+  @include medium {
+    width: 100%;
+  }
+
+  &:hover {
+    background: darken($gray4, 2.5%);
+  }
+
+  .icon {
+    margin-right: 0.75rem;
+  }
+}
+
+@mixin resetBtn {
+  outline: 0;
+  border: 0;
+  background: transparent;
+}
+
+@mixin icon {
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+@mixin settingsAction {
+  margin-top: 0.5rem;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  color: $gray1;
+  cursor: pointer;
+  text-decoration: underline;
+  border-radius: 4px;
+  @include hover;
+
+  &:hover {
+    background: $gray3;
+  }
+}
+
+@mixin btn {
+  outline: 0;
+  border: 0;
+  margin-top: 1rem;
+  font-family: 'Roboto';
+  text-align: center;
+  color: white;
+  background: $primary;
+  padding: 1.5rem 3.5rem;
+  font-size: 1.3rem;
+  border-radius: 4px;
+  box-shadow: $subtle;
+  @include hover;
+  cursor: pointer;
+}
+
+@mixin move {
+  transition: transform 150ms, box-shadow 150ms;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
 @mixin flex-center {
   display: flex;
   align-items: center;
+}
+
+@mixin spacer {
+  margin: 0rem 10rem;
+
+  @include xLarge {
+    margin: 0rem 7.5rem;
+  }
+
+  @include large {
+    margin: 0rem 5rem;
+  }
+
+  @include medium {
+    margin: 0rem 2.5rem;
+  }
 }
 
 @mixin modalContainer {

@@ -1,14 +1,14 @@
 import {
-  FETCH_EXERCISES_ERROR,
-  FETCH_EXERCISES_SUCCESS,
+  FETCH_EXERCISES,
   CREATE_EXERCISE,
   DELETE_SAVED_EXERCISE
 } from '../actions/fetchExercisesActions';
 import { FetchExercisesReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
+import produce from 'immer';
+import { remove } from 'lodash';
 
 const fetchExercisesState: FetchExercisesReducer = {
-  err: null,
   savedExercises: []
 };
 
@@ -18,31 +18,20 @@ export const fetchExercisesReducer = (
   state = fetchExercisesState,
   action: AnyAction
 ): FetchExercisesReducer => {
-  switch (action.type) {
-    case FETCH_EXERCISES_SUCCESS:
-      return {
-        ...state,
-        err: null,
-        savedExercises: action.payload
-      };
-    case FETCH_EXERCISES_ERROR:
-      return {
-        ...state,
-        err: action.payload
-      };
-    case CREATE_EXERCISE:
-      return {
-        ...state,
-        savedExercises: [...state.savedExercises, action.payload]
-      };
-    case DELETE_SAVED_EXERCISE:
-      return {
-        ...state,
-        savedExercises: state.savedExercises.filter(
-          el => el._id !== action.payload
-        )
-      };
-    default:
-      return state;
-  }
+  // using immer --> create a deep clone of state, perform mutable operations on that clone
+  return produce(state, draft => {
+    switch (action.type) {
+      case FETCH_EXERCISES:
+        draft.savedExercises = action.payload;
+        return;
+      case CREATE_EXERCISE:
+        draft.savedExercises.push(action.payload);
+        return;
+      case DELETE_SAVED_EXERCISE:
+        remove(draft.savedExercises, el => el._id === action.payload);
+        return;
+      default:
+        return draft;
+    }
+  });
 };

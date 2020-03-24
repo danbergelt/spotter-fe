@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+.container {
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  color: $gray2;
+  line-height: 1.5;
+
+  #danger {
+    color: $danger;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+
+  .desc {
+    margin-bottom: 2rem;
+  }
+
+  .question {
+    margin-bottom: 2rem;
+  }
+
+  .confirm {
+    margin-left: 0.75rem;
+  }
+
+  .res {
+    padding: 1rem;
+    margin-top: 2rem;
+    width: 275px;
+  }
+
+  .btn {
+    margin-top: 2rem;
+  }
+
+  .btnDisabled {
+    @extend .btn;
+    cursor: not-allowed;
+    background: rgba(237, 61, 52, 0.7);
+  }
+}

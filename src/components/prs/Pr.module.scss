@@ -1,0 +1,42 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.circle {
+  margin-right: 1rem;
+  font-size: 0.8rem;
+}
+
+.month {
+  color: $success;
+}
+
+.year {
+  color: $info;
+}
+
+.allTime {
+  color: $danger;
+}
+
+.font {
+  font-size: 1.5rem;
+
+  @include medium {
+    font-size: 1.3rem;
+  }
+}
+
+.date {
+  @extend .font;
+  color: $gray2;
+  margin-right: 2rem;
+}
+
+.weight {
+  @extend .font;
+  font-weight: bold;
+}
+
+.top {
+  margin-top: 2rem;
+}

@@ -1,0 +1,92 @@
+@import '../../../styles/mixins.scss';
+@import '../../../styles/variables.scss';
+
+.head {
+  font-size: 1.75rem;
+  color: $gray1;
+  margin-top: 3rem;
+
+  @include small {
+    font-size: 1.5rem;
+  }
+
+  .icon {
+    font-size: $icon;
+  }
+
+  .title {
+    padding: 1.25rem;
+  }
+
+  .edit {
+    font-size: 1.3rem;
+    border-radius: $border;
+    background: $gray4;
+    padding: 0.75rem;
+    font-weight: normal;
+    cursor: pointer;
+    @include hover;
+
+    @include small {
+      font-size: 1.2rem;
+    }
+
+    &:hover {
+      background: darken($gray4, 2.5%);
+    }
+  }
+}
+
+.textarea {
+  resize: none;
+  min-height: 40px;
+  width: 90%;
+  border: 0;
+  background: $gray3;
+  margin-left: 3rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  font-size: 1.3rem;
+  border-radius: $border;
+  -webkit-appearance: none;
+
+  @include small {
+    font-size: 1.2rem;
+    width: 85%;
+  }
+
+  &:focus {
+    padding: 1rem;
+    outline: 0;
+    box-shadow: 0 0 0 2px $primary;
+    background: white;
+    min-height: 75px;
+  }
+}
+
+.textarea::-webkit-input-placeholder {
+  color: $gray1;
+}
+
+.off {
+  display: none;
+}
+
+.on {
+  display: flex;
+  font-size: 1.75rem;
+  margin-left: 3rem;
+  margin-top: 2rem;
+
+  .save {
+    font-size: 1.8rem;
+    color: $info;
+    cursor: pointer;
+    margin-right: 1.5rem;
+  }
+
+  .trash {
+    color: $danger;
+    cursor: pointer;
+  }
+}

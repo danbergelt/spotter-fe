@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700&display=swap');
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.container {
+  padding: 20rem 0rem;
+  background: #f6f8f9;
+
+  @include large {
+    padding: 15rem 2.5rem;
+  }
+
+  @include small {
+    padding: 10rem 2.5rem;
+  }
+
+  .image {
+    width: 500px;
+    height: auto;
+    margin-right: 15rem;
+    box-shadow: 0 20px 30px 0 rgba(36, 50, 66, 0.14);
+
+    @include large {
+      width: 400px;
+      height: auto;
+      margin-right: 10rem;
+    }
+
+    @include medium {
+      margin-right: 0;
+    }
+
+    @include small {
+      width: 320px;
+    }
+  }
+
+  .content {
+    width: 30%;
+    font-family: 'Nanum Gothic';
+
+    @include medium {
+      width: 85%;
+      margin-bottom: 5rem;
+    }
+
+    .title {
+      font-size: 3rem;
+      color: $gray1;
+    }
+
+    .text {
+      font-size: 1.75rem;
+      color: $gray2;
+      margin-top: 2.5rem;
+      line-height: 1.5;
+
+      @include small {
+        font-size: $p;
+      }
+    }
+
+    .cta {
+      @include btn;
+      @include move;
+      width: max-content;
+      margin-top: 2.5rem;
+      font-size: 1.75rem;
+      text-decoration: none;
+
+      @include large {
+        font-size: $p;
+      }
+    }
+  }
+}

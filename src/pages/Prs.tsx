@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import * as Moment from 'moment';
 import { extendMoment, MomentRange } from 'moment-range';
-import PrSection from '../components/prs/PrSection';
-import { State, fetchToken } from 'src/types/State';
+import PrGroup from '../components/prs/PrGroup';
+import { State } from 'src/types/State';
 import { SortedPrs, SortedPrsRange } from '../types/Prs';
-import { fetchExercises } from 'src/actions/fetchExercisesActions';
+import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
 import { Helmet } from 'react-helmet-async';
 import { Exercise } from 'src/types/ExerciseOption';
+import useToken from '../hooks/useToken';
+import useApi from 'src/hooks/useApi';
+import { fetchExercisesQuery } from 'src/utils/queries';
 const moment: MomentRange = extendMoment(Moment);
 
 // Hacky fix to resolve error with default imports from moment and typescript
@@ -18,7 +20,7 @@ if ('default' in m) {
   m = moment['default'];
 }
 
-const categories: Array<string> = ['Last Month', 'Last Year', 'All Time'];
+const CATEGORIES = ['Last Month', 'Last Year', 'All Time'];
 
 const Prs: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,18 +30,26 @@ const Prs: React.FC = () => {
     allTime: []
   });
   const [loading, setLoading] = useState<boolean>(true);
-
+  const [res, call] = useApi();
   const exercises: Array<Exercise> = useSelector(
     (state: State) => state.fetchExercisesReducer.savedExercises
   );
 
-  const t: string | null = useSelector(fetchToken);
-
-  const history = useHistory();
+  const t: string | null = useToken();
 
   useEffect(() => {
-    dispatch(fetchExercises(history, t));
-  }, [dispatch, t, history]);
+    if (res.data) {
+      dispatch(fetchExercisesAction(res.data.exercises));
+    }
+
+    if (res.error) {
+      // handle later
+    }
+  }, [res, dispatch]);
+
+  useEffect(() => {
+    call(fetchExercisesQuery, [t]);
+  }, [call, t]);
 
   // finds the difference between two moment dates
   const findDiff = (exercise: Exercise): number =>
@@ -48,20 +58,20 @@ const Prs: React.FC = () => {
   // set PRs to state organized by time period in which the PR was set
   useEffect(() => {
     // temporary variables for sorted prs
-    let lastMonth: SortedPrsRange = [];
-    let lastYear: SortedPrsRange = [];
-    let allTime: SortedPrsRange = [];
+    const lastMonth: SortedPrsRange = [];
+    const lastYear: SortedPrsRange = [];
+    const allTime: SortedPrsRange = [];
     // loop through prs, and partition by date
     if (exercises.length) {
       exercises.forEach(exercise => {
-        const diff = findDiff(exercise);
+        const timeSincePr = findDiff(exercise);
         if (exercise.pr && exercise.pr > 0 && exercise.prDate) {
-          if (diff <= 31) {
-            lastMonth = [...lastMonth, exercise];
-          } else if (diff <= 365) {
-            lastYear = [...lastYear, exercise];
+          if (timeSincePr <= 31) {
+            lastMonth.push(exercise);
+          } else if (timeSincePr <= 365) {
+            lastYear.push(exercise);
           } else {
-            allTime = [...allTime, exercise];
+            allTime.push(exercise);
           }
         }
       });
@@ -84,10 +94,10 @@ const Prs: React.FC = () => {
       <div className='prs-container spacer'>
         {!loading &&
           Object.keys(sortedPrs).map((key, i) => (
-            <PrSection
-              key={categories[i]}
+            <PrGroup
+              key={CATEGORIES[i]}
               prs={sortedPrs[key]}
-              title={categories[i]}
+              title={CATEGORIES[i]}
             />
           ))}
       </div>

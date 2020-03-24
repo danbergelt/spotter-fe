@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect /*Profiler*/ } from 'react';
 import Loader from 'react-loader-spinner';
 import axios from 'axios';
 import Routes from './routes';
@@ -6,7 +6,7 @@ import Popup from './components/contact/Popup';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ADD_TOKEN } from './actions/addTokenActions';
-import { api } from './utils/api';
+import endpoint from './utils/endpoint';
 
 // this component renders in front of routes, checks for token, and returns proper authenticated data
 // also requests refresh token on each refresh
@@ -18,7 +18,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get(`${api()}/api/auth/refresh`, {
+      .get(endpoint('refresh'), {
         withCredentials: true
       })
       .then(res => {
@@ -53,8 +53,14 @@ const App: React.FC = () => {
 
   return (
     <main className='app-container'>
+      {/* <Profiler
+        id='app'
+        // eslint-disable-next-line
+        onRender={(id, phase, duration): void => console.log(duration)}
+      > */}
       <Popup />
       <Routes />
+      {/* </Profiler> */}
     </main>
   );
 };

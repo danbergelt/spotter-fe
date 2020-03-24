@@ -1,0 +1,105 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+.container {
+  padding: 20rem 0rem;
+  font-family: 'Nanum Gothic';
+
+  @include large {
+    padding: 15rem 2.5rem;
+  }
+
+  @include small {
+    padding: 10rem 2.5rem;
+  }
+
+  .title {
+    font-size: 4rem;
+    color: $gray1;
+    width: 75%;
+    text-align: center;
+    margin-bottom: 7.5rem;
+    line-height: 1.25;
+
+    @include medium {
+      font-size: 3rem;
+      width: 85%;
+    }
+
+    @include small {
+      margin-bottom: 5rem;
+    }
+  }
+
+  .blocks {
+    margin: 0 7.5rem;
+    width: 75%;
+
+    @include xLarge {
+      width: 85%;
+    }
+
+    .block {
+      text-align: center;
+      width: 30rem;
+
+      @include xLarge {
+        width: 25rem;
+      }
+
+      @include large {
+        width: 20rem;
+      }
+
+      @include medium {
+        width: 90%;
+        margin-bottom: 4rem;
+      }
+
+      .icon {
+        font-size: 4rem;
+        margin-bottom: 3rem;
+
+        @include medium {
+          font-size: 3rem;
+        }
+      }
+
+      .track {
+        color: $info;
+      }
+
+      .bests {
+        color: $success;
+      }
+
+      .scale {
+        color: $warning;
+      }
+
+      .blockTitle {
+        font-size: 2.5rem;
+        color: $gray1;
+        margin-bottom: 2rem;
+
+        @include small {
+          font-size: 2rem;
+        }
+      }
+
+      .content {
+        color: $gray2;
+        font-size: 1.75rem;
+        line-height: 1.5;
+
+        @include small {
+          font-size: $p;
+        }
+
+        .highlight {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

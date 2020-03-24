@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as SignUpLogo } from '../assets/spotter_register.svg';
-import Form from '../components/auth/Form';
+import AuthForm from '../components/auth/AuthForm';
 import { useDispatch } from 'react-redux';
 import { addTokenAction } from 'src/actions/globalActions';
 import { Helmet } from 'react-helmet-async';
-import { api } from '../utils/api';
+import { signUpQuery } from 'src/utils/queries';
+import styles from './AuthPage.module.scss';
 
 const SignUp: React.FC = () => {
   const history = useHistory();
@@ -23,9 +24,9 @@ const SignUp: React.FC = () => {
       <Helmet>
         <title>Sign Up | Spotter</title>
       </Helmet>
-      <Form
+      <AuthForm
         history={history}
-        api={`${api()}/api/auth/register`}
+        api={signUpQuery}
         action='Sign Up'
         addToken={addToken}
       >
@@ -33,9 +34,9 @@ const SignUp: React.FC = () => {
           data-testid='signup-img'
           role='img'
           aria-label='Animated image of people working out'
-          className='form-logo'
+          className={styles.logo}
         />
-      </Form>
+      </AuthForm>
     </>
   );
 };
