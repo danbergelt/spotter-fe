@@ -10,7 +10,7 @@ import endpoint from './endpoint';
 import axiosWithAuth from './axiosWithAuth';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
-import { generateWeek, generateMonth } from './momentUtils';
+import { prefetch } from './momentUtils';
 
 type Token = string | null;
 
@@ -133,23 +133,15 @@ export const fetchWorkoutsQuery = async (
   time: number,
   scope: string
 ): Promise<AxiosResponse> => {
-  let range: Array<Moment> = [];
-
-  // identify the scope, and generate an array of dates within that scope
-  if (scope === 'week') {
-    range = generateWeek(time);
-  }
-
-  if (scope === 'month') {
-    range = generateMonth(time);
-  }
-
-  // format the days
-  const formattedRange = range.map(day => day.format('MMM DD YYYY'));
+  // prefetch all workouts for previous 2 months/weeks, current month/week, next 2 months/weeks
+  // prefetching allows workouts to render immediately when moving across dates
+  const range: Array<string> = prefetch(time, scope).map(day =>
+    day.format('MMM DD YYYY')
+  );
 
   // call the server, passing in a range of dates to match workouts
   return await axiosWithAuth(t).post(endpoint('workouts/range'), {
-    range: formattedRange
+    range
   });
 };
 

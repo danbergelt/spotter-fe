@@ -1,7 +1,6 @@
-import React, { memo, ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { Form, Field, Formik } from 'formik';
 import styles from './AuthForm.module.scss';
-import { History } from 'history';
 import { AuthSchema } from '../../utils/validators';
 import useApi from 'src/hooks/useApi';
 import HTTPResponse from '../lib/HTTPResponse';
@@ -11,6 +10,9 @@ import FormError from '../lib/FormError';
 import Button from '../lib/Button';
 import AltLink from '../lib/AltLink';
 import Flex from '../lib/Flex';
+import { useHistory } from 'react-router-dom';
+import { addTokenAction } from 'src/actions/globalActions';
+import { useDispatch } from 'react-redux';
 
 /*== Auth form =====================================================
 
@@ -35,28 +37,26 @@ Props:
 interface Props {
   action: string;
   api: Function;
-  history: History;
   children: ReactNode;
-  addToken: (t: string) => void;
 }
 
-const AuthForm: React.FC<Props> = ({
-  action,
-  api,
-  history,
-  children,
-  addToken
-}) => {
+const AuthForm: React.FC<Props> = ({ action, api, children }) => {
   // api resources
   const [res, call, reset] = useApi();
+
+  // history object to push user
+  const history = useHistory();
+
+  // state dispatcher
+  const dispatch = useDispatch();
 
   // on successful request, save the token and push user to dashboard
   useEffect(() => {
     if (res.data) {
-      addToken(res.data.token);
+      dispatch(addTokenAction(res.data.token));
       history.push('/dashboard');
     }
-  }, [res, addToken, history]);
+  }, [res, dispatch, history]);
 
   return (
     <section className={styles.container}>
@@ -124,4 +124,4 @@ const AuthForm: React.FC<Props> = ({
   );
 };
 
-export default memo(AuthForm);
+export default AuthForm;
