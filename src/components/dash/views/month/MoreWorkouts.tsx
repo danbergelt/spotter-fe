@@ -52,6 +52,7 @@ const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal, cell }) => {
     openModal(date, 'view', workout);
   };
 
+  // need to nudge all the below cells on mobile to avoid falling off viewport
   const rightCol = new Set([5, 6, 12, 13, 19, 20, 26, 27, 33, 34]);
   const bottomRow = new Set([28, 29, 30, 31, 32, 33, 34]);
 

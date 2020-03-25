@@ -4,8 +4,11 @@ import { Scope } from 'src/types/Types';
 
 const moment: MomentRange = extendMoment(Moment);
 
-// Used for generating days of week in dashboard
-// due to the way in which the moment object is exported, I need to override the moment object with moment["default"] to satisfy type errors and import a function
+// TODO -- DRY these functions up
+// place repeatable logic into a namespace (object literal)
+
+// due to the way in which the moment object is exported, I need to override the moment object with moment["default"]
+// to satisfy type errors and import a function
 // to see more on this, see this open issue: https://github.com/palantir/blueprint/issues/959
 
 // eslint-disable-next-line
@@ -63,6 +66,58 @@ export const generateMonth = (num: number): Moment.Moment[] => {
     .endOf('month');
 
   const leftover: number = 34 - Number(end.diff(start, 'days'));
+
+  end.add(leftover, 'days');
+
+  const range: DateRange = moment.range(start, end);
+
+  const days: Array<Moment.Moment> = [];
+
+  for (const day of range.by('day')) {
+    days.push(day);
+  }
+
+  return days;
+};
+
+export const prefetch = (num: number, scope: string): Moment.Moment[] => {
+  if (scope === 'week') {
+    const start: Moment.Moment = m()
+      .add(num - 2, 'weeks')
+      .startOf('week');
+    const end: Moment.Moment = m()
+      .add(num + 2, 'weeks')
+      .endOf('week');
+    const range: DateRange = moment.range(start, end);
+
+    const days: Array<Moment.Moment> = [];
+
+    for (const day of range.by('day')) {
+      days.push(day);
+    }
+
+    return days;
+  }
+
+  const start: Moment.Moment = m()
+    .add(num - 2, 'months')
+    .startOf('month')
+    .startOf('week');
+  const end: Moment.Moment = m()
+    .add(num + 2, 'months')
+    .endOf('month');
+
+  const leftover: number =
+    34 -
+    Number(
+      end.diff(
+        m()
+          .add(num + 1, 'months')
+          .startOf('month')
+          .startOf('week'),
+        'days'
+      )
+    );
 
   end.add(leftover, 'days');
 
