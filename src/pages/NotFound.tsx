@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Flex from 'src/components/lib/Flex';
-import styles from './NotFound.module.scss';
+import styles from './Fallback.module.scss';
 
 /*== 404 =====================================================
 
