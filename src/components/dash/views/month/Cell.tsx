@@ -1,4 +1,4 @@
-import React, { memo, Fragment } from 'react';
+import React, { memo } from 'react';
 import moment, { Moment } from 'moment';
 import { Workout } from 'src/types/Workout';
 import { useWindowSize } from 'react-use';
@@ -32,6 +32,8 @@ Props:
     opens an add/view workout modal
   workouts: Array<Workout>
     today's workouts
+  loading: boolean
+    GET workouts query. used to delay rendering workouts (cached workouts render first and out of sync)
 
 */
 
@@ -82,27 +84,24 @@ const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
       <Flex align='center' justify='center' css={matchTodayDate()}>
         {date.format('D')}
       </Flex>
-      {workouts.map(
-        (workout, i) =>
-          i === 0 && (
-            <Fragment key={workout._id}>
-              <div
-                style={{ background: workout.tags[0]?.color }}
-                className={styles.workout}
-                onClick={(): void => openModal(date, 'view', workout)}
-              >
-                {formatTitle(workout.title)}
-              </div>
-              {workouts.length > 1 && (
-                <MoreWorkouts
-                  cell={cell}
-                  workouts={workouts}
-                  date={date}
-                  openModal={openModal}
-                />
-              )}
-            </Fragment>
-          )
+      {!!workouts.length && (
+        // if the cell has workouts and the GET request is not firing, render the first workout of the day
+        <div
+          style={{ background: workouts[0].tags[0]?.color }}
+          className={styles.workout}
+          onClick={(): void => openModal(date, 'view', workouts[0])}
+        >
+          {formatTitle(workouts[0].title)}
+        </div>
+      )}
+      {workouts.length > 1 && (
+        // if the cell has more than one workout and the GET request is not firing, render the more workouts button
+        <MoreWorkouts
+          cell={cell}
+          workouts={workouts}
+          date={date}
+          openModal={openModal}
+        />
       )}
     </Flex>
   );
