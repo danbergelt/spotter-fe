@@ -1,0 +1,18 @@
+@import '../styles/variables.scss';
+
+.container {
+  text-align: center;
+  height: 75vh;
+  margin: 0 auto;
+
+  .header {
+    font-size: 10rem;
+    font-weight: bold;
+    color: $danger;
+  }
+
+  .content {
+    font-size: 5rem;
+    color: $gray1;
+  }
+}
