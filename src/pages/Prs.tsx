@@ -1,90 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import * as Moment from 'moment';
-import { extendMoment, MomentRange } from 'moment-range';
+import React, { useEffect, useState, useCallback } from 'react';
+import moment from 'moment';
 import PrGroup from '../components/prs/PrGroup';
-import { State } from 'src/types/State';
-import { SortedPrs, SortedPrsRange } from '../types/Prs';
-import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
 import { Helmet } from 'react-helmet-async';
 import { Exercise } from 'src/types/ExerciseOption';
 import useToken from '../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { fetchExercisesQuery } from 'src/utils/queries';
-const moment: MomentRange = extendMoment(Moment);
 
-// Hacky fix to resolve error with default imports from moment and typescript
-// eslint-disable-next-line
-let m = require('moment');
-if ('default' in m) {
-  m = moment['default'];
-}
+/*== PRs page =====================================================
 
+A PR is a personal record for an exercise. This page tracks PRs for all
+saved exercises, bucketed out into PRs set in the last month, PRs set
+in the last year, and PRs set older than a year. The PRs are color-coded,
+and organized into collapsable tabs.
+
+TODO --> build out this page so that it's a catch-all 'stat's page
+instead of just a place to find PRs. Provide insightful analytics,
+graphs, and tools that allow users to deeply analyze their progress
+and performance in the gym.
+
+TODO --> move saved exercise management from the workout modal to this
+page. It's unintuitive to have them separated.
+
+*/
+
+// bucket names
 const CATEGORIES = ['Last Month', 'Last Year', 'All Time'];
 
+// each bucket is an array of exercises
+interface Buckets {
+  month: Array<Exercise>;
+  year: Array<Exercise>;
+  all: Array<Exercise>;
+}
+
 const Prs: React.FC = () => {
-  const dispatch = useDispatch();
-  const [sortedPrs, setSortedPrs] = useState<SortedPrs>({
-    lastMonth: [],
-    lastYear: [],
-    allTime: []
-  });
-  const [loading, setLoading] = useState<boolean>(true);
+  // api utils
   const [res, call] = useApi();
-  const exercises: Array<Exercise> = useSelector(
-    (state: State) => state.fetchExercisesReducer.savedExercises
-  );
 
-  const t: string | null = useToken();
+  // exercises state (each exercise contains PR metadata)
+  const [exercises, setExercises] = useState({} as Buckets);
 
+  // auth token
+  const token = useToken();
+
+  // reducer to bucket out each exercise into their respective bucket
+  const reducer = useCallback((acc: Buckets, exercise: Exercise): Buckets => {
+    // find the diff between current date and the date the PR was set
+    const diff = moment().diff(moment(exercise.prDate, 'MMM DD YYYY'), 'days');
+
+    // organize by month, year, and all time
+    if (diff <= 31) acc.month.push(exercise);
+    else if (diff <= 365) acc.year.push(exercise);
+    else acc.all.push(exercise);
+    return acc;
+  }, []);
+
+  // if exercises were fetched, reduce the exercises into their buckets
+  // TODO --> proper error handling
   useEffect(() => {
     if (res.data) {
-      dispatch(fetchExercisesAction(res.data.exercises));
+      const buckets: Buckets = { month: [], year: [], all: [] };
+      setExercises(res.data.exercises.reduce(reducer, buckets));
     }
+  }, [res, reducer]);
 
-    if (res.error) {
-      // handle later
-    }
-  }, [res, dispatch]);
-
+  // fetch exercises (each exercise contains PR metadata)
   useEffect(() => {
-    call(fetchExercisesQuery, [t]);
-  }, [call, t]);
-
-  // finds the difference between two moment dates
-  const findDiff = (exercise: Exercise): number =>
-    m().diff(m(exercise.prDate, 'MMM DD YYYY'), 'days');
-
-  // set PRs to state organized by time period in which the PR was set
-  useEffect(() => {
-    // temporary variables for sorted prs
-    const lastMonth: SortedPrsRange = [];
-    const lastYear: SortedPrsRange = [];
-    const allTime: SortedPrsRange = [];
-    // loop through prs, and partition by date
-    if (exercises.length) {
-      exercises.forEach(exercise => {
-        const timeSincePr = findDiff(exercise);
-        if (exercise.pr && exercise.pr > 0 && exercise.prDate) {
-          if (timeSincePr <= 31) {
-            lastMonth.push(exercise);
-          } else if (timeSincePr <= 365) {
-            lastYear.push(exercise);
-          } else {
-            allTime.push(exercise);
-          }
-        }
-      });
-    }
-    setSortedPrs({
-      lastMonth,
-      lastYear,
-      allTime
-    });
-
-    // cleanup function to set loading to false, allowing the sections to be rendered
-    return (): void => setLoading(false);
-  }, [exercises]);
+    call(fetchExercisesQuery, [token]);
+  }, [call, token]);
 
   return (
     <>
@@ -92,14 +76,13 @@ const Prs: React.FC = () => {
         <title>Prs | Spotter</title>
       </Helmet>
       <div className='prs-container spacer'>
-        {!loading &&
-          Object.keys(sortedPrs).map((key, i) => (
-            <PrGroup
-              key={CATEGORIES[i]}
-              prs={sortedPrs[key]}
-              title={CATEGORIES[i]}
-            />
-          ))}
+        {Object.keys(exercises).map((key, i) => (
+          <PrGroup
+            key={CATEGORIES[i]}
+            prs={exercises[key]}
+            title={CATEGORIES[i]}
+          />
+        ))}
       </div>
     </>
   );

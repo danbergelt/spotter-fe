@@ -6,6 +6,7 @@ const moment: MomentRange = extendMoment(Moment);
 
 // TODO -- DRY these functions up
 // place repeatable logic into a namespace (object literal)
+// needs --> universal formatter
 
 // due to the way in which the moment object is exported, I need to override the moment object with moment["default"]
 // to satisfy type errors and import a function
@@ -100,11 +101,11 @@ export const prefetch = (num: number, scope: string): Moment.Moment[] => {
   }
 
   const start: Moment.Moment = m()
-    .add(num - 2, 'months')
+    .add(num - 1, 'months')
     .startOf('month')
     .startOf('week');
   const end: Moment.Moment = m()
-    .add(num + 2, 'months')
+    .add(num + 1, 'months')
     .endOf('month');
 
   const leftover: number =
