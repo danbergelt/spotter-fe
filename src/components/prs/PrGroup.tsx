@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { IoMdArrowDropdown, IoMdArrowDropright } from 'react-icons/io';
 import Pr from './Pr';
-import { SortedPrsRange } from '../../types/Prs';
 import moment from 'moment';
 import styles from './PrGroup.module.scss';
 import Toggler from '../lib/Toggler';
 import Tip from '../lib/Tip';
 import { FiInfo } from 'react-icons/fi';
 import Flex from '../lib/Flex';
+import { Exercise } from 'src/types/ExerciseOption';
 
 /*== Pr Group =====================================================
 
@@ -40,12 +40,21 @@ Props
 
 interface Props {
   title: string;
-  prs: SortedPrsRange;
+  prs: Array<Exercise>;
 }
 
 const PrGroup: React.FC<Props> = ({ title, prs }) => {
   // pr group toggle
   const [open, setOpen] = useState(true);
+
+  // sort the prs from most recent to least recent, memoize the return value
+  const sorted = useMemo(() => {
+    return prs.sort((a, b): number => {
+      return moment(b.prDate, 'MMM DD YYYY').diff(
+        moment(a.prDate, 'MMM DD YYYY')
+      );
+    });
+  }, [prs]);
 
   return (
     <section className={styles.container}>
@@ -70,17 +79,9 @@ const PrGroup: React.FC<Props> = ({ title, prs }) => {
       {open && (
         <section className={styles.box}>
           {!prs.length && <p className={styles.empty}>No PRs in this range</p>}
-          {prs
-            // sort prs by date (most recent comes first)
-            .sort((a, b) =>
-              moment(b.prDate, 'MMM DD YYYY').diff(
-                moment(a.prDate, 'MMM DD YYYY')
-              )
-            )
-            // map into individual prs
-            .map((exercise, i) => (
-              <Pr key={exercise.name} exercise={exercise} i={i} />
-            ))}
+          {sorted.map((exercise, i) => (
+            <Pr key={exercise.name} exercise={exercise} i={i} />
+          ))}
         </section>
       )}
     </section>

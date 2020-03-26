@@ -1,0 +1,16 @@
+@import '../styles/mixins.scss';
+
+.container {
+  @include spacer;
+
+  width: 80rem;
+  margin: 5rem auto;
+
+  @include large {
+    width: 50rem;
+  }
+
+  @include small {
+    width: 32rem;
+  }
+}

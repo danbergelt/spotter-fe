@@ -40,13 +40,9 @@ const Pr: React.FC<Props> = ({ exercise, i }) => {
       'days'
     );
     // color code circles according to date
-    if (diff <= 31) {
-      return `${styles.circle} ${styles.month}`;
-    } else if (31 < diff && diff <= 365) {
-      return `${styles.circle} ${styles.year}`;
-    } else {
-      return `${styles.circle} ${styles.allTime}`;
-    }
+    if (diff <= 31) return `${styles.circle} ${styles.month}`;
+    else if (31 < diff && diff <= 365) return `${styles.circle} ${styles.year}`;
+    else return `${styles.circle} ${styles.allTime}`;
   };
 
   return (

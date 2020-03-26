@@ -133,7 +133,7 @@ export const fetchWorkoutsQuery = async (
   time: number,
   scope: string
 ): Promise<AxiosResponse> => {
-  // prefetch all workouts for previous 2 months/weeks, current month/week, next 2 months/weeks
+  // prefetch all workouts for previous 1 month/week, current month/week, next month/week
   // prefetching allows workouts to render immediately when moving across dates
   const range: Array<string> = prefetch(time, scope).map(day =>
     day.format('MMM DD YYYY')
