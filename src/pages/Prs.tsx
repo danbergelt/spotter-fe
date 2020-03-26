@@ -6,6 +6,7 @@ import { Exercise } from 'src/types/ExerciseOption';
 import useToken from '../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { fetchExercisesQuery } from 'src/utils/queries';
+import styles from './Prs.module.scss';
 
 /*== PRs page =====================================================
 
@@ -75,7 +76,7 @@ const Prs: React.FC = () => {
       <Helmet>
         <title>Prs | Spotter</title>
       </Helmet>
-      <div className='prs-container spacer'>
+      <div className={styles.container}>
         {Object.keys(exercises).map((key, i) => (
           <PrGroup
             key={CATEGORIES[i]}
