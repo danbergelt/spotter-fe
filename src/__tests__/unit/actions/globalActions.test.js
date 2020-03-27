@@ -1,5 +1,4 @@
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import {
   CHANGE_SCOPE,
   handleScopeChangeAction,
@@ -9,7 +8,7 @@ import {
   setScopeAction
 } from '../../../actions/globalActions';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore();
 
 describe('global actions', () => {
   test('changes time scope', () => {

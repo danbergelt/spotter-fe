@@ -222,3 +222,8 @@ export const changePasswordQuery = async (
 ): Promise<AxiosResponse> => {
   return await axiosWithAuth(t).put(endpoint('user/password'), values);
 };
+
+// refresh query (fetch a new token)
+export const refreshQuery = async (): Promise<void> => {
+  return await axios.get(endpoint('refresh'), { withCredentials: true });
+};

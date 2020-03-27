@@ -1,5 +1,4 @@
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import axios from 'axios';
 import {
   SET_EXERCISES,
@@ -10,7 +9,7 @@ import {
   editWorkoutAction
 } from '../../../actions/optionsActions';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore();
 
 describe('dispatches option actions', () => {
   test('create workout', () => {

@@ -30,12 +30,12 @@ Props:
 
 interface Props extends RouteProps {
   component: React.ComponentType<RouteProps>;
-  auth: boolean | null;
+  auth?: boolean;
 }
 
 const AuthRoute: React.FC<Props> = ({
   component: Component,
-  auth,
+  auth = false,
   ...otherProps
 }) => {
   const token = useToken();
@@ -43,13 +43,11 @@ const AuthRoute: React.FC<Props> = ({
   // redirect fallback action
   const redirect = (): string => {
     // if auth fails, push to login
-    if (!token && auth) {
-      return '/login';
-    }
+    if (!token && auth) return '/login';
+
     // if auth'd, push to dashboard
-    if (token && !auth) {
-      return '/dashboard';
-    }
+    if (token && !auth) return '/dashboard';
+
     // total fallback --> push to 500 page (should not happen)
     return '/500';
   };
@@ -59,7 +57,7 @@ const AuthRoute: React.FC<Props> = ({
       <Router
         {...otherProps}
         render={(props): ReactNode => {
-          if (auth === null || (token && auth) || (!token && !auth)) {
+          if ((token && auth) || (!token && !auth)) {
             return <Component {...props} />;
           }
           return <Redirect to={redirect()} />;

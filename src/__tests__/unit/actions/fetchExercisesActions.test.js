@@ -1,5 +1,4 @@
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import axios from 'axios';
 import {
   fetchExercisesAction,
@@ -11,7 +10,7 @@ import {
 } from '../../../actions/fetchExercisesActions';
 import { createMemoryHistory } from 'history';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore();
 
 describe('fetch exercises', () => {
   afterEach(() => {

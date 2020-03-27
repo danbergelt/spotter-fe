@@ -1,67 +1,71 @@
-import React, { useState, useEffect /*Profiler*/ } from 'react';
-import Loader from 'react-loader-spinner';
-import axios from 'axios';
-import Routes from './routes';
+import React, { useEffect, useState } from 'react';
+import styles from './App.module.scss';
+import Routes from './Routes';
 import Popup from './components/contact/Popup';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ADD_TOKEN } from './actions/addTokenActions';
-import endpoint from './utils/endpoint';
+import useApi from './hooks/useApi';
+import { refreshQuery } from './utils/queries';
+import { addTokenAction } from './actions/globalActions';
+import Spinner from './components/lib/Spinner';
+import Flex from './components/lib/Flex';
 
-// this component renders in front of routes, checks for token, and returns proper authenticated data
-// also requests refresh token on each refresh
+/*== App =====================================================
+
+This component sits in front of index.js, and is primarly designed
+to handle refresh requests to the back end. Depending on the
+response of that request, this component will either add a token,
+(string | null) or push a user to /500 if there was a problem
+
+*/
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  // loading state --> need to use this instead of API hook loading state because first-render state needs to be true
+  const [loading, setLoading] = useState(true);
+
+  // state dispatcher
   const dispatch = useDispatch();
+
+  // history object
   const history = useHistory();
 
-  useEffect(() => {
-    axios
-      .get(endpoint('refresh'), {
-        withCredentials: true
-      })
-      .then(res => {
-        dispatch<{ type: string; payload: string | null }>({
-          type: ADD_TOKEN,
-          payload: res.data.token
-        });
-        setLoading(false);
-      })
-      .catch(err => {
-        history.push('/500');
-        setLoading(false);
-      });
-  }, [dispatch, history]);
+  // api utils
+  const [res, call] = useApi();
 
+  useEffect(() => {
+    // if successful call, add the token and set loading to false
+    if (res.data) {
+      setLoading(false);
+      dispatch(addTokenAction(res.data.token));
+    }
+
+    // if there was an error, push to 500 page
+    // TODO --> think of more graceful way to handle this. maybe special error component that drops from top?
+    if (res.error) {
+      setLoading(false);
+      history.push('/500');
+    }
+  }, [res, dispatch, history]);
+
+  // call the API to refresh the user's authentication
+  useEffect(() => {
+    call(refreshQuery);
+  }, [call]);
+
+  // if loading refresh query, render a spinner
   if (loading) {
     return (
-      <Loader
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-        type='ThreeDots'
-        color='#E9503F'
-        height={40}
-        width={150}
-      />
+      <div className={styles.spinner}>
+        <Spinner size={100} color='#E9503F' />
+      </div>
     );
   }
 
   return (
-    <main className='app-container'>
-      {/* <Profiler
-        id='app'
-        // eslint-disable-next-line
-        onRender={(id, phase, duration): void => console.log(duration)}
-      > */}
+    <Flex fd='column' css={styles.container}>
       <Popup />
       <Routes />
-      {/* </Profiler> */}
-    </main>
+    </Flex>
   );
 };
 
