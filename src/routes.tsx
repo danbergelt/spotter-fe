@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
@@ -13,26 +13,29 @@ import ServerError from './pages/ServerError';
 import AuthRoute from './components/auth/AuthRoute';
 import ChangePassword from './pages/ChangePassword';
 
-// primary application router. uses a custom route component to push auth'd and unauth'd users to their allowed pages
+/*== Primary app router =====================================================
+
+App router. Contains all routes for the site. If the page is for unauth'd users,
+i.e. home, log in, sign up, etc. only unauth'd users can access. If
+the page requires auth, only auth'd users can access. 500 page and 404 are globally
+accessible
+
+*/
 
 const Routes: React.FC = () => {
   return (
     <Layout>
       <Switch>
-        <AuthRoute exact path='/' component={Home} auth={false} />
-        <AuthRoute path='/login' component={LogIn} auth={false} />
-        <AuthRoute path='/signup' component={SignUp} auth={false} />
-        <AuthRoute
-          path='/forgotpassword'
-          component={ForgotPassword}
-          auth={false}
-        />
-        <AuthRoute path='/-/:id' component={ChangePassword} auth={false} />
-        <AuthRoute path='/dashboard' component={Dashboard} auth={true} />
-        <AuthRoute path='/settings' component={Settings} auth={true} />
-        <AuthRoute path='/prs' component={Prs} auth={true} />
-        <AuthRoute path='/500' component={ServerError} auth={null} />
-        <AuthRoute component={NotFound} auth={null} />
+        <AuthRoute exact path='/' component={Home} />
+        <AuthRoute path='/login' component={LogIn} />
+        <AuthRoute path='/signup' component={SignUp} />
+        <AuthRoute path='/forgotpassword' component={ForgotPassword} />
+        <AuthRoute path='/-/:id' component={ChangePassword} />
+        <AuthRoute path='/dashboard' component={Dashboard} auth />
+        <AuthRoute path='/settings' component={Settings} auth />
+        <AuthRoute path='/prs' component={Prs} auth />
+        <Route path='/500' component={ServerError} />
+        <Route component={NotFound} />
       </Switch>
     </Layout>
   );

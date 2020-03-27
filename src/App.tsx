@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './App.module.scss';
-import Routes from './routes';
+import Routes from './Routes';
 import Popup from './components/contact/Popup';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
