@@ -61,7 +61,8 @@ export const logOutAction: TLogOut = () => {
 
 // add a token to state
 // this action is triggered on log in/sign up
-type TAddToken = (token: string) => { type: string; payload: string };
-export const addTokenAction: TAddToken = token => {
+export const addTokenAction = (
+  token: string | null
+): ReduxAction<string | null> => {
   return { type: ADD_TOKEN, payload: token };
 };
