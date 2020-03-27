@@ -7,7 +7,6 @@ import { ADD_TOKEN } from '../../../actions/addTokenActions';
 import axios from 'axios';
 import { wait } from '@testing-library/react';
 import ForgotPassword from 'src/pages/ForgotPassword';
-import NotFound from 'src/pages/NotFound';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
@@ -66,28 +65,5 @@ describe('auth route', () => {
 
     history.push('/forgotpassword');
     expect(history.location.pathname).toEqual('/forgotpassword');
-  });
-
-  test("globally accessible route for auth'd user", async () => {
-    const { store, queryByText, history } = wrapper(
-      reducer,
-      <AuthRoute path='/foo' component={NotFound} auth={null} />
-    );
-
-    store.dispatch({ type: ADD_TOKEN, payload: 'token' });
-    history.push('/foo');
-    await wait(() => expect(history.location.pathname).toEqual('/foo'));
-    expect(queryByText(/404/i)).toBeTruthy();
-  });
-
-  test("globally accessible route for unauth'd user", async () => {
-    const { queryByText, history } = wrapper(
-      reducer,
-      <AuthRoute path='/foo' component={NotFound} auth={null} />
-    );
-
-    history.push('/foo');
-    await wait(() => expect(history.location.pathname).toEqual('/foo'));
-    expect(queryByText(/404/i)).toBeTruthy();
   });
 });

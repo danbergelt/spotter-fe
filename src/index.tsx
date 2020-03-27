@@ -4,8 +4,9 @@ import App from './App';
 import './styles/index.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './store';
 import { HelmetProvider } from 'react-helmet-async';
+import { createStore } from 'redux';
+import { reducer } from './reducers';
 
 /*== Root render func =====================================================
 
@@ -22,6 +23,8 @@ Wrappers:
     User routing, redirects, protected content
     https://github.com/ReactTraining/react-router
 */
+
+const store = createStore(reducer);
 
 ReactDOM.render(
   <HelmetProvider>

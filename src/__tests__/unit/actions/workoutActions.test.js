@@ -1,5 +1,4 @@
 import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import {
   resetExerciseFormAction,
   RESET_QUEUE,
@@ -24,7 +23,7 @@ import {
   toggleTagAction
 } from '../../../actions/workoutActions';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore();
 
 describe('dispatches workout actions', () => {
   test('reset exercise form', () => {
