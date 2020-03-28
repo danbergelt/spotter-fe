@@ -41,6 +41,7 @@ export default (): [Res, Call, () => void] => {
         draft.data = null;
         draft.error = null;
         draft.isLoading = false;
+        return draft;
       })
     );
   }, []);
