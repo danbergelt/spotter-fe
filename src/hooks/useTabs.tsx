@@ -13,10 +13,13 @@ Params:
     the initial active tab on component render
 
 */
+type ReturnValue = [
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+  string
+];
 
-export default (
-  initial: string
-): [string, React.Dispatch<React.SetStateAction<string>>, string] => {
+export default (initial: string): ReturnValue => {
   const [active, setActive] = useState(initial);
 
   return [active, setActive, initial];
