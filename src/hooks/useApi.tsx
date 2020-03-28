@@ -41,6 +41,7 @@ export default (): [Res, Call, () => void] => {
         draft.data = null;
         draft.error = null;
         draft.isLoading = false;
+        return draft;
       })
     );
   }, []);
@@ -74,7 +75,7 @@ export default (): [Res, Call, () => void] => {
             produce(state, draft => {
               draft.isLoading = false;
               draft.error = errorMsg ? errorMsg : e.response.data.error;
-              return;
+              return draft;
             })
           );
         } else {
@@ -85,7 +86,7 @@ export default (): [Res, Call, () => void] => {
               draft.error = errorMsg
                 ? errorMsg
                 : 'Server error, try again later';
-              return;
+              return draft;
             })
           );
         }
