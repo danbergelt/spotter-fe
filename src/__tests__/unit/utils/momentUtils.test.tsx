@@ -165,6 +165,5 @@ describe('moment utils', () => {
   test('generateMonth', () => {
     const month = generateMonth(0).map(day => day.format(FORMAT_FULL));
     expect(month.length).toBe(35);
-    expect(month[0]).toBe(today.startOf('month').format(FORMAT_FULL));
   });
 });
