@@ -7,6 +7,7 @@ import { useWindowSize } from 'react-use';
 import styles from './Column.module.scss';
 import Flex from 'src/components/lib/Flex';
 import { Ctx } from 'src/types/Types';
+import { momentHelpers } from 'src/utils/momentUtils';
 
 /*== Workout Column =====================================================
 
@@ -44,12 +45,15 @@ const WorkoutColumn: React.FC<Props> = ({ date, openModal, workouts }) => {
     }
   };
 
+  // standardized date formats
+  const { FORMAT_WEEKDAY, FORMAT_NUMERIC, FORMAT_FULL } = momentHelpers;
+
   return (
     <div className={styles.container}>
       {/* current date */}
-      <section className={styles.day} data-testid={date.format('MMM DD YYYY')}>
-        <p className={styles.weekday}>{date.format('ddd')}</p>
-        <p className={styles.date}>{date.format('D')}</p>
+      <section className={styles.day} data-testid={date.format(FORMAT_FULL)}>
+        <p className={styles.weekday}>{date.format(FORMAT_WEEKDAY)}</p>
+        <p className={styles.date}>{date.format(FORMAT_NUMERIC)}</p>
       </section>
       {/* add workout */}
       <Flex

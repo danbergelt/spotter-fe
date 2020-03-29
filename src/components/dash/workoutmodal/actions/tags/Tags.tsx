@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FiTag } from 'react-icons/fi';
+import tinycolor from 'tinycolor2';
 import styles from './Tags.module.scss';
 import useApi from 'src/hooks/useApi';
 import { fetchTagsQuery } from 'src/utils/queries';
@@ -13,7 +14,6 @@ import Add from './Add';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';
 import Manage from './Manage';
 import Create from './Create';
-import adjust from 'src/utils/darkenColorInJS';
 
 /*== Tags =====================================================
 
@@ -61,13 +61,14 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
 
   // darken a hex color in JS
   function darken<T>(comparands: [T, T], color: string): string {
-    // if the comparands are equal (i.e. a hovered elemenet and the element in the DOM),
-    // return a darkened color
+    // if the comparands are equal,  return a darkened color
     if (comparands[0] === comparands[1]) {
-      return adjust(color, -40);
+      return tinycolor(color)
+        .darken(10)
+        .toString();
     }
 
-    // otherwise, return a color
+    // otherwise, return the color
     return color;
   }
 
