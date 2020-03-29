@@ -46,7 +46,7 @@ describe('manage tags', () => {
 
     fireEvent.click(getByText(/delete/i));
 
-    getByText(/are you sure/i);
+    getByText(/this tag will be removed/i);
 
     fireEvent.click(getByText(/Delete/));
 
@@ -67,7 +67,7 @@ describe('manage tags', () => {
 
     fireEvent.click(getByText(/delete/i));
 
-    getByText(/are you sure/i);
+    getByText(/this tag will be removed/i);
 
     fireEvent.click(getByText(/Delete/));
 

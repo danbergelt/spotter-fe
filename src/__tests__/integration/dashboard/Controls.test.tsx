@@ -22,7 +22,7 @@ describe('dash controls', () => {
   test('shows decremented weeks', () => {
     const { queryByText } = wrapper(
       reducer,
-      <Controls time={-4} scope='week' setHead={setHead} />
+      <Controls time={-5} scope='week' setHead={setHead} />
     );
 
     expect(queryByText(date)).toBeFalsy();
@@ -31,7 +31,7 @@ describe('dash controls', () => {
   test('shows incremented weeks', () => {
     const { queryByText } = wrapper(
       reducer,
-      <Controls time={4} scope='week' setHead={setHead} />
+      <Controls time={5} scope='week' setHead={setHead} />
     );
 
     expect(queryByText(date)).toBeFalsy();

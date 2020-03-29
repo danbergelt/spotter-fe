@@ -59,9 +59,15 @@ describe('workouts component', () => {
     await act(async () => {
       await fireEvent.click(getByTestId(/back/i));
     });
+    await act(async () => {
+      await fireEvent.click(getByTestId(/back/i));
+    });
 
     expect(queryByText(date)).toBeFalsy();
 
+    await act(async () => {
+      await fireEvent.click(getByTestId(/forward/i));
+    });
     await act(async () => {
       await fireEvent.click(getByTestId(/forward/i));
     });
