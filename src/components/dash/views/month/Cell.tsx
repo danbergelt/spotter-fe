@@ -7,6 +7,7 @@ import styles from './Cell.module.scss';
 import Flex from 'src/components/lib/Flex';
 import MoreWorkouts from './MoreWorkouts';
 import { Ctx } from 'src/types/Types';
+import { momentHelpers } from 'src/utils/momentUtils';
 
 /*== Grid cell =====================================================
 
@@ -43,6 +44,9 @@ interface Props {
 }
 
 const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
+  // standardized date format
+  const { FORMAT_NUMERIC, FORMAT_FULL, FORMAT_WEEKDAY } = momentHelpers;
+
   // viewport width for dynamic styles
   const { width } = useWindowSize();
 
@@ -56,7 +60,7 @@ const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
 
   // match a workout to today's date
   const matchTodayDate = (): string => {
-    if (date.format('MMM DD YYYY') === moment().format('MMM DD YYYY')) {
+    if (date.format(FORMAT_FULL) === moment().format(FORMAT_FULL)) {
       return styles.todayDate;
     }
     return styles.date;
@@ -67,10 +71,10 @@ const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
       fd='column'
       align='center'
       css={styles.day}
-      testid={date.format('MMM DD YYYY')}
+      testid={date.format(FORMAT_FULL)}
     >
       <Flex justify='space-between' align='center' css={styles.head}>
-        {cell <= 6 && <p>{date.format('ddd')}</p>}
+        {cell <= 6 && <p>{date.format(FORMAT_WEEKDAY)}</p>}
         <div
           onClick={(): void => openModal(date, 'add')}
           className={styles.add}
@@ -80,7 +84,7 @@ const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
         </div>
       </Flex>
       <Flex align='center' justify='center' css={matchTodayDate()}>
-        {date.format('D')}
+        {date.format(FORMAT_NUMERIC)}
       </Flex>
       {!!workouts.length && (
         // if the cell has workouts, render the first workout of the day

@@ -8,7 +8,7 @@
 import axiosBuilder from './axiosBuilder';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
-import { prefetch } from './momentUtils';
+import { momentHelpers, prefetchMonths, prefetchWeeks } from './momentUtils';
 import { AxiosResponse } from 'axios';
 
 type Token = string | null;
@@ -90,8 +90,9 @@ export const saveWorkoutQuery = async (
   workout: Workout
 ): Promise<AxiosResponse> => {
   const { title, tags, notes, exercises } = workout;
+  const { FORMAT_FULL } = momentHelpers;
   return await axiosBuilder(token).post('workouts', {
-    date: date?.format('MMM DD YYYY'),
+    date: date?.format(FORMAT_FULL),
     title,
     notes,
     exercises,
@@ -137,13 +138,8 @@ export const fetchWorkoutsQuery = async (
 ): Promise<AxiosResponse> => {
   // prefetch all workouts for previous 1 month/week, current month/week, next month/week
   // prefetching allows workouts to render immediately when moving across dates
-  const range: Array<string> = prefetch(time, scope).map(day =>
-    day.format('MMM DD YYYY')
-  );
-
-  // call the server, passing in a range of dates to match workouts
   return await axiosBuilder(token).post('workouts/range', {
-    range
+    range: scope === 'month' ? prefetchMonths(time) : prefetchWeeks(time)
   });
 };
 

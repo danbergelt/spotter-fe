@@ -1,10 +1,12 @@
 import moment from 'moment';
+import { momentHelpers } from 'src/utils/momentUtils';
+const { FORMAT_FULL } = momentHelpers;
 
 export const workout = {
   _id: 'id',
   date: moment()
     .startOf('week')
-    .format('MMM DD YYYY'),
+    .format(FORMAT_FULL),
   title: 'mock workout',
   tags: [
     {
