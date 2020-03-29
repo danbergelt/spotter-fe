@@ -11,7 +11,12 @@ import useApi from 'src/hooks/useApi';
 import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
 import { fetchWorkoutsQuery } from 'src/utils/queries';
 import Controls from '../components/dash/controls/Controls';
-import { setHead, generateWeek, generateMonth } from 'src/utils/momentUtils';
+import {
+  setHead,
+  generateWeek,
+  generateMonth,
+  momentHelpers
+} from 'src/utils/momentUtils';
 import Column from '../components/dash/views/week/Column';
 import WorkoutModal from '../components/dash/workoutmodal/WorkoutModal';
 import Cell from '../components/dash/views/month/Cell';
@@ -39,6 +44,9 @@ and monthly view.
 */
 
 const Dashboard: React.FC = () => {
+  // standardized date format
+  const { FORMAT_FULL } = momentHelpers;
+
   // state dispatcher
   const dispatch = useDispatch();
 
@@ -119,7 +127,7 @@ const Dashboard: React.FC = () => {
   // filter a list of workouts by a passed-in date
   const filterWorkouts = (workouts: Workout[], date: Moment): Workout[] => {
     return workouts.filter(
-      workout => workout.date === date.format('MMM DD YYYY')
+      workout => workout.date === date.format(FORMAT_FULL)
     );
   };
 
@@ -131,7 +139,7 @@ const Dashboard: React.FC = () => {
           {generateWeek(timeSpan).map(date => (
             <Column
               date={date}
-              key={date.format('MMMM DD YYYY')}
+              key={date.format(FORMAT_FULL)}
               openModal={openModal}
               workouts={filterWorkouts(workouts, date)}
             />
@@ -148,7 +156,7 @@ const Dashboard: React.FC = () => {
         {generateMonth(timeSpan).map((date, i) => (
           <Cell
             openModal={openModal}
-            key={date.format('MMM DD YYYY')}
+            key={date.format(FORMAT_FULL)}
             date={date}
             cell={i}
             workouts={filterWorkouts(workouts, date)}
