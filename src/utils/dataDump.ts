@@ -1,6 +1,5 @@
-import axiosWithAuth from './axiosWithAuth';
 import { SetStateAction } from 'react';
-import endpoint from './endpoint';
+import { download } from './queries';
 
 type TDownloadWorkoutData = (
   setError: React.Dispatch<SetStateAction<string>>,
@@ -15,9 +14,7 @@ export const downloadData: TDownloadWorkoutData = async (setError, t, data) => {
   setError('');
   try {
     // request a blob from server
-    const res = await axiosWithAuth(t).get(endpoint(`${data}/download`), {
-      responseType: 'blob'
-    });
+    const res = await download(t, data);
     // create a phantom link
     // assign the response as a URL at that link
     const url: string = window.URL.createObjectURL(new Blob([res.data]));

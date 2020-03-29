@@ -130,9 +130,6 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
         <p className={styles.confirm}>
           This tag will be removed from all workouts and templates where it
           exists.
-          <br />
-          <br />
-          Are you sure you want to delete this tag? There is no going back.
         </p>
         <Button
           loading={delRes.isLoading}
