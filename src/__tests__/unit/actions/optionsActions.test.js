@@ -1,13 +1,15 @@
 import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
 import {
-  SET_EXERCISES,
   setExercisesModalAction,
-  CREATE_WORKOUT,
   createWorkoutAction,
-  EDIT_WORKOUT,
   editWorkoutAction
-} from '../../../actions/optionsActions';
+} from 'src/actions/optionsActions';
+import {
+  SET_EXERCISES,
+  CREATE_WORKOUT,
+  EDIT_WORKOUT
+} from '../../../constants/index';
 
 const mockStore = configureMockStore();
 

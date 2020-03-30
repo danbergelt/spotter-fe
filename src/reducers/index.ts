@@ -5,7 +5,7 @@ import { globalReducer } from './globalReducer';
 import { tagsReducer } from './tagsReducer';
 import { optionsReducer } from './optionsReducer';
 import { fetchExercisesReducer } from './fetchExercisesReducer';
-import { LOGOUT } from 'src/actions/globalActions';
+import { LOGOUT } from 'src/constants/index';
 import { State } from 'src/types/State';
 
 const appReducer = combineReducers({

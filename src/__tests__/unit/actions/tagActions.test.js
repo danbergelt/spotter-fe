@@ -1,6 +1,4 @@
 import {
-  ADD_TAGS,
-  CREATE_TAG,
   fetchTagsAction,
   createTagAction,
   setActiveTabAction,
@@ -11,11 +9,14 @@ import {
 } from '../../../actions/tagsActions';
 import configureMockStore from 'redux-mock-store';
 import {
+  ADD_TAGS,
+  CREATE_TAG,
   SET_ACTIVE,
   CLOSE_TAG_MODAL,
+  UPDATE_TAG,
+  DELETE_TAG,
   OPEN_TAG_MODAL
-} from 'src/actions/optionsActions';
-import { UPDATE_TAG, DELETE_TAG } from 'src/actions/workoutActions';
+} from 'src/constants/index';
 
 const mockStore = configureMockStore();
 

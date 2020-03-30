@@ -2,9 +2,9 @@ import {
   OPEN_TAG_MODAL,
   CLOSE_TAG_MODAL,
   SET_ACTIVE,
-  SET_SAVE_MSG
-} from '../actions/optionsActions';
-import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
+  SET_SAVE_MSG,
+  CLOSE_WORKOUT_MODAL
+} from '../constants/index';
 import { OptionsReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
 import produce from 'immer';

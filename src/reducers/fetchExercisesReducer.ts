@@ -2,7 +2,7 @@ import {
   FETCH_EXERCISES,
   CREATE_EXERCISE,
   DELETE_SAVED_EXERCISE
-} from '../actions/fetchExercisesActions';
+} from '../constants/index';
 import { FetchExercisesReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
 import produce from 'immer';

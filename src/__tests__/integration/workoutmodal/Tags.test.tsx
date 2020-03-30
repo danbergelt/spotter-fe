@@ -2,7 +2,7 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import Tags from 'src/components/dash/workoutmodal/Tags';
 import { reducer } from 'src/reducers';
-import { TOGGLE_TAG } from 'src/actions/workoutActions';
+import { TOGGLE_TAG } from 'src/constants/index';
 
 describe('workout tags', () => {
   test('displays no tags found when no tags exist on workout', () => {

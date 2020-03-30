@@ -5,7 +5,7 @@ import Manage from 'src/components/dash/workoutmodal/actions/exercises/Manage';
 import { e1 } from '../../../__testUtils__/exercise';
 import { fireEvent } from '@testing-library/dom';
 import axios from 'axios';
-import { CREATE_EXERCISE } from 'src/actions/fetchExercisesActions';
+import { CREATE_EXERCISE } from 'src/constants/index';
 import { act } from 'react-dom/test-utils';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;

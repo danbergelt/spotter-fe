@@ -1,8 +1,6 @@
 import { ReduxAction } from 'src/types/Types';
 import { Workout } from 'src/types/Workout';
-
-export const DELETE_WORKOUT = 'DELETE_WORKOUT';
-export const FETCH_WORKOUTS = 'FETCH_WORKOUTS';
+import { FETCH_WORKOUTS, DELETE_WORKOUT } from 'src/constants';
 
 // fetch workouts by range (month or week)
 export const fetchWorkoutsAction = (

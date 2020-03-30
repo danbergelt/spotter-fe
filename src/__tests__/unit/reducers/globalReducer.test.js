@@ -1,12 +1,12 @@
 import { globalReducer } from '../../../reducers/globalReducer';
-import { ADD_TOKEN } from '../../../actions/addTokenActions';
 import {
+  ADD_TOKEN,
   CHANGE_SCOPE,
   SET_SCOPE,
   SET_DATE,
   SET_TIMESPAN,
   MODAL_CTX
-} from 'src/actions/globalActions';
+} from 'src/constants/index';
 
 describe('global reducer', () => {
   test('should return initial state', () => {

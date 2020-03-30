@@ -3,7 +3,7 @@ import AuthRoute from '../../../components/auth/AuthRoute';
 import Dashboard from '../../../pages/Dashboard';
 import wrapper from '../../../__testUtils__/wrapper';
 import { reducer } from '../../../reducers/index';
-import { ADD_TOKEN } from '../../../actions/addTokenActions';
+import { ADD_TOKEN } from '../../../constants/index';
 import axios from 'axios';
 import { wait } from '@testing-library/react';
 import ForgotPassword from 'src/pages/ForgotPassword';

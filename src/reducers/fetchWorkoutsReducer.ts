@@ -1,13 +1,15 @@
 import {
   DELETE_WORKOUT,
-  FETCH_WORKOUTS
-} from '../actions/fetchWorkoutsActions';
+  FETCH_WORKOUTS,
+  UPDATE_TAG,
+  DELETE_TAG,
+  CREATE_WORKOUT,
+  EDIT_WORKOUT
+} from '../constants/index';
 import { AnyAction } from 'redux';
-import { UPDATE_TAG, DELETE_TAG } from '../actions/workoutActions';
 import { FetchWorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
 import { remove } from 'lodash';
-import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
 
 const fetchedWorkoutsState: FetchWorkoutsReducer = {
   workouts: []

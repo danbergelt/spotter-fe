@@ -1,12 +1,10 @@
 import configureMockStore from 'redux-mock-store';
 import {
-  CHANGE_SCOPE,
   handleScopeChangeAction,
-  SET_TIMESPAN,
   incOrDecAction,
-  LOGOUT,
   setScopeAction
-} from '../../../actions/globalActions';
+} from 'src/actions/globalActions';
+import { CHANGE_SCOPE, SET_TIMESPAN, LOGOUT } from 'src/constants/index';
 
 const mockStore = configureMockStore();
 

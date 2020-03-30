@@ -2,7 +2,7 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import Exercises from 'src/components/dash/workoutmodal/Exercises';
-import { ADD_EXERCISE } from 'src/actions/workoutActions';
+import { ADD_EXERCISE } from 'src/constants/index';
 import { fireEvent, wait } from '@testing-library/dom';
 import { act } from 'react-dom/test-utils';
 

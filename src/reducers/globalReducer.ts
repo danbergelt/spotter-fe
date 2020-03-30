@@ -1,4 +1,3 @@
-import { ADD_TOKEN } from '../actions/addTokenActions';
 import {
   OPEN_MODAL,
   MODAL_CTX,
@@ -6,8 +5,9 @@ import {
   SET_DATE,
   SET_TIMESPAN,
   CHANGE_SCOPE,
-  CLOSE_WORKOUT_MODAL
-} from '../actions/globalActions';
+  CLOSE_WORKOUT_MODAL,
+  ADD_TOKEN
+} from '../constants/index';
 import { GlobalReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
 import produce from 'immer';

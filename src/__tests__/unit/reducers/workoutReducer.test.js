@@ -14,7 +14,7 @@ import {
   HANDLE_EDIT,
   RESET_QUEUE,
   FROM_SAVED
-} from '../../../actions/workoutActions';
+} from '../../../constants/index';
 
 describe('add workout reducer', () => {
   test('should return initial state', () => {

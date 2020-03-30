@@ -12,9 +12,10 @@ import {
   QUEUE_EDIT,
   HANDLE_EDIT,
   RESET_QUEUE,
-  FROM_SAVED
-} from '../actions/workoutActions';
-import { CLOSE_WORKOUT_MODAL, OPEN_MODAL } from '../actions/globalActions';
+  FROM_SAVED,
+  CLOSE_WORKOUT_MODAL,
+  OPEN_MODAL
+} from '../constants/index';
 import { find, isMatch, isEqual, omit, pick, keys, remove } from 'lodash';
 import { WorkoutReducer } from 'src/types/State';
 import { TagOnWorkout } from 'src/types/TagOnWorkout';

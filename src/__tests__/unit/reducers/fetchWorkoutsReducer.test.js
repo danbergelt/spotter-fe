@@ -1,6 +1,9 @@
 import { fetchWorkoutsReducer } from '../../../reducers/fetchWorkoutsReducer';
-import { FETCH_WORKOUTS } from '../../../actions/fetchWorkoutsActions';
-import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
+import {
+  CREATE_WORKOUT,
+  EDIT_WORKOUT,
+  FETCH_WORKOUTS
+} from 'src/constants/index';
 
 describe('fetch workout reducer tests', () => {
   test('should return initial state', () => {
