@@ -5,8 +5,8 @@ import Manage from 'src/components/dash/workoutmodal/actions/exercises/Manage';
 import { e1 } from '../../../__testUtils__/exercise';
 import { fireEvent } from '@testing-library/dom';
 import axios from 'axios';
-import { CREATE_EXERCISE } from 'src/constants/index';
 import { act } from 'react-dom/test-utils';
+const setExercises = jest.fn();
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
@@ -16,12 +16,18 @@ describe('manage exercises', () => {
   });
 
   test('renders', () => {
-    const { getByText } = wrapper(reducer, <Manage exercises={[e1]} />);
+    const { getByText } = wrapper(
+      reducer,
+      <Manage setExercises={setExercises} exercises={[e1]} />
+    );
     getByText(e1.name);
   });
 
   test('renders message when no exercises found', () => {
-    const { getByText } = wrapper(reducer, <Manage exercises={[]} />);
+    const { getByText } = wrapper(
+      reducer,
+      <Manage setExercises={setExercises} exercises={[]} />
+    );
 
     getByText(/no exercises found/i);
   });
@@ -29,7 +35,7 @@ describe('manage exercises', () => {
   test('search filter works', () => {
     const { getByText, getByTestId } = wrapper(
       reducer,
-      <Manage exercises={[e1]} />
+      <Manage setExercises={setExercises} exercises={[e1]} />
     );
     fireEvent.change(getByTestId(/input/i), { target: { value: 'squa' } });
     getByText(/squat/i);
@@ -39,12 +45,10 @@ describe('manage exercises', () => {
 
   test('successful delete query', async () => {
     mockAxios.delete.mockResolvedValue({ data: { exercise: e1 } });
-    const { getByTestId, store } = wrapper(
+    const { getByTestId } = wrapper(
       reducer,
-      <Manage exercises={[e1]} />
+      <Manage setExercises={setExercises} exercises={[e1]} />
     );
-
-    store.dispatch({ type: CREATE_EXERCISE, payload: e1 });
 
     await act(async () => {
       await fireEvent.click(getByTestId(/exercise-delete/i));
@@ -58,12 +62,10 @@ describe('manage exercises', () => {
       response: { data: { error: 'foobar' } }
     });
 
-    const { getByTestId, getByText, store } = wrapper(
+    const { getByTestId, getByText } = wrapper(
       reducer,
-      <Manage exercises={[e1]} />
+      <Manage setExercises={setExercises} exercises={[e1]} />
     );
-
-    store.dispatch({ type: CREATE_EXERCISE, payload: e1 });
 
     await act(async () => {
       await fireEvent.click(getByTestId(/exercise-delete/i));

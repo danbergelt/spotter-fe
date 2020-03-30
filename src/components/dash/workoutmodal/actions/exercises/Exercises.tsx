@@ -6,14 +6,13 @@ import Head from 'src/components/lib/Head';
 import Flex from 'src/components/lib/Flex';
 import useApi from 'src/hooks/useApi';
 import { fetchExercisesQuery } from 'src/utils/queries';
-import { useSelector, useDispatch } from 'react-redux';
-import { State } from 'src/types/State';
-import { fetchExercisesAction } from 'src/actions/fetchExercisesActions';
+import { useDispatch } from 'react-redux';
 import Manage from './Manage';
 import useToken from 'src/hooks/useToken';
 import Create from './Create';
 import Tabs from 'src/components/lib/Tabs';
 import useTabs from 'src/hooks/useTabs';
+import { Exercise } from 'src/types/ExerciseOption';
 
 /*== Exercises =====================================================
 
@@ -45,6 +44,8 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
   // tabs utility hook that sets initial state + allows parent to access state
   const tabState = useTabs('Manage');
 
+  const [exercises, setExercises] = useState<Array<Exercise>>([]);
+
   // current active tab
   const [active] = tabState;
 
@@ -57,11 +58,6 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
   // auth token
   const token = useToken();
 
-  // list of exercises loaded from state
-  const exercises = useSelector(
-    (state: State) => state.fetchExercisesReducer.savedExercises
-  );
-
   // state dispatcher
   const dispatch = useDispatch();
 
@@ -71,7 +67,7 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
   // if successful get request, pass exercises into app state
   useEffect(() => {
     if (res.data) {
-      dispatch(fetchExercisesAction(res.data.exercises));
+      setExercises(res.data.exercises);
     }
 
     if (res.error) {
@@ -82,11 +78,11 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
   // tab controller
   const renderTab = (): JSX.Element => {
     if (active === 'Manage') {
-      return <Manage exercises={exercises} />;
+      return <Manage setExercises={setExercises} exercises={exercises} />;
     }
 
     if (active === 'Create') {
-      return <Create />;
+      return <Create setExercises={setExercises} />;
     }
 
     // fallback (should not happen)

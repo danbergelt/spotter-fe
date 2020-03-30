@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteExerciseAction } from '../../../../../actions/fetchExercisesActions';
 import useToken from '../../../../../hooks/useToken';
 import { Exercise } from '../../../../../types/ExerciseOption';
 import useApi from 'src/hooks/useApi';
@@ -10,6 +8,8 @@ import { FiX } from 'react-icons/fi';
 import styles from './Manage.module.scss';
 import Flex from 'src/components/lib/Flex';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
+import produce from 'immer';
+import { remove } from 'lodash';
 
 /*== Manage exercises =====================================================
 
@@ -33,17 +33,15 @@ Props:
 
 interface Props {
   exercises: Array<Exercise>;
+  setExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 }
 
-const Manage: React.FC<Props> = ({ exercises }) => {
+const Manage: React.FC<Props> = ({ exercises, setExercises }) => {
   // search filter
   const [search, setSearch] = useState('');
 
   // auth token
   const token = useToken();
-
-  // state dispatcher
-  const dispatch = useDispatch();
 
   // api utils
   const [res, call, reset] = useApi();
@@ -56,9 +54,13 @@ const Manage: React.FC<Props> = ({ exercises }) => {
   // delete an exercise from app state on successful delete query
   useEffect(() => {
     if (res.data) {
-      dispatch(deleteExerciseAction(res.data.exercise._id));
+      setExercises(s =>
+        produce(s, draft => {
+          remove(draft, exercise => exercise._id === res.data.exercise._id);
+        })
+      );
     }
-  }, [res, dispatch]);
+  }, [res, setExercises]);
 
   // delete an exercise from the this user's account
   const deleteExercise = async (id: string): Promise<void> => {
