@@ -3,8 +3,6 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Flex from 'src/components/lib/Flex';
 import styles from './Controls.module.scss';
-import { useDispatch } from 'react-redux';
-import { incOrDecAction } from 'src/actions/globalActions';
 import { Scope } from 'src/types/Types';
 
 /*== Controls =====================================================
@@ -15,51 +13,38 @@ the past, and plan workouts in the future.
 
 Props:
   time: number
-    the timespan to increment or decrement by. e.g. if 1 is passed in
+    the time to increment or decrement by. e.g. if 1 is passed in
     when the user is on the week view, the dash will move forward
     by one week
+  setTime: react setStateAction
+    change the current time
   month: function
     this is a function that sets the head of the dashboard, indicating
     what month it is
-  ctx: week | month
-    the global context used to determine functionality of the setHead
-    function
 */
 
 interface Props {
   time: number;
+  setTime: React.Dispatch<React.SetStateAction<number>>;
   setHead: (num: number, scope: Scope) => string;
   scope: Scope;
 }
 
 // controls incrementing/decrementing the date in view
 
-const Controls: React.FC<Props> = ({ time, setHead, scope }) => {
-  // state dispatcher
-  const dispatch = useDispatch();
-
-  // increment the current time
-  const inc = (): void => {
-    dispatch(incOrDecAction('inc', time));
-  };
-
-  // decrement the current time
-  const dec = (): void => {
-    dispatch(incOrDecAction('dec', time));
-  };
-
+const Controls: React.FC<Props> = ({ time, setTime, setHead, scope }) => {
   return (
     <Flex justify='space-between' align='center'>
       <Flex align='center' css={styles.container}>
         <div className={styles.icons}>
           <FiChevronLeft
             data-testid='back'
-            onClick={dec}
+            onClick={(): void => setTime(time => (time -= 1))}
             className={styles.icon}
           />
           <FiChevronRight
             data-testid='forward'
-            onClick={inc}
+            onClick={(): void => setTime(time => (time += 1))}
             className={styles.icon}
           />
         </div>

@@ -1,21 +1,12 @@
 import { globalReducer } from '../../../reducers/globalReducer';
-import {
-  ADD_TOKEN,
-  CHANGE_SCOPE,
-  SET_SCOPE,
-  SET_DATE,
-  SET_TIMESPAN,
-  MODAL_CTX
-} from 'src/constants/index';
+import { ADD_TOKEN, MODAL_CTX } from 'src/constants/index';
 
 describe('global reducer', () => {
   test('should return initial state', () => {
     expect(globalReducer(undefined, {})).toEqual({
       t: null,
       ctx: null,
-      scope: 'week',
-      date: null,
-      timeSpan: 0
+      date: null
     });
   });
 
@@ -28,9 +19,7 @@ describe('global reducer', () => {
     ).toEqual({
       t: 'token',
       ctx: null,
-      scope: 'week',
-      date: null,
-      timeSpan: 0
+      date: null
     });
   });
 
@@ -43,67 +32,7 @@ describe('global reducer', () => {
     ).toEqual({
       ctx: 'ctx',
       t: null,
-      scope: 'week',
-      date: null,
-      timeSpan: 0
-    });
-  });
-
-  test('should handle SET_SCOPE', () => {
-    expect(
-      globalReducer(undefined, {
-        type: SET_SCOPE,
-        payload: 'month'
-      })
-    ).toEqual({
-      ctx: null,
-      t: null,
-      scope: 'month',
-      date: null,
-      timeSpan: 0
-    });
-  });
-
-  test('should handle SET_DATE', () => {
-    expect(
-      globalReducer(undefined, {
-        type: SET_DATE,
-        payload: { date: 'date' }
-      })
-    ).toEqual({
-      ctx: null,
-      t: null,
-      scope: 'week',
-      date: { date: 'date' },
-      timeSpan: 0
-    });
-  });
-  test('should handle SET_TIMESPAN', () => {
-    expect(
-      globalReducer(undefined, {
-        type: SET_TIMESPAN,
-        payload: 5
-      })
-    ).toEqual({
-      ctx: null,
-      t: null,
-      scope: 'week',
-      date: null,
-      timeSpan: 5
-    });
-  });
-  test('should handle CHANGE_SCOPE', () => {
-    expect(
-      globalReducer(undefined, {
-        type: CHANGE_SCOPE,
-        payload: 'week'
-      })
-    ).toEqual({
-      ctx: null,
-      t: null,
-      scope: 'week',
-      date: null,
-      timeSpan: 0
+      date: null
     });
   });
 });
