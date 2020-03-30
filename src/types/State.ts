@@ -1,5 +1,4 @@
 import { Queued, Exercise } from './Exercises';
-import { Exercise as E } from './ExerciseOption';
 import { TagOnWorkout as Tag } from './TagOnWorkout';
 import { Workout } from './Workout';
 import { Moment } from 'moment';
@@ -36,14 +35,9 @@ export interface FetchWorkoutsReducer {
   workouts: Array<Workout>;
 }
 
-export interface FetchExercisesReducer {
-  savedExercises: Array<E>;
-}
-
 export interface State {
   globalReducer: GlobalReducer;
   workoutReducer: WorkoutReducer;
-  fetchExercisesReducer: FetchExercisesReducer;
   fetchWorkoutsReducer: FetchWorkoutsReducer;
   optionsReducer: OptionsReducer;
   tagsReducer: TagsReducer;

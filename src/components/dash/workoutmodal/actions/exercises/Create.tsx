@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { createExerciseAction } from '../../../../../actions/fetchExercisesActions';
 import useToken from '../../../../../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { createExerciseQuery } from 'src/utils/queries';
@@ -11,6 +10,8 @@ import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './Create.module.scss';
 import { CreateExerciseSchema } from 'src/utils/validators';
 import FormError from 'src/components/lib/FormError';
+import { Exercise } from 'src/types/ExerciseOption';
+import produce from 'immer';
 
 /*== Create exercise =====================================================
 
@@ -26,7 +27,11 @@ about how the PR's are tracked.
 
 */
 
-const Create: React.FC = () => {
+interface Props {
+  setExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
+}
+
+const Create: React.FC<Props> = ({ setExercises }) => {
   // api utils
   const [res, call, reset] = useApi();
 
@@ -39,7 +44,11 @@ const Create: React.FC = () => {
   // if api call successful, push the saved exercise to app state
   useEffect(() => {
     if (res.data) {
-      dispatch(createExerciseAction(res.data.exercise));
+      setExercises(s =>
+        produce(s, draft => {
+          draft.push(res.data.exercise);
+        })
+      );
     }
   }, [res, dispatch]);
 

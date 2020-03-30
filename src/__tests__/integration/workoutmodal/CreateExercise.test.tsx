@@ -8,9 +8,14 @@ import axios from 'axios';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
+const setExercises = jest.fn();
+
 describe('create workout', () => {
   test('input can be typed in', async () => {
-    const { getByPlaceholderText } = wrapper(reducer, <Create />);
+    const { getByPlaceholderText } = wrapper(
+      reducer,
+      <Create setExercises={setExercises} />
+    );
 
     const input = getByPlaceholderText(/e.g. squat/i);
 
@@ -22,7 +27,10 @@ describe('create workout', () => {
   });
 
   test('displays form validation', async () => {
-    const { getByText, getByPlaceholderText } = wrapper(reducer, <Create />);
+    const { getByText, getByPlaceholderText } = wrapper(
+      reducer,
+      <Create setExercises={setExercises} />
+    );
 
     fireEvent.click(getByText(/create/i));
 
@@ -47,7 +55,10 @@ describe('create workout', () => {
       response: { data: { error: 'foobar' } }
     });
 
-    const { getByPlaceholderText, getByText } = wrapper(reducer, <Create />);
+    const { getByPlaceholderText, getByText } = wrapper(
+      reducer,
+      <Create setExercises={setExercises} />
+    );
 
     const input = getByPlaceholderText(/e.g. squat/i);
 
@@ -63,7 +74,10 @@ describe('create workout', () => {
   test('displays success message on success', async () => {
     mockAxios.post.mockResolvedValue({ data: 'foobar' });
 
-    const { getByPlaceholderText, getByText } = wrapper(reducer, <Create />);
+    const { getByPlaceholderText, getByText } = wrapper(
+      reducer,
+      <Create setExercises={setExercises} />
+    );
 
     const input = getByPlaceholderText(/e.g. squat/i);
 
