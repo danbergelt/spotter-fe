@@ -4,7 +4,7 @@ import mockWorkoutRes from '../../../__testUtils__/mockWorkoutRes';
 import {
   deleteWorkoutAction,
   fetchWorkoutsAction
-} from 'src/actions/fetchWorkoutsActions';
+} from 'src/actions/workoutsActions';
 import { DELETE_WORKOUT, FETCH_WORKOUTS } from 'src/constants/index';
 import { createMemoryHistory } from 'history';
 

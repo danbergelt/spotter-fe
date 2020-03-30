@@ -8,7 +8,7 @@ import axios from 'axios';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
-const closeParentModal = jest.fn();
+const closeModal = jest.fn();
 const workoutId = 'foo';
 const nudgeLeft = jest.fn();
 const nudgeBottom = jest.fn();
@@ -24,7 +24,7 @@ describe('delete workout', () => {
       <DeleteWorkout
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
-        closeParentModal={closeParentModal}
+        closeModal={closeModal}
         workoutId={workoutId}
       />
     );
@@ -33,7 +33,7 @@ describe('delete workout', () => {
 
     fireEvent.click(getByText(/delete/i));
 
-    expect(closeParentModal).toHaveBeenCalledTimes(1);
+    expect(closeModal).toHaveBeenCalledTimes(1);
   });
 
   test('deletes workout when context is view', async () => {
@@ -46,7 +46,7 @@ describe('delete workout', () => {
       <DeleteWorkout
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
-        closeParentModal={closeParentModal}
+        closeModal={closeModal}
         workoutId={workoutId}
       />
     );
@@ -59,7 +59,7 @@ describe('delete workout', () => {
 
     fireEvent.click(btn);
 
-    await wait(() => expect(closeParentModal).toHaveBeenCalledTimes(1));
+    await wait(() => expect(closeModal).toHaveBeenCalledTimes(1));
   });
 
   test('handles rejection', async () => {
@@ -71,7 +71,7 @@ describe('delete workout', () => {
       <DeleteWorkout
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
-        closeParentModal={closeParentModal}
+        closeModal={closeModal}
         workoutId={workoutId}
       />
     );
@@ -93,7 +93,7 @@ describe('delete workout', () => {
       <DeleteWorkout
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
-        closeParentModal={closeParentModal}
+        closeModal={closeModal}
         workoutId={workoutId}
       />
     );

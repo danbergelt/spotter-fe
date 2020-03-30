@@ -8,7 +8,7 @@ import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
 import { State } from 'src/types/State';
 import useApi from 'src/hooks/useApi';
-import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
+import { fetchWorkoutsAction } from 'src/actions/workoutsActions';
 import { fetchWorkoutsQuery } from 'src/utils/queries';
 import Controls from '../components/dash/controls/Controls';
 import {
@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
 
   // list of workouts
   const workouts = useSelector(
-    (state: State) => state.fetchWorkoutsReducer.workouts
+    (state: State) => state.workoutsReducer.workouts
   );
 
   // auth token
@@ -108,14 +108,11 @@ const Dashboard: React.FC = () => {
   const Wrapper: React.FC<Props> = ({ children, scope }) => {
     return (
       <>
-        {/* SEO */}
         <Helmet>
           <title>Dashboard | Spotter</title>
         </Helmet>
-        {/* toggle month/week view */}
         <SubNav />
         <div className={styles.container}>
-          {/* PR's link and go back/forth in time */}
           <Controls time={timeSpan} setHead={setHead} scope={scope} />
           {children}
           <WorkoutModal modal={modal} closeModal={closeModal} />

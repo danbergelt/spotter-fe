@@ -1,4 +1,4 @@
-import { fetchWorkoutsReducer } from '../../../reducers/fetchWorkoutsReducer';
+import { workoutsReducer } from '../../../reducers/workoutsReducer';
 import {
   CREATE_WORKOUT,
   EDIT_WORKOUT,
@@ -7,14 +7,14 @@ import {
 
 describe('fetch workout reducer tests', () => {
   test('should return initial state', () => {
-    expect(fetchWorkoutsReducer(undefined, {})).toEqual({
+    expect(workoutsReducer(undefined, {})).toEqual({
       workouts: []
     });
   });
 
   test('should handle CREATE_WORKOUT', () => {
     expect(
-      fetchWorkoutsReducer(undefined, {
+      workoutsReducer(undefined, {
         type: CREATE_WORKOUT,
         payload: { foo: 'bar' }
       })
@@ -23,7 +23,7 @@ describe('fetch workout reducer tests', () => {
 
   test('should handle EDIT_WORKOUT', () => {
     expect(
-      fetchWorkoutsReducer(
+      workoutsReducer(
         {
           workouts: [
             { _id: 0, foo: 'bar' },
@@ -42,7 +42,7 @@ describe('fetch workout reducer tests', () => {
 
   test('should handle FETCH_WORKOUTS', () => {
     expect(
-      fetchWorkoutsReducer(undefined, {
+      workoutsReducer(undefined, {
         type: FETCH_WORKOUTS,
         payload: 'foo'
       })

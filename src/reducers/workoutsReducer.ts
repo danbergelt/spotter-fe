@@ -7,20 +7,20 @@ import {
   EDIT_WORKOUT
 } from '../constants/index';
 import { AnyAction } from 'redux';
-import { FetchWorkoutsReducer } from 'src/types/State';
+import { WorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
 import { remove } from 'lodash';
 
-const fetchedWorkoutsState: FetchWorkoutsReducer = {
+const workoutsState: WorkoutsReducer = {
   workouts: []
 };
 
 // populates dashboard
 
-export const fetchWorkoutsReducer = (
-  state = fetchedWorkoutsState,
+export const workoutsReducer = (
+  state = workoutsState,
   action: AnyAction
-): FetchWorkoutsReducer => {
+): WorkoutsReducer => {
   return produce(state, draft => {
     switch (action.type) {
       case CREATE_WORKOUT:

@@ -25,20 +25,13 @@ export interface TagsReducer {
   tags: Array<Tag>;
 }
 
-export interface OptionsReducer {
-  active: number;
-  tagModal: boolean;
-  saveMsg: object;
-}
-
-export interface FetchWorkoutsReducer {
+export interface WorkoutsReducer {
   workouts: Array<Workout>;
 }
 
 export interface State {
   globalReducer: GlobalReducer;
   workoutReducer: WorkoutReducer;
-  fetchWorkoutsReducer: FetchWorkoutsReducer;
-  optionsReducer: OptionsReducer;
+  workoutsReducer: WorkoutsReducer;
   tagsReducer: TagsReducer;
 }

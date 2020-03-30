@@ -1,18 +1,16 @@
 import { combineReducers, AnyAction } from 'redux';
 import { workoutReducer } from './workoutReducer';
-import { fetchWorkoutsReducer } from './fetchWorkoutsReducer';
+import { workoutsReducer } from './workoutsReducer';
 import { globalReducer } from './globalReducer';
 import { tagsReducer } from './tagsReducer';
-import { optionsReducer } from './optionsReducer';
 import { LOGOUT } from 'src/constants/index';
 import { State } from 'src/types/State';
 
 const appReducer = combineReducers({
   workoutReducer,
-  fetchWorkoutsReducer,
+  workoutsReducer,
   globalReducer,
-  tagsReducer,
-  optionsReducer
+  tagsReducer
 });
 
 // logout functionality -->
