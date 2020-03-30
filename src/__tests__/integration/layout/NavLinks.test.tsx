@@ -3,7 +3,7 @@ import NavLinks from 'src/components/layout/NavLinks';
 import { reducer } from 'src/reducers';
 import wrapper from 'src/__testUtils__/wrapper';
 import { fireEvent } from '@testing-library/dom';
-import { ADD_TOKEN } from 'src/actions/addTokenActions';
+import { ADD_TOKEN } from 'src/constants/index';
 import { act } from 'react-dom/test-utils';
 import axios from 'axios';
 jest.mock('axios');

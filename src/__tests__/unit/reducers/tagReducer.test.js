@@ -1,7 +1,11 @@
 import { tagsReducer } from '../../../reducers/tagsReducer';
-import { UPDATE_TAG, DELETE_TAG } from 'src/actions/workoutActions';
-import { ADD_TAGS, CREATE_TAG } from 'src/actions/tagsActions';
-import { CLOSE_WORKOUT_MODAL } from 'src/actions/globalActions';
+import {
+  UPDATE_TAG,
+  DELETE_TAG,
+  ADD_TAGS,
+  CREATE_TAG,
+  CLOSE_WORKOUT_MODAL
+} from 'src/constants/index';
 
 describe('tag reducer', () => {
   test('should return initial state', () => {

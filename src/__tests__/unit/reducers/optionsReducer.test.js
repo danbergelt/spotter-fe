@@ -9,7 +9,7 @@ import {
   SET_FROM_TEMPLATE,
   SET_TEMPLATE_SAVE,
   SET_ACTIVE
-} from '../../../actions/optionsActions';
+} from '../../../constants/index';
 
 const state = {
   active: 0,

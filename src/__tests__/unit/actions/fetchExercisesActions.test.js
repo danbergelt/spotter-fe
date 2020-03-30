@@ -2,12 +2,14 @@ import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
 import {
   fetchExercisesAction,
+  createExerciseAction,
+  deleteExerciseAction
+} from 'src/actions/fetchExercisesActions';
+import {
   FETCH_EXERCISES,
   CREATE_EXERCISE,
-  createExerciseAction,
-  DELETE_SAVED_EXERCISE,
-  deleteExerciseAction
-} from '../../../actions/fetchExercisesActions';
+  DELETE_SAVED_EXERCISE
+} from '../../../constants/index';
 import { createMemoryHistory } from 'history';
 
 const mockStore = configureMockStore();

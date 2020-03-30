@@ -1,25 +1,27 @@
 import configureMockStore from 'redux-mock-store';
 import {
-  resetExerciseFormAction,
   RESET_QUEUE,
   ADD_EXERCISE,
+  HANDLE_EDIT,
+  QUEUE_EDIT,
+  DEL_EXERCISE,
+  ADD_WORKOUT_NOTES,
+  RESET_NOTES,
+  ADD_WORKOUT_TITLE,
+  FROM_TEMPLATE,
+  TOGGLE_TAG
+} from 'src/constants/index';
+import {
+  resetExerciseFormAction,
   addExerciseAction,
   editExerciseAction,
-  HANDLE_EDIT,
   resetQueueAction,
-  QUEUE_EDIT,
   handleQueueAction,
-  DEL_EXERCISE,
   delExerciseAction,
-  ADD_WORKOUT_NOTES,
   addNotesAction,
-  RESET_NOTES,
   resetNotesAction,
-  ADD_WORKOUT_TITLE,
   addTitleAction,
-  FROM_TEMPLATE,
   generateTemplateAction,
-  TOGGLE_TAG,
   toggleTagAction
 } from '../../../actions/workoutActions';
 

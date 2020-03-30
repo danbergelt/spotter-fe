@@ -3,7 +3,7 @@ import {
   FETCH_EXERCISES,
   CREATE_EXERCISE,
   DELETE_SAVED_EXERCISE
-} from '../../../actions/fetchExercisesActions';
+} from '../../../constants/index';
 
 describe('fetch exercises reducer tests', () => {
   test('should return initial state', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import DeleteWorkout from 'src/components/dash/workoutmodal/actions/deleteworkout/DeleteWorkout';
-import { MODAL_CTX } from 'src/actions/globalActions';
+import { MODAL_CTX } from 'src/constants/index';
 import { fireEvent, wait } from '@testing-library/dom';
 import axios from 'axios';
 jest.mock('axios');

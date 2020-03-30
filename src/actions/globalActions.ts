@@ -1,16 +1,15 @@
 import { Moment } from 'moment';
 import { Workout } from 'src/types/Workout';
-import { ADD_TOKEN } from './addTokenActions';
+import {
+  ADD_TOKEN,
+  OPEN_MODAL,
+  LOGOUT,
+  SET_TIMESPAN,
+  CHANGE_SCOPE,
+  CLOSE_WORKOUT_MODAL
+} from '../constants/index';
 import { Action } from 'redux';
 import { ReduxAction, Ctx } from 'src/types/Types';
-export const OPEN_MODAL = 'OPEN_MODAL';
-export const MODAL_CTX = 'MODAL_CTX';
-export const LOGOUT = 'LOGOUT';
-export const SET_SCOPE = 'SET_SCOPE';
-export const SET_DATE = 'SET_DATE';
-export const SET_TIMESPAN = 'SET_TIMESPAN';
-export const CHANGE_SCOPE = 'CHANGE_SCOPE';
-export const CLOSE_WORKOUT_MODAL = 'CLOSE_WORKOUT_MODAL';
 
 // sets dashboard scope to either weekly/monthly
 export const setScopeAction = (option: string): ReduxAction<string> => {

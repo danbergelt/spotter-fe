@@ -1,9 +1,10 @@
 import { Exercise } from 'src/types/ExerciseOption';
 import { ReduxAction } from 'src/types/Types';
-
-export const FETCH_EXERCISES = 'FETCH_EXERCISES';
-export const CREATE_EXERCISE = 'CREATE_EXERCISE';
-export const DELETE_SAVED_EXERCISE = 'DELETE_SAVED_EXERCISE';
+import {
+  FETCH_EXERCISES,
+  DELETE_SAVED_EXERCISE,
+  CREATE_EXERCISE
+} from 'src/constants';
 
 // fetches saved exercises
 export const fetchExercisesAction = (

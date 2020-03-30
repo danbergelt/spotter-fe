@@ -1,6 +1,10 @@
-import { CLOSE_WORKOUT_MODAL } from '../actions/globalActions';
-import { ADD_TAGS, CREATE_TAG } from 'src/actions/tagsActions';
-import { UPDATE_TAG, DELETE_TAG } from 'src/actions/workoutActions';
+import {
+  UPDATE_TAG,
+  DELETE_TAG,
+  ADD_TAGS,
+  CREATE_TAG,
+  CLOSE_WORKOUT_MODAL
+} from 'src/constants/index';
 import { TagsReducer } from 'src/types/State';
 import { AnyAction } from 'redux';
 import produce from 'immer';
