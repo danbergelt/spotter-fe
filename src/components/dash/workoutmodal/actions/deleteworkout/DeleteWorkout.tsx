@@ -61,7 +61,7 @@ const DeleteWorkout: React.FC<Props> = ({
   const token = useToken();
 
   // the current modal context, either add or view
-  const { ctx } = useSelector((state: State) => state.globalReducer);
+  const ctx = useSelector((state: State) => state.globalReducer.ctx);
 
   const deleteHandler = (): void => {
     // if viewing a workout, open a confirm delete popup

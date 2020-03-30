@@ -4,40 +4,17 @@ import {
   ADD_TOKEN,
   OPEN_MODAL,
   LOGOUT,
-  SET_TIMESPAN,
-  CHANGE_SCOPE,
   CLOSE_WORKOUT_MODAL
 } from '../constants/index';
 import { Action } from 'redux';
 import { ReduxAction, Ctx } from 'src/types/Types';
 
-// sets dashboard scope to either weekly/monthly
-export const setScopeAction = (option: string): ReduxAction<string> => {
-  return {
-    type: CHANGE_SCOPE,
-    payload: option
-  };
-};
-
-// closes primary workout modal
+// close workout modal (resets various states across app)
 export const closeWorkoutModalAction = (): Action => {
   return { type: CLOSE_WORKOUT_MODAL };
 };
 
-// increment/decrement timespan
-// e.g. move ahead/move back in time by one week/month at a time
-
-export const incOrDecAction = (
-  incOrDec: string,
-  timespan: number
-): ReduxAction<number> => {
-  if (incOrDec === 'inc') {
-    return { type: SET_TIMESPAN, payload: timespan + 1 };
-  }
-
-  return { type: SET_TIMESPAN, payload: timespan - 1 };
-};
-
+// open a workout modal (accepts the current date, the ctx ('add' or 'view), and the optional workout if the ctx is 'view')
 interface OpenModal {
   date: Moment;
   ctx: Ctx;
@@ -51,15 +28,12 @@ export const openWorkoutModalAction = (
   return { type: OPEN_MODAL, payload: { date, ctx, workout } };
 };
 
-// logs a user out
-// removes token from memory, and fetches a dead refresh cookie from the server
-type TLogOut = () => Action;
-export const logOutAction: TLogOut = () => {
+// logout --> removes token from memory, and fetches a dead refresh cookie from the server
+export const logOutAction = (): Action => {
   return { type: LOGOUT };
 };
 
-// add a token to state
-// this action is triggered on log in/sign up
+// add a token to app state --> this action is triggered on log in/sign up
 export const addTokenAction = (
   token: string | null
 ): ReduxAction<string | null> => {

@@ -1,12 +1,10 @@
 import React, { useState, useRef } from 'react';
 import Dropdown from 'src/components/lib/Dropdown';
-import { State } from 'src/types/State';
-import { useSelector, useDispatch } from 'react-redux';
 import styles from './SubNav.module.scss';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import Flex from 'src/components/lib/Flex';
-import { setScopeAction } from 'src/actions/globalActions';
 import { useWindowSize } from 'react-use';
+import { Scope } from 'src/types/Types';
 
 /*== Subnav =====================================================
 
@@ -16,26 +14,27 @@ view or a monthly view.
 
 */
 
-const SubNav: React.FC = () => {
+interface Props {
+  scope: Scope;
+  setScope: React.Dispatch<React.SetStateAction<Scope>>;
+  setTime: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const SubNav: React.FC<Props> = ({ scope, setScope, setTime }) => {
   // dropdown state
   const [isOpen, setIsOpen] = useState(false);
 
   // window width to dynamically adjust dropdown position
   const { width } = useWindowSize();
 
-  // the dashboard scope (either month or week)
-  const scope = useSelector((state: State) => state.globalReducer.scope);
-
-  // state dispatcher
-  const dispatch = useDispatch();
-
   // dropdown trigger ref
   const ref = useRef<HTMLDivElement>(null);
 
   // set the dashboard scope. called when dropdown option clicked
-  const setScope = (option: string): void => {
+  const handleScope = (option: Scope): void => {
+    setTime(0);
     setIsOpen(false);
-    dispatch(setScopeAction(option));
+    setScope(option);
   };
 
   // dynamically adjust dropdown position
@@ -61,14 +60,14 @@ const SubNav: React.FC = () => {
         <Dropdown top={setTop()} refs={[ref]} setState={setIsOpen}>
           <p
             data-testid='opt'
-            onClick={(): void => setScope('week')}
+            onClick={(): void => handleScope('week')}
             className={styles.option}
           >
             week
           </p>
           <p
             data-testid='opt2'
-            onClick={(): void => setScope('month')}
+            onClick={(): void => handleScope('month')}
             className={styles.option}
           >
             month

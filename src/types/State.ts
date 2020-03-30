@@ -2,14 +2,11 @@ import { Queued, Exercise } from './Exercises';
 import { TagOnWorkout as Tag } from './TagOnWorkout';
 import { Workout } from './Workout';
 import { Moment } from 'moment';
-import { Scope } from './Types';
 
 export interface GlobalReducer {
   t: null | string;
-  ctx: null | string;
-  scope: Scope;
+  ctx: null | 'add' | 'view';
   date: null | Moment;
-  timeSpan: number;
 }
 
 export interface WorkoutReducer {
