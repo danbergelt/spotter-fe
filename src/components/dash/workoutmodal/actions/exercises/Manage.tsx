@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import useToken from '../../../../../hooks/useToken';
 import { Exercise } from '../../../../../types/ExerciseOption';
 import useApi from 'src/hooks/useApi';
@@ -44,9 +43,6 @@ const Manage: React.FC<Props> = ({ exercises, setExercises }) => {
   // auth token
   const token = useToken();
 
-  // state dispatcher
-  const dispatch = useDispatch();
-
   // api utils
   const [res, call, reset] = useApi();
 
@@ -64,7 +60,7 @@ const Manage: React.FC<Props> = ({ exercises, setExercises }) => {
         })
       );
     }
-  }, [res, dispatch]);
+  }, [res, setExercises]);
 
   // delete an exercise from the this user's account
   const deleteExercise = async (id: string): Promise<void> => {

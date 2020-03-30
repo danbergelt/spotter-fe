@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import useToken from '../../../../../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { createExerciseQuery } from 'src/utils/queries';
@@ -38,9 +37,6 @@ const Create: React.FC<Props> = ({ setExercises }) => {
   // auth token
   const token = useToken();
 
-  // state dispatcher
-  const dispatch = useDispatch();
-
   // if api call successful, push the saved exercise to app state
   useEffect(() => {
     if (res.data) {
@@ -50,7 +46,7 @@ const Create: React.FC<Props> = ({ setExercises }) => {
         })
       );
     }
-  }, [res, dispatch]);
+  }, [res, setExercises]);
 
   return (
     <Formik
