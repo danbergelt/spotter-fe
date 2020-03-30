@@ -7,7 +7,7 @@ import Dropdown from 'src/components/lib/Dropdown';
 import Head from 'src/components/lib/Head';
 import { deleteWorkoutQuery } from 'src/utils/queries';
 import useApi from 'src/hooks/useApi';
-import { deleteWorkoutAction } from 'src/actions/fetchWorkoutsActions';
+import { deleteWorkoutAction } from 'src/actions/workoutsActions';
 import Button from 'src/components/lib/Button';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import useToken from 'src/hooks/useToken';
@@ -20,7 +20,7 @@ it opens a dropdown asking the user to confirm. Once the user confirms, the work
 deleted, and the user is routed back to the dashboard.
 
 Props:
-  closeParentModal: function
+  closeModal: function
     close the workout modal
   workoutId: string
     the currentw workout's id, which is passed in to the delete query
@@ -32,7 +32,7 @@ Props:
 */
 
 interface Props {
-  closeParentModal: () => void;
+  closeModal: () => void;
   workoutId: string | null;
   nudgeLeft: () => string | undefined;
   nudgeBottom: () => string | undefined;
@@ -40,7 +40,7 @@ interface Props {
 
 // delete workout option container
 const DeleteWorkout: React.FC<Props> = ({
-  closeParentModal,
+  closeModal,
   workoutId,
   nudgeLeft,
   nudgeBottom
@@ -66,7 +66,7 @@ const DeleteWorkout: React.FC<Props> = ({
   const deleteHandler = (): void => {
     // if viewing a workout, open a confirm delete popup
     if (ctx === 'add') {
-      closeParentModal();
+      closeModal();
     }
 
     // otherwise, just close the modal
@@ -81,9 +81,9 @@ const DeleteWorkout: React.FC<Props> = ({
     if (res.data) {
       dispatch(deleteWorkoutAction(res.data.workout._id));
       setIsOpen(false);
-      closeParentModal();
+      closeModal();
     }
-  }, [res, dispatch, closeParentModal]);
+  }, [res, dispatch, closeModal]);
 
   // delete workout
   const deleteWorkout = async (): Promise<void> => {

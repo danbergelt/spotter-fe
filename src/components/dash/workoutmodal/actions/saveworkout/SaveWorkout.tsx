@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   editWorkoutAction,
   createWorkoutAction
-} from '../../../../../actions/optionsActions';
+} from '../../../../../actions/workoutsActions';
 import { State, WorkoutReducer } from 'src/types/State';
 import useApi from 'src/hooks/useApi';
 import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
@@ -22,18 +22,18 @@ the current workout, since it already exists.
 Props:
   workoutId: string
     the current workout's id (null if doesn't exist)
-  closeParentModal: function
+  closeModal: function
     the function that closes the workout modal
 
 */
 
 interface Props {
   workoutId: string | null;
-  closeParentModal: () => void;
+  closeModal: () => void;
 }
 
 // Save or Edit workout depending on global modal context
-const SaveWorkout: React.FC<Props> = ({ workoutId, closeParentModal }) => {
+const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal }) => {
   // the current workout
   const workout: WorkoutReducer = useSelector(
     (state: State) => state.workoutReducer
@@ -57,16 +57,16 @@ const SaveWorkout: React.FC<Props> = ({ workoutId, closeParentModal }) => {
       // if the ctx is add, push the returned workout to the list of workouts
       if (ctx === 'add') {
         dispatch(createWorkoutAction(res.data.workout));
-        closeParentModal();
+        closeModal();
       }
 
       // if the ctx is view, replace the workout with the returned workout
       if (ctx === 'view') {
         dispatch(editWorkoutAction(res.data.workout));
-        closeParentModal();
+        closeModal();
       }
     }
-  }, [res, closeParentModal, ctx, dispatch]);
+  }, [res, closeModal, ctx, dispatch]);
 
   // save/edit a workout
   const saveHandler = async (): Promise<void> => {

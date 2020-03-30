@@ -22,16 +22,16 @@ Includes the below options:
   Manage all tags
 
 Props:
-  closeParentModal: Function
+  closeModal: Function
     close the workout modal, triggers on certain actions
 
 */
 
 interface Props {
-  closeParentModal: () => void;
+  closeModal: () => void;
 }
 
-const Menu: React.FC<Props> = ({ closeParentModal }) => {
+const Menu: React.FC<Props> = ({ closeModal }) => {
   // the current workout's id, used in edit/delete queries
   const workoutId: string | null = useSelector(
     (state: State) => state.workoutReducer._id
@@ -80,13 +80,10 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
           <DeleteWorkout
             nudgeLeft={nudgeLeft}
             nudgeBottom={nudgeBottom}
-            closeParentModal={closeParentModal}
+            closeModal={closeModal}
             workoutId={workoutId}
           />
-          <SaveWorkout
-            closeParentModal={closeParentModal}
-            workoutId={workoutId}
-          />
+          <SaveWorkout closeModal={closeModal} workoutId={workoutId} />
         </div>
       </section>
     </div>

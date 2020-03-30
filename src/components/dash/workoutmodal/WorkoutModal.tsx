@@ -70,7 +70,7 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
             <Notes />
             <Exercises />
           </div>
-          <Menu closeParentModal={closeModal} />
+          <Menu closeModal={closeModal} />
         </Flex>
       </Flex>
     </Modal>
