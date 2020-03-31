@@ -10,9 +10,7 @@ import {
   DELETE_TAG,
   FROM_TEMPLATE,
   DEL_EXERCISE,
-  QUEUE_EDIT,
   HANDLE_EDIT,
-  RESET_QUEUE,
   FROM_SAVED
 } from '../../../constants/index';
 
@@ -23,7 +21,6 @@ describe('add workout reducer', () => {
       notes: '',
       tags: [],
       exercises: [],
-      queue: {},
       _id: null
     });
   });
@@ -39,7 +36,6 @@ describe('add workout reducer', () => {
       notes: '',
       tags: [],
       exercises: [],
-      queue: {},
       _id: null
     });
   });
@@ -55,7 +51,6 @@ describe('add workout reducer', () => {
       notes: 'notes',
       tags: [],
       exercises: [],
-      queue: {},
       _id: null
     });
   });
@@ -99,7 +94,6 @@ describe('add workout reducer', () => {
       notes: '',
       tags: [],
       exercises: [{ name: 'name' }],
-      queue: {},
       _id: null
     });
   });
@@ -115,7 +109,6 @@ describe('add workout reducer', () => {
       notes: '',
       tags: [{ tag: 'tag' }],
       exercises: [],
-      queue: {},
       _id: null
     });
   });
@@ -178,7 +171,6 @@ describe('add workout reducer', () => {
       exercises: [],
       tags: 'tags',
       notes: 'n',
-      queue: {},
       _id: null
     });
   });
@@ -189,23 +181,7 @@ describe('add workout reducer', () => {
         { exercises: [{ e: {} }] },
         { type: DEL_EXERCISE, payload: 0 }
       )
-    ).toEqual({ exercises: [], queue: {} });
-  });
-
-  test('should handle QUEUE_EDIT', () => {
-    expect(
-      workoutReducer(undefined, {
-        type: QUEUE_EDIT,
-        payload: { exercise: { name: 'e' }, i: 1 }
-      })
-    ).toEqual({
-      title: '',
-      exercises: [],
-      tags: [],
-      notes: '',
-      queue: { exercise: { name: 'e' }, i: 1 },
-      _id: null
-    });
+    ).toEqual({ exercises: [] });
   });
 
   test('should handle HANDLE_EDIT', () => {
@@ -215,8 +191,7 @@ describe('add workout reducer', () => {
           title: '',
           exercises: [{ name: 'e' }],
           tags: [],
-          notes: '',
-          queue: { exercise: { name: 'e' }, i: 0 }
+          notes: ''
         },
         { type: HANDLE_EDIT, payload: { exercise: { name: 'edited' }, i: 0 } }
       )
@@ -224,29 +199,7 @@ describe('add workout reducer', () => {
       title: '',
       exercises: [{ name: 'edited' }],
       tags: [],
-      notes: '',
-      queue: {}
-    });
-  });
-
-  test('should handle RESET_QUEUE', () => {
-    expect(
-      workoutReducer(
-        {
-          title: '',
-          exercises: [{ name: 'e' }],
-          tags: [],
-          notes: '',
-          queue: { exercise: { name: 'e' }, i: 0 }
-        },
-        { type: RESET_QUEUE }
-      )
-    ).toEqual({
-      title: '',
-      exercises: [{ name: 'e' }],
-      tags: [],
-      notes: '',
-      queue: {}
+      notes: ''
     });
   });
 
@@ -267,7 +220,6 @@ describe('add workout reducer', () => {
       exercises: [{ name: 'e' }],
       tags: [],
       notes: '',
-      queue: {},
       _id: 1
     });
   });

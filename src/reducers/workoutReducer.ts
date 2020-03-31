@@ -9,11 +9,9 @@ import {
   DELETE_TAG,
   FROM_TEMPLATE,
   DEL_EXERCISE,
-  QUEUE_EDIT,
   HANDLE_EDIT,
-  RESET_QUEUE,
   FROM_SAVED,
-  CLOSE_WORKOUT_MODAL,
+  CLOSE_MODAL,
   OPEN_MODAL
 } from '../constants/index';
 import { find, isMatch, isEqual, omit, pick, keys, remove } from 'lodash';
@@ -29,7 +27,6 @@ const workoutState: WorkoutReducer = {
   notes: '',
   exercises: [],
   tags: [],
-  queue: {},
   _id: null
 };
 
@@ -135,22 +132,14 @@ export const workoutReducer = (
         draft.tags = action.payload.tags;
         return;
       case DEL_EXERCISE:
-        draft.queue = {};
         remove(draft.exercises, (_, index) => index === action.payload);
         return;
-      case QUEUE_EDIT:
-        draft.queue = action.payload;
-        return;
       case HANDLE_EDIT:
-        draft.queue = {};
         draft.exercises.forEach((_, index) => {
           if (index === action.payload.i) {
             draft.exercises[index] = action.payload.exercise;
           }
         });
-        return;
-      case RESET_QUEUE:
-        draft.queue = {};
         return;
       case FROM_SAVED:
         draft._id = action.payload._id;
@@ -159,8 +148,7 @@ export const workoutReducer = (
         draft.tags = action.payload.tags;
         draft.title = action.payload.title;
         return;
-      case CLOSE_WORKOUT_MODAL:
-        draft.queue = {};
+      case CLOSE_MODAL:
         draft.title = '';
         draft.notes = '';
         draft.exercises = [];

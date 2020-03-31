@@ -1,7 +1,7 @@
 import {
   OPEN_MODAL,
   MODAL_CTX,
-  CLOSE_WORKOUT_MODAL,
+  CLOSE_MODAL,
   ADD_TOKEN
 } from '../constants/index';
 import { GlobalReducer } from 'src/types/State';
@@ -32,7 +32,7 @@ export const globalReducer = (
       case MODAL_CTX:
         draft.ctx = action.payload;
         return;
-      case CLOSE_WORKOUT_MODAL:
+      case CLOSE_MODAL:
         draft.ctx = null;
         return;
       default:

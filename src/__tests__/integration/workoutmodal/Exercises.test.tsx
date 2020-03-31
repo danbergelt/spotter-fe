@@ -28,7 +28,7 @@ describe('exercises', () => {
     expect(queryByText(/foo/i)).toBeFalsy();
   });
 
-  test('queue handler works', async () => {
+  test('editing handler works', async () => {
     const { getByPlaceholderText, queryByText, getByText, store } = wrapper(
       reducer,
       <Exercises />

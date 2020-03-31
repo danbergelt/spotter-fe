@@ -11,8 +11,8 @@ const appReducer = combineReducers({
   globalReducer
 });
 
-// logout functionality -->
-// no mutation, assigns the state to a temporary undefined variable that serves to 'reset' the state
+// logout functionality
+// assigns the state to a temporary undefined variable that serves to 'reset' the state
 // then, once a user logs in, state is rehydrated
 export const reducer = (state: State | undefined, action: AnyAction): State => {
   if (action.type === LOGOUT) {

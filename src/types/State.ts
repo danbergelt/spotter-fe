@@ -1,4 +1,4 @@
-import { Queued, Exercise } from './Exercises';
+import { Exercise } from './Exercises';
 import { TagOnWorkout as Tag } from './TagOnWorkout';
 import { Workout } from './Workout';
 import { Moment } from 'moment';
@@ -14,7 +14,6 @@ export interface WorkoutReducer {
   notes: string;
   exercises: Array<Exercise>;
   tags: Array<Tag>;
-  queue: Queued;
   _id: null | string;
 }
 

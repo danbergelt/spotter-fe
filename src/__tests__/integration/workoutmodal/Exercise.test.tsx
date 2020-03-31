@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import Exercise from 'src/components/dash/workoutmodal/Exercise';
 
 const exercise = { name: 'foo', sets: '100', reps: '100', weight: '100' };
-const handleQueue = jest.fn();
+const setEditing = jest.fn();
 const delExercise = jest.fn();
 
 describe('exercise', () => {
@@ -16,7 +16,7 @@ describe('exercise', () => {
       <Exercise
         i={0}
         exercise={exercise}
-        handleQueue={handleQueue}
+        setEditing={setEditing}
         delExercise={delExercise}
       />
     );
@@ -32,7 +32,7 @@ describe('exercise', () => {
       <Exercise
         i={0}
         exercise={exercise}
-        handleQueue={handleQueue}
+        setEditing={setEditing}
         delExercise={delExercise}
       />
     );
@@ -41,17 +41,17 @@ describe('exercise', () => {
     expect(delExercise).toHaveBeenCalledTimes(1);
   });
 
-  test('queue handler function calls', () => {
+  test('editing handler function calls', () => {
     const { getByText } = render(
       <Exercise
         i={0}
         exercise={exercise}
-        handleQueue={handleQueue}
+        setEditing={setEditing}
         delExercise={delExercise}
       />
     );
 
     fireEvent.click(getByText(/edit/i));
-    expect(handleQueue).toHaveBeenCalledTimes(1);
+    expect(setEditing).toHaveBeenCalledTimes(1);
   });
 });

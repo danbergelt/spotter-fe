@@ -43,14 +43,10 @@ const Menu: React.FC<Props> = ({ closeModal }) => {
   // dynamically set position according to viewport width
   const nudgeLeft = (): string | undefined => {
     // push to bottom left corner at tablet and below
-    if (width <= 800) {
-      return '16px';
-    }
+    if (width <= 800) return '16px';
 
     // nudge left when viewport closes in on border
-    if (width <= 875) {
-      return '68vw';
-    }
+    if (width <= 875) return '68vw';
 
     // otherwise render default position
     return;
@@ -59,9 +55,7 @@ const Menu: React.FC<Props> = ({ closeModal }) => {
   // dynamically set position according to viewport width
   const nudgeBottom = (): string | undefined => {
     // push to bottom left corner at tablet and below
-    if (width <= 800) {
-      return '44px';
-    }
+    if (width <= 800) return '44px';
 
     // otherwise render default position
     return;

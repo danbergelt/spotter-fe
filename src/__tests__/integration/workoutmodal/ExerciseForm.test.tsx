@@ -4,15 +4,25 @@ import { reducer } from 'src/reducers';
 import ExerciseForm from 'src/components/dash/workoutmodal/ExerciseForm';
 import { fireEvent, wait } from '@testing-library/dom';
 import { act } from 'react-dom/test-utils';
+import { Editing } from 'src/types/Types';
+
+const editing = {} as Editing;
+const setEditing = jest.fn();
 
 describe('exercise form', () => {
   test('renders', () => {
-    const { getByTestId } = wrapper(reducer, <ExerciseForm />);
+    const { getByTestId } = wrapper(
+      reducer,
+      <ExerciseForm editing={editing} setEditing={setEditing} />
+    );
     getByTestId(/exercise-form/i);
   });
 
   test('fields can be typed in', async () => {
-    const { getByPlaceholderText } = wrapper(reducer, <ExerciseForm />);
+    const { getByPlaceholderText } = wrapper(
+      reducer,
+      <ExerciseForm editing={editing} setEditing={setEditing} />
+    );
 
     const name = getByPlaceholderText(/e.g. squat/i);
     const lbs = getByPlaceholderText(/lbs/i);
@@ -44,7 +54,7 @@ describe('exercise form', () => {
   test('form validation', async () => {
     const { getByPlaceholderText, getByText } = wrapper(
       reducer,
-      <ExerciseForm />
+      <ExerciseForm editing={editing} setEditing={setEditing} />
     );
 
     fireEvent.click(getByText(/add/i));
