@@ -18,10 +18,6 @@ export interface WorkoutReducer {
   _id: null | string;
 }
 
-export interface TagsReducer {
-  tags: Array<Tag>;
-}
-
 export interface WorkoutsReducer {
   workouts: Array<Workout>;
 }
@@ -30,5 +26,4 @@ export interface State {
   globalReducer: GlobalReducer;
   workoutReducer: WorkoutReducer;
   workoutsReducer: WorkoutsReducer;
-  tagsReducer: TagsReducer;
 }
