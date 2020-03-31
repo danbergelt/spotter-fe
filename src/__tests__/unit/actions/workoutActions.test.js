@@ -1,41 +1,28 @@
 import configureMockStore from 'redux-mock-store';
 import {
-  resetExerciseFormAction,
-  RESET_QUEUE,
   ADD_EXERCISE,
+  HANDLE_EDIT,
+  DEL_EXERCISE,
+  ADD_WORKOUT_NOTES,
+  RESET_NOTES,
+  ADD_WORKOUT_TITLE,
+  FROM_TEMPLATE,
+  TOGGLE_TAG
+} from 'src/constants/index';
+import {
   addExerciseAction,
   editExerciseAction,
-  HANDLE_EDIT,
-  resetQueueAction,
-  QUEUE_EDIT,
-  handleQueueAction,
-  DEL_EXERCISE,
   delExerciseAction,
-  ADD_WORKOUT_NOTES,
   addNotesAction,
-  RESET_NOTES,
   resetNotesAction,
-  ADD_WORKOUT_TITLE,
   addTitleAction,
-  FROM_TEMPLATE,
   generateTemplateAction,
-  TOGGLE_TAG,
   toggleTagAction
 } from '../../../actions/workoutActions';
 
 const mockStore = configureMockStore();
 
 describe('dispatches workout actions', () => {
-  test('reset exercise form', () => {
-    const expectedActions = [{ type: RESET_QUEUE }];
-
-    const store = mockStore();
-
-    store.dispatch(resetExerciseFormAction(() => {}));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
   test('add exercise', () => {
     const expectedActions = [{ type: ADD_EXERCISE, payload: 'foo' }];
 
@@ -54,28 +41,6 @@ describe('dispatches workout actions', () => {
     const store = mockStore();
 
     store.dispatch(editExerciseAction('foo', 'bar'));
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  test('resets queue', () => {
-    const expectedActions = [{ type: RESET_QUEUE }];
-
-    const store = mockStore();
-
-    store.dispatch(resetQueueAction());
-
-    expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  test('handles queue', () => {
-    const expectedActions = [
-      { type: QUEUE_EDIT, payload: { exercise: 'foo', i: 'bar' } }
-    ];
-
-    const store = mockStore();
-
-    store.dispatch(handleQueueAction('foo', 'bar'));
 
     expect(store.getActions()).toEqual(expectedActions);
   });

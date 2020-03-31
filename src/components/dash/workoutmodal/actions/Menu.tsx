@@ -22,16 +22,16 @@ Includes the below options:
   Manage all tags
 
 Props:
-  closeParentModal: Function
+  closeModal: Function
     close the workout modal, triggers on certain actions
 
 */
 
 interface Props {
-  closeParentModal: () => void;
+  closeModal: () => void;
 }
 
-const Menu: React.FC<Props> = ({ closeParentModal }) => {
+const Menu: React.FC<Props> = ({ closeModal }) => {
   // the current workout's id, used in edit/delete queries
   const workoutId: string | null = useSelector(
     (state: State) => state.workoutReducer._id
@@ -43,14 +43,10 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
   // dynamically set position according to viewport width
   const nudgeLeft = (): string | undefined => {
     // push to bottom left corner at tablet and below
-    if (width <= 800) {
-      return '16px';
-    }
+    if (width <= 800) return '16px';
 
     // nudge left when viewport closes in on border
-    if (width <= 875) {
-      return '68vw';
-    }
+    if (width <= 875) return '68vw';
 
     // otherwise render default position
     return;
@@ -59,9 +55,7 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
   // dynamically set position according to viewport width
   const nudgeBottom = (): string | undefined => {
     // push to bottom left corner at tablet and below
-    if (width <= 800) {
-      return '44px';
-    }
+    if (width <= 800) return '44px';
 
     // otherwise render default position
     return;
@@ -80,13 +74,10 @@ const Menu: React.FC<Props> = ({ closeParentModal }) => {
           <DeleteWorkout
             nudgeLeft={nudgeLeft}
             nudgeBottom={nudgeBottom}
-            closeParentModal={closeParentModal}
+            closeModal={closeModal}
             workoutId={workoutId}
           />
-          <SaveWorkout
-            closeParentModal={closeParentModal}
-            workoutId={workoutId}
-          />
+          <SaveWorkout closeModal={closeModal} workoutId={workoutId} />
         </div>
       </section>
     </div>

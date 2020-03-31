@@ -1,13 +1,11 @@
 import React from 'react';
 import { Form, Field, Formik } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './ExerciseForm.module.scss';
 import {
   addExerciseAction,
   editExerciseAction
 } from '../../../actions/workoutActions';
-import { State } from 'src/types/State';
-import { Queued } from '../../../types/Exercises';
 import { ExerciseSchema } from 'src/utils/validators';
 import Flex from 'src/components/lib/Flex';
 import { useWindowSize } from 'react-use';
@@ -15,6 +13,7 @@ import Label from 'src/components/lib/Label';
 import Input from 'src/components/lib/Input';
 import FormError from 'src/components/lib/FormError';
 import Button from 'src/components/lib/Button';
+import { Editing } from 'src/types/Types';
 
 /*== Exercise form =====================================================
 
@@ -23,24 +22,24 @@ Includes exercise name, weight, sets, reps.
 
 */
 
-const ExerciseForm: React.FC = () => {
+interface Props {
+  editing: Editing;
+  setEditing: React.Dispatch<React.SetStateAction<Editing>>;
+}
+
+const ExerciseForm: React.FC<Props> = ({ editing, setEditing }) => {
   // state dispatcher
   const dispatch = useDispatch();
 
   // viewport width for dynamic mobile styling
   const { width } = useWindowSize();
 
-  // queued represents the exercise currently being edited
-  const queued: Queued = useSelector(
-    (state: State) => state.workoutReducer.queue
-  );
-
   // helper function that sets initial value for form inputs
   const initialValue = (key: string): string => {
     // if an exercise is queued for editing
-    if (Object.keys(queued).length) {
+    if (Object.keys(editing).length) {
       // set initial value of form to the respective value in the exercise
-      return queued.exercise?.[key];
+      return editing.exercise?.[key];
     }
     // otherwise set initial value as an empty string
     return '';
@@ -55,21 +54,23 @@ const ExerciseForm: React.FC = () => {
         reps: initialValue('reps')
       }}
       validationSchema={ExerciseSchema}
-      // allow form to repopulate with queued values
+      // allow form to repopulate with exercise to edit
       enableReinitialize={true}
       onSubmit={(values, { resetForm }): void => {
-        resetForm();
-
         // all exercise names must be lowercase to preserve consistency of PR tracking
         // TODO --> improve PR aggregation on server so this is not necessary
         values.name = values.name.toLowerCase();
 
         // if editing an exercise, submit an edit dispatch. otherwise submit an add dispatch
-        if (Object.keys(queued).length) {
-          dispatch(editExerciseAction(values, queued.i as number));
+        if (Object.keys(editing).length) {
+          dispatch(editExerciseAction(values, editing.i));
         } else {
           dispatch(addExerciseAction(values));
         }
+
+        // reset the editing state and reset the form
+        setEditing({} as Editing);
+        resetForm();
       }}
     >
       {({ errors, touched }): JSX.Element => (

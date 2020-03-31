@@ -2,14 +2,14 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import SaveWorkout from 'src/components/dash/workoutmodal/actions/saveworkout/SaveWorkout';
-import { MODAL_CTX } from 'src/actions/globalActions';
+import { MODAL_CTX } from 'src/constants/index';
 import axios from 'axios';
 import { fireEvent, wait } from '@testing-library/dom';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
 const workoutId = 'foo';
-const closeParentModal = jest.fn();
+const closeModal = jest.fn();
 
 describe('save workout', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('save workout', () => {
   test('renders proper button text for different contexts', () => {
     const { getByText, store } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeParentModal={closeParentModal} />
+      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
     );
 
     store.dispatch({ type: MODAL_CTX, payload: 'add' });
@@ -37,7 +37,7 @@ describe('save workout', () => {
     });
     const { getByText, store } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeParentModal={closeParentModal} />
+      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
     );
 
     store.dispatch({ type: MODAL_CTX, payload: 'add' });
@@ -53,7 +53,7 @@ describe('save workout', () => {
     });
     const { getByText, store } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeParentModal={closeParentModal} />
+      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
     );
 
     store.dispatch({ type: MODAL_CTX, payload: 'view' });
@@ -69,14 +69,14 @@ describe('save workout', () => {
     });
     const { getByText, store } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeParentModal={closeParentModal} />
+      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
     );
 
     store.dispatch({ type: MODAL_CTX, payload: 'view' });
 
     fireEvent.click(getByText(/update/i));
 
-    await wait(() => expect(closeParentModal).toHaveBeenCalledTimes(1));
+    await wait(() => expect(closeModal).toHaveBeenCalledTimes(1));
   });
 
   test('successful save request closes parent modal', async () => {
@@ -85,13 +85,13 @@ describe('save workout', () => {
     });
     const { getByText, store } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeParentModal={closeParentModal} />
+      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
     );
 
     store.dispatch({ type: MODAL_CTX, payload: 'add' });
 
     fireEvent.click(getByText(/save/i));
 
-    await wait(() => expect(closeParentModal).toHaveBeenCalledTimes(1));
+    await wait(() => expect(closeModal).toHaveBeenCalledTimes(1));
   });
 });

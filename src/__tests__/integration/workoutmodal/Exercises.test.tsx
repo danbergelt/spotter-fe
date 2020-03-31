@@ -2,7 +2,7 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import Exercises from 'src/components/dash/workoutmodal/Exercises';
-import { ADD_EXERCISE } from 'src/actions/workoutActions';
+import { ADD_EXERCISE } from 'src/constants/index';
 import { fireEvent, wait } from '@testing-library/dom';
 import { act } from 'react-dom/test-utils';
 
@@ -28,7 +28,7 @@ describe('exercises', () => {
     expect(queryByText(/foo/i)).toBeFalsy();
   });
 
-  test('queue handler works', async () => {
+  test('editing handler works', async () => {
     const { getByPlaceholderText, queryByText, getByText, store } = wrapper(
       reducer,
       <Exercises />

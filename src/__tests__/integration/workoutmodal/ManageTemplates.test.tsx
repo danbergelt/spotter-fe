@@ -12,11 +12,18 @@ jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
 const setTemplates = jest.fn();
+const setIsOpen = jest.fn();
 const templateState = [t1];
 
 const TestManage = () => {
   const [templates, setTemplates] = useState<Array<Template>>(templateState);
-  return <Manage templates={templates} setTemplates={setTemplates} />;
+  return (
+    <Manage
+      setIsOpen={setIsOpen}
+      templates={templates}
+      setTemplates={setTemplates}
+    />
+  );
 };
 
 describe('manage templates', () => {
@@ -37,7 +44,11 @@ describe('manage templates', () => {
   test('renders message when no templates found', () => {
     const { getByText } = wrapper(
       reducer,
-      <Manage setTemplates={setTemplates} templates={[]} />
+      <Manage
+        setIsOpen={setIsOpen}
+        setTemplates={setTemplates}
+        templates={[]}
+      />
     );
 
     getByText(/no templates found/i);

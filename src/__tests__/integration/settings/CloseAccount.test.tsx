@@ -4,7 +4,7 @@ import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import { fireEvent, wait } from '@testing-library/dom';
 import axios from 'axios';
-import { ADD_TOKEN } from 'src/actions/addTokenActions';
+import { ADD_TOKEN } from 'src/constants/index';
 import AuthRoute from 'src/components/auth/AuthRoute';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;

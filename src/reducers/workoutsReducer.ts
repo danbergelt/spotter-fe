@@ -1,24 +1,26 @@
 import {
   DELETE_WORKOUT,
-  FETCH_WORKOUTS
-} from '../actions/fetchWorkoutsActions';
+  FETCH_WORKOUTS,
+  UPDATE_TAG,
+  DELETE_TAG,
+  CREATE_WORKOUT,
+  EDIT_WORKOUT
+} from '../constants/index';
 import { AnyAction } from 'redux';
-import { UPDATE_TAG, DELETE_TAG } from '../actions/workoutActions';
-import { FetchWorkoutsReducer } from 'src/types/State';
+import { WorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
 import { remove } from 'lodash';
-import { CREATE_WORKOUT, EDIT_WORKOUT } from 'src/actions/optionsActions';
 
-const fetchedWorkoutsState: FetchWorkoutsReducer = {
+const workoutsState: WorkoutsReducer = {
   workouts: []
 };
 
 // populates dashboard
 
-export const fetchWorkoutsReducer = (
-  state = fetchedWorkoutsState,
+export const workoutsReducer = (
+  state = workoutsState,
   action: AnyAction
-): FetchWorkoutsReducer => {
+): WorkoutsReducer => {
   return produce(state, draft => {
     switch (action.type) {
       case CREATE_WORKOUT:

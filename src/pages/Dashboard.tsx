@@ -8,7 +8,7 @@ import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
 import { State } from 'src/types/State';
 import useApi from 'src/hooks/useApi';
-import { fetchWorkoutsAction } from 'src/actions/fetchWorkoutsActions';
+import { fetchWorkoutsAction } from 'src/actions/workoutsActions';
 import { fetchWorkoutsQuery } from 'src/utils/queries';
 import Controls from '../components/dash/controls/Controls';
 import {
@@ -58,16 +58,17 @@ const Dashboard: React.FC = () => {
 
   // list of workouts
   const workouts = useSelector(
-    (state: State) => state.fetchWorkoutsReducer.workouts
+    (state: State) => state.workoutsReducer.workouts
   );
 
   // auth token
   const token = useToken();
 
-  // global utils: scope (month or week), auth token, and current timespan
-  const { scope, timeSpan } = useSelector(
-    (state: State) => state.globalReducer
-  );
+  // view scope (week or month)
+  const [scope, setScope] = useState<Scope>('week');
+
+  // time (0 === current, -int === past, +int === future)
+  const [time, setTime] = useState(0);
 
   // if fetch workouts call is successful, dispatch to store
   useEffect(() => {
@@ -82,14 +83,14 @@ const Dashboard: React.FC = () => {
 
   // fetch workouts call
   useEffect(() => {
-    call(fetchWorkoutsQuery, [token, timeSpan, scope]);
-  }, [timeSpan, scope, token, dispatch, call]);
+    call(fetchWorkoutsQuery, [token, time, scope]);
+  }, [time, scope, token, call]);
 
   // open the workout modal in either an add workout context, or view workout context
   const openModal = useCallback(
     (date: Moment, ctx: Ctx, workout?: Workout): void => {
-      dispatch(openWorkoutModalAction(date, ctx, workout));
       setModal(true);
+      dispatch(openWorkoutModalAction(date, ctx, workout));
     },
     [dispatch, setModal]
   );
@@ -108,15 +109,17 @@ const Dashboard: React.FC = () => {
   const Wrapper: React.FC<Props> = ({ children, scope }) => {
     return (
       <>
-        {/* SEO */}
         <Helmet>
           <title>Dashboard | Spotter</title>
         </Helmet>
-        {/* toggle month/week view */}
-        <SubNav />
+        <SubNav scope={scope} setScope={setScope} setTime={setTime} />
         <div className={styles.container}>
-          {/* PR's link and go back/forth in time */}
-          <Controls time={timeSpan} setHead={setHead} scope={scope} />
+          <Controls
+            time={time}
+            setTime={setTime}
+            setHead={setHead}
+            scope={scope}
+          />
           {children}
           <WorkoutModal modal={modal} closeModal={closeModal} />
         </div>
@@ -136,7 +139,7 @@ const Dashboard: React.FC = () => {
     return (
       <Wrapper scope={scope}>
         <section data-testid='cols' className={styles.week}>
-          {generateWeek(timeSpan).map(date => (
+          {generateWeek(time).map(date => (
             <Column
               date={date}
               key={date.format(FORMAT_FULL)}
@@ -153,7 +156,7 @@ const Dashboard: React.FC = () => {
   return (
     <Wrapper scope={scope}>
       <section data-testid='grid' className={styles.month}>
-        {generateMonth(timeSpan).map((date, i) => (
+        {generateMonth(time).map((date, i) => (
           <Cell
             openModal={openModal}
             key={date.format(FORMAT_FULL)}
