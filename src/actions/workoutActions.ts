@@ -9,26 +9,9 @@ import {
   TOGGLE_TAG,
   FROM_TEMPLATE,
   DEL_EXERCISE,
-  QUEUE_EDIT,
-  HANDLE_EDIT,
-  RESET_QUEUE
+  HANDLE_EDIT
 } from '../constants/index';
-
-// resets the queue when clear button is clicked
-// the queue represents an exercise appearing on a workout that is currently staged for editing
-// the application can read the queue's contents and determine what state the form is currently in, editing or adding
-type TResetQueue = () => { type: string };
-export const resetQueueAction: TResetQueue = () => {
-  return { type: RESET_QUEUE };
-};
-
-// resets the exercise form when cleared
-// also resets the queue to return to a non-editing state
-type TResetExerciseForm = (handleReset: () => void) => { type: string };
-export const resetExerciseFormAction: TResetExerciseForm = handleReset => {
-  handleReset();
-  return resetQueueAction();
-};
+import { ReduxAction } from 'src/types/Types';
 
 // adds a new exercise to the current workout
 type TAddExercise = (values: Exercise) => { type: string; payload: Exercise };
@@ -37,18 +20,11 @@ export const addExerciseAction: TAddExercise = values => {
 };
 
 // if an exercise is queued to be edited, submits those edits and update the exercise
-type TEditExercise = (values: Exercise, queuedIdx: number) => { type: string };
-export const editExerciseAction: TEditExercise = (values, queuedIdx) => {
-  return { type: HANDLE_EDIT, payload: { exercise: values, i: queuedIdx } };
-};
-
-// queue an exercise for editing
-type THandleQueue = (
+export const editExerciseAction = (
   exercise: Exercise,
   i: number
-) => { type: string; payload: { exercise: Exercise; i: number } };
-export const handleQueueAction: THandleQueue = (exercise, i) => {
-  return { type: QUEUE_EDIT, payload: { exercise, i } };
+): ReduxAction<{ exercise: Exercise; i: number }> => {
+  return { type: HANDLE_EDIT, payload: { exercise, i } };
 };
 
 // deletes an exercise from the current workout

@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { Moment } from 'moment';
+import { Exercise } from './Exercises';
 
 export interface ReduxAction<T> extends Action {
   payload: T;
@@ -16,3 +17,8 @@ export interface HS {
 }
 
 export type Date = Moment;
+
+export interface Editing {
+  exercise: Exercise;
+  i: number;
+}

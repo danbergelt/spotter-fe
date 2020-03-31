@@ -1,18 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { FiStar } from 'react-icons/fi';
 import ExerciseForm from './ExerciseForm';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  handleQueueAction,
-  delExerciseAction
-} from '../../../actions/workoutActions';
+import { delExerciseAction } from '../../../actions/workoutActions';
 import Exercise from './Exercise';
-import { resetQueueAction } from '../../../actions/workoutActions';
 import { State } from 'src/types/State';
-import { Exercise as ExerciseType } from '../../../types/Exercises';
-import { Action } from 'redux';
 import Flex from 'src/components/lib/Flex';
 import styles from './Exercises.module.scss';
+import { Editing } from 'src/types/Types';
 
 /*== Exercises =====================================================
 
@@ -27,60 +22,44 @@ const Exercises: React.FC = () => {
     (state: State) => state.workoutReducer.exercises
   );
 
-  // exercises that are queued to be edited
-  const queue = useSelector((state: State) => state.workoutReducer.queue);
+  // exercise editing state
+  const [editing, setEditing] = useState<Editing>({} as Editing);
 
   // state dispatcher
   const dispatch = useDispatch();
 
-  // adds an exercise to the queue
-  const handleQueue = useCallback(
-    (exercise: ExerciseType, i: number): void => {
-      dispatch(handleQueueAction(exercise, i));
-    },
-    [dispatch]
-  );
-
   // deletes an exercise from the workout
   const delExercise = useCallback(
     (i: number): void => {
+      setEditing({} as Editing);
       dispatch(delExerciseAction(i));
     },
     [dispatch]
   );
-
-  // if the queue contains an exercise, render a button to clear the queue
-  const clearFields = (): JSX.Element => {
-    if (Object.keys(queue).length) {
-      return (
-        <div
-          onClick={(): Action => dispatch(resetQueueAction())}
-          className={styles.clear}
-        >
-          Clear
-        </div>
-      );
-    }
-
-    return <></>;
-  };
 
   return (
     <>
       <Flex testid='exercises' align='center' css={styles.head}>
         <FiStar className={styles.icon} />
         <div className={styles.title}>Workout</div>
-        {clearFields()}
+        {!!Object.keys(editing).length && (
+          <div
+            className={styles.clear}
+            onClick={(): void => setEditing({} as Editing)}
+          >
+            Clear
+          </div>
+        )}
       </Flex>
       <section className={styles.container}>
-        <ExerciseForm />
+        <ExerciseForm setEditing={setEditing} editing={editing} />
         <div className={styles.list}>
           {exercises.map((exercise, i) => (
             <Exercise
               key={i}
               i={i}
               exercise={exercise}
-              handleQueue={handleQueue}
+              setEditing={setEditing}
               delExercise={delExercise}
             />
           ))}

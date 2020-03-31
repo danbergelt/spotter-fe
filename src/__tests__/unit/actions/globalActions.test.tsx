@@ -1,10 +1,5 @@
 import configureMockStore from 'redux-mock-store';
-import {
-  CLOSE_WORKOUT_MODAL,
-  LOGOUT,
-  ADD_TOKEN,
-  OPEN_MODAL
-} from 'src/constants';
+import { CLOSE_MODAL, LOGOUT, ADD_TOKEN, OPEN_MODAL } from 'src/constants';
 import {
   closeWorkoutModalAction,
   logOutAction,
@@ -17,7 +12,7 @@ const mockStore = configureMockStore();
 
 describe('global actions', () => {
   test('close modal', () => {
-    const expectedActions = [{ type: CLOSE_WORKOUT_MODAL }];
+    const expectedActions = [{ type: CLOSE_MODAL }];
     const store = mockStore();
     store.dispatch(closeWorkoutModalAction());
     expect(store.getActions()).toEqual(expectedActions);

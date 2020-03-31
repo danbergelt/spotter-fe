@@ -3,6 +3,7 @@ import { Exercise as ExerciseType } from '../../../types/Exercises';
 import Flex from 'src/components/lib/Flex';
 import styles from './Exercise.module.scss';
 import { useWindowSize } from 'react-use';
+import { Editing } from 'src/types/Types';
 
 /*== Exercise =====================================================
 
@@ -19,8 +20,8 @@ Props:
     the exercise data
   i: number
     the exercise index. used to manage editing and deleting
-  handleQueue: function
-    load an exercise into the queue for editing
+  setEditing: react setStateAction
+    stage an exercise for editing
   delExercise: function
     delete ane xercise
 
@@ -39,14 +40,14 @@ const Stat: React.FC<StatProps> = ({ stat }) => {
 interface Props {
   exercise: ExerciseType;
   i: number;
-  handleQueue: (exercise: ExerciseType, i: number) => void;
+  setEditing: React.Dispatch<React.SetStateAction<Editing>>;
   delExercise: (i: number) => void;
 }
 
 const Exercise: React.FC<Props> = ({
   exercise,
   i,
-  handleQueue,
+  setEditing,
   delExercise
 }) => {
   // width to adjust flex styling at different window sizes
@@ -78,7 +79,7 @@ const Exercise: React.FC<Props> = ({
                 Delete
               </div>
               <div
-                onClick={(): void => handleQueue(exercise, i)}
+                onClick={(): void => setEditing({ exercise, i })}
                 className={styles.action}
               >
                 Edit
