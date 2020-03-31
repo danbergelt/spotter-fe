@@ -13,7 +13,6 @@ import { remove } from 'lodash';
 import Button from 'src/components/lib/Button';
 import { useDispatch } from 'react-redux';
 import { generateTemplateAction } from 'src/actions/workoutActions';
-import { Action } from 'redux';
 
 /*== Manage templates =====================================================
 
@@ -32,9 +31,10 @@ Props:
 interface Props {
   templates: Array<Template>;
   setTemplates: React.Dispatch<React.SetStateAction<Template[]>>;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Manage: React.FC<Props> = ({ templates, setTemplates }) => {
+const Manage: React.FC<Props> = ({ templates, setTemplates, setIsOpen }) => {
   // search filter state
   const [search, setSearch] = useState('');
 
@@ -71,6 +71,12 @@ const Manage: React.FC<Props> = ({ templates, setTemplates }) => {
     await call(deleteTemplateQuery, [token, id]);
   };
 
+  // generate a template
+  const generateTemplate = (template: Template): void => {
+    dispatch(generateTemplateAction(template));
+    setIsOpen(false);
+  };
+
   // utility function to render out a user's templates
   const renderTemplates = (): JSX.Element => {
     // if there are templates and these templates pass the current search query, render them
@@ -95,7 +101,7 @@ const Manage: React.FC<Props> = ({ templates, setTemplates }) => {
             </Flex>
           ))}
           <Button
-            func={(): Action => dispatch(generateTemplateAction(active))}
+            func={(): void => generateTemplate(active)}
             css={styles.button}
             content='Generate'
           />

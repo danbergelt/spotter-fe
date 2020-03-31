@@ -14,12 +14,13 @@ import {
 import { ReduxAction } from 'src/types/Types';
 
 // adds a new exercise to the current workout
-type TAddExercise = (values: Exercise) => { type: string; payload: Exercise };
-export const addExerciseAction: TAddExercise = values => {
-  return { type: ADD_EXERCISE, payload: values };
+export const addExerciseAction = (
+  exercise: Exercise
+): ReduxAction<Exercise> => {
+  return { type: ADD_EXERCISE, payload: exercise };
 };
 
-// if an exercise is queued to be edited, submits those edits and update the exercise
+// edit an exercise within the workout modal
 export const editExerciseAction = (
   exercise: Exercise,
   i: number
@@ -28,43 +29,35 @@ export const editExerciseAction = (
 };
 
 // deletes an exercise from the current workout
-type TDelExercise = (i: number) => { type: string; payload: number };
-export const delExerciseAction: TDelExercise = i => {
+export const delExerciseAction = (i: number): ReduxAction<number> => {
   return { type: DEL_EXERCISE, payload: i };
 };
 
 // add workout notes
-type TAddNotes = (value: string) => { type: string; payload: string };
-export const addNotesAction: TAddNotes = value => {
+export const addNotesAction = (value: string): ReduxAction<string> => {
   return { type: ADD_WORKOUT_NOTES, payload: value };
 };
 
 // reset workout notes
-// clears the notes section of all text
-type TResetNotes = (emptyStr: string) => { type: string; payload: string };
-export const resetNotesAction: TResetNotes = emptyStr => {
+export const resetNotesAction = (emptyStr: string): ReduxAction<string> => {
   return { type: RESET_NOTES, payload: emptyStr };
 };
 
 // add workout title
-type TAddTitle = (value: string) => { type: string; payload: string };
-export const addTitleAction: TAddTitle = value => {
+export const addTitleAction = (value: string): ReduxAction<string> => {
   return { type: ADD_WORKOUT_TITLE, payload: value };
 };
 
 // generates a workout from a saved template
-// will read the content of the template and assign the pieces of data to their proper homes in the redux store
-type TGenerateTemplate = (
-  template: Template | {}
-) => { type: string; payload: Template | {} };
-export const generateTemplateAction: TGenerateTemplate = template => {
+export const generateTemplateAction = (
+  template: Template
+): ReduxAction<Template> => {
   return { type: FROM_TEMPLATE, payload: template };
 };
 
 // toggle tag on current workout (add / remove)
-type TToggleTag = (
+export const toggleTagAction = (
   tag: TagOnWorkout
-) => { type: string; payload: TagOnWorkout };
-export const toggleTagAction: TToggleTag = tag => {
+): ReduxAction<TagOnWorkout> => {
   return { type: TOGGLE_TAG, payload: tag };
 };
