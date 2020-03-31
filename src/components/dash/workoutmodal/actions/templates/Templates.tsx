@@ -69,7 +69,13 @@ const Templates: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
   // render content based on active tab
   const renderTabs = (): JSX.Element => {
     if (active === 'Manage') {
-      return <Manage setTemplates={setTemplates} templates={templates} />;
+      return (
+        <Manage
+          setIsOpen={setIsOpen}
+          setTemplates={setTemplates}
+          templates={templates}
+        />
+      );
     }
 
     if (active === 'Create') {
