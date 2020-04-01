@@ -17,6 +17,8 @@ import { AnyAction } from 'redux';
 import produce from 'immer';
 import helpers from 'src/utils/stateHelpers';
 
+const { exists, replaceOne, replaceAll, remove } = helpers;
+
 const workoutState: WorkoutReducer = {
   title: '',
   notes: '',
@@ -33,7 +35,7 @@ export const workoutReducer = (
     switch (action.type) {
       case OPEN_MODAL:
         if (action.payload.workout) {
-          helpers.replaceAll(draft, action.payload.workout);
+          replaceAll(draft, action.payload.workout);
         }
         return;
       case ADD_WORKOUT_TITLE:
@@ -49,22 +51,22 @@ export const workoutReducer = (
         draft.exercises.push(action.payload);
         return;
       case TOGGLE_TAG:
-        if (helpers.exists(draft.tags, action.payload._id)) {
-          helpers.remove(draft.tags, action.payload._id);
+        if (exists(draft.tags, action.payload._id)) {
+          remove(draft.tags, action.payload._id);
         } else {
           draft.tags.push(action.payload);
         }
         return;
       case DELETE_TAG:
-        helpers.remove(draft.tags, action.payload._id);
+        remove(draft.tags, action.payload._id);
         return;
       case UPDATE_TAG:
-        if (helpers.exists(draft.tags, action.payload._id)) {
-          helpers.replaceOne(draft.tags, action.payload);
+        if (exists(draft.tags, action.payload._id)) {
+          replaceOne(draft.tags, action.payload);
         }
         return;
       case FROM_TEMPLATE:
-        helpers.replaceAll(draft, action.payload);
+        replaceAll(draft, action.payload);
         return;
       case DEL_EXERCISE:
         draft.exercises.splice(action.payload, 1);
@@ -73,7 +75,7 @@ export const workoutReducer = (
         draft.exercises[action.payload.i] = action.payload.exercise;
         return;
       case CLOSE_MODAL:
-        helpers.replaceAll(draft, workoutState);
+        replaceAll(draft, workoutState);
         return;
       default:
         return draft;

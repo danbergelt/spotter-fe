@@ -148,7 +148,13 @@ describe('add workout reducer', () => {
     expect(
       workoutReducer(undefined, {
         type: FROM_TEMPLATE,
-        payload: { title: 't', exercises: [], tags: 'tags', notes: 'n' }
+        payload: {
+          title: 't',
+          exercises: [],
+          tags: 'tags',
+          notes: 'n',
+          _id: null
+        }
       })
     ).toEqual({
       title: 't',
