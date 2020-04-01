@@ -11,16 +11,21 @@ import {
   DEL_EXERCISE,
   HANDLE_EDIT
 } from '../../../constants/index';
+import { AnyAction } from 'redux';
+import { tag } from 'src/__testUtils__/tag';
+import { workout } from 'src/__testUtils__/workout';
+
+const state = {
+  title: '',
+  notes: '',
+  tags: [],
+  exercises: [],
+  _id: null
+};
 
 describe('add workout reducer', () => {
   test('should return initial state', () => {
-    expect(workoutReducer(undefined, {})).toEqual({
-      title: '',
-      notes: '',
-      tags: [],
-      exercises: [],
-      _id: null
-    });
+    expect(workoutReducer(undefined, {} as AnyAction)).toEqual(state);
   });
 
   test('should handle ADD_WORKOUT_TITLE', () => {
@@ -30,11 +35,8 @@ describe('add workout reducer', () => {
         payload: 'title'
       })
     ).toEqual({
-      title: 'title',
-      notes: '',
-      tags: [],
-      exercises: [],
-      _id: null
+      ...state,
+      title: 'title'
     });
   });
 
@@ -45,11 +47,8 @@ describe('add workout reducer', () => {
         payload: 'notes'
       })
     ).toEqual({
-      title: '',
-      notes: 'notes',
-      tags: [],
-      exercises: [],
-      _id: null
+      ...state,
+      notes: 'notes'
     });
   });
 
@@ -57,14 +56,12 @@ describe('add workout reducer', () => {
     expect(
       workoutReducer(
         {
-          title: '',
-          notes: 'notes',
-          tags: [],
-          exercises: []
+          ...state,
+          notes: 'notes'
         },
         { type: RESET_NOTES }
       )
-    ).toEqual({ title: '', notes: '', tags: [], exercises: [] });
+    ).toEqual(state);
   });
 
   test('should handle ADD_EXERCISE', () => {
@@ -74,11 +71,8 @@ describe('add workout reducer', () => {
         payload: { name: 'name' }
       })
     ).toEqual({
-      title: '',
-      notes: '',
-      tags: [],
-      exercises: [{ name: 'name' }],
-      _id: null
+      ...state,
+      exercises: [{ name: 'name' }]
     });
   });
 
@@ -89,11 +83,8 @@ describe('add workout reducer', () => {
         payload: { tag: 'tag' }
       })
     ).toEqual({
-      title: '',
-      notes: '',
-      tags: [{ tag: 'tag' }],
-      exercises: [],
-      _id: null
+      ...state,
+      tags: [{ tag: 'tag' }]
     });
   });
 
@@ -101,46 +92,41 @@ describe('add workout reducer', () => {
     expect(
       workoutReducer(
         {
-          title: '',
-          notes: '',
-          tags: [{ tag: 'tag' }],
-          exercises: []
+          ...state,
+          tags: [tag]
         },
-        { type: TOGGLE_TAG, payload: { tag: 'tag' } }
+        { type: TOGGLE_TAG, payload: tag }
       )
-    ).toEqual({ title: '', notes: '', tags: [], exercises: [] });
+    ).toEqual(state);
   });
 
   test('should handle DELETE_TAG', () => {
     expect(
       workoutReducer(
         {
-          title: '',
-          notes: '',
-          tags: [{ _id: 'id', tag: 'tag' }],
-          exercises: []
+          ...state,
+          tags: [tag]
         },
         { type: DELETE_TAG, payload: { _id: 'id', tag: 'tag' } }
       )
-    ).toEqual({ title: '', notes: '', tags: [], exercises: [] });
+    ).toEqual(state);
   });
 
   test('should handle UPDATE_TAG', () => {
     expect(
       workoutReducer(
         {
-          title: '',
-          notes: '',
-          tags: [{ _id: 'id', color: 'tag' }],
-          exercises: []
+          ...state,
+          tags: [tag]
         },
-        { type: UPDATE_TAG, payload: { _id: 'id', color: 'new' } }
+        {
+          type: UPDATE_TAG,
+          payload: { _id: 'foo', color: 'new', content: 'bar' }
+        }
       )
     ).toEqual({
-      title: '',
-      notes: '',
-      tags: [{ _id: 'id', color: 'new' }],
-      exercises: []
+      ...state,
+      tags: [{ _id: 'foo', color: 'new', content: 'bar' }]
     });
   });
 
@@ -168,28 +154,27 @@ describe('add workout reducer', () => {
   test('should handle DEL_EXERCISE', () => {
     expect(
       workoutReducer(
-        { exercises: [{ e: {} }] },
+        {
+          ...state,
+          exercises: [workout.exercises[0]]
+        },
         { type: DEL_EXERCISE, payload: 0 }
       )
-    ).toEqual({ exercises: [] });
+    ).toEqual(state);
   });
 
   test('should handle HANDLE_EDIT', () => {
     expect(
       workoutReducer(
         {
-          title: '',
-          exercises: [{ name: 'e' }],
-          tags: [],
-          notes: ''
+          ...state,
+          exercises: [workout.exercises[0]]
         },
         { type: HANDLE_EDIT, payload: { exercise: { name: 'edited' }, i: 0 } }
       )
     ).toEqual({
-      title: '',
-      exercises: [{ name: 'edited' }],
-      tags: [],
-      notes: ''
+      ...state,
+      exercises: [{ name: 'edited' }]
     });
   });
 });
