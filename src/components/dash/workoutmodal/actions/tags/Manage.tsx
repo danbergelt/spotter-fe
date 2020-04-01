@@ -10,8 +10,9 @@ import { updateTagQuery, deleteTagQuery } from '../../../../../utils/queries';
 import useToken from 'src/hooks/useToken';
 import produce from 'immer';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
-import { remove } from 'lodash';
 import { HS } from 'src/types/Types';
+import { useDispatch } from 'react-redux';
+import { updateTagAction, deleteTagAction } from 'src/actions/workoutActions';
 
 /*== Manage tags =====================================================
 
@@ -65,10 +66,13 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
   // delete tag api utils
   const [delRes, delCall, delReset] = useApi();
 
+  // state dispatcher
+  const dispatch = useDispatch();
+
   // if user fires the reset function, keep the input focused
   // if user sends successful edit request, amend the tags state
   useEffect(() => {
-    // reset makes all api utils falsy
+    // check that the edit state has been reset (all vals are falsy)
     if (Object.keys(editRes).every(k => !editRes[k])) {
       // if reset was fired, focus the edit tag input
       if (inputRef.current) {
@@ -86,10 +90,13 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
         })
       );
 
+      // dispatch the updated tag to the workout in the redux store
+      dispatch(updateTagAction(editRes.data.tag));
+
       // clear the staged tag from local state
       setTagToEdit({} as TagOnWorkout);
     }
-  }, [editRes, setTags]);
+  }, [editRes, setTags, dispatch]);
 
   // autofocus the edit tag input on render
   useEffect(() => {
@@ -104,14 +111,18 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
       // update the tags state
       setTags(state =>
         produce(state, draft => {
-          remove(draft, tag => tag._id === delRes.data.tag._id);
+          const idx = draft.findIndex(tag => tag._id === delRes.data.tag._id);
+          draft.splice(idx, 1);
         })
       );
+
+      // remove the tag from all workouts in the redux store
+      dispatch(deleteTagAction(delRes.data.tag));
 
       // push user to 'add' tab
       setTab('Add');
     }
-  }, [delRes, setTab, setTags]);
+  }, [delRes, setTab, setTags, dispatch]);
 
   // call a delete tag query
   const deleteTag = async (id: string): Promise<void> => {

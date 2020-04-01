@@ -9,6 +9,7 @@ import multipleWorkouts from 'src/__testUtils__/mockMultipleWorkouts';
 import { wait, fireEvent } from '@testing-library/dom';
 import moment from 'moment';
 import { act } from 'react-dom/test-utils';
+import { setHead } from 'src/utils/momentUtils';
 jest.mock('axios');
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
@@ -47,6 +48,8 @@ describe('workouts component', () => {
     );
     await wait(() => expect(getByText(/workout for testing/i)).toBeTruthy());
 
+    const head = setHead(0, 'week');
+
     await act(async () => {
       await fireEvent.click(getByTestId(/back/i));
     });
@@ -63,7 +66,7 @@ describe('workouts component', () => {
       await fireEvent.click(getByTestId(/back/i));
     });
 
-    expect(queryByText(date)).toBeFalsy();
+    expect(queryByText(head)).toBeFalsy();
 
     await act(async () => {
       await fireEvent.click(getByTestId(/forward/i));
@@ -81,7 +84,7 @@ describe('workouts component', () => {
       await fireEvent.click(getByTestId(/forward/i));
     });
 
-    expect(queryByText(date)).toBeTruthy();
+    expect(queryByText(head)).toBeTruthy();
   });
 
   test('can traverse time periods in monthly view', async () => {
