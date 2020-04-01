@@ -1,7 +1,6 @@
 import { workoutReducer } from '../../../reducers/workoutReducer';
 import {
   ADD_WORKOUT_TITLE,
-  RESET_WORKOUT,
   RESET_NOTES,
   ADD_WORKOUT_NOTES,
   ADD_EXERCISE,
@@ -10,8 +9,7 @@ import {
   DELETE_TAG,
   FROM_TEMPLATE,
   DEL_EXERCISE,
-  HANDLE_EDIT,
-  FROM_SAVED
+  HANDLE_EDIT
 } from '../../../constants/index';
 
 describe('add workout reducer', () => {
@@ -53,20 +51,6 @@ describe('add workout reducer', () => {
       exercises: [],
       _id: null
     });
-  });
-
-  test('should handle RESET_WORKOUT', () => {
-    expect(
-      workoutReducer(
-        {
-          title: '',
-          notes: '',
-          tags: [],
-          exercises: [{ name: 'name' }]
-        },
-        { type: RESET_WORKOUT }
-      )
-    ).toEqual({ title: '', notes: '', tags: [], exercises: [] });
   });
 
   test('should handle RESET_NOTES', () => {
@@ -200,27 +184,6 @@ describe('add workout reducer', () => {
       exercises: [{ name: 'edited' }],
       tags: [],
       notes: ''
-    });
-  });
-
-  test('should handle FROM_SAVED', () => {
-    expect(
-      workoutReducer(undefined, {
-        type: FROM_SAVED,
-        payload: {
-          title: '',
-          exercises: [{ name: 'e' }],
-          tags: [],
-          notes: '',
-          _id: 1
-        }
-      })
-    ).toEqual({
-      title: '',
-      exercises: [{ name: 'e' }],
-      tags: [],
-      notes: '',
-      _id: 1
     });
   });
 });

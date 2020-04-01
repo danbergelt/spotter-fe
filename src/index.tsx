@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { createStore } from 'redux';
-import { reducer } from './reducers';
+import { reducer } from './reducers/index';
 
 /*== Root render func =====================================================
 
