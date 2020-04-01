@@ -8,6 +8,12 @@ export interface ReduxAction<T> extends Action {
   payload: T;
 }
 
+export interface Entity {
+  _id: string;
+  // eslint-disable-next-line
+  [key: string]: any;
+}
+
 export type Scope = 'week' | 'month';
 
 export type Ctx = 'add' | 'view';
