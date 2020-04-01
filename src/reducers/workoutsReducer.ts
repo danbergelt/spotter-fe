@@ -9,13 +9,13 @@ import {
 import { AnyAction } from 'redux';
 import { WorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
-import { remove } from 'lodash';
+import helpers from 'src/utils/stateHelpers';
+
+const { replaceOne, remove } = helpers;
 
 const workoutsState: WorkoutsReducer = {
   workouts: []
 };
-
-// populates dashboard
 
 export const workoutsReducer = (
   state = workoutsState,
@@ -27,30 +27,22 @@ export const workoutsReducer = (
         draft.workouts.push(action.payload);
         return;
       case EDIT_WORKOUT:
-        draft.workouts.forEach((workout, i) => {
-          if (workout._id === action.payload._id) {
-            draft.workouts[i] = action.payload;
-          }
-        });
+        replaceOne(draft.workouts, action.payload);
         return;
       case FETCH_WORKOUTS:
         draft.workouts = action.payload;
         return;
       case DELETE_WORKOUT:
-        remove(draft.workouts, el => el._id === action.payload);
+        remove(draft.workouts, action.payload);
         return;
       case UPDATE_TAG:
-        draft.workouts.forEach((workout, i) =>
-          workout.tags.forEach(
-            (tag, j) =>
-              tag._id === action.payload._id &&
-              (draft.workouts[i].tags[j] = action.payload)
-          )
+        draft.workouts.forEach(workout =>
+          replaceOne(workout.tags, action.payload)
         );
         return;
       case DELETE_TAG:
         draft.workouts.forEach(workout =>
-          remove(workout.tags, tag => tag._id === action.payload._id)
+          remove(workout.tags, action.payload._id)
         );
         return;
       default:
