@@ -38,7 +38,7 @@ describe('manage tags', () => {
   });
 
   test('can delete tag', async () => {
-    mockAxios.delete.mockResolvedValue({ data: 'foobar' });
+    mockAxios.delete.mockResolvedValue({ data: { tag } });
     const { getByText } = wrapper(
       reducer,
       <Manage hs={hs} setTags={setTags} setTab={setTab} tags={tags} />
@@ -75,7 +75,7 @@ describe('manage tags', () => {
   });
 
   test('successfully edits a tag', async () => {
-    mockAxios.put.mockResolvedValue({ data: 'foobar' });
+    mockAxios.put.mockResolvedValue({ data: { tag } });
 
     const { getByText, getByPlaceholderText, queryByPlaceholderText } = wrapper(
       reducer,

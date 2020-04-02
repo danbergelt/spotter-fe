@@ -11,6 +11,7 @@ import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './SaveWorkout.module.scss';
 import useToken from 'src/hooks/useToken';
+import { Ctx } from 'src/types/Types';
 
 /*== Save/Update Workout =====================================================
 
@@ -28,12 +29,12 @@ Props:
 */
 
 interface Props {
-  workoutId: string | null;
+  ctx: Ctx;
   closeModal: () => void;
 }
 
 // Save or Edit workout depending on global modal context
-const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal }) => {
+const SaveWorkout: React.FC<Props> = ({ closeModal, ctx }) => {
   // the current workout
   const workout: WorkoutReducer = useSelector(
     (state: State) => state.workoutReducer
@@ -41,9 +42,6 @@ const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal }) => {
 
   // auth token
   const token = useToken();
-
-  // global utils (selected date, auth token, modal context)
-  const { date, ctx } = useSelector((state: State) => state.globalReducer);
 
   // state dispatcher
   const dispatch = useDispatch();
@@ -72,12 +70,12 @@ const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal }) => {
   const saveHandler = async (): Promise<void> => {
     // if user is adding a new workout
     if (ctx === 'add') {
-      await call(saveWorkoutQuery, [token, date, workout]);
+      await call(saveWorkoutQuery, [token, workout]);
     }
 
     // if user is editing a saved workout
     if (ctx === 'view') {
-      await call(editWorkoutQuery, [token, workoutId, workout]);
+      await call(editWorkoutQuery, [token, workout]);
     }
   };
 

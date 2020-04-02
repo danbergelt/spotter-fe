@@ -2,7 +2,6 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import DeleteWorkout from 'src/components/dash/workoutmodal/actions/deleteworkout/DeleteWorkout';
-import { MODAL_CTX } from 'src/constants/index';
 import { fireEvent, wait } from '@testing-library/dom';
 import axios from 'axios';
 jest.mock('axios');
@@ -19,17 +18,16 @@ describe('delete workout', () => {
   });
 
   test('closes modal when context is add', () => {
-    const { store, getByText } = wrapper(
+    const { getByText } = wrapper(
       reducer,
       <DeleteWorkout
+        ctx='add'
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
         closeModal={closeModal}
         workoutId={workoutId}
       />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'add' });
 
     fireEvent.click(getByText(/delete/i));
 
@@ -41,17 +39,16 @@ describe('delete workout', () => {
       data: { workout: { _id: 'foobar' } }
     });
 
-    const { store, getByText, getByTestId } = wrapper(
+    const { getByText, getByTestId } = wrapper(
       reducer,
       <DeleteWorkout
+        ctx='view'
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
         closeModal={closeModal}
         workoutId={workoutId}
       />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'view' });
 
     fireEvent.click(getByText(/delete/i));
 
@@ -66,17 +63,16 @@ describe('delete workout', () => {
     mockAxios.delete.mockRejectedValue({
       response: { data: { error: 'foobar' } }
     });
-    const { store, getByText, getByTestId } = wrapper(
+    const { getByText, getByTestId } = wrapper(
       reducer,
       <DeleteWorkout
+        ctx='view'
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
         closeModal={closeModal}
         workoutId={workoutId}
       />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'view' });
 
     fireEvent.click(getByText(/delete/i));
 
@@ -88,17 +84,16 @@ describe('delete workout', () => {
   });
 
   test('can exit popup', () => {
-    const { store, getByText, queryByTestId, getByTestId } = wrapper(
+    const { getByText, queryByTestId, getByTestId } = wrapper(
       reducer,
       <DeleteWorkout
+        ctx='view'
         nudgeLeft={nudgeLeft}
         nudgeBottom={nudgeBottom}
         closeModal={closeModal}
         workoutId={workoutId}
       />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'view' });
 
     fireEvent.click(getByText(/delete/i));
 

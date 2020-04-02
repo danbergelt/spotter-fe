@@ -9,9 +9,33 @@ import {
   TOGGLE_TAG,
   FROM_TEMPLATE,
   DEL_EXERCISE,
-  HANDLE_EDIT
+  HANDLE_EDIT,
+  UPDATE_TAG,
+  DELETE_TAG,
+  CLOSE_MODAL,
+  OPEN_MODAL
 } from '../constants/index';
 import { ReduxAction } from 'src/types/Types';
+import { Action } from 'redux';
+import { Workout } from 'src/types/Workout';
+
+/*== Workout actions =====================================================
+
+These actions cover every piece of functionality within the workout modal.
+
+Actions:
+  add an exercise to the current workout
+  edit an exercise within the current workout
+  delete an exercise from the current workout
+  add some notes to the current workout
+  clear the notes on the current workout
+  add a title to the current workout
+  generate a workout from a template
+  add/remove a tag on the current workout
+  close a workout modal (reset all properties)
+  injects the modal with the selected workout
+
+*/
 
 // adds a new exercise to the current workout
 export const addExerciseAction = (
@@ -60,4 +84,30 @@ export const toggleTagAction = (
   tag: TagOnWorkout
 ): ReduxAction<TagOnWorkout> => {
   return { type: TOGGLE_TAG, payload: tag };
+};
+
+// update a tag on the current workout
+export const updateTagAction = (
+  tag: TagOnWorkout
+): ReduxAction<TagOnWorkout> => {
+  return { type: UPDATE_TAG, payload: tag };
+};
+
+// delete a tag on the current workout and all wor
+export const deleteTagAction = (
+  tag: TagOnWorkout
+): ReduxAction<TagOnWorkout> => {
+  return { type: DELETE_TAG, payload: tag };
+};
+
+// close workout modal
+export const closeWorkoutModalAction = (): Action => {
+  return { type: CLOSE_MODAL };
+};
+
+// open the workout modal
+export const openWorkoutModalAction = (
+  workout: Partial<Workout>
+): ReduxAction<Partial<Workout>> => {
+  return { type: OPEN_MODAL, payload: workout };
 };

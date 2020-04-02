@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   openWorkoutModalAction,
   closeWorkoutModalAction
-} from '../actions/globalActions';
+} from '../actions/workoutActions';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
 import { State } from 'src/types/State';
@@ -53,6 +53,9 @@ const Dashboard: React.FC = () => {
   // workout modal state
   const [modal, setModal] = useState(false);
 
+  // modal ctx
+  const [ctx, setCtx] = useState<Ctx>('');
+
   // api utils
   const [res, call] = useApi();
 
@@ -88,9 +91,10 @@ const Dashboard: React.FC = () => {
 
   // open the workout modal in either an add workout context, or view workout context
   const openModal = useCallback(
-    (date: Moment, ctx: Ctx, workout?: Workout): void => {
+    (ctx: Ctx, workout: Partial<Workout>): void => {
       setModal(true);
-      dispatch(openWorkoutModalAction(date, ctx, workout));
+      setCtx(ctx);
+      dispatch(openWorkoutModalAction(workout));
     },
     [dispatch, setModal]
   );
@@ -98,6 +102,7 @@ const Dashboard: React.FC = () => {
   // resets state in various parts of application upon workout modal close
   const closeModal = useCallback(() => {
     setModal(false);
+    setCtx('');
     dispatch(closeWorkoutModalAction());
   }, [dispatch]);
 
@@ -121,7 +126,7 @@ const Dashboard: React.FC = () => {
             scope={scope}
           />
           {children}
-          <WorkoutModal modal={modal} closeModal={closeModal} />
+          <WorkoutModal ctx={ctx} modal={modal} closeModal={closeModal} />
         </div>
       </>
     );

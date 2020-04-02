@@ -7,8 +7,7 @@
 
 import axiosBuilder from './axiosBuilder';
 import { Workout } from 'src/types/Workout';
-import { Moment } from 'moment';
-import { momentHelpers, prefetchMonths, prefetchWeeks } from './momentUtils';
+import { prefetchMonths, prefetchWeeks } from './momentUtils';
 import { AxiosResponse } from 'axios';
 
 type Token = string | null;
@@ -86,33 +85,20 @@ export const saveTemplateQuery = async (
 // save a workout
 export const saveWorkoutQuery = async (
   token: Token,
-  date: Moment | null,
   workout: Workout
 ): Promise<AxiosResponse> => {
-  const { title, tags, notes, exercises } = workout;
-  const { FORMAT_FULL } = momentHelpers;
-  return await axiosBuilder(token).post('workouts', {
-    date: date?.format(FORMAT_FULL),
-    title,
-    notes,
-    exercises,
-    tags
-  });
+  // since _id is null, mongo will save that into the db (no bueno).
+  // clone the workout and pick _id for a fresh ObjectID in the DB
+  const clone = (({ _id, ...o }): Partial<Workout> => o)(workout);
+  return await axiosBuilder(token).post('workouts', clone);
 };
 
 // edit a workout
 export const editWorkoutQuery = async (
   token: Token,
-  id: string,
   workout: Workout
 ): Promise<AxiosResponse> => {
-  const { title, notes, exercises, tags } = workout;
-  return await axiosBuilder(token).put(`workouts/${id}`, {
-    title,
-    notes,
-    exercises,
-    tags
-  });
+  return await axiosBuilder(token).put(`workouts/${workout._id}`, workout);
 };
 
 // delete account

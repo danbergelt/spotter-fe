@@ -1,6 +1,5 @@
 import {
   ADD_WORKOUT_TITLE,
-  RESET_WORKOUT,
   RESET_NOTES,
   ADD_WORKOUT_NOTES,
   ADD_EXERCISE,
@@ -10,65 +9,23 @@ import {
   FROM_TEMPLATE,
   DEL_EXERCISE,
   HANDLE_EDIT,
-  FROM_SAVED,
   CLOSE_MODAL,
   OPEN_MODAL
 } from '../constants/index';
-import { find, isMatch, isEqual, omit, pick, keys, remove } from 'lodash';
 import { WorkoutReducer } from 'src/types/State';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
-import { Template } from 'src/types/Template';
-import { SavedExercise } from 'src/types/Workout';
 import { AnyAction } from 'redux';
 import produce from 'immer';
+import helpers from 'src/utils/stateHelpers';
+
+const { exists, replaceOne, replaceAll, remove } = helpers;
 
 const workoutState: WorkoutReducer = {
   title: '',
   notes: '',
   exercises: [],
   tags: [],
+  date: '',
   _id: null
-};
-
-/* HELPER FUNCTIONS */
-
-// Test an array of tags on a workout to determine if a toggled tag should be added or removed
-type TestForMatches = (
-  tags: Array<TagOnWorkout>,
-  payload: TagOnWorkout
-) => TagOnWorkout | undefined;
-
-const testForMatches: TestForMatches = (tags, payload) =>
-  find(tags, t => {
-    return isMatch(t, omit(payload, ['__v', 'user']));
-  });
-
-// Test if a tag on a workout needs to be updated with hydrated tag data
-type TestForUpdates = (
-  tags: Array<TagOnWorkout>,
-  payload: TagOnWorkout
-) => TagOnWorkout | undefined;
-
-const testForUpdates: TestForUpdates = (tags, payload) =>
-  find(tags, t => {
-    // again, omit irrelevant data from MongoDB and update the tag on the current workout
-    return isMatch(
-      omit(t, ['color', 'content', '__v', 'tag']),
-      omit(payload, ['color', 'content', '__v', 'user'])
-    );
-  });
-
-// Populate exercises on a workout from a saved template
-const exercisesFromTemplate = (payload: Template): Array<SavedExercise> => {
-  const exercises = {
-    name: null,
-    sets: null,
-    reps: null,
-    weight: null
-  };
-  return payload.exercises.map((el: object) =>
-    pick(el, keys(exercises))
-  ) as Array<SavedExercise>;
 };
 
 export const workoutReducer = (
@@ -78,82 +35,46 @@ export const workoutReducer = (
   return produce(state, draft => {
     switch (action.type) {
       case OPEN_MODAL:
-        if (action.payload.workout) {
-          draft._id = action.payload.workout._id;
-          draft.exercises = action.payload.workout.exercises;
-          draft.notes = action.payload.workout.notes;
-          draft.tags = action.payload.workout.tags;
-          draft.title = action.payload.workout.title;
-        }
-        return;
+        replaceAll(draft, action.payload);
+        return draft;
       case ADD_WORKOUT_TITLE:
         draft.title = action.payload;
-        return;
+        return draft;
       case ADD_WORKOUT_NOTES:
         draft.notes = action.payload;
-        return;
-      case RESET_WORKOUT:
-        draft.title = '';
-        draft.notes = '';
-        draft.exercises = [];
-        draft.tags = [];
-        return;
+        return draft;
       case RESET_NOTES:
         draft.notes = '';
-        return;
+        return draft;
       case ADD_EXERCISE:
         draft.exercises.push(action.payload);
-        return;
+        return draft;
       case TOGGLE_TAG:
-        // if workout contains tag, then toggle it off. if not, toggle it on
-        testForMatches(draft.tags, action.payload)
-          ? remove(draft.tags, tag => tag._id === action.payload._id)
-          : draft.tags.push(action.payload);
-        return;
+        if (exists(draft.tags, action.payload._id)) {
+          remove(draft.tags, action.payload._id);
+        } else {
+          draft.tags.push(action.payload);
+        }
+        return draft;
       case DELETE_TAG:
-        remove(draft.tags, tag => tag._id === action.payload._id);
-        return;
+        remove(draft.tags, action.payload._id);
+        return draft;
       case UPDATE_TAG:
-        // checks if updated tag is on current workout
-        testForUpdates(draft.tags, action.payload) &&
-          // loop through stale state, finds tag by id
-          state.tags.forEach((tag, i) => {
-            // if the current tag is the stale tag, overwrite at that index in draft
-            if (isEqual(tag, testForUpdates(state.tags, action.payload))) {
-              draft.tags[i] = action.payload;
-            }
-          });
-        return;
+        if (exists(draft.tags, action.payload._id)) {
+          replaceOne(draft.tags, action.payload);
+        }
+        return draft;
       case FROM_TEMPLATE:
-        draft.title = action.payload.title;
-        // pick relevant keys, populate exercise state
-        draft.exercises = exercisesFromTemplate(action.payload);
-        draft.notes = action.payload.notes;
-        draft.tags = action.payload.tags;
-        return;
+        replaceAll(draft, action.payload);
+        return draft;
       case DEL_EXERCISE:
-        remove(draft.exercises, (_, index) => index === action.payload);
-        return;
+        draft.exercises.splice(action.payload, 1);
+        return draft;
       case HANDLE_EDIT:
-        draft.exercises.forEach((_, index) => {
-          if (index === action.payload.i) {
-            draft.exercises[index] = action.payload.exercise;
-          }
-        });
-        return;
-      case FROM_SAVED:
-        draft._id = action.payload._id;
-        draft.exercises = action.payload.exercises;
-        draft.notes = action.payload.notes;
-        draft.tags = action.payload.tags;
-        draft.title = action.payload.title;
-        return;
+        draft.exercises[action.payload.i] = action.payload.exercise;
+        return draft;
       case CLOSE_MODAL:
-        draft.title = '';
-        draft.notes = '';
-        draft.exercises = [];
-        draft.tags = [];
-        return;
+        return workoutState;
       default:
         return draft;
     }

@@ -30,9 +30,7 @@ const Notes: React.FC = () => {
   const notesRef = useRef<HTMLTextAreaElement>(null);
 
   // the notes in state
-  const notes: string = useSelector(
-    (state: State) => state.workoutReducer.notes
-  );
+  const { notes } = useSelector((state: State) => state.workoutReducer);
 
   // state dispatcher
   const dispatch = useDispatch();

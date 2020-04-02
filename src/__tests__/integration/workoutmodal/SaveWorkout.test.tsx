@@ -2,7 +2,6 @@ import React from 'react';
 import wrapper from 'src/__testUtils__/wrapper';
 import { reducer } from 'src/reducers';
 import SaveWorkout from 'src/components/dash/workoutmodal/actions/saveworkout/SaveWorkout';
-import { MODAL_CTX } from 'src/constants/index';
 import axios from 'axios';
 import { fireEvent, wait } from '@testing-library/dom';
 jest.mock('axios');
@@ -16,17 +15,20 @@ describe('save workout', () => {
     jest.clearAllMocks();
   });
 
-  test('renders proper button text for different contexts', () => {
-    const { getByText, store } = wrapper(
+  test('renders proper button text for add ctx', () => {
+    const { getByText } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
+      <SaveWorkout ctx='add' workoutId={workoutId} closeModal={closeModal} />
     );
 
-    store.dispatch({ type: MODAL_CTX, payload: 'add' });
-
     getByText(/save/i);
+  });
 
-    store.dispatch({ type: MODAL_CTX, payload: 'view' });
+  test('renders proper button text for view ctx', () => {
+    const { getByText } = wrapper(
+      reducer,
+      <SaveWorkout ctx='view' workoutId={workoutId} closeModal={closeModal} />
+    );
 
     getByText(/update/i);
   });
@@ -35,12 +37,10 @@ describe('save workout', () => {
     mockAxios.post.mockRejectedValue({
       response: { data: { error: 'foobar' } }
     });
-    const { getByText, store } = wrapper(
+    const { getByText } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
+      <SaveWorkout ctx='add' workoutId={workoutId} closeModal={closeModal} />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'add' });
 
     fireEvent.click(getByText(/save/i));
 
@@ -51,12 +51,10 @@ describe('save workout', () => {
     mockAxios.put.mockRejectedValue({
       response: { data: { error: 'foobar' } }
     });
-    const { getByText, store } = wrapper(
+    const { getByText } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
+      <SaveWorkout ctx='view' workoutId={workoutId} closeModal={closeModal} />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'view' });
 
     fireEvent.click(getByText(/update/i));
 
@@ -67,12 +65,10 @@ describe('save workout', () => {
     mockAxios.put.mockResolvedValue({
       data: { message: 'foobar' }
     });
-    const { getByText, store } = wrapper(
+    const { getByText } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
+      <SaveWorkout ctx='view' workoutId={workoutId} closeModal={closeModal} />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'view' });
 
     fireEvent.click(getByText(/update/i));
 
@@ -83,12 +79,10 @@ describe('save workout', () => {
     mockAxios.post.mockResolvedValue({
       data: { message: 'foobar' }
     });
-    const { getByText, store } = wrapper(
+    const { getByText } = wrapper(
       reducer,
-      <SaveWorkout workoutId={workoutId} closeModal={closeModal} />
+      <SaveWorkout ctx='add' workoutId={workoutId} closeModal={closeModal} />
     );
-
-    store.dispatch({ type: MODAL_CTX, payload: 'add' });
 
     fireEvent.click(getByText(/save/i));
 

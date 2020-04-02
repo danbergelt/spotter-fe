@@ -9,13 +9,13 @@ import {
 import { AnyAction } from 'redux';
 import { WorkoutsReducer } from 'src/types/State';
 import produce from 'immer';
-import { remove } from 'lodash';
+import helpers from 'src/utils/stateHelpers';
+
+const { replaceOne, remove } = helpers;
 
 const workoutsState: WorkoutsReducer = {
   workouts: []
 };
-
-// populates dashboard
 
 export const workoutsReducer = (
   state = workoutsState,
@@ -25,34 +25,26 @@ export const workoutsReducer = (
     switch (action.type) {
       case CREATE_WORKOUT:
         draft.workouts.push(action.payload);
-        return;
+        return draft;
       case EDIT_WORKOUT:
-        draft.workouts.forEach((workout, i) => {
-          if (workout._id === action.payload._id) {
-            draft.workouts[i] = action.payload;
-          }
-        });
-        return;
+        replaceOne(draft.workouts, action.payload);
+        return draft;
       case FETCH_WORKOUTS:
         draft.workouts = action.payload;
-        return;
+        return draft;
       case DELETE_WORKOUT:
-        remove(draft.workouts, el => el._id === action.payload);
-        return;
+        remove(draft.workouts, action.payload);
+        return draft;
       case UPDATE_TAG:
-        draft.workouts.forEach((workout, i) =>
-          workout.tags.forEach(
-            (tag, j) =>
-              tag._id === action.payload._id &&
-              (draft.workouts[i].tags[j] = action.payload)
-          )
+        draft.workouts.forEach(workout =>
+          replaceOne(workout.tags, action.payload)
         );
-        return;
+        return draft;
       case DELETE_TAG:
         draft.workouts.forEach(workout =>
-          remove(workout.tags, tag => tag._id === action.payload._id)
+          remove(workout.tags, action.payload._id)
         );
-        return;
+        return draft;
       default:
         return draft;
     }

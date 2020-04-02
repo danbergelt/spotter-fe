@@ -1,8 +1,7 @@
 import React, { memo, useState, useRef, useEffect } from 'react';
 import { FiDelete } from 'react-icons/fi';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './DeleteWorkout.module.scss';
-import { State } from 'src/types/State';
 import Dropdown from 'src/components/lib/Dropdown';
 import Head from 'src/components/lib/Head';
 import { deleteWorkoutQuery } from 'src/utils/queries';
@@ -11,6 +10,8 @@ import { deleteWorkoutAction } from 'src/actions/workoutsActions';
 import Button from 'src/components/lib/Button';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import useToken from 'src/hooks/useToken';
+import { Ctx } from 'src/types/Types';
+import { State } from 'src/types/State';
 
 /*== Delete workout action =====================================================
 
@@ -32,8 +33,8 @@ Props:
 */
 
 interface Props {
+  ctx: Ctx;
   closeModal: () => void;
-  workoutId: string | null;
   nudgeLeft: () => string | undefined;
   nudgeBottom: () => string | undefined;
 }
@@ -41,10 +42,13 @@ interface Props {
 // delete workout option container
 const DeleteWorkout: React.FC<Props> = ({
   closeModal,
-  workoutId,
   nudgeLeft,
-  nudgeBottom
+  nudgeBottom,
+  ctx
 }) => {
+  // current workout id
+  const id = useSelector((state: State) => state.workoutReducer._id);
+
   // dropdate state
   const [isOpen, setIsOpen] = useState(false);
 
@@ -59,9 +63,6 @@ const DeleteWorkout: React.FC<Props> = ({
 
   // auth token
   const token = useToken();
-
-  // the current modal context, either add or view
-  const ctx = useSelector((state: State) => state.globalReducer.ctx);
 
   const deleteHandler = (): void => {
     // if viewing a workout, open a confirm delete popup
@@ -87,7 +88,7 @@ const DeleteWorkout: React.FC<Props> = ({
 
   // delete workout
   const deleteWorkout = async (): Promise<void> => {
-    await call(deleteWorkoutQuery, [token, workoutId]);
+    await call(deleteWorkoutQuery, [token, id]);
   };
 
   return (

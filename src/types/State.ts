@@ -4,9 +4,7 @@ import { Workout } from './Workout';
 import { Moment } from 'moment';
 
 export interface GlobalReducer {
-  t: null | string;
-  ctx: null | 'add' | 'view';
-  date: null | Moment;
+  token: null | string;
 }
 
 export interface WorkoutReducer {
@@ -14,6 +12,7 @@ export interface WorkoutReducer {
   notes: string;
   exercises: Array<Exercise>;
   tags: Array<Tag>;
+  date: string | Moment;
   _id: null | string;
 }
 
