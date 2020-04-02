@@ -12,7 +12,7 @@ import useToken from 'src/hooks/useToken';
 import Create from './Create';
 import Tabs from 'src/components/lib/Tabs';
 import useTabs from 'src/hooks/useTabs';
-import { Exercise } from 'src/types/ExerciseOption';
+import { SavedExercise } from 'src/types';
 
 /*== Exercises =====================================================
 
@@ -44,7 +44,7 @@ const Exercises: React.FC<Props> = ({ nudgeLeft, nudgeBottom }) => {
   // tabs utility hook that sets initial state + allows parent to access state
   const tabState = useTabs('Manage');
 
-  const [exercises, setExercises] = useState<Array<Exercise>>([]);
+  const [exercises, setExercises] = useState<Array<SavedExercise>>([]);
 
   // current active tab
   const [active] = tabState;

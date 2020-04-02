@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import styles from './Manage.module.scss';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Tag } from 'src/types';
 import Flex from 'src/components/lib/Flex';
 import Button from 'src/components/lib/Button';
 import { Formik, Form, Field } from 'formik';
@@ -10,7 +10,7 @@ import { updateTagQuery, deleteTagQuery } from '../../../../../utils/queries';
 import useToken from 'src/hooks/useToken';
 import produce from 'immer';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
-import { HS } from 'src/types/Types';
+import { HS } from 'src/types';
 import { useDispatch } from 'react-redux';
 import { updateTagAction, deleteTagAction } from 'src/actions/workoutActions';
 
@@ -41,18 +41,18 @@ Props:
 */
 
 interface Props {
-  tags: Array<TagOnWorkout>;
-  setTags: React.Dispatch<React.SetStateAction<TagOnWorkout[]>>;
+  tags: Array<Tag>;
+  setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
   setTab: React.Dispatch<React.SetStateAction<string>>;
   hs: HS;
 }
 
 const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
   // tag staged for deletion
-  const [tagToDelete, setTagToDelete] = useState({} as TagOnWorkout);
+  const [tagToDelete, setTagToDelete] = useState({} as Tag);
 
   // tag staged for editing
-  const [tagToEdit, setTagToEdit] = useState({} as TagOnWorkout);
+  const [tagToEdit, setTagToEdit] = useState({} as Tag);
 
   // auth token
   const token = useToken();
@@ -94,7 +94,7 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
       dispatch(updateTagAction(editRes.data.tag));
 
       // clear the staged tag from local state
-      setTagToEdit({} as TagOnWorkout);
+      setTagToEdit({} as Tag);
     }
   }, [editRes, setTags, dispatch]);
 
@@ -125,7 +125,7 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
   }, [delRes, setTab, setTags, dispatch]);
 
   // call a delete tag query
-  const deleteTag = async (id: string): Promise<void> => {
+  const deleteTag = async (id: string | undefined): Promise<void> => {
     await delCall(deleteTagQuery, [token, id]);
   };
 
@@ -165,7 +165,7 @@ const Manage: React.FC<Props> = ({ tags, setTags, setTab, hs }) => {
             <div
               onClick={(): void =>
                 setTagToEdit(state =>
-                  state._id === tag._id ? ({} as TagOnWorkout) : tag
+                  state._id === tag._id ? ({} as Tag) : tag
                 )
               }
               onPointerEnter={(): void => hs.setHovered(tag._id)}

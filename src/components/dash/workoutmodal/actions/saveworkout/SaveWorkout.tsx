@@ -5,13 +5,13 @@ import {
   editWorkoutAction,
   createWorkoutAction
 } from '../../../../../actions/workoutsActions';
-import { State, WorkoutReducer } from 'src/types/State';
+import { State, WorkoutReducer } from 'src/types';
 import useApi from 'src/hooks/useApi';
 import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './SaveWorkout.module.scss';
 import useToken from 'src/hooks/useToken';
-import { Ctx } from 'src/types/Types';
+import { Ctx } from 'src/types';
 
 /*== Save/Update Workout =====================================================
 

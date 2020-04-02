@@ -1,5 +1,5 @@
-import { ReduxAction } from 'src/types/Types';
-import { Workout } from 'src/types/Workout';
+import { ReduxAction } from 'src/types';
+import { Workout } from 'src/types';
 import {
   FETCH_WORKOUTS,
   DELETE_WORKOUT,

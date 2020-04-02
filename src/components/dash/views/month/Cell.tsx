@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 import moment, { Moment } from 'moment';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 import { useWindowSize } from 'react-use';
 import { FiPlusCircle } from 'react-icons/fi';
 import styles from './Cell.module.scss';
 import Flex from 'src/components/lib/Flex';
 import MoreWorkouts from './MoreWorkouts';
-import { Ctx } from 'src/types/Types';
+import { Ctx } from 'src/types';
 import { momentHelpers } from 'src/utils/momentUtils';
 
 /*== Grid cell =====================================================

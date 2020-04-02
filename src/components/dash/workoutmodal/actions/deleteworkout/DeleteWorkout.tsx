@@ -10,8 +10,8 @@ import { deleteWorkoutAction } from 'src/actions/workoutsActions';
 import Button from 'src/components/lib/Button';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import useToken from 'src/hooks/useToken';
-import { Ctx } from 'src/types/Types';
-import { State } from 'src/types/State';
+import { Ctx } from 'src/types';
+import { State } from 'src/types';
 
 /*== Delete workout action =====================================================
 

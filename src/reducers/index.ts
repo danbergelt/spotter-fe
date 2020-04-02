@@ -3,7 +3,7 @@ import { workoutReducer } from './workoutReducer';
 import { workoutsReducer } from './workoutsReducer';
 import { globalReducer } from './globalReducer';
 import { LOGOUT } from 'src/constants/index';
-import { State } from 'src/types/State';
+import { State } from 'src/types';
 
 const appReducer = combineReducers({
   workoutReducer,

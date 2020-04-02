@@ -3,7 +3,7 @@ import Flex from 'src/components/lib/Flex';
 import styles from './Title.module.scss';
 import { FaCircle } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { State } from 'src/types/State';
+import { State } from 'src/types';
 import { Action } from 'redux';
 import { FiX } from 'react-icons/fi';
 import { addTitleAction } from 'src/actions/workoutActions';

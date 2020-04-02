@@ -9,7 +9,7 @@ import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './Create.module.scss';
 import { CreateExerciseSchema } from 'src/utils/validators';
 import FormError from 'src/components/lib/FormError';
-import { Exercise } from 'src/types/ExerciseOption';
+import { SavedExercise } from 'src/types';
 import produce from 'immer';
 
 /*== Create exercise =====================================================
@@ -27,7 +27,7 @@ about how the PR's are tracked.
 */
 
 interface Props {
-  setExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
+  setExercises: React.Dispatch<React.SetStateAction<SavedExercise[]>>;
 }
 
 const Create: React.FC<Props> = ({ setExercises }) => {

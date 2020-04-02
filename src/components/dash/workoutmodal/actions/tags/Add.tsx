@@ -1,12 +1,12 @@
 import React from 'react';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Tag } from 'src/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTagAction } from 'src/actions/workoutActions';
 import { Action } from 'redux';
 import styles from './Add.module.scss';
 import { FiCheck } from 'react-icons/fi';
-import { State } from 'src/types/State';
-import { HS } from 'src/types/Types';
+import { State } from 'src/types';
+import { HS } from 'src/types';
 
 /*== Add tags =====================================================
 
@@ -25,7 +25,7 @@ Props:
 */
 
 interface Props {
-  tags: Array<TagOnWorkout>;
+  tags: Array<Tag>;
   hs: HS;
 }
 

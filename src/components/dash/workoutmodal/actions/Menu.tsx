@@ -6,7 +6,7 @@ import SaveWorkout from './saveworkout/SaveWorkout';
 import { useWindowSize } from 'react-use';
 import Templates from './templates/Templates';
 import Tags from './tags/Tags';
-import { Ctx } from 'src/types/Types';
+import { Ctx } from 'src/types';
 
 /*== Menu =====================================================
 

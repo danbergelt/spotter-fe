@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCircle } from 'react-icons/fa';
 import moment from 'moment';
-import { Exercise } from 'src/types/ExerciseOption';
+import { SavedExercise } from 'src/types';
 import Flex from '../lib/Flex';
 import styles from './Pr.module.scss';
 
@@ -27,7 +27,7 @@ Props:
 */
 
 interface Props {
-  exercise: Exercise;
+  exercise: SavedExercise;
   i: number;
 }
 

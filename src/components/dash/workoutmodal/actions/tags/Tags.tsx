@@ -11,7 +11,7 @@ import useTabs from 'src/hooks/useTabs';
 import Flex from 'src/components/lib/Flex';
 import Head from 'src/components/lib/Head';
 import Add from './Add';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Tag } from 'src/types';
 import Manage from './Manage';
 import Create from './Create';
 
@@ -39,10 +39,10 @@ const Tags: React.FC<Props> = ({ nudgeBottom, nudgeLeft }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // fetched tags for this user
-  const [tags, setTags] = useState([] as Array<TagOnWorkout>);
+  const [tags, setTags] = useState([] as Array<Tag>);
 
   // hover state for the tags (tags change color on hover)
-  const [hovered, setHovered] = useState('');
+  const [hovered, setHovered] = useState<string | undefined>('');
 
   // triger ref for dropdown
   const ref = useRef<HTMLDivElement>(null);

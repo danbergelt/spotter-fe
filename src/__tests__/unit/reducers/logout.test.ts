@@ -1,6 +1,6 @@
 import { reducer } from '../../../reducers/index';
 import { LOGOUT } from 'src/constants/index';
-import { WorkoutReducer, WorkoutsReducer } from 'src/types/State';
+import { WorkoutReducer, WorkoutsReducer } from 'src/types';
 
 const mockReducer = {
   globalReducer: { token: 'token' },

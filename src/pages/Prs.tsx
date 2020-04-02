@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import moment from 'moment';
 import PrGroup from '../components/prs/PrGroup';
 import { Helmet } from 'react-helmet-async';
-import { Exercise } from 'src/types/ExerciseOption';
+import { SavedExercise } from 'src/types';
 import useToken from '../hooks/useToken';
 import useApi from 'src/hooks/useApi';
 import { fetchExercisesQuery } from 'src/utils/queries';
@@ -30,9 +30,9 @@ const CATEGORIES = ['Last Month', 'Last Year', 'All Time'];
 
 // each bucket is an array of exercises
 interface Buckets {
-  month: Array<Exercise>;
-  year: Array<Exercise>;
-  all: Array<Exercise>;
+  month: Array<SavedExercise>;
+  year: Array<SavedExercise>;
+  all: Array<SavedExercise>;
 }
 
 const Prs: React.FC = () => {
@@ -46,16 +46,22 @@ const Prs: React.FC = () => {
   const token = useToken();
 
   // reducer to bucket out each exercise into their respective bucket
-  const reducer = useCallback((acc: Buckets, exercise: Exercise): Buckets => {
-    // find the diff between current date and the date the PR was set
-    const diff = moment().diff(moment(exercise.prDate, 'MMM DD YYYY'), 'days');
+  const reducer = useCallback(
+    (acc: Buckets, exercise: SavedExercise): Buckets => {
+      // find the diff between current date and the date the PR was set
+      const diff = moment().diff(
+        moment(exercise.prDate, 'MMM DD YYYY'),
+        'days'
+      );
 
-    // organize by month, year, and all time
-    if (diff <= 31) acc.month.push(exercise);
-    else if (diff <= 365) acc.year.push(exercise);
-    else acc.all.push(exercise);
-    return acc;
-  }, []);
+      // organize by month, year, and all time
+      if (diff <= 31) acc.month.push(exercise);
+      else if (diff <= 365) acc.year.push(exercise);
+      else acc.all.push(exercise);
+      return acc;
+    },
+    []
+  );
 
   // if exercises were fetched, reduce the exercises into their buckets
   // TODO --> proper error handling

@@ -4,10 +4,10 @@ import ExerciseForm from './ExerciseForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { delExerciseAction } from '../../../actions/workoutActions';
 import Exercise from './Exercise';
-import { State } from 'src/types/State';
+import { State } from 'src/types';
 import Flex from 'src/components/lib/Flex';
 import styles from './Exercises.module.scss';
-import { Editing } from 'src/types/Types';
+import { Editing } from 'src/types';
 
 /*== Exercises =====================================================
 

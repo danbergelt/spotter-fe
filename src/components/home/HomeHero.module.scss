@@ -7,7 +7,6 @@
   margin: 0;
   padding: 20rem;
   text-align: center;
-  @include flex-center;
   background-image: linear-gradient(0deg, #f6f8f9 3%, #fff);
 
   @include large {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiAlignLeft } from 'react-icons/fi';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 import { useWindowSize } from 'react-use';
 import styles from './Card.module.scss';
 import Flex from 'src/components/lib/Flex';

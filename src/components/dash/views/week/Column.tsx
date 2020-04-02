@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 import Card from './Card';
 import { Moment } from 'moment';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 import { FiPlusCircle } from 'react-icons/fi';
 import { useWindowSize } from 'react-use';
 import styles from './Column.module.scss';
 import Flex from 'src/components/lib/Flex';
-import { Ctx } from 'src/types/Types';
+import { Ctx } from 'src/types';
 import { momentHelpers } from 'src/utils/momentUtils';
 
 /*== Workout Column =====================================================
