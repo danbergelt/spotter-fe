@@ -24,6 +24,7 @@ const workoutState: WorkoutReducer = {
   notes: '',
   exercises: [],
   tags: [],
+  date: '',
   _id: null
 };
 
@@ -34,49 +35,46 @@ export const workoutReducer = (
   return produce(state, draft => {
     switch (action.type) {
       case OPEN_MODAL:
-        if (action.payload.workout) {
-          replaceAll(draft, action.payload.workout);
-        }
-        return;
+        replaceAll(draft, action.payload);
+        return draft;
       case ADD_WORKOUT_TITLE:
         draft.title = action.payload;
-        return;
+        return draft;
       case ADD_WORKOUT_NOTES:
         draft.notes = action.payload;
-        return;
+        return draft;
       case RESET_NOTES:
         draft.notes = '';
-        return;
+        return draft;
       case ADD_EXERCISE:
         draft.exercises.push(action.payload);
-        return;
+        return draft;
       case TOGGLE_TAG:
         if (exists(draft.tags, action.payload._id)) {
           remove(draft.tags, action.payload._id);
         } else {
           draft.tags.push(action.payload);
         }
-        return;
+        return draft;
       case DELETE_TAG:
         remove(draft.tags, action.payload._id);
-        return;
+        return draft;
       case UPDATE_TAG:
         if (exists(draft.tags, action.payload._id)) {
           replaceOne(draft.tags, action.payload);
         }
-        return;
+        return draft;
       case FROM_TEMPLATE:
         replaceAll(draft, action.payload);
-        return;
+        return draft;
       case DEL_EXERCISE:
         draft.exercises.splice(action.payload, 1);
-        return;
+        return draft;
       case HANDLE_EDIT:
         draft.exercises[action.payload.i] = action.payload.exercise;
-        return;
+        return draft;
       case CLOSE_MODAL:
-        replaceAll(draft, workoutState);
-        return;
+        return workoutState;
       default:
         return draft;
     }

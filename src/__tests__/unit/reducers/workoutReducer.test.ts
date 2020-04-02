@@ -9,7 +9,9 @@ import {
   DELETE_TAG,
   FROM_TEMPLATE,
   DEL_EXERCISE,
-  HANDLE_EDIT
+  HANDLE_EDIT,
+  OPEN_MODAL,
+  CLOSE_MODAL
 } from '../../../constants/index';
 import { AnyAction } from 'redux';
 import { tag } from 'src/__testUtils__/tag';
@@ -20,12 +22,26 @@ const state = {
   notes: '',
   tags: [],
   exercises: [],
+  date: '',
   _id: null
 };
 
 describe('add workout reducer', () => {
   test('should return initial state', () => {
     expect(workoutReducer(undefined, {} as AnyAction)).toEqual(state);
+  });
+
+  test('should handle OPEN_MODAL', () => {
+    expect(
+      workoutReducer(undefined, { type: OPEN_MODAL, payload: workout })
+    ).toEqual({
+      title: workout.title,
+      notes: workout.notes,
+      tags: workout.tags,
+      exercises: workout.exercises,
+      date: workout.date,
+      _id: workout._id
+    });
   });
 
   test('should handle ADD_WORKOUT_TITLE', () => {
@@ -139,6 +155,7 @@ describe('add workout reducer', () => {
           exercises: [],
           tags: 'tags',
           notes: 'n',
+          date: 'some date',
           _id: null
         }
       })
@@ -147,6 +164,7 @@ describe('add workout reducer', () => {
       exercises: [],
       tags: 'tags',
       notes: 'n',
+      date: 'some date',
       _id: null
     });
   });
@@ -176,5 +194,9 @@ describe('add workout reducer', () => {
       ...state,
       exercises: [{ name: 'edited' }]
     });
+  });
+
+  test('should handle CLOSE_MODAL', () => {
+    expect(workoutReducer(workout, { type: CLOSE_MODAL })).toEqual(state);
   });
 });

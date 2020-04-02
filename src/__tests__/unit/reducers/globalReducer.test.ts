@@ -1,11 +1,11 @@
 import { globalReducer } from '../../../reducers/globalReducer';
 import { ADD_TOKEN } from 'src/constants/index';
+import { AnyAction } from 'redux';
 
 describe('global reducer', () => {
   test('should return initial state', () => {
-    expect(globalReducer(undefined, {})).toEqual({
-      t: null,
-      date: null
+    expect(globalReducer(undefined, {} as AnyAction)).toEqual({
+      token: null
     });
   });
 
@@ -16,8 +16,7 @@ describe('global reducer', () => {
         payload: 'token'
       })
     ).toEqual({
-      t: 'token',
-      date: null
+      token: 'token'
     });
   });
 });

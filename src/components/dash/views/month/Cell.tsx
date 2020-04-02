@@ -39,7 +39,7 @@ Props:
 interface Props {
   date: Moment;
   cell: number;
-  openModal: (date: Moment, ctx: Ctx, workout?: Workout | undefined) => void;
+  openModal: (ctx: Ctx, workout: Partial<Workout>) => void;
   workouts: Array<Workout>;
 }
 
@@ -76,7 +76,9 @@ const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
       <Flex justify='space-between' align='center' css={styles.head}>
         {cell <= 6 && <p>{date.format(FORMAT_WEEKDAY)}</p>}
         <div
-          onClick={(): void => openModal(date, 'add')}
+          onClick={(): void =>
+            openModal('add', { date: date.format(FORMAT_FULL) })
+          }
           className={styles.add}
           data-testid='add'
         >
@@ -91,7 +93,7 @@ const Cell: React.FC<Props> = ({ date, cell, openModal, workouts }) => {
         <div
           style={{ background: workouts[0].tags[0]?.color }}
           className={styles.workout}
-          onClick={(): void => openModal(date, 'view', workouts[0])}
+          onClick={(): void => openModal('view', workouts[0])}
         >
           {formatTitle(workouts[0].title)}
         </div>

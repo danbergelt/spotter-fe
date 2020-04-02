@@ -1,10 +1,8 @@
 import React, { memo } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './Menu.module.scss';
 import Exercises from './exercises/Exercises';
 import DeleteWorkout from './deleteworkout/DeleteWorkout';
 import SaveWorkout from './saveworkout/SaveWorkout';
-import { State } from 'src/types/State';
 import { useWindowSize } from 'react-use';
 import Templates from './templates/Templates';
 import Tags from './tags/Tags';
@@ -34,11 +32,6 @@ interface Props {
 }
 
 const Menu: React.FC<Props> = ({ closeModal, ctx }) => {
-  // the current workout's id, used in edit/delete queries
-  const workoutId: string | null = useSelector(
-    (state: State) => state.workoutReducer._id
-  );
-
   // width for dynamic resizing
   const { width } = useWindowSize();
 
@@ -78,13 +71,8 @@ const Menu: React.FC<Props> = ({ closeModal, ctx }) => {
             nudgeLeft={nudgeLeft}
             nudgeBottom={nudgeBottom}
             closeModal={closeModal}
-            workoutId={workoutId}
           />
-          <SaveWorkout
-            ctx={ctx}
-            closeModal={closeModal}
-            workoutId={workoutId}
-          />
+          <SaveWorkout ctx={ctx} closeModal={closeModal} />
         </div>
       </section>
     </div>

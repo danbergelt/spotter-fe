@@ -9,7 +9,9 @@ import {
   ADD_WORKOUT_TITLE,
   FROM_TEMPLATE,
   TOGGLE_TAG,
-  DELETE_TAG
+  DELETE_TAG,
+  CLOSE_MODAL,
+  OPEN_MODAL
 } from 'src/constants/index';
 import {
   addExerciseAction,
@@ -21,7 +23,9 @@ import {
   generateTemplateAction,
   toggleTagAction,
   updateTagAction,
-  deleteTagAction
+  deleteTagAction,
+  closeWorkoutModalAction,
+  openWorkoutModalAction
 } from '../../../actions/workoutActions';
 import { workout } from 'src/__testUtils__/workout';
 import { tag } from 'src/__testUtils__/tag';
@@ -101,6 +105,20 @@ describe('dispatches workout actions', () => {
     const expectedActions = [{ type: DELETE_TAG, payload: tag }];
     const store = mockStore();
     store.dispatch(deleteTagAction(tag));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test('close workout modal', () => {
+    const expectedActions = [{ type: CLOSE_MODAL }];
+    const store = mockStore();
+    store.dispatch(closeWorkoutModalAction());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  test('open workout modal', () => {
+    const expectedActions = [{ type: OPEN_MODAL, payload: workout }];
+    const store = mockStore();
+    store.dispatch(openWorkoutModalAction(workout));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

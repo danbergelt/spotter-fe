@@ -1,9 +1,11 @@
 import { Entity } from 'src/types/Types';
 
 // replace every k/v pair in a stale state with a hydrated state
-const replaceAll = <T>(stale: T, hydrated: T): void => {
+const replaceAll = <T>(stale: T, hydrated: Partial<T>): void => {
   Object.keys(stale).forEach(k => {
-    stale[k] = hydrated[k];
+    if (hydrated[k]) {
+      stale[k] = hydrated[k];
+    }
   });
 };
 

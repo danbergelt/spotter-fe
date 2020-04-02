@@ -32,7 +32,7 @@ Props:
 interface Props {
   workouts: Array<Workout>;
   date: Moment;
-  openModal: (date: Moment, ctx: Ctx, workout?: Workout | undefined) => void;
+  openModal: (ctx: Ctx, workout: Partial<Workout>) => void;
   cell: number;
 }
 
@@ -49,7 +49,7 @@ const MoreWorkouts: React.FC<Props> = ({ workouts, date, openModal, cell }) => {
   // close dropdown, open workout modal on workout click
   const openWorkout = (workout: Workout): void => {
     setIsOpen(false);
-    openModal(date, 'view', workout);
+    openModal('view', workout);
   };
 
   // need to nudge all the below cells on mobile to avoid falling off viewport

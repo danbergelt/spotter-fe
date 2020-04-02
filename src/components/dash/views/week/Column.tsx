@@ -26,7 +26,7 @@ Props:
 
 interface Props {
   date: Moment;
-  openModal: (date: Moment, ctx: Ctx, workout?: Workout) => void;
+  openModal: (ctx: Ctx, workout: Partial<Workout>) => void;
   workouts: Array<Workout>;
 }
 
@@ -59,7 +59,7 @@ const WorkoutColumn: React.FC<Props> = ({ date, openModal, workouts }) => {
       <Flex
         align='center'
         justify='center'
-        click={(): void => openModal(date, 'add')}
+        click={(): void => openModal('add', { date: date.format(FORMAT_FULL) })}
         css={styles.add}
         testid='add'
       >
@@ -71,7 +71,7 @@ const WorkoutColumn: React.FC<Props> = ({ date, openModal, workouts }) => {
           fd='column'
           align='flex-start'
           css={styles.card}
-          click={(): void => openModal(date, 'view', workout)}
+          click={(): void => openModal('view', workout)}
           key={workout._id}
         >
           <Card workout={workout} />
