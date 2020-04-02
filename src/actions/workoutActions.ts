@@ -11,9 +11,13 @@ import {
   DEL_EXERCISE,
   HANDLE_EDIT,
   UPDATE_TAG,
-  DELETE_TAG
+  DELETE_TAG,
+  CLOSE_MODAL,
+  OPEN_MODAL
 } from '../constants/index';
 import { ReduxAction } from 'src/types/Types';
+import { Action } from 'redux';
+import { Workout } from 'src/types/Workout';
 
 /*== Workout actions =====================================================
 
@@ -28,6 +32,8 @@ Actions:
   add a title to the current workout
   generate a workout from a template
   add/remove a tag on the current workout
+  close a workout modal (reset all properties)
+  injects the modal with the selected workout
 
 */
 
@@ -92,4 +98,16 @@ export const deleteTagAction = (
   tag: TagOnWorkout
 ): ReduxAction<TagOnWorkout> => {
   return { type: DELETE_TAG, payload: tag };
+};
+
+// close workout modal
+export const closeWorkoutModalAction = (): Action => {
+  return { type: CLOSE_MODAL };
+};
+
+// open the workout modal
+export const openWorkoutModalAction = (
+  workout: Partial<Workout>
+): ReduxAction<Partial<Workout>> => {
+  return { type: OPEN_MODAL, payload: workout };
 };

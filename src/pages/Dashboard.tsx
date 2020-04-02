@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   openWorkoutModalAction,
   closeWorkoutModalAction
-} from '../actions/globalActions';
+} from '../actions/workoutActions';
 import { Workout } from 'src/types/Workout';
 import { Moment } from 'moment';
 import { State } from 'src/types/State';
@@ -91,10 +91,10 @@ const Dashboard: React.FC = () => {
 
   // open the workout modal in either an add workout context, or view workout context
   const openModal = useCallback(
-    (date: Moment, ctx: Ctx, workout?: Workout): void => {
+    (ctx: Ctx, workout: Partial<Workout>): void => {
       setModal(true);
       setCtx(ctx);
-      dispatch(openWorkoutModalAction(date, workout));
+      dispatch(openWorkoutModalAction(workout));
     },
     [dispatch, setModal]
   );
