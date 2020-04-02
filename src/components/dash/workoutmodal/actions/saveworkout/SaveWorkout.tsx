@@ -11,6 +11,7 @@ import { saveWorkoutQuery, editWorkoutQuery } from 'src/utils/queries';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import styles from './SaveWorkout.module.scss';
 import useToken from 'src/hooks/useToken';
+import { Ctx } from 'src/types/Types';
 
 /*== Save/Update Workout =====================================================
 
@@ -28,12 +29,13 @@ Props:
 */
 
 interface Props {
+  ctx: Ctx;
   workoutId: string | null;
   closeModal: () => void;
 }
 
 // Save or Edit workout depending on global modal context
-const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal }) => {
+const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal, ctx }) => {
   // the current workout
   const workout: WorkoutReducer = useSelector(
     (state: State) => state.workoutReducer
@@ -43,7 +45,7 @@ const SaveWorkout: React.FC<Props> = ({ workoutId, closeModal }) => {
   const token = useToken();
 
   // global utils (selected date, auth token, modal context)
-  const { date, ctx } = useSelector((state: State) => state.globalReducer);
+  const { date } = useSelector((state: State) => state.globalReducer);
 
   // state dispatcher
   const dispatch = useDispatch();

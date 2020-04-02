@@ -16,7 +16,7 @@ export interface Entity {
 
 export type Scope = 'week' | 'month';
 
-export type Ctx = 'add' | 'view';
+export type Ctx = 'add' | 'view' | '';
 
 export interface HS {
   hovered: string;

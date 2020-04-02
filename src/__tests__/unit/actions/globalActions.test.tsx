@@ -35,10 +35,10 @@ describe('global actions', () => {
   test('open modal action', () => {
     const date = moment();
     const expectedActions = [
-      { type: OPEN_MODAL, payload: { date, ctx: 'view', workout: undefined } }
+      { type: OPEN_MODAL, payload: { date, workout: undefined } }
     ];
     const store = mockStore();
-    store.dispatch(openWorkoutModalAction(date, 'view', undefined));
+    store.dispatch(openWorkoutModalAction(date, undefined));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

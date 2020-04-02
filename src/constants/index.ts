@@ -2,7 +2,6 @@ export const ADD_TOKEN = 'ADD_TOKEN';
 export const DELETE_WORKOUT = 'DELETE_WORKOUT';
 export const FETCH_WORKOUTS = 'FETCH_WORKOUTS';
 export const OPEN_MODAL = 'OPEN_MODAL';
-export const MODAL_CTX = 'MODAL_CTX';
 export const LOGOUT = 'LOGOUT';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const CREATE_WORKOUT = 'CREATE_WORKOUT';

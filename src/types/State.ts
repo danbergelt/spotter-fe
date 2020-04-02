@@ -5,7 +5,6 @@ import { Moment } from 'moment';
 
 export interface GlobalReducer {
   t: null | string;
-  ctx: null | 'add' | 'view';
   date: null | Moment;
 }
 

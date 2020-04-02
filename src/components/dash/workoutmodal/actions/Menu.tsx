@@ -8,6 +8,7 @@ import { State } from 'src/types/State';
 import { useWindowSize } from 'react-use';
 import Templates from './templates/Templates';
 import Tags from './tags/Tags';
+import { Ctx } from 'src/types/Types';
 
 /*== Menu =====================================================
 
@@ -29,9 +30,10 @@ Props:
 
 interface Props {
   closeModal: () => void;
+  ctx: Ctx;
 }
 
-const Menu: React.FC<Props> = ({ closeModal }) => {
+const Menu: React.FC<Props> = ({ closeModal, ctx }) => {
   // the current workout's id, used in edit/delete queries
   const workoutId: string | null = useSelector(
     (state: State) => state.workoutReducer._id
@@ -72,12 +74,17 @@ const Menu: React.FC<Props> = ({ closeModal }) => {
         </div>
         <div>
           <DeleteWorkout
+            ctx={ctx}
             nudgeLeft={nudgeLeft}
             nudgeBottom={nudgeBottom}
             closeModal={closeModal}
             workoutId={workoutId}
           />
-          <SaveWorkout closeModal={closeModal} workoutId={workoutId} />
+          <SaveWorkout
+            ctx={ctx}
+            closeModal={closeModal}
+            workoutId={workoutId}
+          />
         </div>
       </section>
     </div>
