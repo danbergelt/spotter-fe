@@ -53,6 +53,9 @@ const Dashboard: React.FC = () => {
   // workout modal state
   const [modal, setModal] = useState(false);
 
+  // modal ctx
+  const [ctx, setCtx] = useState<Ctx>('');
+
   // api utils
   const [res, call] = useApi();
 
@@ -90,7 +93,8 @@ const Dashboard: React.FC = () => {
   const openModal = useCallback(
     (date: Moment, ctx: Ctx, workout?: Workout): void => {
       setModal(true);
-      dispatch(openWorkoutModalAction(date, ctx, workout));
+      setCtx(ctx);
+      dispatch(openWorkoutModalAction(date, workout));
     },
     [dispatch, setModal]
   );
@@ -98,6 +102,7 @@ const Dashboard: React.FC = () => {
   // resets state in various parts of application upon workout modal close
   const closeModal = useCallback(() => {
     setModal(false);
+    setCtx('');
     dispatch(closeWorkoutModalAction());
   }, [dispatch]);
 
@@ -121,7 +126,7 @@ const Dashboard: React.FC = () => {
             scope={scope}
           />
           {children}
-          <WorkoutModal modal={modal} closeModal={closeModal} />
+          <WorkoutModal ctx={ctx} modal={modal} closeModal={closeModal} />
         </div>
       </>
     );

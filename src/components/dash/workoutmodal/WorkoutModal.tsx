@@ -8,6 +8,7 @@ import Tags from './Tags';
 import Title from './Title';
 import Notes from './Notes';
 import Exercises from './Exercises';
+import { Ctx } from 'src/types/Types';
 
 /*== workout modal =====================================================
 
@@ -27,11 +28,12 @@ Props:
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 interface Props {
+  ctx: Ctx;
   modal: boolean;
   closeModal: () => void;
 }
 
-const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
+const WorkoutModal: React.FC<Props> = ({ modal, closeModal, ctx }) => {
   // adjust modal size at different viewport widths
   const { width } = useWindowSize();
 
@@ -70,7 +72,7 @@ const WorkoutModal: React.FC<Props> = ({ modal, closeModal }) => {
             <Notes />
             <Exercises />
           </div>
-          <Menu closeModal={closeModal} />
+          <Menu ctx={ctx} closeModal={closeModal} />
         </Flex>
       </Flex>
     </Modal>
