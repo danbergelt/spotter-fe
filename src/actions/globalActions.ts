@@ -1,6 +1,6 @@
 import { ADD_TOKEN, LOGOUT } from '../constants/index';
 import { Action } from 'redux';
-import { ReduxAction } from 'src/types/Types';
+import { ReduxAction } from 'src/types';
 
 /*== Global actions =====================================================
 

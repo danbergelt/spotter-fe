@@ -13,7 +13,7 @@ import Label from 'src/components/lib/Label';
 import Input from 'src/components/lib/Input';
 import FormError from 'src/components/lib/FormError';
 import Button from 'src/components/lib/Button';
-import { Editing } from 'src/types/Types';
+import { Editing } from 'src/types';
 
 /*== Exercise form =====================================================
 

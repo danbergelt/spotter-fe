@@ -7,7 +7,7 @@ import {
   EDIT_WORKOUT
 } from '../constants/index';
 import { AnyAction } from 'redux';
-import { WorkoutsReducer } from 'src/types/State';
+import { WorkoutsReducer } from 'src/types';
 import produce from 'immer';
 import helpers from 'src/utils/stateHelpers';
 

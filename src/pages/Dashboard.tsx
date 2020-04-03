@@ -4,9 +4,9 @@ import {
   openWorkoutModalAction,
   closeWorkoutModalAction
 } from '../actions/workoutActions';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 import { Moment } from 'moment';
-import { State } from 'src/types/State';
+import { State } from 'src/types';
 import useApi from 'src/hooks/useApi';
 import { fetchWorkoutsAction } from 'src/actions/workoutsActions';
 import { fetchWorkoutsQuery } from 'src/utils/queries';
@@ -20,7 +20,7 @@ import {
 import Column from '../components/dash/views/week/Column';
 import WorkoutModal from '../components/dash/workoutmodal/WorkoutModal';
 import Cell from '../components/dash/views/month/Cell';
-import { Scope, Ctx } from 'src/types/Types';
+import { Scope, Ctx } from 'src/types';
 import SubNav from '../components/dash/subnav/SubNav';
 import { Helmet } from 'react-helmet-async';
 import styles from './Dashboard.module.scss';

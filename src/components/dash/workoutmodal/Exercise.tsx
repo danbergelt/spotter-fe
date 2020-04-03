@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
-import { Exercise as ExerciseType } from '../../../types/Exercises';
+import { Exercise as ExerciseType } from '../../../types/';
 import Flex from 'src/components/lib/Flex';
 import styles from './Exercise.module.scss';
 import { useWindowSize } from 'react-use';
-import { Editing } from 'src/types/Types';
+import { Editing } from 'src/types';
 
 /*== Exercise =====================================================
 
@@ -23,7 +23,7 @@ Props:
   setEditing: react setStateAction
     stage an exercise for editing
   delExercise: function
-    delete ane xercise
+    delete an exercise
 
 */
 

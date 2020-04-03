@@ -7,7 +7,7 @@ import Toggler from '../lib/Toggler';
 import Tip from '../lib/Tip';
 import { FiInfo } from 'react-icons/fi';
 import Flex from '../lib/Flex';
-import { Exercise } from 'src/types/ExerciseOption';
+import { SavedExercise } from 'src/types';
 
 /*== Pr Group =====================================================
 
@@ -40,7 +40,7 @@ Props
 
 interface Props {
   title: string;
-  prs: Array<Exercise>;
+  prs: Array<SavedExercise>;
 }
 
 const PrGroup: React.FC<Props> = ({ title, prs }) => {

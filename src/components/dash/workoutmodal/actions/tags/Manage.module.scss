@@ -39,7 +39,7 @@
 }
 
 .delete {
-  @include resetBtn;
+  @include icon;
   @include hover;
   background: $gray3;
   font-size: 1.3rem;

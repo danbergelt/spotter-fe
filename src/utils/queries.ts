@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////
 
 import axiosBuilder from './axiosBuilder';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 import { prefetchMonths, prefetchWeeks } from './momentUtils';
 import { AxiosResponse } from 'axios';
 

@@ -4,7 +4,7 @@ import { reducer } from 'src/reducers';
 import ExerciseForm from 'src/components/dash/workoutmodal/ExerciseForm';
 import { fireEvent, wait } from '@testing-library/dom';
 import { act } from 'react-dom/test-utils';
-import { Editing } from 'src/types/Types';
+import { Editing } from 'src/types';
 
 const editing = {} as Editing;
 const setEditing = jest.fn();

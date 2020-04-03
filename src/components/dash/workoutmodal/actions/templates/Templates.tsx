@@ -10,7 +10,7 @@ import Manage from './Manage';
 import useApi from 'src/hooks/useApi';
 import { fetchTemplatesQuery } from 'src/utils/queries';
 import useToken from 'src/hooks/useToken';
-import { Template } from 'src/types/Template';
+import { Template } from 'src/types';
 import Create from './Create';
 
 /*== Templates =====================================================

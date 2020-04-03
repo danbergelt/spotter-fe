@@ -26,12 +26,6 @@
   }
 }
 
-@mixin resetBtn {
-  outline: 0;
-  border: 0;
-  background: transparent;
-}
-
 @mixin icon {
   border: 0;
   outline: 0;
@@ -78,11 +72,6 @@
   }
 }
 
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-}
-
 @mixin spacer {
   margin: 0rem 10rem;
 
@@ -96,52 +85,6 @@
 
   @include medium {
     margin: 0rem 2.5rem;
-  }
-}
-
-@mixin modalContainer {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-@mixin modalHeader {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-}
-
-@mixin modalTitle {
-  font-size: 1.3rem;
-  color: $gray2;
-}
-
-@mixin modalExit {
-  font-size: $p;
-  border-radius: 50%;
-  padding: 0.5rem;
-
-  &:hover {
-    background: $gray3;
-    cursor: pointer;
-  }
-}
-
-@mixin templateButton {
-  width: 100%;
-  padding: 1rem 2rem;
-  background: $info;
-  border-radius: 4px;
-  text-align: center;
-  color: white;
-  font-size: 1.3rem;
-  cursor: pointer;
-  outline: 0;
-  border: 0;
-
-  &:hover {
-    background: darken($info, 10%);
   }
 }
 
@@ -193,26 +136,6 @@
   }
   &:last-child {
     border-right: $calendar-border;
-  }
-}
-
-@mixin popoverHead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  color: $gray2;
-}
-
-@mixin closePopover {
-  color: $gray1;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 100%;
-
-  &:hover {
-    background: $gray3;
   }
 }
 
