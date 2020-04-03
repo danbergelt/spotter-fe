@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { State } from 'src/types/State';
+import { State } from 'src/types';
 import { FiBookOpen, FiPlusCircle, FiTrash } from 'react-icons/fi';
 import TextareaAutosize from 'react-textarea-autosize';
 import { Action } from 'redux';

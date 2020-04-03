@@ -8,7 +8,7 @@ import Tags from './Tags';
 import Title from './Title';
 import Notes from './Notes';
 import Exercises from './Exercises';
-import { Ctx } from 'src/types/Types';
+import { Ctx } from 'src/types';
 
 /*== workout modal =====================================================
 

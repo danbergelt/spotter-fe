@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Input from 'src/components/lib/Input';
 import styles from './Manage.module.scss';
-import { Template } from 'src/types/Template';
+import { Template } from 'src/types';
 import Flex from 'src/components/lib/Flex';
 import { FiX } from 'react-icons/fi';
 import useApi from 'src/hooks/useApi';
@@ -67,7 +67,7 @@ const Manage: React.FC<Props> = ({ templates, setTemplates, setIsOpen }) => {
   }, [res, setTemplates]);
 
   // delete template call
-  const deleteTemplate = async (id: string): Promise<void> => {
+  const deleteTemplate = async (id: string | undefined): Promise<void> => {
     await call(deleteTemplateQuery, [token, id]);
   };
 

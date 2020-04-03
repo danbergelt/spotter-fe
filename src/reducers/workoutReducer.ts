@@ -12,7 +12,7 @@ import {
   CLOSE_MODAL,
   OPEN_MODAL
 } from '../constants/index';
-import { WorkoutReducer } from 'src/types/State';
+import { WorkoutReducer } from 'src/types';
 import { AnyAction } from 'redux';
 import produce from 'immer';
 import helpers from 'src/utils/stateHelpers';

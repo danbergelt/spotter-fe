@@ -9,9 +9,9 @@ import useApi from 'src/hooks/useApi';
 import HTTPResponse from 'src/components/lib/HTTPResponse';
 import { createTagQuery } from 'src/utils/queries';
 import useToken from 'src/hooks/useToken';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Tag } from 'src/types';
 import produce from 'immer';
-import { HS } from 'src/types/Types';
+import { HS } from 'src/types';
 import { colors } from 'src/utils/colors';
 
 /*== Create tag =====================================================
@@ -29,7 +29,7 @@ Props:
 */
 
 interface Props {
-  setTags: React.Dispatch<React.SetStateAction<TagOnWorkout[]>>;
+  setTags: React.Dispatch<React.SetStateAction<Tag[]>>;
   hs: HS;
 }
 

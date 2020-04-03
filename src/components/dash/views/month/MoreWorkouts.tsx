@@ -3,10 +3,10 @@ import styles from './MoreWorkouts.module.scss';
 import { useWindowSize } from 'react-use';
 import Dropdown from 'src/components/lib/Dropdown';
 import Head from 'src/components/lib/Head';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 import { Moment } from 'moment';
 import Flex from 'src/components/lib/Flex';
-import { Ctx } from 'src/types/Types';
+import { Ctx } from 'src/types';
 
 /*== More Workouts =====================================================
 

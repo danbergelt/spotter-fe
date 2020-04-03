@@ -3,7 +3,7 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Flex from 'src/components/lib/Flex';
 import styles from './Controls.module.scss';
-import { Scope } from 'src/types/Types';
+import { Scope } from 'src/types';
 
 /*== Controls =====================================================
 

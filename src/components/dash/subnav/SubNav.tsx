@@ -4,7 +4,7 @@ import styles from './SubNav.module.scss';
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import Flex from 'src/components/lib/Flex';
 import { useWindowSize } from 'react-use';
-import { Scope } from 'src/types/Types';
+import { Scope } from 'src/types';
 
 /*== Subnav =====================================================
 

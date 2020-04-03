@@ -5,7 +5,7 @@ import { t1 } from '../../../__testUtils__/template';
 import Manage from 'src/components/dash/workoutmodal/actions/templates/Manage';
 import { fireEvent, wait } from '@testing-library/dom';
 import axios from 'axios';
-import { Template } from 'src/types/Template';
+import { Template } from 'src/types';
 import WorkoutModal from 'src/components/dash/workoutmodal/WorkoutModal';
 import Modal from 'react-modal';
 jest.mock('axios');
@@ -94,7 +94,7 @@ describe('manage templates', () => {
     const { container, getByText, getByPlaceholderText } = wrapper(
       reducer,
       <>
-        <WorkoutModal modal={true} closeModal={jest.fn()} />
+        <WorkoutModal ctx='add' modal={true} closeModal={jest.fn()} />
         <TestManage />
       </>
     );

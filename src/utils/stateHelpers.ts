@@ -1,4 +1,4 @@
-import { Entity } from 'src/types/Types';
+import { Entity } from 'src/types';
 
 // replace every k/v pair in a stale state with a hydrated state
 const replaceAll = <T>(stale: T, hydrated: Partial<T>): void => {

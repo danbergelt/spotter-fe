@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import useToken from '../../../../../hooks/useToken';
-import { Exercise } from '../../../../../types/ExerciseOption';
+import useToken from 'src/hooks/useToken';
+import { SavedExercise } from 'src/types';
 import useApi from 'src/hooks/useApi';
 import { deleteExerciseQuery } from 'src/utils/queries';
 import Input from 'src/components/lib/Input';
@@ -32,8 +32,8 @@ Props:
 */
 
 interface Props {
-  exercises: Array<Exercise>;
-  setExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
+  exercises: Array<SavedExercise>;
+  setExercises: React.Dispatch<React.SetStateAction<SavedExercise[]>>;
 }
 
 const Manage: React.FC<Props> = ({ exercises, setExercises }) => {
@@ -63,7 +63,7 @@ const Manage: React.FC<Props> = ({ exercises, setExercises }) => {
   }, [res, setExercises]);
 
   // delete an exercise from the this user's account
-  const deleteExercise = async (id: string): Promise<void> => {
+  const deleteExercise = async (id: string | undefined): Promise<void> => {
     await call(deleteExerciseQuery, [token, id]);
   };
 

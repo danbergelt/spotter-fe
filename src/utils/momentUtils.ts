@@ -1,6 +1,6 @@
 import * as Moment from 'moment';
 import { extendMoment, MomentRange } from 'moment-range';
-import { Scope, Date } from 'src/types/Types';
+import { Scope, Date } from 'src/types';
 
 /*== moment utilities =====================================================
 

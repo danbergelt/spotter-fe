@@ -1,5 +1,5 @@
 import { ADD_TOKEN } from '../constants/index';
-import { GlobalReducer } from 'src/types/State';
+import { GlobalReducer } from 'src/types';
 import { AnyAction } from 'redux';
 import produce from 'immer';
 

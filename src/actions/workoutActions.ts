@@ -1,6 +1,6 @@
-import { Exercise } from 'src/types/Exercises';
-import { Template } from 'src/types/Template';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Exercise } from 'src/types';
+import { Template } from 'src/types';
+import { Tag } from 'src/types';
 import {
   ADD_WORKOUT_TITLE,
   ADD_WORKOUT_NOTES,
@@ -15,9 +15,9 @@ import {
   CLOSE_MODAL,
   OPEN_MODAL
 } from '../constants/index';
-import { ReduxAction } from 'src/types/Types';
+import { ReduxAction } from 'src/types';
 import { Action } from 'redux';
-import { Workout } from 'src/types/Workout';
+import { Workout } from 'src/types';
 
 /*== Workout actions =====================================================
 
@@ -80,23 +80,17 @@ export const generateTemplateAction = (
 };
 
 // toggle tag on current workout (add / remove)
-export const toggleTagAction = (
-  tag: TagOnWorkout
-): ReduxAction<TagOnWorkout> => {
+export const toggleTagAction = (tag: Tag): ReduxAction<Tag> => {
   return { type: TOGGLE_TAG, payload: tag };
 };
 
 // update a tag on the current workout
-export const updateTagAction = (
-  tag: TagOnWorkout
-): ReduxAction<TagOnWorkout> => {
+export const updateTagAction = (tag: Tag): ReduxAction<Tag> => {
   return { type: UPDATE_TAG, payload: tag };
 };
 
 // delete a tag on the current workout and all wor
-export const deleteTagAction = (
-  tag: TagOnWorkout
-): ReduxAction<TagOnWorkout> => {
+export const deleteTagAction = (tag: Tag): ReduxAction<Tag> => {
   return { type: DELETE_TAG, payload: tag };
 };
 

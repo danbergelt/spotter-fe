@@ -37,7 +37,7 @@
   }
 
   .add {
-    @include resetBtn;
+    @include icon;
     color: $gray1;
     margin: 1rem;
     padding: 1rem 0;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { TagOnWorkout } from 'src/types/TagOnWorkout';
+import { Tag } from 'src/types';
 import { useSelector } from 'react-redux';
-import { State } from 'src/types/State';
+import { State } from 'src/types';
 import styles from './Tags.module.scss';
 import Flex from 'src/components/lib/Flex';
 
@@ -20,7 +20,7 @@ which is unintuitive
 
 const Tags: React.FC = () => {
   // this workout's tags
-  const tags: Array<TagOnWorkout> = useSelector(
+  const tags: Array<Tag> = useSelector(
     (state: State) => state.workoutReducer.tags
   );
 
