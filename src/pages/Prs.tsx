@@ -54,10 +54,14 @@ const Prs: React.FC = () => {
         'days'
       );
 
+      // check that a saved PR is not 0 or less
+      const lbs = Boolean(exercise.pr && exercise.pr > 0);
+
       // organize by month, year, and all time
-      if (diff <= 31) acc.month.push(exercise);
-      else if (diff <= 365) acc.year.push(exercise);
-      else acc.all.push(exercise);
+      if (diff <= 31 && lbs) acc.month.push(exercise);
+      else if (diff <= 365 && lbs) acc.year.push(exercise);
+      else lbs && acc.all.push(exercise);
+
       return acc;
     },
     []
