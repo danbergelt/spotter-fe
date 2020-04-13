@@ -22,13 +22,19 @@
     }
 
     .title {
+      padding-left: 3rem;
       color: $gray1;
       font-size: 3rem;
       margin-bottom: 2.5rem;
+
+      @include large {
+        padding-left: 0;
+      }
     }
 
     .select {
       margin-bottom: 4rem;
+      height: 50px;
       width: 225px;
       font-size: $p;
       outline: 0;
@@ -40,11 +46,13 @@
     }
 
     .feature {
-      width: 325px;
+      min-width: 250px;
+      border-radius: 4px;
       color: $gray2;
       font-size: 1.75rem;
-      padding: 1.5rem 0;
-      padding-right: 20rem;
+      padding: 1.5rem 1rem;
+      margin-right: 8rem;
+      margin-bottom: 1.5rem;
       cursor: pointer;
 
       @include large {
@@ -56,8 +64,8 @@
 
     .selected {
       @extend .feature;
-      border-right: 5px solid $primary;
-      color: $primary;
+      color: white;
+      background: $primary;
       @include textHover;
     }
   }

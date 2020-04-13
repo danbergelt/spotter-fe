@@ -19,12 +19,12 @@ select element.
 
 const Features: React.FC = () => {
   // image keys
-  const WEEK_VIEW = 'Week View';
-  const MONTH_VIEW = 'Month View';
-  const PR_PAGE = 'PR Tracking';
+  const WEEK_VIEW = '🔎 Weekly Calendar View';
+  const MONTH_VIEW = '🗓 Monthly Calendar View';
+  const PR_PAGE = '🤖 Automated PR Tracking';
 
   // currently selected screenshot
-  const [selected, setSelected] = useState<string>(WEEK_VIEW);
+  const [selected, setSelected] = useState(WEEK_VIEW);
 
   // window width for inline styles
   const { width } = useWindowSize();
@@ -35,11 +35,11 @@ const Features: React.FC = () => {
     return styles.feature;
   };
 
-  // render img based on img key
-  const setImg = (): string => {
-    if (selected === WEEK_VIEW) return weeklyview;
-    else if (selected === MONTH_VIEW) return monthlyview;
-    else return prpage;
+  const setVisibility = (thisState: string): 'none' | undefined => {
+    if (selected !== thisState) {
+      return 'none';
+    }
+    return undefined;
   };
 
   // wrapper component that surrounds both select and tabs
@@ -53,10 +53,31 @@ const Features: React.FC = () => {
           fd={width <= 1000 ? 'column' : undefined}
         >
           <section className={styles.tabs}>
-            <h2 className={styles.title}>Features</h2>
+            <h2 className={styles.title}>Your features</h2>
             {children}
           </section>
-          <img src={setImg()} className={styles.img} alt={selected} />
+          <img
+            style={{
+              display: setVisibility(WEEK_VIEW)
+            }}
+            src={weeklyview}
+            className={styles.img}
+            alt={WEEK_VIEW}
+          />
+          <img
+            style={{
+              display: setVisibility(MONTH_VIEW)
+            }}
+            src={monthlyview}
+            className={styles.img}
+            alt={MONTH_VIEW}
+          />
+          <img
+            style={{ display: setVisibility(PR_PAGE) }}
+            src={prpage}
+            className={styles.img}
+            alt={PR_PAGE}
+          />
         </Flex>
       </>
     );
@@ -73,9 +94,9 @@ const Features: React.FC = () => {
           onChange={(e): void => setSelected(e.target.value)}
           className={styles.select}
         >
-          <option>Week View</option>
-          <option>Month View</option>
-          <option>PR Tracking</option>
+          <option>{WEEK_VIEW}</option>
+          <option>{MONTH_VIEW}</option>
+          <option>{PR_PAGE}</option>
         </select>
       </Wrapper>
     );
@@ -86,22 +107,22 @@ const Features: React.FC = () => {
     <Wrapper>
       <p
         data-testid='tab'
-        onMouseOver={(): void => setSelected(WEEK_VIEW)}
+        onClick={(): void => setSelected(WEEK_VIEW)}
         className={setClass(WEEK_VIEW)}
       >
-        Week View
+        {WEEK_VIEW}
       </p>
       <p
-        onMouseOver={(): void => setSelected(MONTH_VIEW)}
+        onClick={(): void => setSelected(MONTH_VIEW)}
         className={setClass(MONTH_VIEW)}
       >
-        Month View
+        {MONTH_VIEW}
       </p>
       <p
-        onMouseOver={(): void => setSelected(PR_PAGE)}
+        onClick={(): void => setSelected(PR_PAGE)}
         className={setClass(PR_PAGE)}
       >
-        PR Tracking
+        {PR_PAGE}
       </p>
     </Wrapper>
   );
