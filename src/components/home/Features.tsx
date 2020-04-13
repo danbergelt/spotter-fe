@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useWindowSize } from 'react-use';
 import Flex from '../lib/Flex';
 import styles from './Features.module.scss';
+import weeklyview from '../../assets/weeklyview.png';
+import monthlyview from '../../assets/monthlyview.png';
+import prpage from '../../assets/prpage.png';
 
 /*== Features =====================================================
 
@@ -14,11 +17,7 @@ select element.
 
 */
 
-interface Props {
-  images: string[];
-}
-
-const Features: React.FC<Props> = ({ images }) => {
+const Features: React.FC = () => {
   // image keys
   const WEEK_VIEW = 'Week View';
   const MONTH_VIEW = 'Month View';
@@ -32,21 +31,15 @@ const Features: React.FC<Props> = ({ images }) => {
 
   // util function to dynamically set classname
   const setClass = (el: string): string => {
-    if (selected === el) {
-      return styles.selected;
-    }
+    if (selected === el) return styles.selected;
     return styles.feature;
   };
 
   // render img based on img key
   const setImg = (): string => {
-    if (selected === WEEK_VIEW) {
-      return images[0];
-    } else if (selected === MONTH_VIEW) {
-      return images[1];
-    } else {
-      return images[2];
-    }
+    if (selected === WEEK_VIEW) return weeklyview;
+    else if (selected === MONTH_VIEW) return monthlyview;
+    else return prpage;
   };
 
   // wrapper component that surrounds both select and tabs

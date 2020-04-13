@@ -13,12 +13,8 @@
     padding: 20rem 2.5rem;
   }
 
-  @include medium {
-    padding-bottom: 27.5rem;
-  }
-
   @include small {
-    padding-bottom: 25rem;
+    padding: 17.5rem 2.5rem;
   }
 
   .title {
