@@ -62,7 +62,7 @@ const Features: React.FC = () => {
             }}
             src={weeklyview}
             className={styles.img}
-            alt={selected}
+            alt={WEEK_VIEW}
           />
           <img
             style={{
@@ -70,13 +70,13 @@ const Features: React.FC = () => {
             }}
             src={monthlyview}
             className={styles.img}
-            alt={selected}
+            alt={MONTH_VIEW}
           />
           <img
             style={{ display: setVisibility(PR_PAGE) }}
             src={prpage}
             className={styles.img}
-            alt={selected}
+            alt={PR_PAGE}
           />
         </Flex>
       </>

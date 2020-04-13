@@ -70,15 +70,15 @@ describe('home page tests', () => {
     window.resizeTo(1001, 1000);
     const { getByText, getByAltText } = wrapper(reducer, <Home />);
 
-    getByAltText(/week view/i);
+    getByAltText('🔎 Weekly Calendar View');
 
-    fireEvent.mouseOver(getByText(/month view/i));
+    fireEvent.click(getByText('🗓 Monthly Calendar View'));
 
-    getByAltText(/month view/i);
+    getByAltText('🗓 Monthly Calendar View');
 
-    fireEvent.mouseOver(getByText(/PR Tracking/i));
+    fireEvent.click(getByText('🤖 Automated PR Tracking'));
 
-    getByAltText(/pr tracking/i);
+    getByAltText('🤖 Automated PR Tracking');
   });
 
   test('select works', () => {
@@ -86,18 +86,18 @@ describe('home page tests', () => {
 
     const { getByTestId, getByAltText } = wrapper(reducer, <Home />);
 
-    getByAltText(/week view/i);
+    getByAltText('🔎 Weekly Calendar View');
 
     fireEvent.change(getByTestId(/select/i), {
-      target: { value: 'Month View' }
+      target: { value: '🗓 Monthly Calendar View' }
     });
 
-    getByAltText(/month view/i);
+    getByAltText('🗓 Monthly Calendar View');
 
     fireEvent.change(getByTestId(/select/i), {
-      target: { value: 'PR Tracking' }
+      target: { value: '🤖 Automated PR Tracking' }
     });
 
-    getByAltText(/pr tracking/i);
+    getByAltText('🤖 Automated PR Tracking');
   });
 });
